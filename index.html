@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prepwithme | Modern Learning Platform</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo stylish-font">
+        <!-- ...svg... -->
+        PrepWithMe
+    </div>
+    <div style="display: flex; gap: 1rem; align-items: center;">
+        <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">v2.0 Modern</span>
+        <div style="width: 32px; height: 32px; background: var(--primary); border-radius: 50%;"></div>
+    </div>
+</header>
+
+<div class="dashboard">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="nav-card">
+            <div class="nav-group-title">Aptitude Categories</div>
+            <nav class="nav-list">
+                <div class="nav-item active" onclick="switchTab('Arithmetic', this)">
+                    Arithmetic Aptitude
+                </div>
+                <div class="nav-item" onclick="switchTab('Reasoning', this)">
+                    Logical Reasoning
+                </div>
+                <div class="nav-item" onclick="switchTab('Verbal', this)">
+                    Verbal Ability
+                </div>
+                <div class="nav-group-title">Mock Tests</div>
+                <div class="nav-item" onclick="showMockInstructions(1, this)">
+                    Mock Test 1
+                </div>
+                <div class="nav-item" onclick="showMockInstructions(2, this)">
+                    Mock Test 2
+                </div>
+                <div class="nav-item" onclick="showMockInstructions(3, this)">
+                    Mock Test 3
+                </div>
+            </nav>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <div class="header-meta">
+            <div class="breadcrumb">Dashboard / <span id="bread-cat">Arithmetic</span></div>
+            <h1 class="page-title" id="display-title">Arithmetic Aptitude</h1>
+        </div>
+
+       
+
+        <div id="questions-list">
+            <!-- Dynamic Content -->
+        </div>
+        <div id="mock-result"></div>
+    </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
