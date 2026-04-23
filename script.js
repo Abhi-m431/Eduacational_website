@@ -3,122 +3,6 @@ function scrollToSection(id) {
   document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
 }
 
-// Data for questions categorized
-const data = {
-    "Arithmetic": [
-        {
-            id: 1,
-            tag: "Percentage",
-            q: "A man buys an item for ₹1200 and sells it at a gain of 20%. What is the selling price?",
-            options: ["₹1400", "₹1440", "₹1500", "₹1340"],
-            ans: "B",
-            explain: "Profit = 20% of 1200 = (20/100) * 1200 = 240.<br>Selling Price = Cost Price + Profit = 1200 + 240 = 1440."
-        },
-        {
-            id: 2,
-            tag: "Time & Distance",
-            q: "A person crosses a 600m long street in 5 minutes. What is his speed in km/hr?",
-            options: ["3.6", "7.2", "8.4", "10"],
-            ans: "B",
-            explain: "Speed = Distance / Time = 600m / 300sec = 2 m/sec.<br>Convert to km/hr: 2 * (18/5) = 36/5 = 7.2 km/hr."
-        },
-        {
-            id: 3,
-            tag: "Simple Interest",
-            q: "What is the simple interest on ₹1500 at 10% per annum for 2 years?",
-            options: ["₹200", "₹250", "₹300", "₹350"],
-            ans: "C",
-            explain: "SI = (P × R × T)/100 = (1500 × 10 × 2)/100 = ₹300."
-        },
-        {
-            id: 4,
-            tag: "Ratio",
-            q: "Divide ₹600 in the ratio 2:3.",
-            options: ["₹200, ₹400", "₹240, ₹360", "₹250, ₹350", "₹300, ₹300"],
-            ans: "B",
-            explain: "Total parts = 2+3=5; 2/5×600=240, 3/5×600=360."
-        }
-    ],
-    "Reasoning": [
-        {
-            id: 5,
-            tag: "Number Series",
-            q: "Find the missing number in the series: 4, 9, 16, 25, ?",
-            options: ["30", "34", "36", "49"],
-            ans: "C",
-            explain: "The series consists of squares of consecutive numbers: 2², 3², 4², 5², so the next is 6² = 36."
-        },
-        {
-            id: 6,
-            tag: "Coding-Decoding",
-            q: "If CAT = 24 and DOG = 26, then BAT = ?",
-            options: ["22", "23", "24", "25"],
-            ans: "B",
-            explain: "C=3, A=1, T=20; 3+1+20=24. B=2, A=1, T=20; 2+1+20=23."
-        },
-        {
-            id: 7,
-            tag: "Blood Relation",
-            q: "Pointing to a man, a woman said, 'His mother is the only daughter of my mother.' How is the woman related to the man?",
-            options: ["Mother", "Sister", "Aunt", "Grandmother"],
-            ans: "A",
-            explain: "Only daughter of my mother is herself. So, the woman is the man's mother."
-        }
-    ],
-    "Verbal": [
-        {
-            id: 8,
-            tag: "Synonyms",
-            q: "Choose the word which is most nearly the SAME in meaning as the word: BRIEF",
-            options: ["Limited", "Small", "Short", "Little"],
-            ans: "C",
-            explain: "Brief means 'lasting a short time' or 'concise'. Short is the most appropriate synonym."
-        },
-        {
-            id: 9,
-            tag: "Antonyms",
-            q: "Choose the word which is OPPOSITE in meaning to: GENEROUS",
-            options: ["Kind", "Selfish", "Polite", "Rich"],
-            ans: "B",
-            explain: "Generous means giving; selfish is the opposite."
-        },
-        {
-            id: 10,
-            tag: "Fill in the Blanks",
-            q: "He _______ to school every day.",
-            options: ["go", "goes", "gone", "going"],
-            ans: "B",
-            explain: "'He' is singular, so 'goes' is correct."
-        }
-    ],
-    "PreviousPapers": [
-        {
-            id: 11,
-            tag: "SSC CGL 2022",
-            q: "Which number will replace the question mark? 2, 6, 12, 20, ?",
-            options: ["30", "28", "24", "22"],
-            ans: "B",
-            explain: "Pattern: +4, +6, +8, +10; 20+8=28."
-        },
-        {
-            id: 12,
-            tag: "Bank PO 2021",
-            q: "If the code for 'BANK' is 'CNOL', what is the code for 'LOAN'?",
-            options: ["MPBO", "MPBN", "MPBO", "MPBN"],
-            ans: "A",
-            explain: "Each letter is shifted by 1: L→M, O→P, A→B, N→O."
-        },
-        {
-            id: 13,
-            tag: "Railways 2020",
-            q: "Which is the odd one out? Apple, Orange, Banana, Carrot",
-            options: ["Apple", "Orange", "Banana", "Carrot"],
-            ans: "D",
-            explain: "Carrot is a vegetable, others are fruits."
-        }
-    ]
-};
-
 let allQuestions = [];
 let questionsLoaded = false;
 
@@ -130,7 +14,6 @@ fetch('questions.json')
     render('Arithmetic'); 
   })
   .catch(err => {
-    allQuestions = Object.values(data).flat();
     questionsLoaded = true;
     render('Arithmetic');
   });
