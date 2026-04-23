@@ -11,10 +11,11 @@ fetch('questions.json')
   .then(jsonData => {
     allQuestions = jsonData;
     questionsLoaded = true;
-    render('Arithmetic'); 
+    render('Arithmetic');
   })
   .catch(err => {
-    questionsLoaded = true;
+    console.error("Failed to load questions. Ensure questions.json is in the same folder and you are using a local server.", err);
+    questionsLoaded = true; // Set to true so render() can still show theory sections
     render('Arithmetic');
   });
 
@@ -23,7 +24,7 @@ const categoryTheory = {
     Arithmetic: `
         <h2>Arithmetic Aptitude - Key Concepts & Formulas</h2>
         <ul>
-            <li><b>Percentage:</b> Percentage = (Value/Total Value) × 100</li>
+            <li><b>Percentage:</b> Percent = (Value/Total Value) × 100</li>
             <li><b>Profit & Loss:</b> Profit = SP - CP, Loss = CP - SP</li>
             <li><b>Simple Interest:</b> SI = (P × R × T)/100</li>
             <li><b>Ratio:</b> Ratio = Quantity1 / Quantity2</li>
@@ -52,31 +53,32 @@ const categoryTheory = {
 
 function render(category) {
     if (!questionsLoaded) return;
+    
     document.getElementById('mock-result').innerHTML = "";
     const container = document.getElementById('questions-list');
-    // Show theory section for categories
-    if (["Arithmetic", "Reasoning", "Verbal"].includes(category)) {
-        container.innerHTML = `<div class="theory-section">${categoryTheory[category]}</div>`;
-        return;
-    }
+    document.getElementById('bread-cat').innerText = category;
+    document.getElementById('display-title').innerText = category + " Aptitude";
+
+    let theoryHtml = categoryTheory[category] ? `<div class="theory-section">${categoryTheory[category]}</div>` : "";
+
     // Filter questions by tag/category from allQuestions
     let questions = [];
     if (category === 'Arithmetic') {
-        questions = allQuestions.filter(q => ["Percentage", "Time & Distance", "Simple Interest", "Ratio"].includes(q.tag));
+        questions = allQuestions.filter(q => ["Percentage", "Time & Distance", "Simple Interest", "Ratio", "Profit & Loss", "Average"].includes(q.tag));
     } else if (category === 'Reasoning') {
-        questions = allQuestions.filter(q => ["Number Series", "Coding-Decoding", "Blood Relation"].includes(q.tag));
+        questions = allQuestions.filter(q => ["Number Series", "Coding-Decoding", "Blood Relation", "Calendar", "Direction", "Odd One Out", "Analogy", "Series", "Clock", "SSC CGL 2022", "Bank PO 2021", "Railways 2020"].includes(q.tag));
     } else if (category === 'Verbal') {
         questions = allQuestions.filter(q => ["Synonyms", "Antonyms", "Fill in the Blanks"].includes(q.tag));
     } else {
         questions = [];
     }
-    if (questions.length === 0) {
+
+    if (questions.length === 0 && theoryHtml === "") {
         container.innerHTML = `<div class="question-card">No questions available for this category.</div>`;
         return;
     }
-    document.getElementById('bread-cat').innerText = category;
-    document.getElementById('display-title').innerText = category + " Aptitude";
-    container.innerHTML = questions.map((item, idx) => `
+
+    container.innerHTML = theoryHtml + questions.map((item, idx) => `
         <article class="question-card">
             <span class="q-tag">${item.tag}</span>
             <p class="q-text">Q${idx + 1}. ${item.q}</p>
@@ -171,6 +173,11 @@ function chooseMockTest() {
 
 // MOCK TEST FEATURE
 function startMockTest(mockNum) {
+    if (!questionsLoaded || allQuestions.length === 0) {
+        alert("Questions haven't loaded yet. Please check if questions.json exists and you are running a local web server.");
+        return;
+    }
+
     document.getElementById('bread-cat').innerText = "Mock Test " + mockNum;
     document.getElementById('display-title').innerText = "Mock Test " + mockNum + " (All Topics)";
     document.getElementById('mock-result').innerHTML = "";
@@ -297,11 +304,25 @@ function mulberry32(a) {
 }
 
 function getMockQuestions(mockNum) {
-    // Use a different seed for each mockNum for repeatable shuffles
-    const seed = 12345 + mockNum;
-    const shuffled = shuffleArray(allQuestions, seed);
-    return shuffled.slice(0, 10);
-}
+    if (!allQuestions || allQuestions.length === 0) return [];
+    
+    // If we have fewer than 10 questions total, just return whatever we have
+    if (allQuestions.length <= 10) return allQuestions;
 
-// Initialize
-render('Arithmetic');
+    // Shuffle the entire pool once with a constant seed. 
+    // This ensures Mock 1 is always the same questions for everyone, 
+    // but different from Mock 2.
+    const globalSeed = 98765;
+    const shuffled = shuffleArray(allQuestions, globalSeed);
+    
+    // Use modulo to wrap around if the question bank is small
+    const start = ((mockNum - 1) * 10) % shuffled.length;
+    let selection = shuffled.slice(start, start + 10);
+    
+    // If we reached the end of the array and don't have 10, grab from the beginning
+    if (selection.length < 10) {
+        selection = selection.concat(shuffled.slice(0, 10 - selection.length));
+    }
+    
+    return selection;
+}
