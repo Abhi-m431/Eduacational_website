@@ -120,40 +120,83 @@ const data = {
 };
 
 let allQuestions = [];
+let questionsLoaded = false;
 
 fetch('questions.json')
   .then(res => res.json())
-  .then(data => {
-    allQuestions = data;
-    // Optionally, render a default view or enable mock test buttons
-    render('Arithmetic'); // or any default section
+  .then(jsonData => {
+    allQuestions = jsonData;
+    questionsLoaded = true;
+    render('Arithmetic'); 
+  })
+  .catch(err => {
+    allQuestions = Object.values(data).flat();
+    questionsLoaded = true;
+    render('Arithmetic');
   });
 
-// getMockQuestions function for unique sets
-function getMockQuestions(mockNum) {
-    if (allQuestions.length < 30) {
-        alert("Please add at least 30 unique questions for unique mock tests.");
-        return [];
-    }
-    if (mockNum === 1) return allQuestions.slice(0, 10);
-    if (mockNum === 2) return allQuestions.slice(10, 20);
-    if (mockNum === 3) return allQuestions.slice(20, 30);
-    return allQuestions.slice(0, 10);
-}
+// Theory/formula content for each category
+const categoryTheory = {
+    Arithmetic: `
+        <h2>Arithmetic Aptitude - Key Concepts & Formulas</h2>
+        <ul>
+            <li><b>Percentage:</b> Percentage = (Value/Total Value) × 100</li>
+            <li><b>Profit & Loss:</b> Profit = SP - CP, Loss = CP - SP</li>
+            <li><b>Simple Interest:</b> SI = (P × R × T)/100</li>
+            <li><b>Ratio:</b> Ratio = Quantity1 / Quantity2</li>
+            <li><b>Time & Distance:</b> Speed = Distance / Time</li>
+            <li>...and more. Practice examples for better understanding.</li>
+        </ul>
+    `,
+    Reasoning: `
+        <h2>Logical Reasoning - Key Concepts</h2>
+        <ul>
+            <li><b>Number Series:</b> Identify the pattern (addition, multiplication, squares, etc.)</li>
+            <li><b>Coding-Decoding:</b> Analyze letter/number shifts or patterns</li>
+            <li><b>Blood Relations:</b> Draw family trees for clarity</li>
+            <li>Practice visualizing and breaking down problems step by step.</li>
+        </ul>
+    `,
+    Verbal: `
+        <h2>Verbal Ability - Key Concepts</h2>
+        <ul>
+            <li><b>Synonyms & Antonyms:</b> Build vocabulary by reading and practicing word lists</li>
+            <li><b>Fill in the Blanks:</b> Focus on grammar and context clues</li>
+            <li>Practice reading comprehension and sentence correction regularly.</li>
+        </ul>
+    `
+};
 
 function render(category) {
+    if (!questionsLoaded) return;
     document.getElementById('mock-result').innerHTML = "";
     const container = document.getElementById('questions-list');
-    const questions = data[category] || [];
-    
+    // Show theory section for categories
+    if (["Arithmetic", "Reasoning", "Verbal"].includes(category)) {
+        container.innerHTML = `<div class="theory-section">${categoryTheory[category]}</div>`;
+        return;
+    }
+    // Filter questions by tag/category from allQuestions
+    let questions = [];
+    if (category === 'Arithmetic') {
+        questions = allQuestions.filter(q => ["Percentage", "Time & Distance", "Simple Interest", "Ratio"].includes(q.tag));
+    } else if (category === 'Reasoning') {
+        questions = allQuestions.filter(q => ["Number Series", "Coding-Decoding", "Blood Relation"].includes(q.tag));
+    } else if (category === 'Verbal') {
+        questions = allQuestions.filter(q => ["Synonyms", "Antonyms", "Fill in the Blanks"].includes(q.tag));
+    } else {
+        questions = [];
+    }
+    if (questions.length === 0) {
+        container.innerHTML = `<div class="question-card">No questions available for this category.</div>`;
+        return;
+    }
     document.getElementById('bread-cat').innerText = category;
     document.getElementById('display-title').innerText = category + " Aptitude";
-
     container.innerHTML = questions.map((item, idx) => `
         <article class="question-card">
             <span class="q-tag">${item.tag}</span>
             <p class="q-text">Q${idx + 1}. ${item.q}</p>
-            
             <div class="options-grid">
                 ${item.options.map((opt, i) => `
                     <label class="option-label">
@@ -162,7 +205,6 @@ function render(category) {
                     </label>
                 `).join('')}
             </div>
-
             <div class="actions">
                 <button class="btn btn-primary" onclick="toggleAns(${item.id})">
                     Show Answer
@@ -171,7 +213,6 @@ function render(category) {
                     Discussion
                 </button>
             </div>
-
             <div class="answer-container" id="ans-box-${item.id}">
                 <div class="answer-content">
                     <span class="correct-badge">Correct Answer: ${item.ans}</span>
@@ -350,6 +391,33 @@ function startMockTest(mockNum) {
         `;
         document.getElementById('mock-result').scrollIntoView({behavior: "smooth"});
     }
+}
+
+// Utility: Shuffle array (Fisher-Yates)
+function shuffleArray(array, seed) {
+    let arr = array.slice();
+    let random = mulberry32(seed);
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+// Deterministic PRNG for repeatable shuffles
+function mulberry32(a) {
+    return function() {
+        var t = a += 0x6D2B79F5;
+        t = Math.imul(t ^ t >>> 15, t | 1);
+        t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    }
+}
+
+function getMockQuestions(mockNum) {
+    // Use a different seed for each mockNum for repeatable shuffles
+    const seed = 12345 + mockNum;
+    const shuffled = shuffleArray(allQuestions, seed);
+    return shuffled.slice(0, 10);
 }
 
 // Initialize
