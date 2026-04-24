@@ -358,20 +358,13 @@ function getMockQuestions(mockNum) {
         // If we have fewer than 10 questions total, just return whatever we have
     if (allQuestions.length <= 10) return allQuestions;
 
-    // Shuffle the entire pool once with a constant seed. 
-    // This ensures Mock 1 is always the same questions for everyone, 
-    // but different from Mock 2.
-    const globalSeed = 98765;
-    const shuffled = shuffleArray(allQuestions, globalSeed);
+    // Generate a random seed to ensure that every time a mock test is started, 
+    // the student gets a unique and random set of questions.
+    const randomSeed = Math.floor(Math.random() * 1000000);
     
-    // Use modulo to wrap around if the question bank is small
-    const start = ((mockNum - 1) * 10) % shuffled.length;
-    let selection = shuffled.slice(start, start + 10);
+    // Shuffle the entire question pool using the dynamic seed
+    const shuffled = shuffleArray(allQuestions, randomSeed);
     
-    // If we reached the end of the array and don't have 10, grab from the beginning
-    if (selection.length < 10) {
-        selection = selection.concat(shuffled.slice(0, 10 - selection.length));
-    }
-    
-    return selection;
+    // Return the first 10 questions from the randomized pool
+    return shuffled.slice(0, 10);
 }
