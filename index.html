@@ -28,17 +28,10 @@
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
         <div class="nav-card">
-            <div class="nav-group-title">Aptitude Categories</div>
-            <nav class="nav-list">
-                <div class="nav-item active" onclick="switchTab('Arithmetic', this)">
-                    Arithmetic Aptitude
-                </div>
-                <div class="nav-item" onclick="switchTab('Reasoning', this)">
-                    Logical Reasoning
-                </div>
-                <div class="nav-item" onclick="switchTab('Verbal', this)">
-                    Verbal Ability
-                </div>
+            <div class="nav-group-title">Categories</div>
+            <nav class="nav-list" id="category-nav">
+                <!-- Dynamically populated -->
+            </nav>
                 <div class="nav-group-title">Mock Tests</div>
                 <div class="nav-item" onclick="showMockInstructions(1, this)">
                     Mock Test 1

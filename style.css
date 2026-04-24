@@ -115,6 +115,29 @@ header {
     background: var(--primary);
     color: white;
 }
+.nav-item .chevron {
+    margin-left: auto;
+    font-size: 0.7rem;
+    transition: transform 0.2s;
+}
+.nav-item.open .chevron {
+    transform: rotate(90deg);
+}
+
+/* --- Sub-navigation --- */
+.sub-nav {
+    display: none;
+    margin-left: 1rem;
+    border-left: 2px solid var(--border);
+    padding-left: 0.5rem;
+}
+.sub-nav.show {
+    display: block;
+}
+.sub-item {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+}
 
 /* --- Main Content --- */
 .main-content { flex-grow: 1; min-width: 0; }

@@ -1,0 +1,126 @@
+{
+  "Arithmetic": {
+    "title": "Arithmetic Aptitude",
+    "overview": "Arithmetic aptitude tests your ability to solve basic mathematical problems. Select a sub-topic to see detailed formulas.",
+    "topics": {
+      "Percentage": [
+        { "title": "Introduction", "content": "Percentage is a way of expressing a number as a fraction of 100. It is denoted using the percent sign, %." },
+        { "title": "Formula", "content": "Percentage = (Value / Total Value) × 100" },
+        { "title": "Example", "content": "If you scored 45 out of 50, your percentage is (45/50) × 100 = 90%." }
+      ],
+      "Profit & Loss": [
+        { "title": "Introduction", "content": "Profit and loss are financial terms used to determine the gain or loss in a transaction." },
+        { "title": "Formulas", "content": "Profit = SP - CP; Loss = CP - SP; Profit % = (Profit/CP) × 100; Loss % = (Loss/CP) × 100" },
+        { "title": "Example", "content": "If CP = 100 and SP = 120, Profit = 20 and Profit % = 20%." }
+      ],
+      "Simple Interest": [
+        { "title": "Introduction", "content": "Simple Interest is calculated only on the principal amount." },
+        { "title": "Formula", "content": "SI = (P × R × T) / 100, where P = Principal, R = Rate, T = Time." },
+        { "title": "Example", "content": "If P = 1000, R = 5%, T = 2 years, SI = (1000×5×2)/100 = 100." }
+      ],
+      "Compound Interest": [
+        { "title": "Introduction", "content": "Compound Interest is calculated on the principal and also on the accumulated interest." },
+        { "title": "Formula", "content": "CI = P(1 + R/100)^T - P" }
+      ],
+      "Ratio": [
+        { "title": "Introduction", "content": "A ratio is a comparison of two quantities by division." },
+        { "title": "Example", "content": "Ratio of 2 and 3 is 2:3." }
+      ],
+      "Time & Distance": [
+        { "title": "Introduction", "content": "Relationship between speed, distance, and time." },
+        { "title": "Formula", "content": "Speed = Distance / Time; km/hr to m/s: multiply by 5/18." }
+      ],
+      "Time & Work": [
+        { "title": "Introduction", "content": "Relationship between number of persons, time taken and amount of work done." }
+      ],
+      "Average": [
+        { "title": "Introduction", "content": "Average = (Sum of observations) / (Number of observations)" }
+      ],
+      "HCF & LCM": [
+        { "title": "Introduction", "content": "Highest Common Factor and Lowest Common Multiple concepts." }
+      ],
+      "Number System": [
+        { "title": "Introduction", "content": "Classification of numbers and divisibility rules." }
+      ],
+      "Ages": [
+        { "title": "Introduction", "content": "Algebraic approach to solving age-related problems." }
+      ],
+      "Probability": [
+        { "title": "Introduction", "content": "The likelihood of an event happening." }
+      ]
+    }
+  },
+  "Reasoning": {
+    "title": "Logical Reasoning",
+    "overview": "Logical reasoning helps in developing analytical skills through patterns and puzzles.",
+    "topics": {
+      "Number Series": [
+        { "title": "Introduction", "content": "A number series is a sequence of numbers following a certain pattern." },
+        { "title": "Example", "content": "2, 4, 8, 16, ? (Answer: 32, as each number is multiplied by 2)" }
+      ],
+      "Coding-Decoding": [
+        { "title": "Introduction", "content": "Coding-Decoding involves converting words or numbers according to a specific rule or pattern." },
+        { "title": "Example", "content": "If CAT is coded as DBU, then DOG is coded as EPH (each letter shifted by 1)." }
+      ],
+      "Blood Relation": [
+        { "title": "Introduction", "content": "Use family tree diagrams to solve complex relationship problems." }
+      ],
+      "Calendar": [
+        { "title": "Introduction", "content": "Concepts of leap years, odd days, and day calculation." }
+      ],
+      "Direction": [
+        { "title": "Introduction", "content": "Tracking movement and final orientation using cardinal directions." }
+      ],
+      "Clock": [
+        { "title": "Introduction", "content": "Angle between hands and reflection/water images of clocks." }
+      ],
+      "Syllogism": [
+        { "title": "Introduction", "content": "Deductive reasoning using Venn diagrams." }
+      ],
+      "Seating Arrangement": [
+        { "title": "Introduction", "content": "Linear, circular, and square arrangement patterns." }
+      ],
+      "Analogy": [
+        { "title": "Introduction", "content": "Finding similar relationships between pairs of words or numbers." }
+      ],
+      "Odd One Out": [
+        { "title": "Introduction", "content": "Identifying the term that doesn't fit the pattern." }
+      ],
+      "Statement & Conclusion": [
+        { "title": "Introduction", "content": "Evaluating logical conclusions based on given premises." }
+      ]
+    }
+  },
+  "Verbal": {
+    "title": "Verbal Ability",
+    "overview": "Verbal ability tests language proficiency and comprehension.",
+    "topics": {
+      "Synonyms": [
+        { "title": "Introduction", "content": "Synonyms are words that have similar meanings." },
+        { "title": "Example", "content": "Happy - Joyful, Sad - Unhappy." }
+      ],
+      "Antonyms": [
+        { "title": "Introduction", "content": "Antonyms are words that have opposite meanings." },
+        { "title": "Example", "content": "Hot - Cold, Big - Small." }
+      ],
+      "Fill in the Blanks": [
+        { "title": "Introduction", "content": "Focus on grammar, tenses, and context clues." }
+      ],
+      "Idioms & Phrases": [
+        { "title": "Introduction", "content": "Common expressions with non-literal meanings." }
+      ],
+      "One Word Substitution": [
+        { "title": "Introduction", "content": "Replacing long sentences with a single precise word." }
+      ],
+      "Reading Comprehension": [
+        { "title": "Introduction", "content": "Analyzing passages and answering questions based on them." }
+      ],
+      "Sentence Correction": [
+        { "title": "Introduction", "content": "Identifying and fixing grammatical errors in sentences." }
+      ],
+      "Spelling Test": [
+        { "title": "Introduction", "content": "Recognizing correctly spelled words." }
+      ]
+    }
+  }
+}
