@@ -1,9 +1,9 @@
 {
-  "Arithmetic": {
-    "title": "Arithmetic Aptitude",
-    "overview": "Arithmetic aptitude tests your ability to solve basic mathematical problems. Select a sub-topic to see detailed formulas.",
+  "Quantitative Aptitude": {
+    "title": "Quantitative Aptitude",
+    "overview": "Quantitative aptitude tests your ability to solve basic mathematical problems. Select a sub-topic to see detailed formulas.",
     "topics": {
-            "Percentage": [
+      "Percentage": [
         {
           "title": "1. What is a Percentage?",
           "content": "<h3>The 'Out of 100' Concept</h3><p>Percentage is simply a fraction where the denominator is always 100. It helps us compare things of different sizes easily.</p><div class='formula-box'><b>Basic Formula:</b> (Value / Total) × 100</div><p><b>Example:</b> If you get 40 marks out of 50, your percentage is (40/50) × 100 = 80%.</p>"
@@ -35,24 +35,36 @@
           "content": "<p>Discounts are always calculated on the <b>Marked Price (MP)</b>.</p><ul><li><b>Selling Price (SP)</b> = MP - Discount</li><li><b>Discount %</b> = (Discount / MP) \u00d7 100</li></ul><br><b>Shortcut for Successive Discounts:</b><br>If a shopkeeper offers two successive discounts of x% and y%, the equivalent single discount is:<br><div style='background:#eff6ff; padding:0.8rem; border-left:4px solid #3b82f6;'>(x + y - xy/100)%</div>"
         }
       ],
-      "Simple Interest": [
+      "Simple and Compound Interest": [
         {
-          "title": "Introduction to Simple Interest",
-          "content": "<p>Simple Interest (SI) is a quick method of calculating the interest charge on a loan. It is determined by multiplying the daily interest rate by the principal by the number of days that elapse between payments.</p><br><b>The Master Formula:</b><br><div style='background:#f1f5f9; padding:1rem; border-radius:8px; font-family:monospace; font-size:1.2rem;'>SI = (P \u00d7 R \u00d7 T) / 100</div><p style='margin-top:1rem;'>Where:<br><b>P</b> = Principal Amount<br><b>R</b> = Annual Interest Rate (%)<br><b>T</b> = Time Period (Years)</p>"
+          "title": "Simple Interest",
+          "content": "Simple Interest (SI) is calculated only on the principal amount. SI = (P × R × T) / 100."
         },
         {
-          "title": "Total Amount and Variations",
-          "content": "<p>The Total Amount (A) returned to the lender includes both the principal and the interest earned.</p><div style='background:#f8fafc; padding:1rem; border:1px solid #e2e8f0; border-radius:8px;'><b>Amount (A) = P + SI</b><br>or<br><b>A = P [1 + (RT/100)]</b></div><br><b>Time Factor Tip:</b> If the time is given in months, divide by 12 to convert to years. If given in days, divide by 365."
+          "title": "Compound Interest",
+          "content": "Compound Interest (CI) is calculated on the principal and also on the accumulated interest. CI = P(1 + R/100)^T - P."
         }
       ],
-      "Time & Distance": [
+      "Ratio and Proportion": [
         {
-          "title": "The Speed-Time-Distance Relationship",
-          "content": "<p>This is the foundation of all problems involving motion. The three variables are linked by one simple equation:</p><div style='background:#f1f5f9; padding:1rem; border-radius:8px; text-align:center; font-size:1.1rem;'><b>Distance = Speed \u00d7 Time</b></div><br><b>Unit Conversion (The 5/18 Rule):</b><ul><li>To convert <b>km/hr</b> to <b>m/s</b>: Multiply by 5/18.</li><li>To convert <b>m/s</b> to <b>km/hr</b>: Multiply by 18/5.</li></ul>"
+          "title": "Ratio",
+          "content": "A ratio is a comparison of two quantities by division."
         },
         {
-          "title": "Relative Speed and Trains",
-          "content": "<p>Relative speed is the speed of one object with respect to another.</p><ul><li><b>Same Direction:</b> Relative Speed = |S1 - S2|</li><li><b>Opposite Direction:</b> Relative Speed = S1 + S2</li></ul><br><b>Train Crossing Logic:</b><br>1. When a train crosses a <u>stationary pole/man</u>, the distance covered equals the <b>Length of the Train</b>.<br>2. When a train crosses a <u>bridge/platform</u>, the distance covered equals <b>(Length of Train + Length of Platform)</b>."
+          "title": "Proportion",
+          "content": "Proportion is an equation stating that two ratios are equal."
+        }
+      ],
+      "Averages": [
+        {
+          "title": "Averages",
+          "content": "Average = (Sum of observations) / (Number of observations)."
+        }
+      ],
+      "Problems on Ages": [
+        {
+          "title": "Problems on Ages",
+          "content": "Problems on ages are solved using linear equations based on given conditions."
         }
       ],
       "Time & Work": [
@@ -65,10 +77,20 @@
           "content": "<p>When multiple people work together for different hours or days, use the <b>Man-Days Formula</b>:</p><div style='background:#f1f5f9; padding:1rem; border-radius:8px; font-family:monospace;'>(M1 \u00d7 D1 \u00d7 H1) / W1 = (M2 \u00d7 D2 \u00d7 H2) / W2</div><br><p>Where:<br>M = No. of Workers<br>D = Days<br>H = Hours per day<br>W = Total Work or Wages earned</p>"
         }
       ],
-      "Average": [
+      "Pipes and Cisterns": [
         {
-          "title": "Understanding Averages",
-          "content": "<p>An average (or mean) is the central value of a set of data. It is the ratio of the sum of all observations to the total number of observations.</p><br><div style='background:#f1f5f9; padding:1rem; border-radius:8px;'><b>Average = Sum of Observations / Number of Observations</b></div><br><p><b>The Replacement Rule:</b><br>If a new person joins a group and the average increases by 'x', the weight/age of the new person = (Old Average) + (New Total Strength \u00d7 x).</p>"
+          "title": "Pipes and Cisterns",
+          "content": "Problems involving filling and emptying tanks using pipes. Use the concept of work/time."
+        }
+      ],
+      "Time, Speed and Distance": [
+        {
+          "title": "The Speed-Time-Distance Relationship",
+          "content": "<p>This is the foundation of all problems involving motion. The three variables are linked by one simple equation:</p><div style='background:#f1f5f9; padding:1rem; border-radius:8px; text-align:center; font-size:1.1rem;'><b>Distance = Speed \u00d7 Time</b></div><br><b>Unit Conversion (The 5/18 Rule):</b><ul><li>To convert <b>km/hr</b> to <b>m/s</b>: Multiply by 5/18.</li><li>To convert <b>m/s</b> to <b>km/hr</b>: Multiply by 18/5.</li></ul>"
+        },
+        {
+          "title": "Relative Speed and Trains",
+          "content": "<p>Relative speed is the speed of one object with respect to another.</p><ul><li><b>Same Direction:</b> Relative Speed = |S1 - S2|</li><li><b>Opposite Direction:</b> Relative Speed = S1 + S2</li></ul><br><b>Train Crossing Logic:</b><br>1. When a train crosses a <u>stationary pole/man</u>, the distance covered equals the <b>Length of the Train</b>.<br>2. When a train crosses a <u>bridge/platform</u>, the distance covered equals <b>(Length of Train + Length of Platform)</b>."
         }
       ],
       "HCF & LCM": [
@@ -77,16 +99,28 @@
           "content": "<ul><li><b>HCF (Highest Common Factor):</b> The greatest number that exactly divides two or more numbers. Also known as GCD.</li><li><b>LCM (Least Common Multiple):</b> The smallest number which is exactly divisible by two or more numbers.</li></ul><br><b>Crucial Rule for Two Numbers:</b><br><div style='background:#f0fdf4; padding:1rem; border-radius:8px; text-align:center;'><b>HCF(a,b) \u00d7 LCM(a,b) = a \u00d7 b</b></div>"
         }
       ],
-      "Number System": [
+      "Divisibility rules": [
         {
-          "title": "Classification of Numbers",
-          "content": "<p>A number system is a way of representing numbers. Standard types include:</p><ul><li><b>Natural Numbers:</b> 1, 2, 3...</li><li><b>Whole Numbers:</b> 0, 1, 2, 3...</li><li><b>Integers:</b> ...-2, -1, 0, 1, 2...</li><li><b>Prime Numbers:</b> Numbers with exactly two factors (e.g., 2, 3, 5, 7, 11). 2 is the only even prime.</li></ul>"
+          "title": "Divisibility rules",
+          "content": "Rules to quickly check if a number is divisible by another (e.g., 2, 3, 5, 9, 11)."
         }
       ],
-      "Ages": [
+      "Simplification (BODMAS)": [
         {
-          "title": "Solving Age Problems",
-          "content": "<p>Problems on ages are essentially linear equations. The key is to correctly set up the variables based on the timeframe.</p><ul><li>If current age is <b>X</b>, then age <b>n</b> years ago was <b>X - n</b>.</li><li>If current age is <b>X</b>, then age <b>n</b> years from now will be <b>X + n</b>.</li></ul><p><b>Important Note:</b> The difference between the ages of two people remains constant throughout their lives.</p>"
+          "title": "Simplification (BODMAS)",
+          "content": "Order of operations: Brackets, Orders, Division, Multiplication, Addition, Subtraction."
+        }
+      ],
+      "Number Series": [
+        {
+          "title": "Number Series",
+          "content": "Find the pattern in a sequence of numbers and predict the next term."
+        }
+      ],
+      "Permutation & Combination": [
+        {
+          "title": "Permutation & Combination",
+          "content": "Permutation: Arrangements, Combination: Selections. Use nPr and nCr formulas."
         }
       ],
       "Probability": [
@@ -94,86 +128,107 @@
           "title": "Fundamentals of Probability",
           "content": "<p>Probability is the branch of mathematics concerning numerical descriptions of how likely an event is to occur.</p><br><b>The Probability Formula:</b><br><div style='background:#f1f5f9; padding:1rem; border-radius:8px;'><b>P(E) = n(E) / n(S)</b></div><p>Where:<br>n(E) = Number of favorable outcomes<br>n(S) = Total number of possible outcomes in the Sample Space.</p>"
         }
+      ],
+      "Mensuration (Area and Volume)": [
+        {
+          "title": "Mensuration (Area and Volume)",
+          "content": "Formulas for area and volume of basic shapes: square, rectangle, circle, cylinder, sphere, etc."
+        }
       ]
     }
 
     
   },
-  "Reasoning": {
-    "title": "Logical Reasoning",
+  "Logical Reasoning & Mental Ability": {
+    "title": "Logical Reasoning & Mental Ability",
     "overview": "Logical reasoning helps in developing analytical skills through patterns and puzzles.",
     "topics": {
-      "Number Series": [
-        { "title": "Patterns", "content": "Series can follow Addition, Subtraction, Multiplication, Division, Squares, or Cubes pattern." },
-        { "title": "Mixed Series", "content": "Example: 2, 5, 10, 17... (Pattern is n\u00b2 + 1). 1\u00b2+1, 2\u00b2+1, 3\u00b2+1, etc." }
+      "Syllogism": [
+        { "title": "Syllogism", "content": "Problems involving logical deduction using statements and conclusions. Use Venn diagrams for clarity." }
+      ],
+      "Blood Relations": [
+        { "title": "Blood Relations", "content": "Questions based on family relationships. Draw family trees for accuracy." }
       ],
       "Coding-Decoding": [
-        { "title": "Letter Shifting", "content": "Letters are shifted forward/backward. Tip: Write A-Z with positions 1-26." },
-        { "title": "Opposite Letters", "content": "Pairs that sum to 27: A-Z, B-Y, C-X, D-W (EV, FU, GT, HS, IR, JQ, KP, LO, MN)." }
+        { "title": "Coding-Decoding", "content": "Questions where words or numbers are coded using a pattern. Find the logic to decode." }
       ],
-      "Blood Relation": [
-        { "title": "Family Tree Symbols", "content": "Male: (+), Female: (-), Couple: (=), Siblings: (\u2014), Generations: vertical line (|)." },
-        { "title": "Relations", "content": "Maternal: From Mother's side. Paternal: From Father's side. In-laws: By marriage." }
+      "Seating Arrangement (Linear/Circular)": [
+        { "title": "Seating Arrangement", "content": "Arranging people in a line or circle based on given conditions. Visualize positions for accuracy." }
       ],
-      "Calendar": [
-        { "title": "Leap Years", "content": "Divisible by 4. Century years must be divisible by 400 (e.g., 2000 is leap, 1900 is not)." },
-        { "title": "Odd Days", "content": "Ordinary year (365 days) = 1 odd day. Leap year (366 days) = 2 odd days. 100 years = 5 odd days, 400 years = 0 odd days." }
+      "Direction Sense": [
+        { "title": "Direction Sense", "content": "Problems involving directions (North, South, East, West) and turns. Draw diagrams to avoid confusion." }
       ],
-      "Direction": [
-        { "title": "Cardinal Points", "content": "Main: North, South, East, West. Sub-directions: NE, NW, SE, SW." },
-        { "title": "Pythagoras Rule", "content": "Shortest distance c = \u221a(a\u00b2 + b\u00b2), where a and b are perpendicular paths." }
+      "Statement and Assumptions": [
+        { "title": "Statement and Assumptions", "content": "Identify assumptions implicit in a given statement." }
       ],
-      "Clock": [
-        { "title": "Angle Formula", "content": "Angle between hands = <b>|30H - (11/2)M|</b>." },
-        { "title": "Mirror Image", "content": "Mirror Time = <b>11:60 - Actual Time</b> (if time is between 1 and 11). Otherwise use 23:60." }
+      "Cause and Effect": [
+        { "title": "Cause and Effect", "content": "Determine the cause or effect relationship between two statements." }
       ],
-      "Syllogism": [
-        { "title": "Venn Diagrams", "content": "All A are B: A is inside B. Some A are B: A and B intersect. No A is B: A and B are separate." },
-        { "title": "Conclusions", "content": "A conclusion is valid only if it holds true in all possible Venn diagram cases." }
+      "Course of Action": [
+        { "title": "Course of Action", "content": "Decide the best course of action based on a given situation." }
       ],
-      "Seating Arrangement": [
-        { "title": "Circular", "content": "Facing center: Right is anticlockwise, Left is clockwise. Facing out: Opposite." },
-        { "title": "Linear", "content": "Facing North: Your left is their left. Facing South: Your left is their right." }
+      "Mirror and Water Images": [
+        { "title": "Mirror and Water Images", "content": "Identify the mirror or water image of a given figure or word." }
       ],
-      "Analogy": [
-        { "title": "Types", "content": "Word Analogy (Country:Capital), Number Analogy (4:16 :: 5:25), Letter Analogy." }
+      "Paper Folding/Cutting": [
+        { "title": "Paper Folding/Cutting", "content": "Visualize the result of folding/cutting paper and predict the outcome." }
       ],
-      "Odd One Out": [
-        { "title": "Classification", "content": "Grouping by shared properties. Pick the one that doesn't share the property (e.g., Prime vs Composite)." }
+      "Series completion using figures": [
+        { "title": "Series completion using figures", "content": "Find the next figure in a sequence based on the pattern." }
       ],
-      "Statement & Conclusion": [
-        { "title": "Rules", "content": "Conclusion must follow directly from statement. Avoid assumptions outside the statement." }
+      "Clocks and Calendars": [
+        { "title": "Clocks and Calendars", "content": "Problems based on calculation of time, angles, and dates." }
+      ],
+      "Ranking and Order": [
+        { "title": "Ranking and Order", "content": "Questions involving ranking of people or objects based on given information." }
+      ],
+      "Data Sufficiency": [
+        { "title": "Data Sufficiency", "content": "Determine if the given data is sufficient to answer the question." }
       ]
     }
   },
-  "Verbal": {
-    "title": "Verbal Ability",
+  "English Language & Comprehension": {
+    "title": "English Language & Comprehension",
     "overview": "Verbal ability tests language proficiency and comprehension.",
     "topics": {
+      "Paragraphs": [
+        { "title": "Comprehension Skills", "content": "Practice reading passages to understand the main idea, draw logical inferences, and recognize the author's tone (e.g., critical, humorous, neutral)." }
+      ],
       "Synonyms": [
-        { "title": "Basics", "content": "Words with similar meanings. Example: Abandon - Forsake, Abundant - Plentiful." }
+        { "title": "Synonyms", "content": "Words with similar meanings. Example: Happy - Joyful." }
       ],
       "Antonyms": [
-        { "title": "Basics", "content": "Words with opposite meanings. Example: Ancient - Modern, Arrogant - Humble." }
+        { "title": "Antonyms", "content": "Words with opposite meanings. Example: Hot - Cold." }
+      ],
+      "Cloze Test (fillers in a paragraph)": [
+        { "title": "Cloze Test", "content": "Fill in the blanks in a passage with appropriate words based on context." }
+      ],
+      "Idioms/Phrases": [
+        { "title": "Idioms/Phrases", "content": "Common expressions with non-literal meanings. Example: 'Break the ice'." }
+      ],
+      "Error Spotting": [
+        { "title": "Error Spotting", "content": "Identify grammatical or usage errors in sentences." }
+      ],
+      "Sentence Improvement": [
+        { "title": "Sentence Improvement", "content": "Choose the best version of a sentence from the given options." }
       ],
       "Fill in the Blanks": [
-        { "title": "Strategies", "content": "1. Check grammar (Tense, Article). 2. Identify the tone (Positive/Negative). 3. Look for context clues." }
+        { "title": "Fill in the Blanks", "content": "Complete sentences with the most suitable words." }
+      ]
+    }
+  },
+  "Data Interpretation (DI)": {
+    "title": "Data Interpretation (DI)",
+    "overview": "Data Interpretation involves analyzing and drawing conclusions from data presented in various forms such as tables, graphs, and charts.",
+    "topics": {
+      "Tabular Data": [
+        { "title": "Tabular Data Analysis", "content": "<h3>Analysis of Tables</h3><p>Tabular data is the most common form of DI. The key is to identify intersections of rows and columns quickly to perform calculations.</p><div class='formula-box'>Percentage Share = (Component Value / Total Sum) × 100</div>" }
       ],
-      "Idioms & Phrases": [
-        { "title": "Examples", "content": "<b>A piece of cake:</b> Very easy.<br><b>Spill the beans:</b> Reveal a secret.<br><b>Under the weather:</b> Feeling sick." }
+      "Visual Graphs": [
+        { "title": "Line and Bar Charts", "content": "<h3>Graphical Representation</h3><p>Visual graphs allow for easy comparison. Bar graphs are ideal for discrete quantities, while line graphs are best for identifying trends over time.</p><div class='shortcut-box'>Focus on peaks and valleys in line graphs to identify growth cycles.</div>" }
       ],
-      "One Word Substitution": [
-        { "title": "People/Groups", "content": "<b>Atheist:</b> One who doesn't believe in God.<br><b>Philanthropist:</b> Lover of mankind.<br><b>Altruist:</b> One who works for others." }
-      ],
-      "Reading Comprehension": [
-        { "title": "Methods", "content": "Skimming: Quick reading for gist. Scanning: Looking for specific info. SQ3R: Survey, Question, Read, Recite, Review." }
-      ],
-      "Sentence Correction": [
-        { "title": "S-V Agreement", "content": "Singular subject takes singular verb. 'Each', 'Every', 'Either' are singular." },
-        { "title": "Tenses", "content": "Ensure consistency in tense throughout the sentence." }
-      ],
-      "Spelling Test": [
-        { "title": "Common Errors", "content": "Words with double consonants (Occurred, Committee) or tricky vowels (Receive, Believe)." }
+      "Caselets": [
+        { "title": "Paragraph-Based DI", "content": "<h3>Descriptive Information</h3><p>In Caselets, data is hidden within text. The most efficient strategy is to convert the paragraph into a table as you read.</p>" }
       ]
     }
   }

@@ -3,20 +3,6 @@ function scrollToSection(id) {
   document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
 }
 
-let allQuestions = [];
-let questionsLoaded = false;
-
-fetch('questions.json')
-  .then(res => res.json())
-  .then(jsonData => {
-    allQuestions = jsonData;
-    questionsLoaded = true;
-  })
-  .catch(err => {
-    console.error("Failed to load questions. Ensure questions.json is in the same folder and you are using a local server.", err);
-    questionsLoaded = true;
-  });
-
 // Efficient multi-page theory rendering using theory.json, with pagination for each subcategory and dynamic sidebar generation
 let theoryData = null;
 let currentTheory = { category: null, subcat: null };
@@ -26,7 +12,7 @@ fetch('theory.json')
   .then(json => {
     theoryData = json;
     renderSidebar();
-    renderTheory('Arithmetic');
+    renderTheory('Quantitative Aptitude');
   });
 
 function renderTheory(category, subcat = null) {
@@ -55,7 +41,7 @@ function renderTheory(category, subcat = null) {
         });
 
         content += `<div class="cta-footer">
-            <button class='btn btn-primary btn-lg' onclick='startPractice("${subcat}")'>Start ${subcat} Practice ➔</button>
+            <button class='btn btn-primary btn-lg' onclick='startPractice("${subcat}")'>Start ${subcat} Practice Test ➔</button>
         </div>`;
     }
     document.getElementById('bread-cat').innerText = breadcrumb;
@@ -64,17 +50,37 @@ function renderTheory(category, subcat = null) {
     currentTheory = { category, subcat };
 }
 
-function startPractice(tag) {
-    const filtered = allQuestions.filter(q => q.tag === tag);
-    if (filtered.length === 0) {
-        alert("No practice questions available for this topic yet!");
+async function startPractice(tag) {
+    const container = document.getElementById('questions-list');
+    container.innerHTML = "<div class='question-card'>Loading practice questions...</div>";
+
+    // Get the category from global state to fetch the consolidated category file
+    const catName = currentTheory.category;
+    const fileName = catName.replace(/[^a-z0-9]/gi, '_') + '.json';
+    let allCatQuestions = [];
+    
+    try {
+        const res = await fetch(`data/${fileName}`);
+        if (!res.ok) throw new Error();
+        allCatQuestions = await res.json();
+    } catch (err) {
+        alert(`No questions found for category: ${catName}. Ensure data/${fileName} exists.`);
+        renderTheory(currentTheory.category, tag); // Reset view
         return;
     }
+
+    // Filter category questions by the specific subcategory tag
+    const questions = allCatQuestions.filter(q => q.tag === tag);
+
+    if (questions.length === 0) {
+        alert(`No practice questions available for topic: ${tag}`);
+        renderTheory(catName, tag);
+        return;
+    }
+
+    document.getElementById('display-title').innerText = `${tag} - Practice Test`;
     
-    const container = document.getElementById('questions-list');
-    document.getElementById('display-title').innerText = `Practice: ${tag}`;
-    
-    container.innerHTML = filtered.map((item, idx) => `
+    container.innerHTML = questions.map((item, idx) => `
         <article class="question-card">
             <p class="q-text">Q${idx + 1}. ${item.q}</p>
             <div class="options-grid">
@@ -120,16 +126,17 @@ function renderSidebar() {
     nav.innerHTML = "";
     Object.keys(theoryData).forEach(catKey => {
         const cat = theoryData[catKey];
+        const safeId = catKey.replace(/[^a-z0-9]/gi, '_');
         // Main Category Item
         const item = document.createElement('div');
         item.className = 'nav-item';
         item.innerHTML = `<span>${cat.title}</span><span class=\"chevron\">▸</span>`;
-        item.onclick = (e) => toggleSubMenu(catKey, item);
+        item.onclick = (e) => toggleSubMenu(catKey, safeId, item);
         nav.appendChild(item);
         // Sub-navigation container
         const subNav = document.createElement('div');
         subNav.className = 'sub-nav';
-        subNav.id = `sub-${catKey}`;
+        subNav.id = `sub-${safeId}`;
         Object.keys(cat.topics).forEach(topic => {
             const subItem = document.createElement('div');
             subItem.className = 'nav-item sub-item';
@@ -144,22 +151,14 @@ function renderSidebar() {
     });
 }
 
-function toggleSubMenu(cat, element) {
-    const subMenu = document.getElementById(`sub-${cat}`);
+function toggleSubMenu(catKey, safeId, element) {
+    const subMenu = document.getElementById(`sub-${safeId}`);
     const isOpen = subMenu.classList.contains('show');
     subMenu.classList.toggle('show');
     element.classList.toggle('open');
     if (!isOpen) {
-        renderTheory(cat);
+        renderTheory(catKey);
     }
-}
-
-function toggleAns(id) {
-    const box = document.getElementById(`ans-box-${id}`);
-    box.classList.toggle('show');
-    
-    const btn = box.previousElementSibling.querySelector('.btn-primary');
-    btn.innerText = box.classList.contains('show') ? 'Hide Answer' : 'Show Answer';
 }
 
 function switchTab(cat, element, subtopic = null) {
@@ -216,12 +215,7 @@ function chooseMockTest() {
 
 let activeTimerInterval = null; // Global timer reference
 // MOCK TEST FEATURE
-function startMockTest(mockNum) {
-    if (!questionsLoaded || allQuestions.length === 0) {
-        alert("Questions haven't loaded yet. Please check if questions.json exists and you are running a local web server.");
-        return;
-    }
-
+async function startMockTest(mockNum) {
     // Always clear any previous timer before starting a new one
     if (activeTimerInterval) {
         clearInterval(activeTimerInterval);
@@ -232,7 +226,19 @@ function startMockTest(mockNum) {
     document.getElementById('display-title').innerText = "Mock Test " + mockNum + " (All Topics)";
     document.getElementById('mock-result').innerHTML = "";
 
-    const mockQuestions = getMockQuestions(mockNum);
+    document.getElementById('questions-list').innerHTML = "<div class='question-card'>Generating unique test...</div>";
+
+    let mockQuestions = [];
+    try {
+        // For Mock Tests, we fetch from a shared pool containing a mix of all topics
+        const res = await fetch('data/mock_pool.json');
+        const pool = await res.json();
+        const randomSeed = Math.floor(Math.random() * 1000000) + mockNum;
+        mockQuestions = shuffleArray(pool, randomSeed).slice(0, 10);
+    } catch (err) {
+        alert("Failed to load Mock Test data. Ensure data/mock_pool.json exists.");
+        return;
+    }
 
     // Set timer (e.g., 10 minutes for 10 questions)
     let timeLimit = 10 * 60; // seconds
@@ -351,20 +357,4 @@ function mulberry32(a) {
         t ^= t + Math.imul(t ^ t >>> 7, t | 61);
         return ((t ^ t >>> 14) >>> 0) / 4294967296;
     }
-}
-
-function getMockQuestions(mockNum) {
-    if (!allQuestions || allQuestions.length === 0) return [];
-        // If we have fewer than 10 questions total, just return whatever we have
-    if (allQuestions.length <= 10) return allQuestions;
-
-    // Generate a random seed to ensure that every time a mock test is started, 
-    // the student gets a unique and random set of questions.
-    const randomSeed = Math.floor(Math.random() * 1000000);
-    
-    // Shuffle the entire question pool using the dynamic seed
-    const shuffled = shuffleArray(allQuestions, randomSeed);
-    
-    // Return the first 10 questions from the randomized pool
-    return shuffled.slice(0, 10);
 }

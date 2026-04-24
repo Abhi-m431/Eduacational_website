@@ -12,6 +12,22 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* --- Global Scrollbar (Main Content) --- */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+    border: 2px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg);
@@ -76,6 +92,23 @@ header {
     position: sticky;
     top: 5rem;
     height: calc(100vh - 7rem);
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+/* --- Sidebar Specific Scrollbar --- */
+.sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+.sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.sidebar::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 10px;
+}
+.sidebar:hover::-webkit-scrollbar-thumb {
+    background: #deeaff;
 }
 .nav-card {
     background: white;
@@ -142,7 +175,7 @@ header {
 /* --- W3Schools Style Callouts --- */
 .formula-box { background-color: #f8fafc; border-left: 6px solid #2196F3; padding: 15px; font-family: monospace; font-size: 1.1rem; margin: 15px 0; }
 .shortcut-box { background-color: #fff4a3; border-left: 6px solid #facc15; padding: 15px; margin: 15px 0; font-weight: bold; }
-h3 { color: #2c3e50; margin-top: 1rem; }
+h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-top: 1rem; }
 
 
 /* --- Main Content --- */
@@ -247,6 +280,10 @@ h3 { color: #2c3e50; margin-top: 1rem; }
     background: var(--primary);
     color: white;
     border: none;
+}
+.btn-primary:active {
+    background-color: var(--success);
+    transform: scale(0.98);
 }
 .btn-lg {
     padding: 0.8rem 2rem;

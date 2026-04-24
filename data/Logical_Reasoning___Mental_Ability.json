@@ -1,0 +1,66 @@
+[
+  {
+    "id": 5,
+    "tag": "Number Series",
+    "q": "Find the missing number in the series: 4, 9, 16, 25, ?",
+    "options": ["30", "34", "36", "49"],
+    "ans": "C",
+    "explain": "Next is 6² = 36."
+  },
+  {
+    "id": 6,
+    "tag": "Coding-Decoding",
+    "q": "If CAT = 24 and DOG = 26, then BAT = ?",
+    "options": ["22", "23", "24", "25"],
+    "ans": "B",
+    "explain": "Sum of positions: 2+1+20 = 23."
+  },
+  {
+    "id": 7,
+    "tag": "Blood Relations",
+    "q": "Pointing to a man, a woman said, 'His mother is the only daughter of my mother.' Relation?",
+    "options": ["Mother", "Sister", "Aunt", "Grandmother"],
+    "ans": "A",
+    "explain": "The woman is the man's mother."
+  },
+  {
+    "id": 16,
+    "tag": "Clocks and Calendars",
+    "q": "If 1st January 2020 was a Wednesday, what day was 1st January 2021?",
+    "options": ["Thursday", "Friday", "Saturday", "Sunday"],
+    "ans": "B",
+    "explain": "Leap year adds 2 odd days. Wed + 2 = Friday."
+  },
+  {
+    "id": 17,
+    "tag": "Direction Sense",
+    "q": "A man facing north turns 90° right, then 180° left. Which direction is he facing?",
+    "options": ["East", "West", "South", "North"],
+    "ans": "B",
+    "explain": "N -> E -> W."
+  },
+  {
+    "id": 22,
+    "tag": "Clocks and Calendars",
+    "q": "How many times do the hands of a clock coincide in a day?",
+    "options": ["22", "24", "21", "23"],
+    "ans": "A",
+    "explain": "22 times in 24 hours."
+  },
+  {
+    "id": 141,
+    "tag": "Syllogism",
+    "q": "Statements: All bags are pockets. All pockets are shops. Conclusion: All bags are shops.",
+    "options": ["Only I follows", "Only II follows", "Both", "Neither"],
+    "ans": "A",
+    "explain": "Standard subset logic."
+  },
+  {
+    "id": 146,
+    "tag": "Seating Arrangement (Linear/Circular)",
+    "q": "A, B, C, D, E on bench. A next to B, C next to D. C is 2nd from right. A is right of B. Position of A?",
+    "options": ["Between B and D", "Between B and C", "Between E and D", "Between C and E"],
+    "ans": "B",
+    "explain": "Arrangement: E B A C D."
+  }
+]
