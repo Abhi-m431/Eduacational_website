@@ -59,56 +59,8 @@ function render(category) {
     document.getElementById('bread-cat').innerText = category;
     document.getElementById('display-title').innerText = category + " Aptitude";
 
-    let theoryHtml = categoryTheory[category] ? `<div class="theory-section">${categoryTheory[category]}</div>` : "";
-
-    // Filter questions by tag/category from allQuestions
-    let questions = [];
-    if (category === 'Arithmetic') {
-        questions = allQuestions.filter(q => ["Percentage", "Time & Distance", "Simple Interest", "Ratio", "Profit & Loss", "Average"].includes(q.tag));
-    } else if (category === 'Reasoning') {
-        questions = allQuestions.filter(q => ["Number Series", "Coding-Decoding", "Blood Relation", "Calendar", "Direction", "Odd One Out", "Analogy", "Series", "Clock", "SSC CGL 2022", "Bank PO 2021", "Railways 2020"].includes(q.tag));
-    } else if (category === 'Verbal') {
-        questions = allQuestions.filter(q => ["Synonyms", "Antonyms", "Fill in the Blanks"].includes(q.tag));
-    } else {
-        questions = [];
-    }
-
-    if (questions.length === 0 && theoryHtml === "") {
-        container.innerHTML = `<div class="question-card">No questions available for this category.</div>`;
-        return;
-    }
-
-    container.innerHTML = theoryHtml + questions.map((item, idx) => `
-        <article class="question-card">
-            <span class="q-tag">${item.tag}</span>
-            <p class="q-text">Q${idx + 1}. ${item.q}</p>
-            <div class="options-grid">
-                ${item.options.map((opt, i) => `
-                    <label class="option-label">
-                        <input type="radio" name="q${item.id}">
-                        <span>${String.fromCharCode(65 + i)}) ${opt}</span>
-                    </label>
-                `).join('')}
-            </div>
-            <div class="actions">
-                <button class="btn btn-primary" onclick="toggleAns(${item.id})">
-                    Show Answer
-                </button>
-                <button class="btn">
-                    Discussion
-                </button>
-            </div>
-            <div class="answer-container" id="ans-box-${item.id}">
-                <div class="answer-content">
-                    <span class="correct-badge">Correct Answer: ${item.ans}</span>
-                    <div class="explanation">
-                        <strong>Explanation:</strong><br>
-                        ${item.explain}
-                    </div>
-                </div>
-            </div>
-        </article>
-    `).join('');
+    const theoryContent = categoryTheory[category] || `<p>Description for ${category} coming soon.</p>`;
+    container.innerHTML = `<div class="question-card">${theoryContent}</div>`;
 }
 
 function toggleAns(id) {
@@ -171,11 +123,18 @@ function chooseMockTest() {
     `;
 }
 
+let activeTimerInterval = null; // Global timer reference
 // MOCK TEST FEATURE
 function startMockTest(mockNum) {
     if (!questionsLoaded || allQuestions.length === 0) {
         alert("Questions haven't loaded yet. Please check if questions.json exists and you are running a local web server.");
         return;
+    }
+
+    // Always clear any previous timer before starting a new one
+    if (activeTimerInterval) {
+        clearInterval(activeTimerInterval);
+        activeTimerInterval = null;
     }
 
     document.getElementById('bread-cat').innerText = "Mock Test " + mockNum;
@@ -187,9 +146,7 @@ function startMockTest(mockNum) {
     // Set timer (e.g., 10 minutes for 10 questions)
     let timeLimit = 10 * 60; // seconds
     let timeLeft = timeLimit;
-    let timerInterval;
 
-    // Timer display
     document.getElementById('questions-list').innerHTML = `
         <div id="timer" style="font-size:1.2rem;font-weight:600;color:#2563eb;margin-bottom:1rem;">
             Time Left: <span id="timer-mins"></span>:<span id="timer-secs"></span>
@@ -221,18 +178,18 @@ function startMockTest(mockNum) {
     }
 
     updateTimerDisplay();
-    timerInterval = setInterval(() => {
+    activeTimerInterval = setInterval(() => {
         timeLeft--;
         updateTimerDisplay();
         if (timeLeft <= 0) {
-            clearInterval(timerInterval);
+            clearInterval(activeTimerInterval);
             submitMockTest(true);
         }
     }, 1000);
 
     document.getElementById('mockForm').onsubmit = function(e) {
         e.preventDefault();
-        clearInterval(timerInterval);
+        clearInterval(activeTimerInterval);
         submitMockTest(false);
     };
 
@@ -305,8 +262,7 @@ function mulberry32(a) {
 
 function getMockQuestions(mockNum) {
     if (!allQuestions || allQuestions.length === 0) return [];
-    
-    // If we have fewer than 10 questions total, just return whatever we have
+        // If we have fewer than 10 questions total, just return whatever we have
     if (allQuestions.length <= 10) return allQuestions;
 
     // Shuffle the entire pool once with a constant seed. 

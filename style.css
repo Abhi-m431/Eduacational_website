@@ -7,7 +7,7 @@
     --text-muted: #64748b;
     --border: #e2e8f0;
     --success: #10b981;
-    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,12 +32,32 @@ header {
     align-items: center;
 }
 .logo {
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--primary);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+.logo:hover {
+    transform: translateY(-1px);
+}
+.logo-icon {
+    width: 32px;
+    height: 32px;
+    color: var(--primary);
+}
+.logo-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--text-dark);
+}
+.logo-accent {
+    background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 /* --- Layout --- */
