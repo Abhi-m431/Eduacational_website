@@ -11,97 +11,15 @@ fetch('questions.json')
   .then(jsonData => {
     allQuestions = jsonData;
     questionsLoaded = true;
-    renderSidebar();
-    render('Arithmetic');
   })
   .catch(err => {
     console.error("Failed to load questions. Ensure questions.json is in the same folder and you are using a local server.", err);
-    questionsLoaded = true; // Set to true so render() can still show theory sections
-    renderSidebar();
-    render('Arithmetic');
+    questionsLoaded = true;
   });
-
-// Theory/formula content for each category
-const categoryTheory = {
-    Arithmetic: {
-        title: "Arithmetic Aptitude",
-        overview: "<h2>Arithmetic Aptitude - Key Concepts & Formulas</h2><p>Arithmetic aptitude tests your ability to solve basic mathematical problems. Select a sub-topic to see detailed formulas.</p>",
-        topics: {
-            "Percentage": "<h2>Percentage</h2><p>Percent means 'per hundred'.</p><ul><li><b>Formula:</b> (Value/Total) × 100</li><li><b>Increase%:</b> (Increase/Original) × 100</li></ul>",
-            "Profit & Loss": "<h2>Profit & Loss</h2><ul><li><b>Profit:</b> SP - CP</li><li><b>Loss:</b> CP - SP</li><li><b>Profit %:</b> (Profit/CP) × 100</li></ul>",
-            "Simple Interest": "<h2>Simple Interest</h2><p><b>SI = (P × R × T) / 100</b></p><p>Where P is Principal, R is Rate, and T is Time.</p>",
-            "Compound Interest": "<h2>Compound Interest</h2><p>Interest calculated on the principal and also on the accumulated interest.</p>",
-            "Ratio": "<h2>Ratio & Proportion</h2><p>A ratio is a comparison of two quantities by division.</p>",
-            "Time & Distance": "<h2>Time & Distance</h2><ul><li><b>Speed:</b> Distance / Time</li><li><b>km/hr to m/s:</b> Multiply by 5/18</li></ul>",
-            "Time & Work": "<h2>Time & Work</h2><p>Relationship between number of persons, time taken and amount of work done.</p>",
-            "Average": "<h2>Average</h2><p>Average = (Sum of observations) / (Number of observations)</p>",
-            "HCF & LCM": "<h2>HCF & LCM</h2><p>Highest Common Factor and Lowest Common Multiple concepts.</p>",
-            "Number System": "<h2>Number System</h2><p>Classification of numbers and divisibility rules.</p>",
-            "Ages": "<h2>Problems on Ages</h2><p>Algebraic approach to solving age-related problems.</p>",
-            "Probability": "<h2>Probability</h2><p>The likelihood of an event happening.</p>"
-        }
-    },
-    Reasoning: {
-        title: "Logical Reasoning",
-        overview: "<h2>Logical Reasoning - Key Concepts</h2><p>Logical reasoning helps in developing analytical skills through patterns and puzzles.</p>",
-        topics: {
-            "Number Series": "<h2>Number Series</h2><p>Identify patterns like squares, cubes, or prime numbers in a sequence.</p>",
-            "Coding-Decoding": "<h2>Coding-Decoding</h2><p>Observe shifts in alphabetical positions (e.g., A=1, B=2).</p>",
-            "Blood Relation": "<h2>Blood Relation</h2><p>Use family tree diagrams to solve complex relationship problems.</p>",
-            "Calendar": "<h2>Calendar</h2><p>Concepts of leap years, odd days, and day calculation.</p>",
-            "Direction": "<h2>Direction Sense</h2><p>Tracking movement and final orientation using cardinal directions.</p>",
-            "Clock": "<h2>Clock</h2><p>Angle between hands and reflection/water images of clocks.</p>",
-            "Syllogism": "<h2>Syllogism</h2><p>Deductive reasoning using Venn diagrams.</p>",
-            "Seating Arrangement": "<h2>Seating Arrangement</h2><p>Linear, circular, and square arrangement patterns.</p>",
-            "Analogy": "<h2>Analogy</h2><p>Finding similar relationships between pairs of words or numbers.</p>",
-            "Odd One Out": "<h2>Odd One Out</h2><p>Identifying the term that doesn't fit the pattern.</p>",
-            "Statement & Conclusion": "<h2>Statement & Conclusion</h2><p>Evaluating logical conclusions based on given premises.</p>"
-        }
-    },
-    Verbal: {
-        title: "Verbal Ability",
-        overview: "<h2>Verbal Ability - Key Concepts</h2><p>Verbal ability tests language proficiency and comprehension.</p>",
-        topics: {
-            "Synonyms": "<h2>Synonyms</h2><p>Words with similar meanings. <i>Example: Brief = Short.</i></p>",
-            "Antonyms": "<h2>Antonyms</h2><p>Words with opposite meanings. <i>Example: Generous != Selfish.</i></p>",
-            "Fill in the Blanks": "<h2>Fill in the Blanks</h2><p>Focus on grammar, tenses, and context clues.</p>",
-            "Idioms & Phrases": "<h2>Idioms & Phrases</h2><p>Common expressions with non-literal meanings.</p>",
-            "One Word Substitution": "<h2>One Word Substitution</h2><p>Replacing long sentences with a single precise word.</p>",
-            "Reading Comprehension": "<h2>Reading Comprehension</h2><p>Analyzing passages and answering questions based on them.</p>",
-            "Sentence Correction": "<h2>Sentence Correction</h2><p>Identifying and fixing grammatical errors in sentences.</p>",
-            "Spelling Test": "<h2>Spelling Test</h2><p>Recognizing correctly spelled words.</p>"
-        }
-    }
-};
-
-function render(category, subtopic = null) {
-    if (!questionsLoaded) return;
-    
-    document.getElementById('mock-result').innerHTML = "";
-    const container = document.getElementById('questions-list');
-    
-    const data = categoryTheory[category];
-    if (!data) return;
-
-    let title = data.title;
-    let content = data.overview;
-    let breadcrumb = category;
-
-    if (subtopic && data.topics[subtopic]) {
-        title = subtopic;
-        content = data.topics[subtopic];
-        breadcrumb = `${category} / ${subtopic}`;
-    }
-
-    document.getElementById('bread-cat').innerText = breadcrumb;
-    document.getElementById('display-title').innerText = title;
-
-    container.innerHTML = `<div class="question-card">${content || '<p>Description coming soon.</p>'}</div>`;
-}
 
 // Efficient multi-page theory rendering using theory.json, with pagination for each subcategory and dynamic sidebar generation
 let theoryData = null;
-let currentTheory = { category: null, subcat: null, page: 0 };
+let currentTheory = { category: null, subcat: null };
 
 fetch('theory.json')
   .then(res => res.json())
@@ -111,41 +29,89 @@ fetch('theory.json')
     renderTheory('Arithmetic');
   });
 
-function renderTheory(category, subcat = null, page = 0) {
+function renderTheory(category, subcat = null) {
     if (!theoryData) return;
     const container = document.getElementById('questions-list');
     const cat = theoryData[category];
     if (!cat) return;
     let title = cat.title;
-    let content = `<div>${cat.overview}</div>`;
+    let content = `<div>${cat.overview || ''}</div>`;
     let breadcrumb = category;
     if (subcat && cat.topics[subcat]) {
-        const pages = cat.topics[subcat];
-        if (!pages || !pages.length) return;
-        const pageData = pages[page];
-        title = `${subcat} - ${pageData.title}`;
-        content = `<h2>${subcat}</h2><h3>${pageData.title}</h3><div>${pageData.content}</div>`;
+        const topicsList = cat.topics[subcat];
+        if (!topicsList || !topicsList.length) return;
+        
+        title = subcat;
         breadcrumb = `${category} / ${subcat}`;
-        // Pagination controls
-        content += `<div id='theory-pagination' style='margin-top:1.5rem;display:flex;align-items:center;gap:1rem;'>
-            <button id='prev-page' class='btn btn-primary' style='min-width:110px;font-size:1rem;padding:0.7rem 1.5rem;' ${page === 0 ? 'disabled' : ''}>⟵ Previous</button>
-            <span style='font-weight:600;font-size:1.1rem;'>Page ${page + 1} of ${pages.length}</span>
-            <button id='next-page' class='btn btn-primary' style='min-width:110px;font-size:1rem;padding:0.7rem 1.5rem;' ${page === pages.length - 1 ? 'disabled' : ''}>Next ⟶</button>
+        
+        content = `<h2>${subcat} Overview</h2>`;
+        topicsList.forEach(topicData => {
+            content += `
+                <section class="theory-section">
+                    <h3>${topicData.title}</h3>
+                    <div class="theory-content">${topicData.content}</div>
+                </section>
+            `;
+        });
+
+        content += `<div class="cta-footer">
+            <button class='btn btn-primary btn-lg' onclick='startPractice("${subcat}")'>Start ${subcat} Practice ➔</button>
         </div>`;
     }
     document.getElementById('bread-cat').innerText = breadcrumb;
     document.getElementById('display-title').innerText = title;
     container.innerHTML = `<div class=\"question-card\">${content}</div>`;
-    // Add event listeners for pagination
-    if (subcat && cat.topics[subcat]) {
-        document.getElementById('prev-page').onclick = () => {
-            renderTheory(category, subcat, page - 1);
-        };
-        document.getElementById('next-page').onclick = () => {
-            renderTheory(category, subcat, page + 1);
-        };
+    currentTheory = { category, subcat };
+}
+
+function startPractice(tag) {
+    const filtered = allQuestions.filter(q => q.tag === tag);
+    if (filtered.length === 0) {
+        alert("No practice questions available for this topic yet!");
+        return;
     }
-    currentTheory = { category, subcat, page };
+    
+    const container = document.getElementById('questions-list');
+    document.getElementById('display-title').innerText = `Practice: ${tag}`;
+    
+    container.innerHTML = filtered.map((item, idx) => `
+        <article class="question-card">
+            <p class="q-text">Q${idx + 1}. ${item.q}</p>
+            <div class="options-grid">
+                ${item.options.map((opt, i) => {
+                    const letter = String.fromCharCode(65 + i);
+                    return `<div class="option-label" onclick="checkPracticeOption(this, '${letter}', '${item.ans}')"><span>${letter}) ${opt}</span></div>`;
+                }).join('')}
+            </div>
+            <button class="btn btn-primary" onclick="this.nextElementSibling.classList.add('show')">Show Answer & Explanation</button>
+            <div class="answer-container">
+                <div class="answer-content">
+                    <span class="correct-badge">Correct Answer: ${item.ans}</span>
+                    <div class="explanation"><strong>Explanation:</strong><br>${item.explain}</div>
+                </div>
+            </div>
+        </article>
+    `).join('');
+}
+
+function checkPracticeOption(element, selected, correct) {
+    const card = element.closest('.question-card');
+    const options = card.querySelectorAll('.option-label');
+    // If already answered, do nothing
+    if (card.getAttribute('data-answered') === 'true') return;
+    card.setAttribute('data-answered', 'true');
+    if (selected === correct) {
+        element.classList.add('correct');
+    } else {
+        element.classList.add('wrong');
+        // Find and highlight the correct one
+        options.forEach(opt => {
+            if (opt.innerText.trim().startsWith(correct)) {
+                opt.classList.add('correct');
+            }
+        });
+    }
+    // Do NOT auto-show explanation. User must click the button to reveal.
 }
 
 function renderSidebar() {
@@ -170,7 +136,7 @@ function renderSidebar() {
             subItem.innerText = topic;
             subItem.onclick = (e) => {
                 e.stopPropagation();
-                renderTheory(catKey, topic, 0);
+                switchTab(catKey, subItem, topic);
             };
             subNav.appendChild(subItem);
         });
@@ -202,7 +168,7 @@ function switchTab(cat, element, subtopic = null) {
     element.classList.add('active');
     
     // Render new data
-    render(cat, subtopic);
+    renderTheory(cat, subtopic);
     
     // Scroll to top for mobile users
     if(window.innerWidth < 900) {
@@ -291,7 +257,9 @@ function startMockTest(mockNum) {
                     </div>
                 </article>
             `).join('')}
-            <button type="submit" class="btn btn-primary" style="margin-bottom:2rem;">Submit Mock Test</button>
+            <div class="cta-footer">
+                <button type="submit" class="btn btn-primary btn-lg">Submit Mock Test ➔</button>
+            </div>
         </form>
     `;
 

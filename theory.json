@@ -3,91 +3,146 @@
     "title": "Arithmetic Aptitude",
     "overview": "Arithmetic aptitude tests your ability to solve basic mathematical problems. Select a sub-topic to see detailed formulas.",
     "topics": {
-      "Percentage": [
-        { "title": "Introduction", "content": "Percentage is a way of expressing a number as a fraction of 100. It is denoted using the percent sign, %." },
-        { "title": "Formula", "content": "Percentage = (Value / Total Value) × 100" },
-        { "title": "Example", "content": "If you scored 45 out of 50, your percentage is (45/50) × 100 = 90%." }
+            "Percentage": [
+        {
+          "title": "1. What is a Percentage?",
+          "content": "<h3>The 'Out of 100' Concept</h3><p>Percentage is simply a fraction where the denominator is always 100. It helps us compare things of different sizes easily.</p><div class='formula-box'><b>Basic Formula:</b> (Value / Total) × 100</div><p><b>Example:</b> If you get 40 marks out of 50, your percentage is (40/50) × 100 = 80%.</p>"
+        },
+        {
+          "title": "2. Fraction-Percentage Table",
+          "content": "<h3>The Beginner's Shortcut</h3><p>Memorizing these will help you solve problems in seconds without a calculator:</p><ul><li><b>1/2</b> = 50%</li><li><b>1/4</b> = 25%</li><li><b>1/5</b> = 20%</li><li><b>1/8</b> = 12.5%</li><li><b>1/10</b> = 10%</li></ul>"
+        },
+        {
+          "title": "3. Price vs Consumption",
+          "content": "<h3>Keeping the Budget Balanced</h3><p>If the price of an item increases by <b>R%</b>, you must reduce how much you buy to keep your spending the same.</p><div class='shortcut-box'><b>Reduction Formula:</b> [R / (100 + R)] × 100%</div><p><i>Example: If price rises by 25%, you must reduce consumption by [25/125] × 100 = 20%.</i></p>"
+        },
+        {
+          "title": "4. The Net Change Trick",
+          "content": "<h3>Successive Changes</h3><p>When a value changes twice in a row (like two discounts or two price hikes), use this formula:</p><div class='formula-box'><b>Net Change = [x + y + (xy/100)]%</b></div><p>Note: Use <b>negative</b> numbers for discounts/decreases and <b>positive</b> for increases.</p>"
+        }
       ],
       "Profit & Loss": [
-        { "title": "Introduction", "content": "Profit and loss are financial terms used to determine the gain or loss in a transaction." },
-        { "title": "Formulas", "content": "Profit = SP - CP; Loss = CP - SP; Profit % = (Profit/CP) × 100; Loss % = (Loss/CP) × 100" },
-        { "title": "Example", "content": "If CP = 100 and SP = 120, Profit = 20 and Profit % = 20%." }
+        {
+          "title": "The Fundamentals",
+          "content": "<p>Profit and Loss deal with the buying and selling prices of commodities. Understanding these terms is the first step:</p><ul><li><b>Cost Price (CP):</b> The price at which an item is purchased.</li><li><b>Selling Price (SP):</b> The price at which an item is sold.</li><li><b>Marked Price (MP):</b> The price listed on the tag by the shopkeeper.</li></ul><p>Profit occurs when <b>SP > CP</b>, and Loss occurs when <b>CP > SP</b>.</p>"
+        },
+        {
+          "title": "Important Profit & Loss Formulas",
+          "content": "<div style='background:#f8fafc; border:1px solid #e2e8f0; padding:1rem; border-radius:10px;'>1. Profit = SP - CP<br>2. Loss = CP - SP<br>3. Profit% = (Profit / CP) \u00d7 100<br>4. Loss% = (Loss / CP) \u00d7 100</div><p style='margin-top:1rem; color:#ef4444;'><b>Warning:</b> Profit and Loss percentages are <u>always</u> calculated on the Cost Price (CP) unless stated otherwise in the question.</p>"
+        },
+        {
+          "title": "Discounts and Successive Discounts",
+          "content": "<p>Discounts are always calculated on the <b>Marked Price (MP)</b>.</p><ul><li><b>Selling Price (SP)</b> = MP - Discount</li><li><b>Discount %</b> = (Discount / MP) \u00d7 100</li></ul><br><b>Shortcut for Successive Discounts:</b><br>If a shopkeeper offers two successive discounts of x% and y%, the equivalent single discount is:<br><div style='background:#eff6ff; padding:0.8rem; border-left:4px solid #3b82f6;'>(x + y - xy/100)%</div>"
+        }
       ],
       "Simple Interest": [
-        { "title": "Introduction", "content": "Simple Interest is calculated only on the principal amount." },
-        { "title": "Formula", "content": "SI = (P × R × T) / 100, where P = Principal, R = Rate, T = Time." },
-        { "title": "Example", "content": "If P = 1000, R = 5%, T = 2 years, SI = (1000×5×2)/100 = 100." }
-      ],
-      "Compound Interest": [
-        { "title": "Introduction", "content": "Compound Interest is calculated on the principal and also on the accumulated interest." },
-        { "title": "Formula", "content": "CI = P(1 + R/100)^T - P" }
-      ],
-      "Ratio": [
-        { "title": "Introduction", "content": "A ratio is a comparison of two quantities by division." },
-        { "title": "Example", "content": "Ratio of 2 and 3 is 2:3." }
+        {
+          "title": "Introduction to Simple Interest",
+          "content": "<p>Simple Interest (SI) is a quick method of calculating the interest charge on a loan. It is determined by multiplying the daily interest rate by the principal by the number of days that elapse between payments.</p><br><b>The Master Formula:</b><br><div style='background:#f1f5f9; padding:1rem; border-radius:8px; font-family:monospace; font-size:1.2rem;'>SI = (P \u00d7 R \u00d7 T) / 100</div><p style='margin-top:1rem;'>Where:<br><b>P</b> = Principal Amount<br><b>R</b> = Annual Interest Rate (%)<br><b>T</b> = Time Period (Years)</p>"
+        },
+        {
+          "title": "Total Amount and Variations",
+          "content": "<p>The Total Amount (A) returned to the lender includes both the principal and the interest earned.</p><div style='background:#f8fafc; padding:1rem; border:1px solid #e2e8f0; border-radius:8px;'><b>Amount (A) = P + SI</b><br>or<br><b>A = P [1 + (RT/100)]</b></div><br><b>Time Factor Tip:</b> If the time is given in months, divide by 12 to convert to years. If given in days, divide by 365."
+        }
       ],
       "Time & Distance": [
-        { "title": "Introduction", "content": "Relationship between speed, distance, and time." },
-        { "title": "Formula", "content": "Speed = Distance / Time; km/hr to m/s: multiply by 5/18." }
+        {
+          "title": "The Speed-Time-Distance Relationship",
+          "content": "<p>This is the foundation of all problems involving motion. The three variables are linked by one simple equation:</p><div style='background:#f1f5f9; padding:1rem; border-radius:8px; text-align:center; font-size:1.1rem;'><b>Distance = Speed \u00d7 Time</b></div><br><b>Unit Conversion (The 5/18 Rule):</b><ul><li>To convert <b>km/hr</b> to <b>m/s</b>: Multiply by 5/18.</li><li>To convert <b>m/s</b> to <b>km/hr</b>: Multiply by 18/5.</li></ul>"
+        },
+        {
+          "title": "Relative Speed and Trains",
+          "content": "<p>Relative speed is the speed of one object with respect to another.</p><ul><li><b>Same Direction:</b> Relative Speed = |S1 - S2|</li><li><b>Opposite Direction:</b> Relative Speed = S1 + S2</li></ul><br><b>Train Crossing Logic:</b><br>1. When a train crosses a <u>stationary pole/man</u>, the distance covered equals the <b>Length of the Train</b>.<br>2. When a train crosses a <u>bridge/platform</u>, the distance covered equals <b>(Length of Train + Length of Platform)</b>."
+        }
       ],
       "Time & Work": [
-        { "title": "Introduction", "content": "Relationship between number of persons, time taken and amount of work done." }
+        {
+          "title": "Concepts of Work and Efficiency",
+          "content": "<p>Time and work problems depend on the relationship between the time taken to complete a job and the rate of work (efficiency).</p><ul><li>If A completes a task in <b>n</b> days, his 1-day work is <b>1/n</b>.</li><li>Efficiency is inversely proportional to time. If A is twice as efficient as B, A will take half the time B takes.</li></ul>"
+        },
+        {
+          "title": "The Group Work Formula (Chain Rule)",
+          "content": "<p>When multiple people work together for different hours or days, use the <b>Man-Days Formula</b>:</p><div style='background:#f1f5f9; padding:1rem; border-radius:8px; font-family:monospace;'>(M1 \u00d7 D1 \u00d7 H1) / W1 = (M2 \u00d7 D2 \u00d7 H2) / W2</div><br><p>Where:<br>M = No. of Workers<br>D = Days<br>H = Hours per day<br>W = Total Work or Wages earned</p>"
+        }
       ],
       "Average": [
-        { "title": "Introduction", "content": "Average = (Sum of observations) / (Number of observations)" }
+        {
+          "title": "Understanding Averages",
+          "content": "<p>An average (or mean) is the central value of a set of data. It is the ratio of the sum of all observations to the total number of observations.</p><br><div style='background:#f1f5f9; padding:1rem; border-radius:8px;'><b>Average = Sum of Observations / Number of Observations</b></div><br><p><b>The Replacement Rule:</b><br>If a new person joins a group and the average increases by 'x', the weight/age of the new person = (Old Average) + (New Total Strength \u00d7 x).</p>"
+        }
       ],
       "HCF & LCM": [
-        { "title": "Introduction", "content": "Highest Common Factor and Lowest Common Multiple concepts." }
+        {
+          "title": "HCF and LCM Concepts",
+          "content": "<ul><li><b>HCF (Highest Common Factor):</b> The greatest number that exactly divides two or more numbers. Also known as GCD.</li><li><b>LCM (Least Common Multiple):</b> The smallest number which is exactly divisible by two or more numbers.</li></ul><br><b>Crucial Rule for Two Numbers:</b><br><div style='background:#f0fdf4; padding:1rem; border-radius:8px; text-align:center;'><b>HCF(a,b) \u00d7 LCM(a,b) = a \u00d7 b</b></div>"
+        }
       ],
       "Number System": [
-        { "title": "Introduction", "content": "Classification of numbers and divisibility rules." }
+        {
+          "title": "Classification of Numbers",
+          "content": "<p>A number system is a way of representing numbers. Standard types include:</p><ul><li><b>Natural Numbers:</b> 1, 2, 3...</li><li><b>Whole Numbers:</b> 0, 1, 2, 3...</li><li><b>Integers:</b> ...-2, -1, 0, 1, 2...</li><li><b>Prime Numbers:</b> Numbers with exactly two factors (e.g., 2, 3, 5, 7, 11). 2 is the only even prime.</li></ul>"
+        }
       ],
       "Ages": [
-        { "title": "Introduction", "content": "Algebraic approach to solving age-related problems." }
+        {
+          "title": "Solving Age Problems",
+          "content": "<p>Problems on ages are essentially linear equations. The key is to correctly set up the variables based on the timeframe.</p><ul><li>If current age is <b>X</b>, then age <b>n</b> years ago was <b>X - n</b>.</li><li>If current age is <b>X</b>, then age <b>n</b> years from now will be <b>X + n</b>.</li></ul><p><b>Important Note:</b> The difference between the ages of two people remains constant throughout their lives.</p>"
+        }
       ],
       "Probability": [
-        { "title": "Introduction", "content": "The likelihood of an event happening." }
+        {
+          "title": "Fundamentals of Probability",
+          "content": "<p>Probability is the branch of mathematics concerning numerical descriptions of how likely an event is to occur.</p><br><b>The Probability Formula:</b><br><div style='background:#f1f5f9; padding:1rem; border-radius:8px;'><b>P(E) = n(E) / n(S)</b></div><p>Where:<br>n(E) = Number of favorable outcomes<br>n(S) = Total number of possible outcomes in the Sample Space.</p>"
+        }
       ]
     }
+
+    
   },
   "Reasoning": {
     "title": "Logical Reasoning",
     "overview": "Logical reasoning helps in developing analytical skills through patterns and puzzles.",
     "topics": {
       "Number Series": [
-        { "title": "Introduction", "content": "A number series is a sequence of numbers following a certain pattern." },
-        { "title": "Example", "content": "2, 4, 8, 16, ? (Answer: 32, as each number is multiplied by 2)" }
+        { "title": "Patterns", "content": "Series can follow Addition, Subtraction, Multiplication, Division, Squares, or Cubes pattern." },
+        { "title": "Mixed Series", "content": "Example: 2, 5, 10, 17... (Pattern is n\u00b2 + 1). 1\u00b2+1, 2\u00b2+1, 3\u00b2+1, etc." }
       ],
       "Coding-Decoding": [
-        { "title": "Introduction", "content": "Coding-Decoding involves converting words or numbers according to a specific rule or pattern." },
-        { "title": "Example", "content": "If CAT is coded as DBU, then DOG is coded as EPH (each letter shifted by 1)." }
+        { "title": "Letter Shifting", "content": "Letters are shifted forward/backward. Tip: Write A-Z with positions 1-26." },
+        { "title": "Opposite Letters", "content": "Pairs that sum to 27: A-Z, B-Y, C-X, D-W (EV, FU, GT, HS, IR, JQ, KP, LO, MN)." }
       ],
       "Blood Relation": [
-        { "title": "Introduction", "content": "Use family tree diagrams to solve complex relationship problems." }
+        { "title": "Family Tree Symbols", "content": "Male: (+), Female: (-), Couple: (=), Siblings: (\u2014), Generations: vertical line (|)." },
+        { "title": "Relations", "content": "Maternal: From Mother's side. Paternal: From Father's side. In-laws: By marriage." }
       ],
       "Calendar": [
-        { "title": "Introduction", "content": "Concepts of leap years, odd days, and day calculation." }
+        { "title": "Leap Years", "content": "Divisible by 4. Century years must be divisible by 400 (e.g., 2000 is leap, 1900 is not)." },
+        { "title": "Odd Days", "content": "Ordinary year (365 days) = 1 odd day. Leap year (366 days) = 2 odd days. 100 years = 5 odd days, 400 years = 0 odd days." }
       ],
       "Direction": [
-        { "title": "Introduction", "content": "Tracking movement and final orientation using cardinal directions." }
+        { "title": "Cardinal Points", "content": "Main: North, South, East, West. Sub-directions: NE, NW, SE, SW." },
+        { "title": "Pythagoras Rule", "content": "Shortest distance c = \u221a(a\u00b2 + b\u00b2), where a and b are perpendicular paths." }
       ],
       "Clock": [
-        { "title": "Introduction", "content": "Angle between hands and reflection/water images of clocks." }
+        { "title": "Angle Formula", "content": "Angle between hands = <b>|30H - (11/2)M|</b>." },
+        { "title": "Mirror Image", "content": "Mirror Time = <b>11:60 - Actual Time</b> (if time is between 1 and 11). Otherwise use 23:60." }
       ],
       "Syllogism": [
-        { "title": "Introduction", "content": "Deductive reasoning using Venn diagrams." }
+        { "title": "Venn Diagrams", "content": "All A are B: A is inside B. Some A are B: A and B intersect. No A is B: A and B are separate." },
+        { "title": "Conclusions", "content": "A conclusion is valid only if it holds true in all possible Venn diagram cases." }
       ],
       "Seating Arrangement": [
-        { "title": "Introduction", "content": "Linear, circular, and square arrangement patterns." }
+        { "title": "Circular", "content": "Facing center: Right is anticlockwise, Left is clockwise. Facing out: Opposite." },
+        { "title": "Linear", "content": "Facing North: Your left is their left. Facing South: Your left is their right." }
       ],
       "Analogy": [
-        { "title": "Introduction", "content": "Finding similar relationships between pairs of words or numbers." }
+        { "title": "Types", "content": "Word Analogy (Country:Capital), Number Analogy (4:16 :: 5:25), Letter Analogy." }
       ],
       "Odd One Out": [
-        { "title": "Introduction", "content": "Identifying the term that doesn't fit the pattern." }
+        { "title": "Classification", "content": "Grouping by shared properties. Pick the one that doesn't share the property (e.g., Prime vs Composite)." }
       ],
       "Statement & Conclusion": [
-        { "title": "Introduction", "content": "Evaluating logical conclusions based on given premises." }
+        { "title": "Rules", "content": "Conclusion must follow directly from statement. Avoid assumptions outside the statement." }
       ]
     }
   },
@@ -96,30 +151,29 @@
     "overview": "Verbal ability tests language proficiency and comprehension.",
     "topics": {
       "Synonyms": [
-        { "title": "Introduction", "content": "Synonyms are words that have similar meanings." },
-        { "title": "Example", "content": "Happy - Joyful, Sad - Unhappy." }
+        { "title": "Basics", "content": "Words with similar meanings. Example: Abandon - Forsake, Abundant - Plentiful." }
       ],
       "Antonyms": [
-        { "title": "Introduction", "content": "Antonyms are words that have opposite meanings." },
-        { "title": "Example", "content": "Hot - Cold, Big - Small." }
+        { "title": "Basics", "content": "Words with opposite meanings. Example: Ancient - Modern, Arrogant - Humble." }
       ],
       "Fill in the Blanks": [
-        { "title": "Introduction", "content": "Focus on grammar, tenses, and context clues." }
+        { "title": "Strategies", "content": "1. Check grammar (Tense, Article). 2. Identify the tone (Positive/Negative). 3. Look for context clues." }
       ],
       "Idioms & Phrases": [
-        { "title": "Introduction", "content": "Common expressions with non-literal meanings." }
+        { "title": "Examples", "content": "<b>A piece of cake:</b> Very easy.<br><b>Spill the beans:</b> Reveal a secret.<br><b>Under the weather:</b> Feeling sick." }
       ],
       "One Word Substitution": [
-        { "title": "Introduction", "content": "Replacing long sentences with a single precise word." }
+        { "title": "People/Groups", "content": "<b>Atheist:</b> One who doesn't believe in God.<br><b>Philanthropist:</b> Lover of mankind.<br><b>Altruist:</b> One who works for others." }
       ],
       "Reading Comprehension": [
-        { "title": "Introduction", "content": "Analyzing passages and answering questions based on them." }
+        { "title": "Methods", "content": "Skimming: Quick reading for gist. Scanning: Looking for specific info. SQ3R: Survey, Question, Read, Recite, Review." }
       ],
       "Sentence Correction": [
-        { "title": "Introduction", "content": "Identifying and fixing grammatical errors in sentences." }
+        { "title": "S-V Agreement", "content": "Singular subject takes singular verb. 'Each', 'Every', 'Either' are singular." },
+        { "title": "Tenses", "content": "Ensure consistency in tense throughout the sentence." }
       ],
       "Spelling Test": [
-        { "title": "Introduction", "content": "Recognizing correctly spelled words." }
+        { "title": "Common Errors", "content": "Words with double consonants (Occurred, Committee) or tricky vowels (Receive, Believe)." }
       ]
     }
   }

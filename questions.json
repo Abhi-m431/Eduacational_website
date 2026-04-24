@@ -398,5 +398,85 @@
     "options": ["100", "120", "140", "150"],
     "ans": "D",
     "explain": "50% of 300 = 150."
+  },
+  {
+    "id": 51,
+    "tag": "Compound Interest",
+    "q": "Find the compound interest on ₹10000 for 2 years at 10% per annum compounded annually.",
+    "options": ["₹2000", "₹2100", "₹2200", "₹2400"],
+    "ans": "B",
+    "explain": "Amount = 10000(1 + 10/100)^2 = 10000(1.1)^2 = 12100. CI = 12100 - 10000 = ₹2100."
+  },
+  {
+    "id": 52,
+    "tag": "Time & Work",
+    "q": "A can do a work in 10 days and B in 15 days. If they work together, in how many days will they finish the work?",
+    "options": ["5", "6", "8", "9"],
+    "ans": "B",
+    "explain": "One day's work = 1/10 + 1/15 = (3+2)/30 = 5/30 = 1/6. Days required = 6."
+  },
+  {
+    "id": 53,
+    "tag": "Clock",
+    "q": "What is the angle between the hands of a clock at 4:20?",
+    "options": ["0°", "5°", "10°", "15°"],
+    "ans": "C",
+    "explain": "Angle = |30(4) - 5.5(20)| = |120 - 110| = 10°."
+  },
+  {
+    "id": 54,
+    "tag": "Calendar",
+    "q": "Today is Monday. After 61 days, it will be:",
+    "options": ["Wednesday", "Saturday", "Tuesday", "Thursday"],
+    "ans": "B",
+    "explain": "61 mod 7 = 5. Monday + 5 days = Saturday."
+  },
+  {
+    "id": 55,
+    "tag": "Idioms & Phrases",
+    "q": "Meaning of the idiom: 'To spill the beans'",
+    "options": ["To drop something", "To reveal a secret", "To cook food", "To be clumsy"],
+    "ans": "B",
+    "explain": "'Spilling the beans' refers to revealing information that was meant to be kept secret."
+  },
+  {
+    "id": 56,
+    "tag": "Percentage",
+    "q": "If 20% of a number is 120, what is 120% of that number?",
+    "options": ["480", "720", "360", "600"],
+    "ans": "B",
+    "explain": "Number = 120 / 0.2 = 600. 120% of 600 = 1.2 * 600 = 720."
+  },
+  {
+    "id": 57,
+    "tag": "Direction",
+    "q": "A man walks 5km South, then turns right and walks 3km. Then he turns left and walks 5km. In which direction is he now from the starting point?",
+    "options": ["South-East", "South-West", "North", "North-East"],
+    "ans": "B",
+    "explain": "The net movement is South and West."
+  },
+  {
+    "id": 58,
+    "tag": "Average",
+    "q": "The average of seven consecutive numbers is 20. The largest of these numbers is:",
+    "options": ["20", "22", "23", "24"],
+    "ans": "C",
+    "explain": "Let numbers be x-3, x-2, x-1, x, x+1, x+2, x+3. Average x = 20. Largest is 20+3 = 23."
+  },
+  {
+    "id": 59,
+    "tag": "Ratio",
+    "q": "If A:B = 2:3 and B:C = 4:5, find A:C.",
+    "options": ["8:15", "2:5", "3:4", "10:12"],
+    "ans": "A",
+    "explain": "A/C = (A/B) * (B/C) = (2/3) * (4/5) = 8/15."
+  },
+  {
+    "id": 60,
+    "tag": "Number System",
+    "q": "Which of the following is a prime number?",
+    "options": ["33", "81", "93", "97"],
+    "ans": "D",
+    "explain": "97 has no factors other than 1 and itself."
   }
 ]
