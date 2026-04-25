@@ -3,6 +3,14 @@ function scrollToSection(id) {
   document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
 }
 
+const motivationalQuotes = [
+    "Success is the sum of small efforts, repeated day in and day out.",
+    "The secret of getting ahead is getting started.",
+    "Believe you can and you're halfway there.",
+    "It always seems impossible until it's done.",
+    "Don't stop when you're tired. Stop when you're done."
+];
+
 // Efficient multi-page theory rendering using theory.json, with pagination for each subcategory and dynamic sidebar generation
 let theoryData = null;
 let currentTheory = { category: null, subcat: null };
@@ -12,8 +20,40 @@ fetch('theory.json')
   .then(json => {
     theoryData = json;
     renderSidebar();
-    renderTheory('Quantitative Aptitude');
+    renderHome();
   });
+
+function renderHome() {
+    const quote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
+    const container = document.getElementById('questions-list');
+    document.getElementById('bread-cat').innerText = "Home";
+    document.getElementById('display-title').innerText = "Student Dashboard";
+    
+    container.innerHTML = `
+        <div class="welcome-container" style="animation: fadeIn 0.5s ease-out;">
+            <div class="welcome-hero" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=1000'); background-size: cover; background-position: center; height: 200px; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; margin-bottom: 2rem; box-shadow: var(--shadow);">
+                <h2 style="font-size: 2rem; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">Fuel Your Ambition</h2>
+            </div>
+
+            <div class="quote-card" style="background: white; padding: 2.5rem; border-radius: 24px; box-shadow: var(--shadow); margin-bottom: 2.5rem; border-left: 10px solid var(--primary); text-align: left;">
+                <p style="font-size: 0.85rem; text-transform: uppercase; font-weight: 800; color: var(--primary); letter-spacing: 0.1em; margin-bottom: 1rem;">Daily Motivation</p>
+                <p style="font-size: 1.4rem; font-style: italic; color: #1e293b; line-height: 1.6; font-weight: 500;">"${quote}"</p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div class="question-card" style="cursor: pointer; text-align: left;" onclick="renderTheory('Quantitative Aptitude')">
+                    <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Study Topics</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-muted);">Browse detailed formulas and concepts for your upcoming exams.</p>
+                </div>
+                <div class="question-card" style="cursor: pointer; text-align: left;" onclick="chooseMockTest()">
+                    <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Practice Test</h3>
+                    <p style="font-size: 0.95rem, color: var(--text-muted);">Jump straight into a 10-question drill to test your current knowledge.</p>
+                </div>
+            </div>
+        </div>
+    `;
+    currentTheory = { category: null, subcat: null };
+}
 
 function renderTheory(category, subcat = null) {
     if (!theoryData) return;
@@ -21,7 +61,23 @@ function renderTheory(category, subcat = null) {
     const cat = theoryData[category];
     if (!cat) return;
     let title = cat.title;
-    let content = `<div>${cat.overview || ''}</div>`;
+    
+    // Default "At a Glance" view for the Main Category
+    let content = `
+        <div class="category-glance">
+            <p class="theory-content" style="margin-bottom: 2.5rem; font-size: 1.125rem; color: #475569;">${cat.overview || ''}</p>
+            <h3 style="margin-bottom: 1.5rem; color: var(--text-dark); border-bottom: 2px solid var(--primary-light); padding-bottom: 0.5rem; display: inline-block;">Module Curriculum</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-top: 0.5rem;">
+                ${Object.keys(cat.topics).map(topic => `
+                    <div class="glance-card" onclick="renderTheory('${category}', '${topic}')" style="background: white; border: 1px solid var(--border); padding: 1.25rem; border-radius: 12px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                        <span style="font-weight: 600; color: var(--text-dark);">${topic}</span>
+                        <span style="color: var(--primary); font-weight: 800;">➔</span>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+
     let breadcrumb = category;
     if (subcat && cat.topics[subcat]) {
         const topicsList = cat.topics[subcat];
@@ -98,6 +154,9 @@ async function startPractice(tag) {
             </div>
         </article>
     `).join('');
+    container.innerHTML += `<div class="cta-footer">
+        <button class="btn btn-primary btn-lg" onclick="finishPractice('${tag}')">Finish Practice Test ➔</button>
+    </div>`;
 }
 
 function checkPracticeOption(element, selected, correct) {
@@ -118,6 +177,21 @@ function checkPracticeOption(element, selected, correct) {
         });
     }
     // Do NOT auto-show explanation. User must click the button to reveal.
+}
+
+function finishPractice(tag) {
+    const cards = document.querySelectorAll('.question-card[data-answered="true"]');
+    const total = document.querySelectorAll('.question-card').length;
+    let correct = 0;
+
+    cards.forEach(card => {
+        if (card.querySelector('.option-label.correct')) correct++;
+    });
+
+    if (cards.length === 0) return alert("Please answer at least one question before finishing.");
+
+    // Display score for feedback only, without tracking to database
+    alert(`Practice Finished! You scored ${correct}/${total}. Keep practicing to improve!`);
 }
 
 function renderSidebar() {
@@ -175,6 +249,151 @@ function switchTab(cat, element, subtopic = null) {
     }
 }
 
+async function showStatistics() {
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    const container = document.getElementById('questions-list');
+    document.getElementById('bread-cat').innerText = "Performance";
+    document.getElementById('display-title').innerText = "Your Statistics";
+    container.innerHTML = "<div class='question-card'>Loading your performance data...</div>";
+
+    if (!window.getUserResults) return;
+    const results = await window.getUserResults();
+    
+    if (!results || results.length === 0) {
+        container.innerHTML = "<div class='question-card'>No performance data found. Take a Mock Test to see your BI analysis!</div>";
+        return;
+    }
+
+    // BI Logic: Aggregate data for visuals
+    const reversedResults = [...results].reverse(); // Oldest to newest for trend
+    const dates = reversedResults.map(r => r.timestamp ? r.timestamp.toDate().toLocaleDateString() : 'Just now');
+    const scores = reversedResults.map(r => r.percentage);
+    
+    const focusFrequencies = {};
+    let totalQuestions = 0;
+    let totalCorrect = 0;
+
+    results.forEach(r => {
+        totalQuestions += (r.total || 10);
+        totalCorrect += (r.score || 0);
+        if (r.focusArea && r.focusArea !== "None") {
+            focusFrequencies[r.focusArea] = (focusFrequencies[r.focusArea] || 0) + 1;
+        }
+    });
+
+    const avgAccuracy = Math.round((totalCorrect / totalQuestions) * 100);
+    const sortedWeaknesses = Object.entries(focusFrequencies).sort((a, b) => b[1] - a[1]);
+    const topWeakness = sortedWeaknesses.length > 0 ? sortedWeaknesses[0][0] : "None Detected";
+
+    // Render Layout
+    let html = `
+        <!-- Metric Row -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+            <div class="question-card" style="text-align: center; padding: 1.5rem; margin-bottom:0; border-bottom: 4px solid var(--primary);">
+                <p style="color: var(--text-muted); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 0.5rem;">Overall Accuracy</p>
+                <h2 style="font-size: 2.5rem; color: var(--text-dark);">${avgAccuracy}%</h2>
+            </div>
+            <div class="question-card" style="text-align: center; padding: 1.5rem; margin-bottom:0; border-bottom: 4px solid #f59e0b;">
+                <p style="color: var(--text-muted); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 0.5rem;">Total Attempts</p>
+                <h2 style="font-size: 2.5rem; color: var(--text-dark);">${results.length}</h2>
+            </div>
+            <div class="question-card" style="text-align: center; padding: 1.5rem; margin-bottom:0; border-bottom: 4px solid #ef4444;">
+                <p style="color: var(--text-muted); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 0.5rem;">Critical Weakness</p>
+                <h2 style="font-size: 1.25rem; color: #ef4444; height: 3rem; display: flex; align-items: center; justify-content: center;">${topWeakness}</h2>
+            </div>
+        </div>
+
+        <!-- Visual Analytics Row -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+            <div class="question-card" style="margin-bottom:0;">
+                <h3 style="margin-bottom: 1rem; font-size: 1rem;">Performance Trend</h3>
+                <canvas id="trendChart" height="250"></canvas>
+            </div>
+            <div class="question-card" style="margin-bottom:0;">
+                <h3 style="margin-bottom: 1rem; font-size: 1rem;">Repeated Mistakes by Topic</h3>
+                <canvas id="weaknessChart" height="250"></canvas>
+            </div>
+        </div>
+
+        <!-- History Table -->
+        <div class="question-card">
+            <h3 style="margin-bottom: 1.5rem;">Recent Attempt History</h3>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                        <tr style="text-align: left; border-bottom: 2px solid var(--border);">
+                            <th style="padding: 1rem;">Date</th>
+                            <th style="padding: 1rem;">Session</th>
+                            <th style="padding: 1rem;">Accuracy</th>
+                            <th style="padding: 1rem;">Primary Weakness</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${results.map(r => `
+                            <tr style="border-bottom: 1px solid var(--border);">
+                                <td style="padding: 1rem; color: var(--text-muted);">${r.timestamp ? r.timestamp.toDate().toLocaleDateString() : 'Just now'}</td>
+                                <td style="padding: 1rem; font-weight: 600;">${r.testType} ${r.testId}</td>
+                                <td style="padding: 1rem; font-weight: 700; color: ${r.percentage >= 70 ? 'var(--success)' : 'var(--primary)'}">${r.percentage}%</td>
+                                <td style="padding: 1rem;"><span class="q-tag">${r.focusArea}</span></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    `;
+
+    container.innerHTML = html;
+
+    // Initialize BI Visuals
+    if (window.Chart) {
+        setTimeout(() => {
+            // 1. Trend Chart
+            new Chart(document.getElementById('trendChart').getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: 'Score %',
+                        data: scores,
+                        borderColor: '#2563eb',
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, max: 100 } }
+                }
+            });
+
+            // 2. Weakness Chart
+            new Chart(document.getElementById('weaknessChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(focusFrequencies),
+                    datasets: [{
+                        label: 'Mistake Frequency',
+                        data: Object.values(focusFrequencies),
+                        backgroundColor: '#ef4444',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { beginAtZero: true, ticks: { stepSize: 1 } }
+                    }
+                }
+            });
+        }, 100);
+    }
+}
 // Add this function to handle sidebar click for Mock Tests
 function showMockInstructions(mockNum, element) {
     // Update active class
@@ -187,8 +406,8 @@ function showMockInstructions(mockNum, element) {
         <div class="question-card" style="text-align:left;">
             <h2 style="color:#2563eb;">Mock Test ${mockNum} Instructions</h2>
             <ul style="margin-bottom:1.5rem;">
-                <li>This mock test contains 10 questions from all areas.</li>
-                <li>You have 10 minutes to complete the test.</li>
+                <li>This mock test contains 20 questions from all topics.</li>
+                <li>You have 15 minutes to complete the test.</li>
                 <li>Do not refresh or leave the page during the test.</li>
                 <li>Your score, percentage, answered/unanswered, and focus area will be shown after submission.</li>
             </ul>
@@ -234,14 +453,14 @@ async function startMockTest(mockNum) {
         const res = await fetch('data/mock_pool.json');
         const pool = await res.json();
         const randomSeed = Math.floor(Math.random() * 1000000) + mockNum;
-        mockQuestions = shuffleArray(pool, randomSeed).slice(0, 10);
+        mockQuestions = shuffleArray(pool, randomSeed).slice(0, 20);
     } catch (err) {
         alert("Failed to load Mock Test data. Ensure data/mock_pool.json exists.");
         return;
     }
-
-    // Set timer (e.g., 10 minutes for 10 questions)
-    let timeLimit = 10 * 60; // seconds
+    
+    // Set timer (15 minutes for 20 questions)
+    let timeLimit = 15 * 60; 
     let timeLeft = timeLimit;
 
     document.getElementById('questions-list').innerHTML = `
@@ -297,6 +516,8 @@ async function startMockTest(mockNum) {
         let total = mockQuestions.length;
         let answered = 0;
         let wrongByTag = {};
+        // Load cumulative mistakes from localStorage
+        let cumulativeMistakes = JSON.parse(localStorage.getItem('cumulativeMistakes') || '{}');
         mockQuestions.forEach(q => {
             const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
             if(selected) {
@@ -305,20 +526,24 @@ async function startMockTest(mockNum) {
                     correct++;
                 } else {
                     wrongByTag[q.tag] = (wrongByTag[q.tag] || 0) + 1;
+                    cumulativeMistakes[q.tag] = (cumulativeMistakes[q.tag] || 0) + 1;
                 }
             } else {
                 wrongByTag[q.tag] = (wrongByTag[q.tag] || 0) + 1;
+                cumulativeMistakes[q.tag] = (cumulativeMistakes[q.tag] || 0) + 1;
             }
         });
+        // Save cumulative mistakes
+        localStorage.setItem('cumulativeMistakes', JSON.stringify(cumulativeMistakes));
         let percent = Math.round((correct/total)*100);
         let notAnswered = total - answered;
 
-        // Find focus area (tag with most mistakes)
+        // Find focus area (tag with most mistakes across all attempts)
         let focusArea = "None";
         let maxWrong = 0;
-        for (let tag in wrongByTag) {
-            if (wrongByTag[tag] > maxWrong) {
-                maxWrong = wrongByTag[tag];
+        for (let tag in cumulativeMistakes) {
+            if (cumulativeMistakes[tag] > maxWrong) {
+                maxWrong = cumulativeMistakes[tag];
                 focusArea = tag;
             }
         }
@@ -330,12 +555,24 @@ async function startMockTest(mockNum) {
                 <p><b>Score:</b> ${correct} / ${total}</p>
                 <p><b>Percentage:</b> ${percent}%</p>
                 <p><b>Answered:</b> ${answered} &nbsp; <b>Not Answered:</b> ${notAnswered}</p>
-                <p><b>Focus Area:</b> ${focusArea !== "None" ? focusArea : "Great job! No weak area detected."}</p>
-                <p><b>${percent >= 70 ? "Great job! Keep practicing." : "Keep practicing to improve your score."}</b></p>
-                ${autoSubmit ? `<p style="color:#e11d48;"><b>Time's up! Your test was auto-submitted.</b></p>` : ""}
+                <p><b>Focus Area (all attempts):</b> ${focusArea !== "None" ? focusArea : "Great job! No weak area detected."}</p>
+                <p style="margin-top:1rem;"><b>${percent >= 70 ? "Great job! Keep practicing." : "Keep practicing to improve your score."}</b></p>
+                ${autoSubmit ? `<p style=\"color:#e11d48;\"><b>Time's up! Your test was auto-submitted.</b></p>` : ""}
             </div>
         `;
         document.getElementById('mock-result').scrollIntoView({behavior: "smooth"});
+
+        // Professional Tracking: Save the result to Firestore
+        if (window.savePerformanceResult) {
+            window.savePerformanceResult({
+                testType: "Mock Test",
+                testId: mockNum,
+                score: correct,
+                total: total,
+                percentage: percent,
+                focusArea: focusArea
+            });
+        }
     }
 }
 

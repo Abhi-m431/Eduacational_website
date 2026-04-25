@@ -333,6 +333,16 @@ h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-
 @media (max-width: 900px) {
     .dashboard { flex-direction: column; }
     .sidebar { width: 100%; height: auto; position: static; }
+    header { padding: 1rem; }
+    .logo-text { font-size: 1.25rem; }
+    .page-title { font-size: 1.75rem; }
+    .question-card { padding: 1.5rem; }
+    .login-card { padding: 1.5rem; width: 90%; }
+    
+    /* Make charts more readable on mobile */
+    canvas {
+        max-height: 300px;
+    }
 }
 .stylish-font {
     font-family: 'Poppins', 'Inter', Arial, sans-serif;
@@ -364,7 +374,6 @@ h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-
     overflow: hidden;
     box-shadow: 0 0 0 2px white;
 }
-
 /* --- Profile Dropdown --- */
 .profile-dropdown {
     position: relative;
@@ -461,6 +470,12 @@ h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-
 .logout-item:hover .dropdown-icon {
     color: #ef4444;
 }
+/* Specific styling for the logout button within the dropdown */
+.logout-btn {
+    padding: 4px 10px; /* Smaller padding */
+    font-size: 0.75rem; /* Smaller font size */
+    border-radius: 6px; /* Consistent border-radius */
+}
 
 /* --- Login Screen --- */
 .login-screen {
@@ -474,6 +489,16 @@ h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-
     top: 0;
     left: 0;
     z-index: 1000;
+}
+.login-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    border: 1px solid var(--border);
 }
 .login-card {
     background: white;
