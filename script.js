@@ -3,127 +3,171 @@ function scrollToSection(id) {
   document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
 }
 
-let allQuestions = [];
-let questionsLoaded = false;
+// Efficient multi-page theory rendering using theory.json, with pagination for each subcategory and dynamic sidebar generation
+let theoryData = null;
+let currentTheory = { category: null, subcat: null };
 
-fetch('questions.json')
+fetch('theory.json')
   .then(res => res.json())
-  .then(jsonData => {
-    allQuestions = jsonData;
-    questionsLoaded = true;
-    render('Arithmetic'); 
-  })
-  .catch(err => {
-    questionsLoaded = true;
-    render('Arithmetic');
+  .then(json => {
+    theoryData = json;
+    renderSidebar();
+    renderTheory('Quantitative Aptitude');
   });
 
-// Theory/formula content for each category
-const categoryTheory = {
-    Arithmetic: `
-        <h2>Arithmetic Aptitude - Key Concepts & Formulas</h2>
-        <ul>
-            <li><b>Percentage:</b> Percentage = (Value/Total Value) × 100</li>
-            <li><b>Profit & Loss:</b> Profit = SP - CP, Loss = CP - SP</li>
-            <li><b>Simple Interest:</b> SI = (P × R × T)/100</li>
-            <li><b>Ratio:</b> Ratio = Quantity1 / Quantity2</li>
-            <li><b>Time & Distance:</b> Speed = Distance / Time</li>
-            <li>...and more. Practice examples for better understanding.</li>
-        </ul>
-    `,
-    Reasoning: `
-        <h2>Logical Reasoning - Key Concepts</h2>
-        <ul>
-            <li><b>Number Series:</b> Identify the pattern (addition, multiplication, squares, etc.)</li>
-            <li><b>Coding-Decoding:</b> Analyze letter/number shifts or patterns</li>
-            <li><b>Blood Relations:</b> Draw family trees for clarity</li>
-            <li>Practice visualizing and breaking down problems step by step.</li>
-        </ul>
-    `,
-    Verbal: `
-        <h2>Verbal Ability - Key Concepts</h2>
-        <ul>
-            <li><b>Synonyms & Antonyms:</b> Build vocabulary by reading and practicing word lists</li>
-            <li><b>Fill in the Blanks:</b> Focus on grammar and context clues</li>
-            <li>Practice reading comprehension and sentence correction regularly.</li>
-        </ul>
-    `
-};
-
-function render(category) {
-    if (!questionsLoaded) return;
-    document.getElementById('mock-result').innerHTML = "";
+function renderTheory(category, subcat = null) {
+    if (!theoryData) return;
     const container = document.getElementById('questions-list');
-    // Show theory section for categories
-    if (["Arithmetic", "Reasoning", "Verbal"].includes(category)) {
-        container.innerHTML = `<div class="theory-section">${categoryTheory[category]}</div>`;
+    const cat = theoryData[category];
+    if (!cat) return;
+    let title = cat.title;
+    let content = `<div>${cat.overview || ''}</div>`;
+    let breadcrumb = category;
+    if (subcat && cat.topics[subcat]) {
+        const topicsList = cat.topics[subcat];
+        if (!topicsList || !topicsList.length) return;
+        
+        title = subcat;
+        breadcrumb = `${category} / ${subcat}`;
+        
+        content = `<h2>${subcat} Overview</h2>`;
+        topicsList.forEach(topicData => {
+            content += `
+                <section class="theory-section">
+                    <h3>${topicData.title}</h3>
+                    <div class="theory-content">${topicData.content}</div>
+                </section>
+            `;
+        });
+
+        content += `<div class="cta-footer">
+            <button class='btn btn-primary btn-lg' onclick='startPractice("${subcat}")'>Start ${subcat} Practice Test ➔</button>
+        </div>`;
+    }
+    document.getElementById('bread-cat').innerText = breadcrumb;
+    document.getElementById('display-title').innerText = title;
+    container.innerHTML = `<div class=\"question-card\">${content}</div>`;
+    currentTheory = { category, subcat };
+}
+
+async function startPractice(tag) {
+    const container = document.getElementById('questions-list');
+    container.innerHTML = "<div class='question-card'>Loading practice questions...</div>";
+
+    // Get the category from global state to fetch the consolidated category file
+    const catName = currentTheory.category;
+    const fileName = catName.replace(/[^a-z0-9]/gi, '_') + '.json';
+    let allCatQuestions = [];
+    
+    try {
+        const res = await fetch(`data/${fileName}`);
+        if (!res.ok) throw new Error();
+        allCatQuestions = await res.json();
+    } catch (err) {
+        alert(`No questions found for category: ${catName}. Ensure data/${fileName} exists.`);
+        renderTheory(currentTheory.category, tag); // Reset view
         return;
     }
-    // Filter questions by tag/category from allQuestions
-    let questions = [];
-    if (category === 'Arithmetic') {
-        questions = allQuestions.filter(q => ["Percentage", "Time & Distance", "Simple Interest", "Ratio"].includes(q.tag));
-    } else if (category === 'Reasoning') {
-        questions = allQuestions.filter(q => ["Number Series", "Coding-Decoding", "Blood Relation"].includes(q.tag));
-    } else if (category === 'Verbal') {
-        questions = allQuestions.filter(q => ["Synonyms", "Antonyms", "Fill in the Blanks"].includes(q.tag));
-    } else {
-        questions = [];
-    }
+
+    // Filter category questions by the specific subcategory tag
+    const questions = allCatQuestions.filter(q => q.tag === tag);
+
     if (questions.length === 0) {
-        container.innerHTML = `<div class="question-card">No questions available for this category.</div>`;
+        alert(`No practice questions available for topic: ${tag}`);
+        renderTheory(catName, tag);
         return;
     }
-    document.getElementById('bread-cat').innerText = category;
-    document.getElementById('display-title').innerText = category + " Aptitude";
+
+    document.getElementById('display-title').innerText = `${tag} - Practice Test`;
+    
     container.innerHTML = questions.map((item, idx) => `
         <article class="question-card">
-            <span class="q-tag">${item.tag}</span>
             <p class="q-text">Q${idx + 1}. ${item.q}</p>
             <div class="options-grid">
-                ${item.options.map((opt, i) => `
-                    <label class="option-label">
-                        <input type="radio" name="q${item.id}">
-                        <span>${String.fromCharCode(65 + i)}) ${opt}</span>
-                    </label>
-                `).join('')}
+                ${item.options.map((opt, i) => {
+                    const letter = String.fromCharCode(65 + i);
+                    return `<div class="option-label" onclick="checkPracticeOption(this, '${letter}', '${item.ans}')"><span>${letter}) ${opt}</span></div>`;
+                }).join('')}
             </div>
-            <div class="actions">
-                <button class="btn btn-primary" onclick="toggleAns(${item.id})">
-                    Show Answer
-                </button>
-                <button class="btn">
-                    Discussion
-                </button>
-            </div>
-            <div class="answer-container" id="ans-box-${item.id}">
+            <button class="btn btn-primary" onclick="this.nextElementSibling.classList.add('show')">Show Answer & Explanation</button>
+            <div class="answer-container">
                 <div class="answer-content">
                     <span class="correct-badge">Correct Answer: ${item.ans}</span>
-                    <div class="explanation">
-                        <strong>Explanation:</strong><br>
-                        ${item.explain}
-                    </div>
+                    <div class="explanation"><strong>Explanation:</strong><br>${item.explain}</div>
                 </div>
             </div>
         </article>
     `).join('');
 }
 
-function toggleAns(id) {
-    const box = document.getElementById(`ans-box-${id}`);
-    box.classList.toggle('show');
-    
-    const btn = box.previousElementSibling.querySelector('.btn-primary');
-    btn.innerText = box.classList.contains('show') ? 'Hide Answer' : 'Show Answer';
+function checkPracticeOption(element, selected, correct) {
+    const card = element.closest('.question-card');
+    const options = card.querySelectorAll('.option-label');
+    // If already answered, do nothing
+    if (card.getAttribute('data-answered') === 'true') return;
+    card.setAttribute('data-answered', 'true');
+    if (selected === correct) {
+        element.classList.add('correct');
+    } else {
+        element.classList.add('wrong');
+        // Find and highlight the correct one
+        options.forEach(opt => {
+            if (opt.innerText.trim().startsWith(correct)) {
+                opt.classList.add('correct');
+            }
+        });
+    }
+    // Do NOT auto-show explanation. User must click the button to reveal.
 }
 
-function switchTab(cat, element) {
+function renderSidebar() {
+    const nav = document.getElementById('category-nav');
+    if (!nav || !theoryData) return;
+    nav.innerHTML = "";
+    Object.keys(theoryData).forEach(catKey => {
+        const cat = theoryData[catKey];
+        const safeId = catKey.replace(/[^a-z0-9]/gi, '_');
+        // Main Category Item
+        const item = document.createElement('div');
+        item.className = 'nav-item';
+        item.innerHTML = `<span>${cat.title}</span><span class=\"chevron\">▸</span>`;
+        item.onclick = (e) => toggleSubMenu(catKey, safeId, item);
+        nav.appendChild(item);
+        // Sub-navigation container
+        const subNav = document.createElement('div');
+        subNav.className = 'sub-nav';
+        subNav.id = `sub-${safeId}`;
+        Object.keys(cat.topics).forEach(topic => {
+            const subItem = document.createElement('div');
+            subItem.className = 'nav-item sub-item';
+            subItem.innerText = topic;
+            subItem.onclick = (e) => {
+                e.stopPropagation();
+                switchTab(catKey, subItem, topic);
+            };
+            subNav.appendChild(subItem);
+        });
+        nav.appendChild(subNav);
+    });
+}
+
+function toggleSubMenu(catKey, safeId, element) {
+    const subMenu = document.getElementById(`sub-${safeId}`);
+    const isOpen = subMenu.classList.contains('show');
+    subMenu.classList.toggle('show');
+    element.classList.toggle('open');
+    if (!isOpen) {
+        renderTheory(catKey);
+    }
+}
+
+function switchTab(cat, element, subtopic = null) {
     // Update active class
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     element.classList.add('active');
     
     // Render new data
-    render(cat);
+    renderTheory(cat, subtopic);
     
     // Scroll to top for mobile users
     if(window.innerWidth < 900) {
@@ -169,20 +213,37 @@ function chooseMockTest() {
     `;
 }
 
+let activeTimerInterval = null; // Global timer reference
 // MOCK TEST FEATURE
-function startMockTest(mockNum) {
+async function startMockTest(mockNum) {
+    // Always clear any previous timer before starting a new one
+    if (activeTimerInterval) {
+        clearInterval(activeTimerInterval);
+        activeTimerInterval = null;
+    }
+
     document.getElementById('bread-cat').innerText = "Mock Test " + mockNum;
     document.getElementById('display-title').innerText = "Mock Test " + mockNum + " (All Topics)";
     document.getElementById('mock-result').innerHTML = "";
 
-    const mockQuestions = getMockQuestions(mockNum);
+    document.getElementById('questions-list').innerHTML = "<div class='question-card'>Generating unique test...</div>";
+
+    let mockQuestions = [];
+    try {
+        // For Mock Tests, we fetch from a shared pool containing a mix of all topics
+        const res = await fetch('data/mock_pool.json');
+        const pool = await res.json();
+        const randomSeed = Math.floor(Math.random() * 1000000) + mockNum;
+        mockQuestions = shuffleArray(pool, randomSeed).slice(0, 10);
+    } catch (err) {
+        alert("Failed to load Mock Test data. Ensure data/mock_pool.json exists.");
+        return;
+    }
 
     // Set timer (e.g., 10 minutes for 10 questions)
     let timeLimit = 10 * 60; // seconds
     let timeLeft = timeLimit;
-    let timerInterval;
 
-    // Timer display
     document.getElementById('questions-list').innerHTML = `
         <div id="timer" style="font-size:1.2rem;font-weight:600;color:#2563eb;margin-bottom:1rem;">
             Time Left: <span id="timer-mins"></span>:<span id="timer-secs"></span>
@@ -202,7 +263,9 @@ function startMockTest(mockNum) {
                     </div>
                 </article>
             `).join('')}
-            <button type="submit" class="btn btn-primary" style="margin-bottom:2rem;">Submit Mock Test</button>
+            <div class="cta-footer">
+                <button type="submit" class="btn btn-primary btn-lg">Submit Mock Test ➔</button>
+            </div>
         </form>
     `;
 
@@ -214,18 +277,18 @@ function startMockTest(mockNum) {
     }
 
     updateTimerDisplay();
-    timerInterval = setInterval(() => {
+    activeTimerInterval = setInterval(() => {
         timeLeft--;
         updateTimerDisplay();
         if (timeLeft <= 0) {
-            clearInterval(timerInterval);
+            clearInterval(activeTimerInterval);
             submitMockTest(true);
         }
     }, 1000);
 
     document.getElementById('mockForm').onsubmit = function(e) {
         e.preventDefault();
-        clearInterval(timerInterval);
+        clearInterval(activeTimerInterval);
         submitMockTest(false);
     };
 
@@ -295,13 +358,3 @@ function mulberry32(a) {
         return ((t ^ t >>> 14) >>> 0) / 4294967296;
     }
 }
-
-function getMockQuestions(mockNum) {
-    // Use a different seed for each mockNum for repeatable shuffles
-    const seed = 12345 + mockNum;
-    const shuffled = shuffleArray(allQuestions, seed);
-    return shuffled.slice(0, 10);
-}
-
-// Initialize
-render('Arithmetic');

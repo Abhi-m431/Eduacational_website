@@ -1,0 +1,595 @@
+[
+  {
+    "id": 1,
+    "tag": "Percentage",
+    "q": "A man buys an item for ₹1200 and sells it at a gain of 20%. What is the selling price?",
+    "options": ["₹1400", "₹1440", "₹1500", "₹1340"],
+    "ans": "B",
+    "explain": "Profit = 240. SP = 1440."
+  },
+  {
+    "id": 2,
+    "tag": "Time, Speed and Distance",
+    "q": "A person crosses a 600m long street in 5 minutes. What is his speed in km/hr?",
+    "options": ["3.6", "7.2", "8.4", "10"],
+    "ans": "B",
+    "explain": "Speed = Distance / Time = 600m / 300sec = 2 m/sec. Convert to km/hr: 2 * (18/5) = 7.2 km/hr."
+  },
+  {
+    "id": 3,
+    "tag": "Simple and Compound Interest",
+    "q": "What is the simple interest on ₹1500 at 10% per annum for 2 years?",
+    "options": ["₹200", "₹250", "₹300", "₹350"],
+    "ans": "C",
+    "explain": "SI = (P × R × T)/100 = (1500 × 10 × 2)/100 = ₹300."
+  },
+  {
+    "id": 4,
+    "tag": "Ratio and Proportion",
+    "q": "Divide ₹600 in the ratio 2:3.",
+    "options": ["₹200, ₹400", "₹240, ₹360", "₹250, ₹350", "₹300, ₹300"],
+    "ans": "B",
+    "explain": "Total parts = 2+3=5; 2/5×600=240, 3/5×600=360."
+  },
+  {
+    "id": 5,
+    "tag": "Number Series",
+    "q": "Find the missing number in the series: 4, 9, 16, 25, ?",
+    "options": ["30", "34", "36", "49"],
+    "ans": "C",
+    "explain": "The series consists of squares of consecutive numbers: 2², 3², 4², 5², so the next is 6² = 36."
+  },
+  {
+    "id": 6,
+    "tag": "Coding-Decoding",
+    "q": "If CAT = 24 and DOG = 26, then BAT = ?",
+    "options": ["22", "23", "24", "25"],
+    "ans": "B",
+    "explain": "C=3, A=1, T=20; 3+1+20=24. B=2, A=1, T=20; 2+1+20=23."
+  },
+  {
+    "id": 7,
+    "tag": "Blood Relations",
+    "q": "Pointing to a man, a woman said, 'His mother is the only daughter of my mother.' How is the woman related to the man?",
+    "options": ["Mother", "Sister", "Aunt", "Grandmother"],
+    "ans": "A",
+    "explain": "Only daughter of my mother is herself. So, the woman is the man's mother."
+  },
+  {
+    "id": 8,
+    "tag": "Synonyms",
+    "q": "Choose the word which is most nearly the SAME in meaning as the word: BRIEF",
+    "options": ["Limited", "Small", "Short", "Little"],
+    "ans": "C",
+    "explain": "Brief means 'lasting a short time' or 'concise'. Short is the most appropriate synonym."
+  },
+  {
+    "id": 9,
+    "tag": "Antonyms",
+    "q": "Choose the word which is OPPOSITE in meaning to: GENEROUS",
+    "options": ["Kind", "Selfish", "Polite", "Rich"],
+    "ans": "B",
+    "explain": "Generous means giving; selfish is the opposite."
+  },
+  {
+    "id": 10,
+    "tag": "Fill in the Blanks",
+    "q": "He _______ to school every day.",
+    "options": ["go", "goes", "gone", "going"],
+    "ans": "B",
+    "explain": "'He' is singular, so 'goes' is correct."
+  },
+  {
+    "id": 11,
+    "tag": "Number Series",
+    "q": "Which number will replace the question mark? 2, 6, 12, 20, ?",
+    "options": ["30", "28", "24", "22"],
+    "ans": "B",
+    "explain": "Pattern: +4, +6, +8, +10; 20+8=28."
+  },
+  {
+    "id": 12,
+    "tag": "Coding-Decoding",
+    "q": "If the code for 'BANK' is 'CNOL', what is the code for 'LOAN'?",
+    "options": ["MPBO", "MPBN", "MPBO", "MPBN"],
+    "ans": "A",
+    "explain": "Each letter is shifted by 1: L→M, O→P, A→B, N→O."
+  },
+  {
+    "id": 14,
+    "tag": "Profit & Loss",
+    "q": "If the cost price is ₹500 and selling price is ₹600, what is the profit percentage?",
+    "options": ["10%", "15%", "20%", "25%"],
+    "ans": "C",
+    "explain": "Profit = 100; Profit% = (100/500)*100 = 20%."
+  },
+  {
+    "id": 15,
+    "tag": "Averages",
+    "q": "Find the average of 10, 20, 30, 40, 50.",
+    "options": ["25", "30", "35", "40"],
+    "ans": "B",
+    "explain": "Sum = 150; Average = 150/5 = 30."
+  },
+  {
+    "id": 16,
+    "tag": "Clocks and Calendars",
+    "q": "If 1st January 2020 was a Wednesday, what day was 1st January 2021?",
+    "options": ["Thursday", "Friday", "Saturday", "Sunday"],
+    "ans": "A",
+    "explain": "2020 is a leap year, so 2 days ahead: Wednesday + 2 = Friday."
+  },
+  {
+    "id": 17,
+    "tag": "Direction Sense",
+    "q": "A man facing north turns 90° right, then 180° left. Which direction is he facing?",
+    "options": ["East", "West", "South", "North"],
+    "ans": "B",
+    "explain": "North → Right = East; East → 180° left = West."
+  },
+  {
+    "id": 19,
+    "tag": "Blood Relations",
+    "q": "If A is the brother of B, B is the sister of C, C is the father of D, how is A related to D?",
+    "options": ["Uncle", "Father", "Brother", "Grandfather"],
+    "ans": "A",
+    "explain": "A is D's uncle."
+  },
+  {
+    "id": 22,
+    "tag": "Clocks and Calendars",
+    "q": "How many times do the hands of a clock coincide in a day?",
+    "options": ["22", "24", "21", "23"],
+    "ans": "A",
+    "explain": "22 times in 24 hours."
+  },
+  {
+    "id": 24,
+    "tag": "Profit & Loss",
+    "q": "If a shopkeeper sells an article at a loss of 10%, and its cost price is ₹200, what is the selling price?",
+    "options": ["₹180", "₹190", "₹210", "₹220"],
+    "ans": "B",
+    "explain": "Loss = 10% of 200 = 20; SP = 200 - 20 = 180."
+  },
+  {
+    "id": 25,
+    "tag": "Simple and Compound Interest",
+    "q": "Find the simple interest on ₹1000 at 5% per annum for 3 years.",
+    "options": ["₹100", "₹150", "₹200", "₹250"],
+    "ans": "B",
+    "explain": "SI = (1000×5×3)/100 = ₹150."
+  },
+  {
+    "id": 26,
+    "tag": "Percentage",
+    "q": "What is 25% of 480?",
+    "options": ["100", "110", "120", "130"],
+    "ans": "C",
+    "explain": "25% of 480 = (25/100)×480 = 120."
+  },
+  {
+    "id": 27,
+    "tag": "Averages",
+    "q": "Average of first five odd numbers?",
+    "options": ["3", "5", "7", "9"],
+    "ans": "B",
+    "explain": "Sum = 1+3+5+7+9=25; Average = 25/5=5."
+  },
+  {
+    "id": 28,
+    "tag": "Clocks and Calendars",
+    "q": "If 15th August 1947 was a Friday, what day was 15th August 1948?",
+    "options": ["Saturday", "Sunday", "Monday", "Tuesday"],
+    "ans": "A",
+    "explain": "1948 is a leap year, so 2 days ahead: Friday + 2 = Sunday."
+  },
+  {
+    "id": 29,
+    "tag": "Direction Sense",
+    "q": "If you face east and turn 270° clockwise, which direction are you facing?",
+    "options": ["North", "South", "West", "East"],
+    "ans": "B",
+    "explain": "East + 270° clockwise = South."
+  },
+  {
+    "id": 31,
+    "tag": "Blood Relations",
+    "q": "If P is the father of Q and Q is the mother of R, how is P related to R?",
+    "options": ["Father", "Grandfather", "Uncle", "Brother"],
+    "ans": "B",
+    "explain": "P is R's grandfather."
+  },
+  {
+    "id": 34,
+    "tag": "Clocks and Calendars",
+    "q": "How many times do the hands of a clock form a right angle in a day?",
+    "options": ["44", "48", "22", "24"],
+    "ans": "A",
+    "explain": "44 times in 24 hours."
+  },
+  {
+    "id": 36,
+    "tag": "Profit & Loss",
+    "q": "If the cost price is ₹800 and profit is 25%, what is the selling price?",
+    "options": ["₹900", "₹950", "₹1000", "₹1050"],
+    "ans": "C",
+    "explain": "Profit = 25% of 800 = 200; SP = 800 + 200 = 1000."
+  },
+  {
+    "id": 37,
+    "tag": "Simple and Compound Interest",
+    "q": "Find the simple interest on ₹2000 at 8% per annum for 2 years.",
+    "options": ["₹320", "₹340", "₹360", "₹380"],
+    "ans": "A",
+    "explain": "SI = (2000×8×2)/100 = ₹320."
+  },
+  {
+    "id": 38,
+    "tag": "Percentage",
+    "q": "What is 10% of 250?",
+    "options": ["20", "25", "30", "35"],
+    "ans": "B",
+    "explain": "10% of 250 = 25."
+  },
+  {
+    "id": 39,
+    "tag": "Averages",
+    "q": "Average of 2, 4, 6, 8, 10?",
+    "options": ["5", "6", "7", "8"],
+    "ans": "C",
+    "explain": "Sum = 30; Average = 30/5=6."
+  },
+  {
+    "id": 40,
+    "tag": "Clocks and Calendars",
+    "q": "If 1st March 2000 was a Wednesday, what day was 1st March 2001?",
+    "options": ["Thursday", "Friday", "Saturday", "Sunday"],
+    "ans": "A",
+    "explain": "2000 is a leap year, so 2 days ahead: Wednesday + 2 = Friday."
+  },
+  {
+    "id": 41,
+    "tag": "Direction Sense",
+    "q": "If you face south and turn 180°, which direction are you facing?",
+    "options": ["North", "South", "East", "West"],
+    "ans": "A",
+    "explain": "South + 180° = North."
+  },
+  {
+    "id": 43,
+    "tag": "Blood Relations",
+    "q": "If X is the son of Y and Y is the daughter of Z, how is X related to Z?",
+    "options": ["Son", "Grandson", "Nephew", "Uncle"],
+    "ans": "B",
+    "explain": "X is Z's grandson."
+  },
+  {
+    "id": 46,
+    "tag": "Clocks and Calendars",
+    "q": "How many times do the hands of a clock overlap in 12 hours?",
+    "options": ["11", "12", "10", "13"],
+    "ans": "A",
+    "explain": "11 times in 12 hours."
+  },
+  {
+    "id": 48,
+    "tag": "Profit & Loss",
+    "q": "If the cost price is ₹400 and loss is 10%, what is the selling price?",
+    "options": ["₹360", "₹370", "₹380", "₹390"],
+    "ans": "A",
+    "explain": "Loss = 10% of 400 = 40; SP = 400 - 40 = 360."
+  },
+  {
+    "id": 49,
+    "tag": "Simple and Compound Interest",
+    "q": "Find the simple interest on ₹500 at 12% per annum for 1 year.",
+    "options": ["₹50", "₹60", "₹70", "₹80"],
+    "ans": "B",
+    "explain": "SI = (500×12×1)/100 = ₹60."
+  },
+  {
+    "id": 50,
+    "tag": "Percentage",
+    "q": "What is 50% of 300?",
+    "options": ["100", "120", "140", "150"],
+    "ans": "D",
+    "explain": "50% of 300 = 150."
+  },
+  {
+    "id": 51,
+    "tag": "Simple and Compound Interest",
+    "q": "Find the compound interest on ₹10000 for 2 years at 10% per annum compounded annually.",
+    "options": ["₹2000", "₹2100", "₹2200", "₹2400"],
+    "ans": "B",
+    "explain": "Amount = 10000(1.1)^2 = 12100. CI = 12100 - 10000 = ₹2100."
+  },
+  {
+    "id": 52,
+    "tag": "Time & Work",
+    "q": "A can do a work in 10 days and B in 15 days. If they work together, in how many days will they finish the work?",
+    "options": ["5", "6", "8", "9"],
+    "ans": "B",
+    "explain": "Together they take 6 days."
+  },
+  {
+    "id": 53,
+    "tag": "Clocks and Calendars",
+    "q": "What is the angle between the hands of a clock at 4:20?",
+    "options": ["0°", "5°", "10°", "15°"],
+    "ans": "C",
+    "explain": "Angle = |30(4) - 5.5(20)| = 10°."
+  },
+  {
+    "id": 54,
+    "tag": "Clocks and Calendars",
+    "q": "Today is Monday. After 61 days, it will be:",
+    "options": ["Wednesday", "Saturday", "Tuesday", "Thursday"],
+    "ans": "B",
+    "explain": "61 mod 7 = 5. Monday + 5 days = Saturday."
+  },
+  {
+    "id": 55,
+    "tag": "Idioms/Phrases",
+    "q": "Meaning of the idiom: 'To spill the beans'",
+    "options": ["To drop something", "To reveal a secret", "To cook food", "To be clumsy"],
+    "ans": "B",
+    "explain": "'Spilling the beans' refers to revealing a secret."
+  },
+  {
+    "id": 56,
+    "tag": "Percentage",
+    "q": "If 20% of a number is 120, what is 120% of that number?",
+    "options": ["480", "720", "360", "600"],
+    "ans": "B",
+    "explain": "Number = 600. 120% of 600 = 720."
+  },
+  {
+    "id": 57,
+    "tag": "Direction Sense",
+    "q": "A man walks 5km South, then turns right and walks 3km. Then he turns left and walks 5km. In which direction is he now from the starting point?",
+    "options": ["South-East", "South-West", "North", "North-East"],
+    "ans": "B",
+    "explain": "The net movement is South and West."
+  },
+  {
+    "id": 58,
+    "tag": "Averages",
+    "q": "The average of seven consecutive numbers is 20. The largest of these numbers is:",
+    "options": ["20", "22", "23", "24"],
+    "ans": "C",
+    "explain": "Average x = 20. Largest is 20+3 = 23."
+  },
+  {
+    "id": 59,
+    "tag": "Ratio and Proportion",
+    "q": "If A:B = 2:3 and B:C = 4:5, find A:C.",
+    "options": ["8:15", "2:5", "3:4", "10:12"],
+    "ans": "A",
+    "explain": "A/C = (A/B) * (B/C) = 8/15."
+  },
+  {
+    "id": 60,
+    "tag": "Divisibility rules",
+    "q": "Which of the following is a prime number?",
+    "options": ["33", "81", "93", "97"],
+    "ans": "D",
+    "explain": "97 has no factors other than 1 and itself."
+  },
+  {
+    "id": 61,
+    "tag": "Percentage",
+    "q": "If A's income is 25% more than B's income, then how much percent is B's income less than A's income?",
+    "options": ["15%", "20%", "25%", "30%"],
+    "ans": "B",
+    "explain": "Let B=100, A=125. B is less than A by (25/125)*100 = 20%."
+  },
+  {
+    "id": 62,
+    "tag": "Percentage",
+    "q": "The price of sugar rises by 20%. By how much percent should a housewife reduce her consumption so that the expenditure does not increase?",
+    "options": ["12.5%", "16.66%", "20%", "25%"],
+    "ans": "B",
+    "explain": "[20/120]*100 = 16.66%."
+  },
+  {
+    "id": 65,
+    "tag": "Profit & Loss",
+    "q": "If the cost price of 10 articles is equal to the selling price of 8 articles, find the gain or loss percent.",
+    "options": ["20% Gain", "25% Gain", "20% Loss", "25% Loss"],
+    "ans": "B",
+    "explain": "[(10-8)/8]*100 = 25% gain."
+  },
+  {
+    "id": 69,
+    "tag": "Simple and Compound Interest",
+    "q": "A sum of money at simple interest doubles itself in 10 years. In how many years will it triple itself?",
+    "options": ["15", "20", "25", "30"],
+    "ans": "B",
+    "explain": "P to 2P takes 10 yrs. P to 3P needs 2P interest, which takes 20 yrs."
+  },
+  {
+    "id": 73,
+    "tag": "Simple and Compound Interest",
+    "q": "The difference between CI and SI on a sum of money for 2 years at 10% per annum is ₹50. The sum is:",
+    "options": ["₹4000", "₹5000", "₹6000", "₹7000"],
+    "ans": "B",
+    "explain": "50 = P(10/100)^2 => P = 5000."
+  },
+  {
+    "id": 77,
+    "tag": "Ratio and Proportion",
+    "q": "Two numbers are in the ratio 3:5. If 9 is subtracted from each, they are in the ratio 12:23. The smaller number is:",
+    "options": ["27", "33", "49", "55"],
+    "ans": "B",
+    "explain": "(3x-9)/(5x-9) = 12/23 => x=11. Smaller = 33."
+  },
+  {
+    "id": 81,
+    "tag": "Time, Speed and Distance",
+    "q": "A train 240m long passes a pole in 24 seconds. How long will it take to pass a platform 650m long?",
+    "options": ["65 sec", "89 sec", "100 sec", "150 sec"],
+    "ans": "B",
+    "explain": "Speed = 10 m/s. Dist = 890m. Time = 89 sec."
+  },
+  {
+    "id": 85,
+    "tag": "Time & Work",
+    "q": "If 12 men can build a wall 100m long in 5 days, how many men are required to build a wall 200m long in 3 days?",
+    "options": ["20", "30", "40", "50"],
+    "ans": "C",
+    "explain": "(12*5)/100 = (M*3)/200 => M=40."
+  },
+  {
+    "id": 89,
+    "tag": "Averages",
+    "q": "The average of 50 numbers is 38. If two numbers, namely 45 and 55, are discarded, the average of the remaining numbers is:",
+    "options": ["36.5", "37.5", "38.5", "39.5"],
+    "ans": "B",
+    "explain": "Sum=1900. New Sum=1800. Avg=1800/48=37.5."
+  },
+  {
+    "id": 93,
+    "tag": "HCF & LCM",
+    "q": "The HCF of two numbers is 11 and their LCM is 693. If one of the numbers is 77, find the other.",
+    "options": ["88", "99", "101", "110"],
+    "ans": "B",
+    "explain": "Num = (11*693)/77 = 99."
+  },
+  {
+    "id": 97,
+    "tag": "Divisibility rules",
+    "q": "Which of the following numbers is divisible by 11?",
+    "options": ["4832718", "4823718", "8423718", "8432718"],
+    "ans": "A",
+    "explain": "Diff of alternate digits is 11."
+  },
+  {
+    "id": 101,
+    "tag": "Problems on Ages",
+    "q": "The sum of ages of 5 children born at intervals of 3 years each is 50 years. What is the age of the youngest child?",
+    "options": ["4", "8", "10", "12"],
+    "ans": "A",
+    "explain": "5x + 30 = 50 => x = 4."
+  },
+  {
+    "id": 105,
+    "tag": "Probability",
+    "q": "In a box, there are 8 red, 7 blue and 6 green balls. One ball is picked up randomly. What is the probability that it is neither red nor green?",
+    "options": ["1/3", "1/2", "7/21", "8/21"],
+    "ans": "A",
+    "explain": "P = 7/21 = 1/3."
+  },
+  {
+    "id": 111,
+    "tag": "Number Series",
+    "q": "Find the missing number: 1, 4, 27, 256, ?",
+    "options": ["625", "3125", "1024", "2048"],
+    "ans": "B",
+    "explain": "Pattern: n^n. 5^5 = 3125."
+  },
+  {
+    "id": 116,
+    "tag": "Coding-Decoding",
+    "q": "If HEATER is coded as KBDHOQ, how will COOLER be coded?",
+    "options": ["ALRIHV", "FLRIHO", "FLRHOI", "FRLIHO"],
+    "ans": "B",
+    "explain": "Pattern: +3, -3..."
+  },
+  {
+    "id": 121,
+    "tag": "Blood Relations",
+    "q": "Pointing to a photograph, a man said, 'I have no brother or sister but that man's father is my father's son.' Whose photograph was it?",
+    "options": ["His own", "His son's", "His father's", "His nephew's"],
+    "ans": "B",
+    "explain": "The man is his son."
+  },
+  {
+    "id": 126,
+    "tag": "Clocks and Calendars",
+    "q": "How many leap years in 400 years?",
+    "options": ["96", "97", "100", "400"],
+    "ans": "B",
+    "explain": "100 - 3 = 97."
+  },
+  {
+    "id": 131,
+    "tag": "Direction Sense",
+    "q": "The shadow of a pole fell exactly to his right. To which direction was he facing?",
+    "options": ["East", "South", "West", "North"],
+    "ans": "B",
+    "explain": "Shadow West, facing South."
+  },
+  {
+    "id": 136,
+    "tag": "Clocks and Calendars",
+    "q": "At what time between 4 and 5 o'clock will the hands of a clock be at right angle?",
+    "options": ["4:05 5/11", "4:38 2/11", "4:32 8/11", "Both A and B"],
+    "ans": "D",
+    "explain": "Both cases satisfy the angle."
+  },
+  {
+    "id": 141,
+    "tag": "Syllogism",
+    "q": "All bags are pockets. All pockets are shops. Conclusion: All bags are shops.",
+    "options": ["Only I follows", "Only II follows", "Both", "Neither"],
+    "ans": "A",
+    "explain": "Direct subsets."
+  },
+  {
+    "id": 146,
+    "tag": "Seating Arrangement (Linear/Circular)",
+    "q": "A, B, C, D and E are sitting on a bench. A is next to B, C next to D. C is 2nd from right. A is right of B. A and C together. Position of A?",
+    "options": ["Between B and D", "Between B and C", "Between E and D", "Between C and E"],
+    "ans": "B",
+    "explain": "E B A C D."
+  },
+  {
+    "id": 161,
+    "tag": "Synonyms",
+    "q": "Synonym of: ABANDON",
+    "options": ["Stay", "Discard", "Keep", "Cherish"],
+    "ans": "B",
+    "explain": "Discard."
+  },
+  {
+    "id": 166,
+    "tag": "Antonyms",
+    "q": "Antonym of: ANCIENT",
+    "options": ["Old", "Modern", "Historic", "Antique"],
+    "ans": "B",
+    "explain": "Modern."
+  },
+  {
+    "id": 171,
+    "tag": "Fill in the Blanks",
+    "q": "The committee _______ unable to agree on a final decision.",
+    "options": ["was", "were", "has", "have"],
+    "ans": "A",
+    "explain": "Singular verb."
+  },
+  {
+    "id": 176,
+    "tag": "Idioms/Phrases",
+    "q": "Meaning of: 'Piece of cake'",
+    "options": ["Something tasty", "Something easy", "Something hard", "Something expensive"],
+    "ans": "B",
+    "explain": "Very easy."
+  },
+  {
+    "id": 191,
+    "tag": "Sentence Improvement",
+    "q": "Correct: 'Each of the boys have a pen.'",
+    "options": ["Each of the boys has a pen", "Each of the boy has a pen", "All boys have a pen", "No change"],
+    "ans": "A",
+    "explain": "Each takes singular verb."
+  },
+  {
+    "id": 196,
+    "tag": "Error Spotting",
+    "q": "Correct spelling:",
+    "options": ["Comittee", "Committee", "Comitee", "Commitee"],
+    "ans": "B",
+    "explain": "COMMITTEE."
+  }
+]
+

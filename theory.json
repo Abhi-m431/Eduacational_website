@@ -1,0 +1,235 @@
+{
+  "Quantitative Aptitude": {
+    "title": "Quantitative Aptitude",
+    "overview": "Quantitative aptitude tests your ability to solve basic mathematical problems. Select a sub-topic to see detailed formulas.",
+    "topics": {
+      "Percentage": [
+        {
+          "title": "1. What is a Percentage?",
+          "content": "<h3>The 'Out of 100' Concept</h3><p>Percentage is simply a fraction where the denominator is always 100. It helps us compare things of different sizes easily.</p><div class='formula-box'><b>Basic Formula:</b> (Value / Total) × 100</div><p><b>Example:</b> If you get 40 marks out of 50, your percentage is (40/50) × 100 = 80%.</p>"
+        },
+        {
+          "title": "2. Fraction-Percentage Table",
+          "content": "<h3>The Beginner's Shortcut</h3><p>Memorizing these will help you solve problems in seconds without a calculator:</p><ul><li><b>1/2</b> = 50%</li><li><b>1/4</b> = 25%</li><li><b>1/5</b> = 20%</li><li><b>1/8</b> = 12.5%</li><li><b>1/10</b> = 10%</li></ul>"
+        },
+        {
+          "title": "3. Price vs Consumption",
+          "content": "<h3>Keeping the Budget Balanced</h3><p>If the price of an item increases by <b>R%</b>, you must reduce how much you buy to keep your spending the same.</p><div class='shortcut-box'><b>Reduction Formula:</b> [R / (100 + R)] × 100%</div><p><i>Example: If price rises by 25%, you must reduce consumption by [25/125] × 100 = 20%.</i></p>"
+        },
+        {
+          "title": "4. The Net Change Trick",
+          "content": "<h3>Successive Changes</h3><p>When a value changes twice in a row (like two discounts or two price hikes), use this formula:</p><div class='formula-box'><b>Net Change = [x + y + (xy/100)]%</b></div><p>Note: Use <b>negative</b> numbers for discounts/decreases and <b>positive</b> for increases.</p>"
+        }
+      ],
+      "Profit & Loss": [
+        {
+          "title": "The Fundamentals",
+          "content": "<p>Profit and Loss deal with the buying and selling prices of commodities. Understanding these terms is the first step:</p><ul><li><b>Cost Price (CP):</b> The price at which an item is purchased.</li><li><b>Selling Price (SP):</b> The price at which an item is sold.</li><li><b>Marked Price (MP):</b> The price listed on the tag by the shopkeeper.</li></ul><p>Profit occurs when <b>SP > CP</b>, and Loss occurs when <b>CP > SP</b>.</p>"
+        },
+        {
+          "title": "Important Profit & Loss Formulas",
+          "content": "<div style='background:#f8fafc; border:1px solid #e2e8f0; padding:1rem; border-radius:10px;'>1. Profit = SP - CP<br>2. Loss = CP - SP<br>3. Profit% = (Profit / CP) \u00d7 100<br>4. Loss% = (Loss / CP) \u00d7 100</div><p style='margin-top:1rem; color:#ef4444;'><b>Warning:</b> Profit and Loss percentages are <u>always</u> calculated on the Cost Price (CP) unless stated otherwise in the question.</p>"
+        },
+        {
+          "title": "Discounts and Successive Discounts",
+          "content": "<p>Discounts are always calculated on the <b>Marked Price (MP)</b>.</p><ul><li><b>Selling Price (SP)</b> = MP - Discount</li><li><b>Discount %</b> = (Discount / MP) \u00d7 100</li></ul><br><b>Shortcut for Successive Discounts:</b><br>If a shopkeeper offers two successive discounts of x% and y%, the equivalent single discount is:<br><div style='background:#eff6ff; padding:0.8rem; border-left:4px solid #3b82f6;'>(x + y - xy/100)%</div>"
+        }
+      ],
+      "Simple and Compound Interest": [
+        {
+          "title": "Simple Interest",
+          "content": "Simple Interest (SI) is calculated only on the principal amount. SI = (P × R × T) / 100."
+        },
+        {
+          "title": "Compound Interest",
+          "content": "Compound Interest (CI) is calculated on the principal and also on the accumulated interest. CI = P(1 + R/100)^T - P."
+        }
+      ],
+      "Ratio and Proportion": [
+        {
+          "title": "Ratio",
+          "content": "A ratio is a comparison of two quantities by division."
+        },
+        {
+          "title": "Proportion",
+          "content": "Proportion is an equation stating that two ratios are equal."
+        }
+      ],
+      "Averages": [
+        {
+          "title": "Averages",
+          "content": "Average = (Sum of observations) / (Number of observations)."
+        }
+      ],
+      "Problems on Ages": [
+        {
+          "title": "Problems on Ages",
+          "content": "Problems on ages are solved using linear equations based on given conditions."
+        }
+      ],
+      "Time & Work": [
+        {
+          "title": "Concepts of Work and Efficiency",
+          "content": "<p>Time and work problems depend on the relationship between the time taken to complete a job and the rate of work (efficiency).</p><ul><li>If A completes a task in <b>n</b> days, his 1-day work is <b>1/n</b>.</li><li>Efficiency is inversely proportional to time. If A is twice as efficient as B, A will take half the time B takes.</li></ul>"
+        },
+        {
+          "title": "The Group Work Formula (Chain Rule)",
+          "content": "<p>When multiple people work together for different hours or days, use the <b>Man-Days Formula</b>:</p><div style='background:#f1f5f9; padding:1rem; border-radius:8px; font-family:monospace;'>(M1 \u00d7 D1 \u00d7 H1) / W1 = (M2 \u00d7 D2 \u00d7 H2) / W2</div><br><p>Where:<br>M = No. of Workers<br>D = Days<br>H = Hours per day<br>W = Total Work or Wages earned</p>"
+        }
+      ],
+      "Pipes and Cisterns": [
+        {
+          "title": "Pipes and Cisterns",
+          "content": "Problems involving filling and emptying tanks using pipes. Use the concept of work/time."
+        }
+      ],
+      "Time, Speed and Distance": [
+        {
+          "title": "The Speed-Time-Distance Relationship",
+          "content": "<p>This is the foundation of all problems involving motion. The three variables are linked by one simple equation:</p><div style='background:#f1f5f9; padding:1rem; border-radius:8px; text-align:center; font-size:1.1rem;'><b>Distance = Speed \u00d7 Time</b></div><br><b>Unit Conversion (The 5/18 Rule):</b><ul><li>To convert <b>km/hr</b> to <b>m/s</b>: Multiply by 5/18.</li><li>To convert <b>m/s</b> to <b>km/hr</b>: Multiply by 18/5.</li></ul>"
+        },
+        {
+          "title": "Relative Speed and Trains",
+          "content": "<p>Relative speed is the speed of one object with respect to another.</p><ul><li><b>Same Direction:</b> Relative Speed = |S1 - S2|</li><li><b>Opposite Direction:</b> Relative Speed = S1 + S2</li></ul><br><b>Train Crossing Logic:</b><br>1. When a train crosses a <u>stationary pole/man</u>, the distance covered equals the <b>Length of the Train</b>.<br>2. When a train crosses a <u>bridge/platform</u>, the distance covered equals <b>(Length of Train + Length of Platform)</b>."
+        }
+      ],
+      "HCF & LCM": [
+        {
+          "title": "HCF and LCM Concepts",
+          "content": "<ul><li><b>HCF (Highest Common Factor):</b> The greatest number that exactly divides two or more numbers. Also known as GCD.</li><li><b>LCM (Least Common Multiple):</b> The smallest number which is exactly divisible by two or more numbers.</li></ul><br><b>Crucial Rule for Two Numbers:</b><br><div style='background:#f0fdf4; padding:1rem; border-radius:8px; text-align:center;'><b>HCF(a,b) \u00d7 LCM(a,b) = a \u00d7 b</b></div>"
+        }
+      ],
+      "Divisibility rules": [
+        {
+          "title": "Divisibility rules",
+          "content": "Rules to quickly check if a number is divisible by another (e.g., 2, 3, 5, 9, 11)."
+        }
+      ],
+      "Simplification (BODMAS)": [
+        {
+          "title": "Simplification (BODMAS)",
+          "content": "Order of operations: Brackets, Orders, Division, Multiplication, Addition, Subtraction."
+        }
+      ],
+      "Number Series": [
+        {
+          "title": "Number Series",
+          "content": "Find the pattern in a sequence of numbers and predict the next term."
+        }
+      ],
+      "Permutation & Combination": [
+        {
+          "title": "Permutation & Combination",
+          "content": "Permutation: Arrangements, Combination: Selections. Use nPr and nCr formulas."
+        }
+      ],
+      "Probability": [
+        {
+          "title": "Fundamentals of Probability",
+          "content": "<p>Probability is the branch of mathematics concerning numerical descriptions of how likely an event is to occur.</p><br><b>The Probability Formula:</b><br><div style='background:#f1f5f9; padding:1rem; border-radius:8px;'><b>P(E) = n(E) / n(S)</b></div><p>Where:<br>n(E) = Number of favorable outcomes<br>n(S) = Total number of possible outcomes in the Sample Space.</p>"
+        }
+      ],
+      "Mensuration (Area and Volume)": [
+        {
+          "title": "Mensuration (Area and Volume)",
+          "content": "Formulas for area and volume of basic shapes: square, rectangle, circle, cylinder, sphere, etc."
+        }
+      ]
+    }
+
+    
+  },
+  "Logical Reasoning & Mental Ability": {
+    "title": "Logical Reasoning & Mental Ability",
+    "overview": "Logical reasoning helps in developing analytical skills through patterns and puzzles.",
+    "topics": {
+      "Syllogism": [
+        { "title": "Syllogism", "content": "Problems involving logical deduction using statements and conclusions. Use Venn diagrams for clarity." }
+      ],
+      "Blood Relations": [
+        { "title": "Blood Relations", "content": "Questions based on family relationships. Draw family trees for accuracy." }
+      ],
+      "Coding-Decoding": [
+        { "title": "Coding-Decoding", "content": "Questions where words or numbers are coded using a pattern. Find the logic to decode." }
+      ],
+      "Seating Arrangement (Linear/Circular)": [
+        { "title": "Seating Arrangement", "content": "Arranging people in a line or circle based on given conditions. Visualize positions for accuracy." }
+      ],
+      "Direction Sense": [
+        { "title": "Direction Sense", "content": "Problems involving directions (North, South, East, West) and turns. Draw diagrams to avoid confusion." }
+      ],
+      "Statement and Assumptions": [
+        { "title": "Statement and Assumptions", "content": "Identify assumptions implicit in a given statement." }
+      ],
+      "Cause and Effect": [
+        { "title": "Cause and Effect", "content": "Determine the cause or effect relationship between two statements." }
+      ],
+      "Course of Action": [
+        { "title": "Course of Action", "content": "Decide the best course of action based on a given situation." }
+      ],
+      "Mirror and Water Images": [
+        { "title": "Mirror and Water Images", "content": "Identify the mirror or water image of a given figure or word." }
+      ],
+      "Paper Folding/Cutting": [
+        { "title": "Paper Folding/Cutting", "content": "Visualize the result of folding/cutting paper and predict the outcome." }
+      ],
+      "Series completion using figures": [
+        { "title": "Series completion using figures", "content": "Find the next figure in a sequence based on the pattern." }
+      ],
+      "Clocks and Calendars": [
+        { "title": "Clocks and Calendars", "content": "Problems based on calculation of time, angles, and dates." }
+      ],
+      "Ranking and Order": [
+        { "title": "Ranking and Order", "content": "Questions involving ranking of people or objects based on given information." }
+      ],
+      "Data Sufficiency": [
+        { "title": "Data Sufficiency", "content": "Determine if the given data is sufficient to answer the question." }
+      ]
+    }
+  },
+  "English Language & Comprehension": {
+    "title": "English Language & Comprehension",
+    "overview": "Verbal ability tests language proficiency and comprehension.",
+    "topics": {
+      "Paragraphs": [
+        { "title": "Comprehension Skills", "content": "Practice reading passages to understand the main idea, draw logical inferences, and recognize the author's tone (e.g., critical, humorous, neutral)." }
+      ],
+      "Synonyms": [
+        { "title": "Synonyms", "content": "Words with similar meanings. Example: Happy - Joyful." }
+      ],
+      "Antonyms": [
+        { "title": "Antonyms", "content": "Words with opposite meanings. Example: Hot - Cold." }
+      ],
+      "Cloze Test (fillers in a paragraph)": [
+        { "title": "Cloze Test", "content": "Fill in the blanks in a passage with appropriate words based on context." }
+      ],
+      "Idioms/Phrases": [
+        { "title": "Idioms/Phrases", "content": "Common expressions with non-literal meanings. Example: 'Break the ice'." }
+      ],
+      "Error Spotting": [
+        { "title": "Error Spotting", "content": "Identify grammatical or usage errors in sentences." }
+      ],
+      "Sentence Improvement": [
+        { "title": "Sentence Improvement", "content": "Choose the best version of a sentence from the given options." }
+      ],
+      "Fill in the Blanks": [
+        { "title": "Fill in the Blanks", "content": "Complete sentences with the most suitable words." }
+      ]
+    }
+  },
+  "Data Interpretation (DI)": {
+    "title": "Data Interpretation (DI)",
+    "overview": "Data Interpretation involves analyzing and drawing conclusions from data presented in various forms such as tables, graphs, and charts.",
+    "topics": {
+      "Tabular Data": [
+        { "title": "Tabular Data Analysis", "content": "<h3>Analysis of Tables</h3><p>Tabular data is the most common form of DI. The key is to identify intersections of rows and columns quickly to perform calculations.</p><div class='formula-box'>Percentage Share = (Component Value / Total Sum) × 100</div>" }
+      ],
+      "Visual Graphs": [
+        { "title": "Line and Bar Charts", "content": "<h3>Graphical Representation</h3><p>Visual graphs allow for easy comparison. Bar graphs are ideal for discrete quantities, while line graphs are best for identifying trends over time.</p><div class='shortcut-box'>Focus on peaks and valleys in line graphs to identify growth cycles.</div>" }
+      ],
+      "Caselets": [
+        { "title": "Paragraph-Based DI", "content": "<h3>Descriptive Information</h3><p>In Caselets, data is hidden within text. The most efficient strategy is to convert the paragraph into a table as you read.</p>" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "id": 8,
+    "tag": "Synonyms",
+    "q": "Synonym of: BRIEF",
+    "options": ["Limited", "Small", "Short", "Little"],
+    "ans": "C",
+    "explain": "Short is the synonym."
+  },
+  {
+    "id": 9,
+    "tag": "Antonyms",
+    "q": "Antonym of: GENEROUS",
+    "options": ["Kind", "Selfish", "Polite", "Rich"],
+    "ans": "B",
+    "explain": "Selfish is the opposite."
+  },
+  {
+    "id": 10,
+    "tag": "Fill in the Blanks",
+    "q": "He _______ to school every day.",
+    "options": ["go", "goes", "gone", "going"],
+    "ans": "B",
+    "explain": "Third person singular."
+  },
+  {
+    "id": 55,
+    "tag": "Idioms/Phrases",
+    "q": "Meaning of 'To spill the beans'?",
+    "options": ["To drop something", "To reveal a secret", "To cook", "To be clumsy"],
+    "ans": "B",
+    "explain": "Revealing a secret."
+  }
+]
