@@ -15,6 +15,10 @@ const motivationalQuotes = [
 let theoryData = null;
 let currentTheory = { category: null, subcat: null };
 
+// Performance Optimization: Cache for fetched questions
+let questionsCache = {};
+let activeCharts = {};
+
 fetch('theory.json')
   .then(res => res.json())
   .then(json => {
@@ -30,24 +34,24 @@ function renderHome() {
     document.getElementById('display-title').innerText = "Student Dashboard";
     
     container.innerHTML = `
-        <div class="welcome-container" style="animation: fadeIn 0.5s ease-out;">
-            <div class="welcome-hero" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=1000'); background-size: cover; background-position: center; height: 200px; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; margin-bottom: 2rem; box-shadow: var(--shadow);">
-                <h2 style="font-size: 2rem; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">Fuel Your Ambition</h2>
+        <div class="welcome-container">
+            <div class="welcome-hero">
+                <h2>Fuel Your Ambition</h2>
             </div>
 
-            <div class="quote-card" style="background: white; padding: 2.5rem; border-radius: 24px; box-shadow: var(--shadow); margin-bottom: 2.5rem; border-left: 10px solid var(--primary); text-align: left;">
-                <p style="font-size: 0.85rem; text-transform: uppercase; font-weight: 800; color: var(--primary); letter-spacing: 0.1em; margin-bottom: 1rem;">Daily Motivation</p>
-                <p style="font-size: 1.4rem; font-style: italic; color: #1e293b; line-height: 1.6; font-weight: 500;">"${quote}"</p>
+            <div class="quote-card">
+                <p class="quote-label">Daily Motivation</p>
+                <p class="quote-text">"${quote}"</p>
             </div>
             
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+            <div class="dashboard-grid">
                 <div class="question-card" style="cursor: pointer; text-align: left;" onclick="renderTheory('Quantitative Aptitude')">
                     <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Study Topics</h3>
                     <p style="font-size: 0.95rem; color: var(--text-muted);">Browse detailed formulas and concepts for your upcoming exams.</p>
                 </div>
                 <div class="question-card" style="cursor: pointer; text-align: left;" onclick="chooseMockTest()">
                     <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Practice Test</h3>
-                    <p style="font-size: 0.95rem, color: var(--text-muted);">Jump straight into a 10-question drill to test your current knowledge.</p>
+                    <p style="font-size: 0.95rem; color: var(--text-muted);">Jump straight into a 10-question drill to test your current knowledge.</p>
                 </div>
             </div>
         </div>
@@ -115,14 +119,20 @@ async function startPractice(tag) {
     const fileName = catName.replace(/[^a-z0-9]/gi, '_') + '.json';
     let allCatQuestions = [];
     
-    try {
-        const res = await fetch(`data/${fileName}`);
-        if (!res.ok) throw new Error();
-        allCatQuestions = await res.json();
-    } catch (err) {
-        alert(`No questions found for category: ${catName}. Ensure data/${fileName} exists.`);
-        renderTheory(currentTheory.category, tag); // Reset view
-        return;
+    // Efficiency Improvement: Use Cache if available
+    if (questionsCache[catName]) {
+        allCatQuestions = questionsCache[catName];
+    } else {
+        try {
+            const res = await fetch(`data/${fileName}`);
+            if (!res.ok) throw new Error();
+            allCatQuestions = await res.json();
+            questionsCache[catName] = allCatQuestions; // Save to cache
+        } catch (err) {
+            alert(`No questions found for category: ${catName}. Ensure data/${fileName} exists.`);
+            renderTheory(currentTheory.category, tag);
+            return;
+        }
     }
 
     // Filter category questions by the specific subcategory tag
@@ -190,8 +200,28 @@ function finishPractice(tag) {
 
     if (cards.length === 0) return alert("Please answer at least one question before finishing.");
 
-    // Display score for feedback only, without tracking to database
-    alert(`Practice Finished! You scored ${correct}/${total}. Keep practicing to improve!`);
+    const percent = Math.round((correct / total) * 100);
+    const container = document.getElementById('questions-list');
+    const mockResult = document.getElementById('mock-result');
+
+    // Clear the question list and show a professional result card
+    container.innerHTML = "";
+    mockResult.innerHTML = `
+        <div class="question-card" style="background: #f0fdf4; border-left: 8px solid var(--success); animation: fadeIn 0.5s ease-out;">
+            <h2 style="color: #16a34a; margin-bottom: 1rem;">Practice Test Complete</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 1rem;">Topic: <strong>${tag}</strong></p>
+            <div style="display: flex; gap: 2rem; margin-bottom: 2rem;">
+                <div><p style="color: var(--text-muted); font-size: 0.8rem; font-weight: 700; text-transform: uppercase;">Score</p><h3 style="font-size: 1.5rem; border:none;">${correct} / ${total}</h3></div>
+                <div><p style="color: var(--text-muted); font-size: 0.8rem; font-weight: 700; text-transform: uppercase;">Accuracy</p><h3 style="font-size: 1.5rem; border:none;">${percent}%</h3></div>
+            </div>
+            <p style="margin-bottom: 2rem; color: #374151;">${percent >= 80 ? "Excellent mastery of this concept!" : "Good effort! Review the formulas below to reach 100%."}</p>
+            <div class="cta-footer" style="justify-content: flex-start; gap: 1rem;">
+                <button class="btn btn-primary" onclick="renderTheory('${currentTheory.category}', '${tag}')">Return to Theory</button>
+                <button class="btn" style="border-color: var(--primary); color: var(--primary);" onclick="startPractice('${tag}')">Try Again</button>
+            </div>
+        </div>
+    `;
+    mockResult.scrollIntoView({ behavior: "smooth" });
 }
 
 function renderSidebar() {
@@ -348,8 +378,13 @@ async function showStatistics() {
     // Initialize BI Visuals
     if (window.Chart) {
         setTimeout(() => {
+            // Performance Fix: Destroy existing chart instances before re-rendering
+            if (activeCharts.trend) activeCharts.trend.destroy();
+            if (activeCharts.weakness) activeCharts.weakness.destroy();
+
             // 1. Trend Chart
-            new Chart(document.getElementById('trendChart').getContext('2d'), {
+            const trendCtx = document.getElementById('trendChart').getContext('2d');
+            activeCharts.trend = new Chart(trendCtx, {
                 type: 'line',
                 data: {
                     labels: dates,
@@ -371,7 +406,8 @@ async function showStatistics() {
             });
 
             // 2. Weakness Chart
-            new Chart(document.getElementById('weaknessChart').getContext('2d'), {
+            const weaknessCtx = document.getElementById('weaknessChart').getContext('2d');
+            activeCharts.weakness = new Chart(weaknessCtx, {
                 type: 'bar',
                 data: {
                     labels: Object.keys(focusFrequencies),
