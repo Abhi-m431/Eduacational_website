@@ -1,4 +1,12 @@
-console.log("Netlify Auto-Deployment Test: Connection Successful");
+let examState = {
+    questions: [],
+    responses: {}, // questionId: selectedOption
+    marked: new Set(),
+    visited: new Set(),
+    currentIndex: 0,
+    timeLeft: 0,
+    timerId: null
+};
 
 // Smooth scroll to section
 function scrollToSection(id) {
@@ -21,21 +29,98 @@ let currentTheory = { category: null, subcat: null };
 let questionsCache = {};
 let activeCharts = {};
 
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    sidebar.classList.toggle('show');
+    overlay.classList.toggle('show');
+}
+
+function closeSidebarOnMobile() {
+    if (window.innerWidth <= 900) {
+        document.querySelector('.sidebar').classList.remove('show');
+        document.getElementById('sidebar-overlay').classList.remove('show');
+    }
+}
+
 fetch('/theory.json')
   .then(res => res.json())
   .then(json => {
     theoryData = json;
     renderSidebar();
-    // Initialize history state on first load
-    if (!history.state) history.replaceState({ view: 'home' }, "");
-    renderHome(false);
+    handleInitialRouting();
   });
 
+// Helper to ensure Dashboard layout is restored when exiting Exam Mode
+function ensureDashboardShell() {
+    document.body.classList.remove('exam-mode-active');
+    const main = document.getElementById('main-content');
+    if (!document.getElementById('questions-list')) {
+        main.innerHTML = `
+            <div class="header-meta">
+                <div class="breadcrumb">Dashboard / <span id="bread-cat"></span></div>
+                <h1 class="page-title" id="display-title"></h1>
+            </div>
+            <div id="questions-list"></div>
+            <div id="mock-result"></div>
+        `;
+    }
+}
+
+function handleInitialRouting() {
+    const path = window.location.pathname;
+    
+    // If we have history state already (from a refresh), use it
+    if (history.state && history.state.view) {
+        const state = history.state;
+        if (state.view === 'theory') return renderTheory(state.category, state.subcat, false);
+        if (state.view === 'practice') {
+            currentTheory.category = state.category;
+            return startPractice(state.tag, false);
+        }
+        if (state.view === 'stats') return showStatistics(false);
+        if (state.view === 'mockInstr') return showMockInstructions(state.mockNum, null, false);
+        if (state.view === 'mockSelect') return chooseMockTest(false);
+        if (state.view === 'mockActive') return startMockTest(state.mockNum, false, state.seed);
+    }
+
+    // Fallback: Parse URL path if state is missing (e.g. direct link/bookmark)
+    if (path === '/' || path === '/index.html') {
+        if (!history.state) history.replaceState({ view: 'home' }, "", "/");
+        renderHome(false);
+    } else if (path.startsWith('/theory/')) {
+        const parts = path.split('/').filter(Boolean); // ["theory", "category", "subcat"]
+        const cat = parts[1] ? parts[1].replace(/-/g, ' ') : null;
+        const sub = parts[2] ? parts[2].replace(/-/g, ' ') : null;
+        // Note: This requires matching casing with theory.json keys
+        renderTheory(Object.keys(theoryData).find(k => k.toLowerCase() === cat), sub, false);
+    } else if (path === '/statistics') {
+        showStatistics(false);
+    } else if (path === '/mock-test') {
+        chooseMockTest(false);
+    } else if (path.startsWith('/mock-test/')) {
+        const parts = path.split('/').filter(Boolean); // ["mock-test", "1", "active"]
+        const mockNum = parseInt(parts[1]);
+        if (parts[2] === 'active') {
+            startMockTest(mockNum, false);
+        } else {
+            showMockInstructions(mockNum, null, false);
+        }
+    } else {
+        // Default to home for unknown paths
+        history.replaceState({ view: 'home' }, "", "/");
+        renderHome(false);
+    }
+}
+
 function renderHome(push = true) {
+    ensureDashboardShell();
+    closeSidebarOnMobile();
     const quote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
     const container = document.getElementById('questions-list');
     document.getElementById('bread-cat').innerText = "Home";
     document.getElementById('display-title').innerText = "Student Dashboard";
+    document.getElementById('mock-result').innerHTML = "";
     
     container.innerHTML = `
         <div class="welcome-container">
@@ -68,6 +153,8 @@ function renderHome(push = true) {
 
 function renderTheory(category, subcat = null, push = true) {
     if (!theoryData) return;
+    ensureDashboardShell();
+    closeSidebarOnMobile();
     const container = document.getElementById('questions-list');
     const cat = theoryData[category];
     if (!cat) return;
@@ -128,6 +215,7 @@ function renderTheory(category, subcat = null, push = true) {
 }
 
 async function startPractice(tag, push = true) {
+    ensureDashboardShell();
     const container = document.getElementById('questions-list');
     container.innerHTML = "<div class='question-card'>Loading practice questions...</div>";
 
@@ -290,6 +378,7 @@ function switchTab(cat, element, subtopic = null) {
     
     // Render new data
     renderTheory(cat, subtopic);
+    closeSidebarOnMobile();
     
     // Scroll to top for mobile users
     if(window.innerWidth < 900) {
@@ -299,6 +388,8 @@ function switchTab(cat, element, subtopic = null) {
 
 async function showStatistics(push = true) {
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    ensureDashboardShell();
+    closeSidebarOnMobile();
     const container = document.getElementById('questions-list');
     document.getElementById('bread-cat').innerText = "Performance";
     document.getElementById('display-title').innerText = "Your Statistics";
@@ -364,33 +455,6 @@ async function showStatistics(push = true) {
                 <canvas id="weaknessChart" height="250"></canvas>
             </div>
         </div>
-
-        <!-- History Table -->
-        <div class="question-card">
-            <h3 style="margin-bottom: 1.5rem;">Recent Attempt History</h3>
-            <div style="overflow-x: auto;">
-                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
-                    <thead>
-                        <tr style="text-align: left; border-bottom: 2px solid var(--border);">
-                            <th style="padding: 1rem;">Date</th>
-                            <th style="padding: 1rem;">Session</th>
-                            <th style="padding: 1rem;">Accuracy</th>
-                            <th style="padding: 1rem;">Primary Weakness</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${results.map(r => `
-                            <tr style="border-bottom: 1px solid var(--border);">
-                                <td style="padding: 1rem; color: var(--text-muted);">${r.timestamp ? r.timestamp.toDate().toLocaleDateString() : 'Just now'}</td>
-                                <td style="padding: 1rem; font-weight: 600;">${r.testType} ${r.testId}</td>
-                                <td style="padding: 1rem; font-weight: 700; color: ${r.percentage >= 70 ? 'var(--success)' : 'var(--primary)'}">${r.percentage}%</td>
-                                <td style="padding: 1rem;"><span class="q-tag">${r.focusArea}</span></td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
-            </div>
-        </div>
     `;
 
     container.innerHTML = html;
@@ -453,6 +517,8 @@ async function showStatistics(push = true) {
 // Add this function to handle sidebar click for Mock Tests
 function showMockInstructions(mockNum, element, push = true) {
     // Update active class
+    ensureDashboardShell();
+    closeSidebarOnMobile();
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     if (element) element.classList.add('active');
     else {
@@ -483,6 +549,8 @@ function showMockInstructions(mockNum, element, push = true) {
 
 // Show mock test selection (if you want 3 mock tests)
 function chooseMockTest(push = true) {
+    ensureDashboardShell();
+    document.getElementById('mock-result').innerHTML = "";
     document.getElementById('questions-list').innerHTML = `
         <div class="question-card" style="text-align:left;">
             <h2 style="color:#2563eb;">Select Mock Test</h2>
@@ -499,107 +567,197 @@ function chooseMockTest(push = true) {
 let activeTimerInterval = null; // Global timer reference
 // MOCK TEST FEATURE
 async function startMockTest(mockNum, push = true, seed = null) {
-    // Always clear any previous timer before starting a new one
-    if (activeTimerInterval) {
-        clearInterval(activeTimerInterval);
-        activeTimerInterval = null;
-    }
-
-    document.getElementById('bread-cat').innerText = "Mock Test " + mockNum;
-    document.getElementById('display-title').innerText = "Mock Test " + mockNum + " (All Topics)";
-    document.getElementById('mock-result').innerHTML = "";
-
-    document.getElementById('questions-list').innerHTML = "<div class='question-card'>Generating unique test...</div>";
-
-    let mockQuestions = [];
+    if (examState.timerId) clearInterval(examState.timerId);
+    
     try {
-        // For Mock Tests, we fetch from a shared pool containing a mix of all topics
         const res = await fetch('/data/mock_pool.json');
         const pool = await res.json();
-        // Use existing seed if navigating, otherwise generate new
         const finalSeed = seed || (Math.floor(Math.random() * 1000000) + mockNum);
-        mockQuestions = shuffleArray(pool, finalSeed).slice(0, 20);
+        
+        examState.questions = shuffleArray(pool, finalSeed).slice(0, 20);
+        examState.responses = {};
+        examState.marked = new Set();
+        examState.visited = new Set([0]);
+        examState.currentIndex = 0;
+        examState.timeLeft = 15 * 60; // 15 minutes
         
         if (push) history.pushState({ view: 'mockActive', mockNum, seed: finalSeed }, "", `/mock-test/${mockNum}/active`);
+        
+        renderExamLayout(mockNum);
+        startExamTimer();
+        document.body.classList.add('exam-mode-active');
     } catch (err) {
-        alert("Failed to load Mock Test data. Ensure data/mock_pool.json exists.");
-        return;
+        console.error(err);
+        alert("Error initializing exam.");
     }
-    // Set timer (15 minutes for 20 questions)
-    let timeLimit = 15 * 60; 
-    let timeLeft = timeLimit;
+}
 
-    document.getElementById('questions-list').innerHTML = `
-        <div id="timer" style="font-size:1.2rem;font-weight:600;color:#2563eb;margin-bottom:1rem;">
-            Time Left: <span id="timer-mins"></span>:<span id="timer-secs"></span>
-        </div>
-        <form id="mockForm">
-            ${mockQuestions.map((item, idx) => `
-                <article class="question-card">
-                    <span class="q-tag">${item.tag}</span>
-                    <p class="q-text">Q${idx + 1}. ${item.q}</p>
-                    <div class="options-grid">
-                        ${item.options.map((opt, i) => `
-                            <label class="option-label">
-                                <input type="radio" name="q${item.id}" value="${String.fromCharCode(65 + i)}">
-                                <span>${String.fromCharCode(65 + i)}) ${opt}</span>
-                            </label>
-                        `).join('')}
-                    </div>
-                </article>
-            `).join('')}
-            <div class="cta-footer">
-                <button type="submit" class="btn btn-primary btn-lg">Submit Mock Test ➔</button>
+function renderExamLayout(mockNum) {
+    const container = document.getElementById('main-content');
+    container.innerHTML = `
+        <div class="exam-header-strip" style="position: sticky; top: 0; z-index: 1000; width: 100%;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <svg style="width:24px; color:var(--primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+                <h2 style="margin:0;">Mock Test ${mockNum}</h2>
             </div>
-        </form>
+            <div style="flex-grow: 1;"></div>
+            <div class="exam-timer" id="exam-timer-display" style="margin-left: auto;">15:00</div>
+        </div>
+        <div class="exam-container">
+            <div class="exam-main-panel" id="exam-question-area"></div>
+            <div class="exam-side-panel">
+                <div class="nav-group-title">Question Palette</div>
+                <div class="question-palette" id="palette-grid"></div>
+                <div class="palette-legend">
+                    <div class="legend-item"><div class="legend-box answered"></div> Answered</div>
+                    <div class="legend-item"><div class="legend-box not-answered"></div> Not Answered</div>
+                    <div class="legend-item"><div class="legend-box marked"></div> Marked</div>
+                    <div class="legend-item"><div class="legend-box not-visited"></div> Not Visited</div>
+                </div>
+            </div>
+        </div>
+        <!-- Custom Modal for Finish Confirmation -->
+        <div id="finish-modal" class="modal-overlay">
+            <div class="modal-content">
+                <h3 style="margin-bottom: 1rem; border: none;">Finish Mock Test?</h3>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Are you sure you want to submit your answers? You won't be able to change them after this.</p>
+                <div style="display: flex; gap: 1rem; justify-content: center;">
+                    <button class="btn" onclick="hideFinishModal()">Cancel</button>
+                    <button class="btn btn-primary" onclick="finishMockTest(false)">Submit Test</button>
+                </div>
+            </div>
+        </div>
     `;
+    updateQuestionDisplay();
+}
 
-    function updateTimerDisplay() {
-        const mins = String(Math.floor(timeLeft / 60)).padStart(2, '0');
-        const secs = String(timeLeft % 60).padStart(2, '0');
-        document.getElementById('timer-mins').textContent = mins;
-        document.getElementById('timer-secs').textContent = secs;
+function updateQuestionDisplay() {
+    const q = examState.questions[examState.currentIndex];
+    const area = document.getElementById('exam-question-area');
+    const selected = examState.responses[q.id];
+    const isLastQuestion = examState.currentIndex === examState.questions.length - 1;
+
+    area.innerHTML = `
+        <div class="q-tag">${q.tag}</div>
+        <p class="q-text">Question ${examState.currentIndex + 1}:<br>${q.q}</p>
+        <div class="options-grid">
+            ${q.options.map((opt, i) => {
+                const val = String.fromCharCode(65 + i);
+                return `
+                    <div class="mock-option ${selected === val ? 'selected' : ''}" 
+                         onclick="selectOption('${q.id}', '${val}')">
+                        ${val}) ${opt}
+                    </div>`;
+            }).join('')}
+        </div>
+        <div class="exam-footer">
+            <button class="btn" onclick="prevQuestion()" ${examState.currentIndex === 0 ? 'disabled' : ''}>Previous</button>
+            <button class="btn" style="border-color: #8b5cf6; color: #8b5cf6;" onclick="toggleMark()">Mark for Review</button>
+            ${isLastQuestion ? 
+                `<button class="btn btn-primary" style="background-color: var(--success);" onclick="showFinishModal()">Finish Test ➔</button>` : 
+                `<button class="btn btn-primary" onclick="nextQuestion()">Save & Next</button>`
+            }
+        </div>
+    `;
+    updatePalette();
+}
+
+function showFinishModal() {
+    const modal = document.getElementById('finish-modal');
+    if (modal) modal.style.display = 'flex';
+}
+
+function hideFinishModal() {
+    const modal = document.getElementById('finish-modal');
+    if (modal) modal.style.display = 'none';
+}
+
+function selectOption(qId, val) {
+    examState.responses[qId] = val;
+    updateQuestionDisplay();
+}
+
+function toggleMark() {
+    const qId = examState.questions[examState.currentIndex].id;
+    if (examState.marked.has(qId)) examState.marked.delete(qId);
+    else examState.marked.add(qId);
+    updatePalette();
+}
+
+function nextQuestion() {
+    if (examState.currentIndex < examState.questions.length - 1) {
+        examState.currentIndex++;
+        examState.visited.add(examState.currentIndex);
+        updateQuestionDisplay();
     }
+}
 
-    updateTimerDisplay();
-    activeTimerInterval = setInterval(() => {
-        timeLeft--;
-        updateTimerDisplay();
-        if (timeLeft <= 0) {
-            clearInterval(activeTimerInterval);
-            submitMockTest(true);
+function prevQuestion() {
+    if (examState.currentIndex > 0) {
+        examState.currentIndex--;
+        updateQuestionDisplay();
+    }
+}
+
+function updatePalette() {
+    const grid = document.getElementById('palette-grid');
+    if (!grid) return;
+    grid.innerHTML = examState.questions.map((q, i) => {
+        let status = 'not-visited';
+        if (examState.marked.has(q.id)) status = 'marked';
+        else if (examState.responses[q.id]) status = 'answered';
+        else if (examState.visited.has(i)) status = 'not-answered';
+        
+        return `<div class="palette-btn ${status} ${examState.currentIndex === i ? 'active' : ''}" 
+                     onclick="jumpToQuestion(${i})">${i + 1}</div>`;
+    }).join('');
+}
+
+function jumpToQuestion(i) {
+    examState.currentIndex = i;
+    examState.visited.add(i);
+    updateQuestionDisplay();
+}
+
+function startExamTimer() {
+    examState.timerId = setInterval(() => {
+        examState.timeLeft--;
+        const mins = Math.floor(examState.timeLeft / 60);
+        const secs = examState.timeLeft % 60;
+        const display = document.getElementById('exam-timer-display');
+        if (display) display.innerText = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        
+        if (examState.timeLeft <= 0) {
+            clearInterval(examState.timerId);
+            finishMockTest(true);
         }
     }, 1000);
+}
 
-    document.getElementById('mockForm').onsubmit = function(e) {
-        e.preventDefault();
-        clearInterval(activeTimerInterval);
-        submitMockTest(false);
-    };
-
-    function submitMockTest(autoSubmit) {
+function finishMockTest(autoSubmit) {
+    hideFinishModal();
+    clearInterval(examState.timerId);
+    const mockNum = history.state?.mockNum || 1;
+    
         let correct = 0;
-        let total = mockQuestions.length;
+        let total = examState.questions.length;
         let answered = 0;
-        let wrongByTag = {};
-        // Load cumulative mistakes from localStorage
         let cumulativeMistakes = JSON.parse(localStorage.getItem('cumulativeMistakes') || '{}');
-        mockQuestions.forEach(q => {
-            const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+        
+        examState.questions.forEach(q => {
+            const selected = examState.responses[q.id];
             if(selected) {
                 answered++;
-                if(selected.value === q.ans) {
+                if(selected === q.ans) {
                     correct++;
                 } else {
-                    wrongByTag[q.tag] = (wrongByTag[q.tag] || 0) + 1;
                     cumulativeMistakes[q.tag] = (cumulativeMistakes[q.tag] || 0) + 1;
                 }
             } else {
-                wrongByTag[q.tag] = (wrongByTag[q.tag] || 0) + 1;
                 cumulativeMistakes[q.tag] = (cumulativeMistakes[q.tag] || 0) + 1;
             }
         });
-        // Save cumulative mistakes
+
         localStorage.setItem('cumulativeMistakes', JSON.stringify(cumulativeMistakes));
         let percent = Math.round((correct/total)*100);
         let notAnswered = total - answered;
@@ -614,19 +772,48 @@ async function startMockTest(mockNum, push = true, seed = null) {
             }
         }
 
-        document.getElementById('questions-list').innerHTML = "";
-        document.getElementById('mock-result').innerHTML = `
-            <div class="question-card" style="background:#f0fdf4;">
-                <h2 style="color:#16a34a;">Mock Test ${mockNum} Result</h2>
-                <p><b>Score:</b> ${correct} / ${total}</p>
-                <p><b>Percentage:</b> ${percent}%</p>
-                <p><b>Answered:</b> ${answered} &nbsp; <b>Not Answered:</b> ${notAnswered}</p>
-                <p><b>Focus Area (all attempts):</b> ${focusArea !== "None" ? focusArea : "Great job! No weak area detected."}</p>
-                <p style="margin-top:1rem;"><strong>${percent >= 70 ? "Great job! Keep practicing." : "Keep practicing to improve your score."}</strong></p>
-                ${autoSubmit ? `<p style="color:#e11d48;"><strong>Time's up! Your test was auto-submitted.</strong></p>` : ""}
-            </div>
-        `;
-        document.getElementById('mock-result').scrollIntoView({behavior: "smooth"});
+        // Display result in the same window (Exam UI)
+        const area = document.getElementById('exam-question-area');
+        const timerDisplay = document.getElementById('exam-timer-display');
+        if (timerDisplay) timerDisplay.innerText = "Exam Completed";
+
+        if (area) {
+            area.innerHTML = `
+                <div class="question-card" style="background:#f0fdf4; border:none; box-shadow:none;">
+                    <h2 style="color:#16a34a; margin-bottom: 1.5rem;">Mock Test Result Analysis</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                        <div class="question-card" style="margin:0; text-align:center; padding: 1.5rem; background: white;">
+                            <p style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Final Score</p>
+                            <h1 style="font-size:3rem; color:var(--primary); border:none; margin:0;">${correct}/${total}</h1>
+                        </div>
+                        <div class="question-card" style="margin:0; text-align:center; padding: 1.5rem; background: white;">
+                            <p style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Accuracy</p>
+                            <h1 style="font-size:3rem; color:var(--success); border:none; margin:0;">${percent}%</h1>
+                        </div>
+                    </div>
+                    <p style="margin-bottom: 1.5rem; font-size: 1.1rem;"><b>Focus Area:</b> <span class="q-tag">${focusArea}</span></p>
+                    ${autoSubmit ? `<p style="color:#e11d48; margin-bottom: 1.5rem;"><strong>Note:</strong> Test was auto-submitted due to time limit.</p>` : ""}
+                    
+                    <div class="exam-footer" style="border:none; padding:0; margin-top:2rem;">
+                        <button class="btn btn-primary btn-lg" style="width: 100%; justify-content: center;" onclick="chooseMockTest()">Back to Mock Section ➔</button>
+                    </div>
+                </div>
+            `;
+
+            // Update sidebar palette area to show a summary
+            const paletteGrid = document.getElementById('palette-grid');
+            if (paletteGrid) {
+                const sidePanel = paletteGrid.closest('.exam-side-panel');
+                sidePanel.innerHTML = `
+                    <div class="nav-group-title">Status Summary</div>
+                    <div style="padding: 1rem; display: flex; flex-direction: column; gap: 1rem;">
+                        <div class="legend-item" style="font-weight:600;"><div class="legend-box answered" style="width:20px; height:20px;"></div> Answered: <span style="margin-left:auto; color:var(--success);">${answered}</span></div>
+                        <div class="legend-item" style="font-weight:600;"><div class="legend-box not-answered" style="width:20px; height:20px;"></div> Not Answered: <span style="margin-left:auto; color:#ef4444;">${total - answered}</span></div>
+                        <div class="legend-item" style="font-weight:600;"><div class="legend-box marked" style="width:20px; height:20px;"></div> For Review: <span style="margin-left:auto; color:#8b5cf6;">${examState.marked.size}</span></div>
+                    </div>
+                `;
+            }
+        }
 
         // Professional Tracking: Save the result to Firestore
         if (window.savePerformanceResult) {
@@ -640,7 +827,6 @@ async function startMockTest(mockNum, push = true, seed = null) {
             });
         }
     }
-}
 
 // Utility: Shuffle array (Fisher-Yates)
 function shuffleArray(array, seed) {
@@ -670,6 +856,10 @@ window.addEventListener('popstate', (event) => {
     if (activeTimerInterval) {
         clearInterval(activeTimerInterval);
         activeTimerInterval = null;
+    }
+    if (examState.timerId) {
+        clearInterval(examState.timerId);
+        examState.timerId = null;
     }
 
     if (!state || state.view === 'home') {
