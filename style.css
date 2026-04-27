@@ -418,46 +418,23 @@ h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-
 
     /* --- Exam Mode Mobile Fixes --- */
     .exam-container {
-        grid-template-columns: 55px 1fr !important; 
+        grid-template-columns: 1fr !important; 
         height: calc(100vh - 60px) !important; 
         display: grid !important;
     }
     .exam-main-panel {
-        padding: 1rem 0.5rem;
+        padding: 1rem 0.75rem;
         border-right: none;
         height: 100%;
         overflow-y: auto;
     }
     .exam-side-panel {
-        display: flex !important;
-        width: 55px !important;
-        padding: 0.5rem 4px !important;
-        border-right: 1px solid var(--border);
-    }
-    .exam-side-panel .nav-group-title,
-    .exam-side-panel .palette-legend {
         display: none !important;
     }
-    .question-palette {
-        grid-template-columns: 1fr !important;
-        gap: 12px;
-        margin-top: 0 !important;
-    }
     .palette-btn {
-        width: 40px !important;
-        height: 40px !important;
+        width: 42px;
+        height: 42px;
         font-size: 0.75rem;
-    }
-    .exam-footer {
-        padding-top: 1rem;
-        gap: 6px;
-    }
-    .exam-footer .btn {
-        padding: 0.5rem 0.3rem;
-        font-size: 0.7rem;
-        flex: 1;
-        justify-content: center;
-        white-space: nowrap;
     }
     .mock-option {
         padding: 0.8rem;
@@ -473,6 +450,18 @@ h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-
     .exam-header-strip h2 { font-size: 1.1rem; }
     .exam-timer { font-size: 1.2rem; }
     .exam-header-strip { height: 60px; padding: 0 1rem; }
+
+    .exam-footer {
+        padding-top: 1rem;
+        gap: 8px; /* Adds consistent space between buttons */
+    }
+    .exam-footer .btn {
+        padding: 0.5rem 0.25rem; /* Reduces button height and internal width */
+        font-size: 0.72rem; /* Reduces text size to fit on one line */
+        flex: 1; /* Forces all buttons to be equal width */
+        justify-content: center;
+        white-space: nowrap; /* Prevents text from wrapping within the button */
+    }
 }
 .stylish-font {
     font-family: 'Poppins', 'Inter', Arial, sans-serif;
