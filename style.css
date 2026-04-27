@@ -415,6 +415,31 @@ h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-
     canvas {
         max-height: 300px;
     }
+
+    /* --- Exam Mode Mobile Fixes --- */
+    .exam-container {
+        grid-template-columns: 1fr; /* Stack panels vertically */
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+    .exam-main-panel {
+        padding: 1rem;
+        border-right: none;
+        height: auto;
+        overflow-y: visible; /* Let the page handle scrolling */
+    }
+    .exam-side-panel {
+        border-top: 1px solid var(--border);
+        height: auto;
+        overflow-y: visible;
+        padding: 1.5rem 1rem;
+    }
+    .exam-mode-active .dashboard {
+        height: auto;
+    }
+    .exam-header-strip h2 { font-size: 1.1rem; }
+    .exam-timer { font-size: 1.2rem; }
 }
 .stylish-font {
     font-family: 'Poppins', 'Inter', Arial, sans-serif;
