@@ -6,7 +6,7 @@
     <title>Prepwithme | Modern Learning Platform</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     <!-- Chart.js CDN for bar chart visualization -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -104,7 +104,7 @@
         <aside class="sidebar">
             <div class="nav-card">
                 <div class="nav-group-title">General</div>
-                <div class="nav-item active" onclick="renderHome(); document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active')); this.classList.add('active');">
+                <div id="nav-home" class="nav-item active" onclick="renderHome()">
                     Dashboard Home
                 </div>
                 <div class="nav-group-title">Categories</div>
@@ -332,6 +332,6 @@
     }
   });
 </script>
-<script src="script.js"></script>
+<script src="/script.js"></script>
 </body>
 </html>

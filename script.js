@@ -19,7 +19,7 @@ let currentTheory = { category: null, subcat: null };
 let questionsCache = {};
 let activeCharts = {};
 
-fetch('theory.json')
+fetch('/theory.json')
   .then(res => res.json())
   .then(json => {
     theoryData = json;
@@ -59,8 +59,9 @@ function renderHome(push = true) {
         </div>
     `;
     currentTheory = { category: null, subcat: null };
-    if (push) history.pushState({ view: 'home' }, "", "");
+    if (push) history.pushState({ view: 'home' }, "", "/");
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    document.getElementById('nav-home')?.classList.add('active');
 }
 
 function renderTheory(category, subcat = null, push = true) {
@@ -116,7 +117,12 @@ function renderTheory(category, subcat = null, push = true) {
     document.getElementById('display-title').innerText = title;
     container.innerHTML = `<div class="question-card">${content}</div>`;
     currentTheory = { category, subcat };
-    if (push) history.pushState({ view: 'theory', category, subcat }, "", "");
+    if (push) {
+        const urlPath = subcat 
+            ? `/theory/${category.replace(/\s+/g, '-').toLowerCase()}/${subcat.replace(/\s+/g, '-').toLowerCase()}`
+            : `/theory/${category.replace(/\s+/g, '-').toLowerCase()}`;
+        history.pushState({ view: 'theory', category, subcat }, "", urlPath);
+    }
 }
 
 async function startPractice(tag, push = true) {
@@ -133,7 +139,7 @@ async function startPractice(tag, push = true) {
         allCatQuestions = questionsCache[catName];
     } else {
         try {
-            const res = await fetch(`data/${fileName}`);
+            const res = await fetch(`/data/${fileName}`);
             if (!res.ok) throw new Error();
             allCatQuestions = await res.json();
             questionsCache[catName] = allCatQuestions; // Save to cache
@@ -176,7 +182,7 @@ async function startPractice(tag, push = true) {
     container.innerHTML += `<div class="cta-footer">
         <button class="btn btn-primary btn-lg" onclick="finishPractice('${tag}')">Finish Practice Test ➔</button>
     </div>`;
-    if (push) history.pushState({ view: 'practice', tag, category: catName }, "", "");
+    if (push) history.pushState({ view: 'practice', tag, category: catName }, "", `/practice/${tag.replace(/\s+/g, '-').toLowerCase()}`);
 }
 
 function checkPracticeOption(element, selected, correct) {
@@ -294,7 +300,7 @@ async function showStatistics(push = true) {
     const container = document.getElementById('questions-list');
     document.getElementById('bread-cat').innerText = "Performance";
     document.getElementById('display-title').innerText = "Your Statistics";
-    if (push) history.pushState({ view: 'stats' }, "", "");
+    if (push) history.pushState({ view: 'stats' }, "", "/statistics");
 
     container.innerHTML = "<div class='question-card'>Loading your performance data...</div>";
 
@@ -447,6 +453,12 @@ function showMockInstructions(mockNum, element, push = true) {
     // Update active class
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     if (element) element.classList.add('active');
+    else {
+        // Highlight sidebar item based on mock number during back/forward navigation
+        const sidebarItems = document.querySelectorAll('.sidebar .nav-item');
+        const target = Array.from(sidebarItems).find(el => el.innerText.includes(`Mock Test ${mockNum}`));
+        if (target) target.classList.add('active');
+    }
     document.getElementById('bread-cat').innerText = "Mock Test " + mockNum;
     document.getElementById('display-title').innerText = "Mock Test " + mockNum;
     document.getElementById('mock-result').innerHTML = "";
@@ -464,11 +476,11 @@ function showMockInstructions(mockNum, element, push = true) {
             </div>
         </div>
     `;
-    if (push) history.pushState({ view: 'mockInstr', mockNum }, "", "");
+    if (push) history.pushState({ view: 'mockInstr', mockNum }, "", `/mock-test/${mockNum}/instructions`);
 }
 
 // Show mock test selection (if you want 3 mock tests)
-function chooseMockTest() {
+function chooseMockTest(push = true) {
     document.getElementById('questions-list').innerHTML = `
         <div class="question-card" style="text-align:left;">
             <h2 style="color:#2563eb;">Select Mock Test</h2>
@@ -479,11 +491,12 @@ function chooseMockTest() {
             </div>
         </div>
     `;
+    if (push) history.pushState({ view: 'mockSelect' }, "", "/mock-test");
 }
 
 let activeTimerInterval = null; // Global timer reference
 // MOCK TEST FEATURE
-async function startMockTest(mockNum) {
+async function startMockTest(mockNum, push = true, seed = null) {
     // Always clear any previous timer before starting a new one
     if (activeTimerInterval) {
         clearInterval(activeTimerInterval);
@@ -499,15 +512,17 @@ async function startMockTest(mockNum) {
     let mockQuestions = [];
     try {
         // For Mock Tests, we fetch from a shared pool containing a mix of all topics
-        const res = await fetch('data/mock_pool.json');
+        const res = await fetch('/data/mock_pool.json');
         const pool = await res.json();
-        const randomSeed = Math.floor(Math.random() * 1000000) + mockNum;
-        mockQuestions = shuffleArray(pool, randomSeed).slice(0, 20);
+        // Use existing seed if navigating, otherwise generate new
+        const finalSeed = seed || (Math.floor(Math.random() * 1000000) + mockNum);
+        mockQuestions = shuffleArray(pool, finalSeed).slice(0, 20);
+        
+        if (push) history.pushState({ view: 'mockActive', mockNum, seed: finalSeed }, "", `/mock-test/${mockNum}/active`);
     } catch (err) {
         alert("Failed to load Mock Test data. Ensure data/mock_pool.json exists.");
         return;
     }
-    
     // Set timer (15 minutes for 20 questions)
     let timeLimit = 15 * 60; 
     let timeLeft = timeLimit;
@@ -605,8 +620,8 @@ async function startMockTest(mockNum) {
                 <p><b>Percentage:</b> ${percent}%</p>
                 <p><b>Answered:</b> ${answered} &nbsp; <b>Not Answered:</b> ${notAnswered}</p>
                 <p><b>Focus Area (all attempts):</b> ${focusArea !== "None" ? focusArea : "Great job! No weak area detected."}</p>
-                <p style="margin-top:1rem;"><b>${percent >= 70 ? "Great job! Keep practicing." : "Keep practicing to improve your score."}</b></p>
-                ${autoSubmit ? `<p style=\"color:#e11d48;\"><b>Time's up! Your test was auto-submitted.</b></p>` : ""}
+                <p style="margin-top:1rem;"><strong>${percent >= 70 ? "Great job! Keep practicing." : "Keep practicing to improve your score."}</strong></p>
+                ${autoSubmit ? `<p style="color:#e11d48;"><strong>Time's up! Your test was auto-submitted.</strong></p>` : ""}
             </div>
         `;
         document.getElementById('mock-result').scrollIntoView({behavior: "smooth"});
@@ -666,5 +681,9 @@ window.addEventListener('popstate', (event) => {
         showStatistics(false);
     } else if (state.view === 'mockInstr') {
         showMockInstructions(state.mockNum, null, false);
+    } else if (state.view === 'mockSelect') {
+        chooseMockTest(false);
+    } else if (state.view === 'mockActive') {
+        startMockTest(state.mockNum, false, state.seed);
     }
 });
