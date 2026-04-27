@@ -418,8 +418,8 @@ h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-
 
     /* --- Exam Mode Mobile Fixes --- */
     .exam-container {
-        grid-template-columns: 1fr; /* Full width for questions */
-        height: calc(100vh - 60px); 
+        grid-template-columns: 1fr !important; /* Forces question area to take full width */
+        height: calc(100vh - 60px) !important; 
         display: grid !important;
     }
     .exam-main-panel {
@@ -445,9 +445,11 @@ h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-
     .exam-mode-active .dashboard {
         height: 100vh;
         overflow: hidden;
+        gap: 0;
     }
     .exam-header-strip h2 { font-size: 1.1rem; }
     .exam-timer { font-size: 1.2rem; }
+    .exam-header-strip { height: 60px; padding: 0 1rem; }
 }
 .stylish-font {
     font-family: 'Poppins', 'Inter', Arial, sans-serif;
@@ -672,6 +674,7 @@ h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-
     margin: 0;
     padding: 0;
     height: 100vh;
+    gap: 0;
 }
 
 .exam-mode-active .main-content {
