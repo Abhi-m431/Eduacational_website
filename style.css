@@ -418,25 +418,48 @@ h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-
 
     /* --- Exam Mode Mobile Fixes --- */
     .exam-container {
-        grid-template-columns: 1fr; /* Stack panels vertically */
-        height: auto;
-        display: flex;
-        flex-direction: column;
+        grid-template-columns: 60px 1fr; /* Palette as a vertical 'line' on the left */
+        height: calc(100vh - 60px); 
+        display: grid !important;
     }
     .exam-main-panel {
-        padding: 1rem;
+        padding: 1rem 0.75rem;
         border-right: none;
-        height: auto;
-        overflow-y: visible; /* Let the page handle scrolling */
+        height: 100%;
+        overflow-y: auto;
     }
     .exam-side-panel {
-        border-top: 1px solid var(--border);
-        height: auto;
-        overflow-y: visible;
-        padding: 1.5rem 1rem;
+        border-right: 1px solid var(--border);
+        border-top: none;
+        height: 100%;
+        overflow-y: auto;
+        padding: 0.5rem;
+        width: 60px;
     }
+    /* Hide non-essential labels to increase question space */
+    .exam-side-panel .nav-group-title, 
+    .exam-side-panel .palette-legend {
+        display: none !important;
+    }
+    .question-palette {
+        grid-template-columns: 1fr; /* Single column vertical line */
+        gap: 12px;
+        margin-top: 0;
+    }
+    .palette-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 0.75rem;
+    }
+    .mock-option {
+        padding: 0.8rem;
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+    }
+    .q-text { font-size: 1rem; margin-bottom: 1rem; }
     .exam-mode-active .dashboard {
-        height: auto;
+        height: 100vh;
+        overflow: hidden;
     }
     .exam-header-strip h2 { font-size: 1.1rem; }
     .exam-timer { font-size: 1.2rem; }
