@@ -139,8 +139,8 @@ function renderHome(push = true) {
                     <p style="font-size: 0.95rem; color: var(--text-muted);">Browse detailed formulas and concepts for your upcoming exams.</p>
                 </div>
                 <div class="question-card" style="cursor: pointer; text-align: left;" onclick="chooseMockTest()">
-                    <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Practice Test</h3>
-                    <p style="font-size: 0.95rem; color: var(--text-muted);">Jump straight into a 10-question drill to test your current knowledge.</p>
+                    <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Mock Tests</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-muted);">Jump straight into a mock test to test your current knowledge.</p>
                 </div>
             </div>
         </div>
