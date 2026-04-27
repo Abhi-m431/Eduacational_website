@@ -24,10 +24,12 @@ fetch('theory.json')
   .then(json => {
     theoryData = json;
     renderSidebar();
-    renderHome();
+    // Initialize history state on first load
+    if (!history.state) history.replaceState({ view: 'home' }, "");
+    renderHome(false);
   });
 
-function renderHome() {
+function renderHome(push = true) {
     const quote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
     const container = document.getElementById('questions-list');
     document.getElementById('bread-cat').innerText = "Home";
@@ -57,9 +59,11 @@ function renderHome() {
         </div>
     `;
     currentTheory = { category: null, subcat: null };
+    if (push) history.pushState({ view: 'home' }, "", "");
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
 }
 
-function renderTheory(category, subcat = null) {
+function renderTheory(category, subcat = null, push = true) {
     if (!theoryData) return;
     const container = document.getElementById('questions-list');
     const cat = theoryData[category];
@@ -90,7 +94,11 @@ function renderTheory(category, subcat = null) {
         title = subcat;
         breadcrumb = `${category} / ${subcat}`;
         
-        content = `<h2>${subcat} Overview</h2>`;
+        content = `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                <h2 style="margin-bottom: 0;">${subcat} Overview</h2>
+                <button class='btn btn-primary' onclick='startPractice("${subcat}")'>Take Practice Test ➔</button>
+            </div>`;
         topicsList.forEach(topicData => {
             content += `
                 <section class="theory-section">
@@ -106,11 +114,12 @@ function renderTheory(category, subcat = null) {
     }
     document.getElementById('bread-cat').innerText = breadcrumb;
     document.getElementById('display-title').innerText = title;
-    container.innerHTML = `<div class=\"question-card\">${content}</div>`;
+    container.innerHTML = `<div class="question-card">${content}</div>`;
     currentTheory = { category, subcat };
+    if (push) history.pushState({ view: 'theory', category, subcat }, "", "");
 }
 
-async function startPractice(tag) {
+async function startPractice(tag, push = true) {
     const container = document.getElementById('questions-list');
     container.innerHTML = "<div class='question-card'>Loading practice questions...</div>";
 
@@ -155,7 +164,7 @@ async function startPractice(tag) {
                     return `<div class="option-label" onclick="checkPracticeOption(this, '${letter}', '${item.ans}')"><span>${letter}) ${opt}</span></div>`;
                 }).join('')}
             </div>
-            <button class="btn btn-primary" onclick="this.nextElementSibling.classList.add('show')">Show Answer & Explanation</button>
+            <button class="btn btn-primary" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer & Explanation</button>
             <div class="answer-container">
                 <div class="answer-content">
                     <span class="correct-badge">Correct Answer: ${item.ans}</span>
@@ -167,6 +176,7 @@ async function startPractice(tag) {
     container.innerHTML += `<div class="cta-footer">
         <button class="btn btn-primary btn-lg" onclick="finishPractice('${tag}')">Finish Practice Test ➔</button>
     </div>`;
+    if (push) history.pushState({ view: 'practice', tag, category: catName }, "", "");
 }
 
 function checkPracticeOption(element, selected, correct) {
@@ -279,11 +289,13 @@ function switchTab(cat, element, subtopic = null) {
     }
 }
 
-async function showStatistics() {
+async function showStatistics(push = true) {
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     const container = document.getElementById('questions-list');
     document.getElementById('bread-cat').innerText = "Performance";
     document.getElementById('display-title').innerText = "Your Statistics";
+    if (push) history.pushState({ view: 'stats' }, "", "");
+
     container.innerHTML = "<div class='question-card'>Loading your performance data...</div>";
 
     if (!window.getUserResults) return;
@@ -431,10 +443,10 @@ async function showStatistics() {
     }
 }
 // Add this function to handle sidebar click for Mock Tests
-function showMockInstructions(mockNum, element) {
+function showMockInstructions(mockNum, element, push = true) {
     // Update active class
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-    element.classList.add('active');
+    if (element) element.classList.add('active');
     document.getElementById('bread-cat').innerText = "Mock Test " + mockNum;
     document.getElementById('display-title').innerText = "Mock Test " + mockNum;
     document.getElementById('mock-result').innerHTML = "";
@@ -452,6 +464,7 @@ function showMockInstructions(mockNum, element) {
             </div>
         </div>
     `;
+    if (push) history.pushState({ view: 'mockInstr', mockNum }, "", "");
 }
 
 // Show mock test selection (if you want 3 mock tests)
@@ -631,3 +644,27 @@ function mulberry32(a) {
         return ((t ^ t >>> 14) >>> 0) / 4294967296;
     }
 }
+
+// --- BROWSER NAVIGATION LOGIC ---
+window.addEventListener('popstate', (event) => {
+    const state = event.state;
+    
+    // Clean up active timers if the user navigates away from a test
+    if (activeTimerInterval) {
+        clearInterval(activeTimerInterval);
+        activeTimerInterval = null;
+    }
+
+    if (!state || state.view === 'home') {
+        renderHome(false);
+    } else if (state.view === 'theory') {
+        renderTheory(state.category, state.subcat, false);
+    } else if (state.view === 'practice') {
+        currentTheory.category = state.category;
+        startPractice(state.tag, false);
+    } else if (state.view === 'stats') {
+        showStatistics(false);
+    } else if (state.view === 'mockInstr') {
+        showMockInstructions(state.mockNum, null, false);
+    }
+});
