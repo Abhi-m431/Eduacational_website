@@ -6,7 +6,9 @@
     <title>Prepwithme | Modern Learning Platform</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
+    <!-- Chart.js CDN for bar chart visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -52,6 +54,7 @@
             <span id="auth-toggle-text">Don't have an account?</span> 
             <a href="#" onclick="toggleAuthMode()" id="auth-toggle-link" style="color: var(--primary); font-weight: 600; text-decoration: none;">Sign Up</a>
         </p>
+        <button id="dev-bypass-btn" class="btn" style="display: none; width: 100%; margin-top: 1rem; border-color: #fbbf24; color: #b45309; background: #fffbeb;" onclick="enableDevMode()">Dev: Bypass Login</button>
     </div>
 </div>
 
@@ -81,7 +84,7 @@
                             <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                             <span>Profile Details</span>
                         </div>
-                        <div class="dropdown-item" onclick="alert('Study statistics coming soon!')">
+                        <div class="dropdown-item" onclick="showStatistics(); toggleProfileDropdown()">
                             <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
                             <span>Statistics</span>
                         </div>
@@ -100,6 +103,10 @@
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="nav-card">
+                <div class="nav-group-title">General</div>
+                <div id="nav-home" class="nav-item active" onclick="renderHome()">
+                    Dashboard Home
+                </div>
                 <div class="nav-group-title">Categories</div>
                 <nav class="nav-list" id="category-nav">
                     <!-- Dynamically populated -->
@@ -133,9 +140,10 @@
 </div>
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-analytics.js";
-  import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
+  import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+  import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyBaMQgO6HLcySG2iKKR2r8EECDAkAPjOS0",
@@ -150,8 +158,64 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
+  const db = getFirestore(app);
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
+
+  // Global helper to save performance results to Firestore
+  window.savePerformanceResult = async (resultData) => {
+      const user = auth.currentUser;
+      if (!user) {
+          console.warn("Save skipped: No authenticated user. (Bypass mode active)");
+          return; 
+      }
+      try {
+          await addDoc(collection(db, "users", user.uid, "results"), {
+              ...resultData,
+              timestamp: serverTimestamp(),
+              userEmail: user.email
+          });
+          console.log("Performance data synced to cloud.");
+      } catch (e) { console.error("Performance tracking failed:", e); }
+  };
+
+  // NEW: Global helper to fetch results
+  window.getUserResults = async () => {
+      const user = auth.currentUser;
+      if (!user) return [];
+      
+      try {
+          const q = query(collection(db, "users", user.uid, "results"), orderBy("timestamp", "desc"));
+          const querySnapshot = await getDocs(q);
+          console.log(`Fetched ${querySnapshot.size} results for UID: ${user.uid}`);
+          return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      } catch (e) {
+          console.error("Error fetching results:", e);
+          return [];
+      }
+  };
+
+  // NEW: Function to record individual topic practice scores
+  window.recordScore = async (topic, score, total) => {
+    const user = auth.currentUser;
+    if (user) {
+      try {
+        const docRef = await addDoc(collection(db, "user_scores"), {
+          uid: user.uid,
+          email: user.email,
+          topic: topic,
+          score: score,
+          total: total,
+          timestamp: serverTimestamp()
+        });
+        console.log("Score saved with ID: ", docRef.id);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+    } else {
+      alert("Please login to save your progress!");
+    }
+  };
 
   let isSignUpMode = false;
 
@@ -208,6 +272,7 @@
 
   // 2. Function to Logout
   window.logout = () => {
+    localStorage.removeItem('admin_bypass');
     signOut(auth).then(() => location.reload());
   };
 
@@ -215,6 +280,17 @@
       const menu = document.getElementById('dropdown-menu');
       if (menu) menu.classList.toggle('show');
   };
+
+  // Dev Bypass Helper
+  window.enableDevMode = () => {
+      localStorage.setItem('admin_bypass', 'true');
+      location.reload();
+  };
+
+  // Show dev button only if on localhost
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      document.getElementById('dev-bypass-btn').style.display = 'block';
+  }
 
   // Close dropdown when clicking outside
   window.addEventListener('click', (e) => {
@@ -233,18 +309,22 @@
     const fullName = document.getElementById('full-name');
     const userEmail = document.getElementById('user-email');
 
-    if (user) {
+    const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const hasBypass = localStorage.getItem('admin_bypass') === 'true' && isDev;
+
+    if (user || hasBypass) {
+      const activeUser = user || { displayName: "Admin Developer", email: "dev@prepwithme.local", photoURL: null };
       loginView.style.display = 'none';
       appView.style.display = 'block';
-      userName.innerText = (user.displayName || "Student").split(' ')[0];
+      userName.innerText = (activeUser.displayName || "Student").split(' ')[0];
       
-      if(fullName) fullName.innerText = user.displayName || "Student";
-      if(userEmail) userEmail.innerText = user.email;
+      if(fullName) fullName.innerText = activeUser.displayName || "Student";
+      if(userEmail) userEmail.innerText = activeUser.email;
       
-      if (user.photoURL) {
-          userPic.innerHTML = `<img src="${user.photoURL}" style="width:100%; height:100%; object-fit:cover; border-radius:50%">`;
+      if (activeUser.photoURL) {
+          userPic.innerHTML = `<img src="${activeUser.photoURL}" style="width:100%; height:100%; object-fit:cover; border-radius:50%">`;
       } else {
-          userPic.innerText = (user.displayName || "S").charAt(0);
+          userPic.innerText = (activeUser.displayName || "S").charAt(0);
       }
     } else {
       loginView.style.display = 'flex';
@@ -252,6 +332,6 @@
     }
   });
 </script>
-<script src="script.js"></script>
+<script src="/script.js"></script>
 </body>
 </html>

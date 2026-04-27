@@ -3,25 +3,90 @@ function scrollToSection(id) {
   document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
 }
 
+const motivationalQuotes = [
+    "Success is the sum of small efforts, repeated day in and day out.",
+    "The secret of getting ahead is getting started.",
+    "Believe you can and you're halfway there.",
+    "It always seems impossible until it's done.",
+    "Don't stop when you're tired. Stop when you're done."
+];
+
 // Efficient multi-page theory rendering using theory.json, with pagination for each subcategory and dynamic sidebar generation
 let theoryData = null;
 let currentTheory = { category: null, subcat: null };
 
-fetch('theory.json')
+// Performance Optimization: Cache for fetched questions
+let questionsCache = {};
+let activeCharts = {};
+
+fetch('/theory.json')
   .then(res => res.json())
   .then(json => {
     theoryData = json;
     renderSidebar();
-    renderTheory('Quantitative Aptitude');
+    // Initialize history state on first load
+    if (!history.state) history.replaceState({ view: 'home' }, "");
+    renderHome(false);
   });
 
-function renderTheory(category, subcat = null) {
+function renderHome(push = true) {
+    const quote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
+    const container = document.getElementById('questions-list');
+    document.getElementById('bread-cat').innerText = "Home";
+    document.getElementById('display-title').innerText = "Student Dashboard";
+    
+    container.innerHTML = `
+        <div class="welcome-container">
+            <div class="welcome-hero">
+                <h2>Fuel Your Ambition</h2>
+            </div>
+
+            <div class="quote-card">
+                <p class="quote-label">Daily Motivation</p>
+                <p class="quote-text">"${quote}"</p>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="question-card" style="cursor: pointer; text-align: left;" onclick="renderTheory('Quantitative Aptitude')">
+                    <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Study Topics</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-muted);">Browse detailed formulas and concepts for your upcoming exams.</p>
+                </div>
+                <div class="question-card" style="cursor: pointer; text-align: left;" onclick="chooseMockTest()">
+                    <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Practice Test</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-muted);">Jump straight into a 10-question drill to test your current knowledge.</p>
+                </div>
+            </div>
+        </div>
+    `;
+    currentTheory = { category: null, subcat: null };
+    if (push) history.pushState({ view: 'home' }, "", "/");
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    document.getElementById('nav-home')?.classList.add('active');
+}
+
+function renderTheory(category, subcat = null, push = true) {
     if (!theoryData) return;
     const container = document.getElementById('questions-list');
     const cat = theoryData[category];
     if (!cat) return;
     let title = cat.title;
-    let content = `<div>${cat.overview || ''}</div>`;
+    
+    // Default "At a Glance" view for the Main Category
+    let content = `
+        <div class="category-glance">
+            <p class="theory-content" style="margin-bottom: 2.5rem; font-size: 1.125rem; color: #475569;">${cat.overview || ''}</p>
+            <h3 style="margin-bottom: 1.5rem; color: var(--text-dark); border-bottom: 2px solid var(--primary-light); padding-bottom: 0.5rem; display: inline-block;">Module Curriculum</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-top: 0.5rem;">
+                ${Object.keys(cat.topics).map(topic => `
+                    <div class="glance-card" onclick="renderTheory('${category}', '${topic}')" style="background: white; border: 1px solid var(--border); padding: 1.25rem; border-radius: 12px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                        <span style="font-weight: 600; color: var(--text-dark);">${topic}</span>
+                        <span style="color: var(--primary); font-weight: 800;">➔</span>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+
     let breadcrumb = category;
     if (subcat && cat.topics[subcat]) {
         const topicsList = cat.topics[subcat];
@@ -30,7 +95,11 @@ function renderTheory(category, subcat = null) {
         title = subcat;
         breadcrumb = `${category} / ${subcat}`;
         
-        content = `<h2>${subcat} Overview</h2>`;
+        content = `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                <h2 style="margin-bottom: 0;">${subcat} Overview</h2>
+                <button class='btn btn-primary' onclick='startPractice("${subcat}")'>Take Practice Test ➔</button>
+            </div>`;
         topicsList.forEach(topicData => {
             content += `
                 <section class="theory-section">
@@ -46,11 +115,17 @@ function renderTheory(category, subcat = null) {
     }
     document.getElementById('bread-cat').innerText = breadcrumb;
     document.getElementById('display-title').innerText = title;
-    container.innerHTML = `<div class=\"question-card\">${content}</div>`;
+    container.innerHTML = `<div class="question-card">${content}</div>`;
     currentTheory = { category, subcat };
+    if (push) {
+        const urlPath = subcat 
+            ? `/theory/${category.replace(/\s+/g, '-').toLowerCase()}/${subcat.replace(/\s+/g, '-').toLowerCase()}`
+            : `/theory/${category.replace(/\s+/g, '-').toLowerCase()}`;
+        history.pushState({ view: 'theory', category, subcat }, "", urlPath);
+    }
 }
 
-async function startPractice(tag) {
+async function startPractice(tag, push = true) {
     const container = document.getElementById('questions-list');
     container.innerHTML = "<div class='question-card'>Loading practice questions...</div>";
 
@@ -59,14 +134,20 @@ async function startPractice(tag) {
     const fileName = catName.replace(/[^a-z0-9]/gi, '_') + '.json';
     let allCatQuestions = [];
     
-    try {
-        const res = await fetch(`data/${fileName}`);
-        if (!res.ok) throw new Error();
-        allCatQuestions = await res.json();
-    } catch (err) {
-        alert(`No questions found for category: ${catName}. Ensure data/${fileName} exists.`);
-        renderTheory(currentTheory.category, tag); // Reset view
-        return;
+    // Efficiency Improvement: Use Cache if available
+    if (questionsCache[catName]) {
+        allCatQuestions = questionsCache[catName];
+    } else {
+        try {
+            const res = await fetch(`/data/${fileName}`);
+            if (!res.ok) throw new Error();
+            allCatQuestions = await res.json();
+            questionsCache[catName] = allCatQuestions; // Save to cache
+        } catch (err) {
+            alert(`No questions found for category: ${catName}. Ensure data/${fileName} exists.`);
+            renderTheory(currentTheory.category, tag);
+            return;
+        }
     }
 
     // Filter category questions by the specific subcategory tag
@@ -89,7 +170,7 @@ async function startPractice(tag) {
                     return `<div class="option-label" onclick="checkPracticeOption(this, '${letter}', '${item.ans}')"><span>${letter}) ${opt}</span></div>`;
                 }).join('')}
             </div>
-            <button class="btn btn-primary" onclick="this.nextElementSibling.classList.add('show')">Show Answer & Explanation</button>
+            <button class="btn btn-primary" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer & Explanation</button>
             <div class="answer-container">
                 <div class="answer-content">
                     <span class="correct-badge">Correct Answer: ${item.ans}</span>
@@ -98,6 +179,10 @@ async function startPractice(tag) {
             </div>
         </article>
     `).join('');
+    container.innerHTML += `<div class="cta-footer">
+        <button class="btn btn-primary btn-lg" onclick="finishPractice('${tag}')">Finish Practice Test ➔</button>
+    </div>`;
+    if (push) history.pushState({ view: 'practice', tag, category: catName }, "", `/practice/${tag.replace(/\s+/g, '-').toLowerCase()}`);
 }
 
 function checkPracticeOption(element, selected, correct) {
@@ -118,6 +203,41 @@ function checkPracticeOption(element, selected, correct) {
         });
     }
     // Do NOT auto-show explanation. User must click the button to reveal.
+}
+
+function finishPractice(tag) {
+    const cards = document.querySelectorAll('.question-card[data-answered="true"]');
+    const total = document.querySelectorAll('.question-card').length;
+    let correct = 0;
+
+    cards.forEach(card => {
+        if (card.querySelector('.option-label.correct')) correct++;
+    });
+
+    if (cards.length === 0) return alert("Please answer at least one question before finishing.");
+
+    const percent = Math.round((correct / total) * 100);
+    const container = document.getElementById('questions-list');
+    const mockResult = document.getElementById('mock-result');
+
+    // Clear the question list and show a professional result card
+    container.innerHTML = "";
+    mockResult.innerHTML = `
+        <div class="question-card" style="background: #f0fdf4; border-left: 8px solid var(--success); animation: fadeIn 0.5s ease-out;">
+            <h2 style="color: #16a34a; margin-bottom: 1rem;">Practice Test Complete</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 1rem;">Topic: <strong>${tag}</strong></p>
+            <div style="display: flex; gap: 2rem; margin-bottom: 2rem;">
+                <div><p style="color: var(--text-muted); font-size: 0.8rem; font-weight: 700; text-transform: uppercase;">Score</p><h3 style="font-size: 1.5rem; border:none;">${correct} / ${total}</h3></div>
+                <div><p style="color: var(--text-muted); font-size: 0.8rem; font-weight: 700; text-transform: uppercase;">Accuracy</p><h3 style="font-size: 1.5rem; border:none;">${percent}%</h3></div>
+            </div>
+            <p style="margin-bottom: 2rem; color: #374151;">${percent >= 80 ? "Excellent mastery of this concept!" : "Good effort! Review the formulas below to reach 100%."}</p>
+            <div class="cta-footer" style="justify-content: flex-start; gap: 1rem;">
+                <button class="btn btn-primary" onclick="renderTheory('${currentTheory.category}', '${tag}')">Return to Theory</button>
+                <button class="btn" style="border-color: var(--primary); color: var(--primary);" onclick="startPractice('${tag}')">Try Again</button>
+            </div>
+        </div>
+    `;
+    mockResult.scrollIntoView({ behavior: "smooth" });
 }
 
 function renderSidebar() {
@@ -175,11 +295,170 @@ function switchTab(cat, element, subtopic = null) {
     }
 }
 
+async function showStatistics(push = true) {
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    const container = document.getElementById('questions-list');
+    document.getElementById('bread-cat').innerText = "Performance";
+    document.getElementById('display-title').innerText = "Your Statistics";
+    if (push) history.pushState({ view: 'stats' }, "", "/statistics");
+
+    container.innerHTML = "<div class='question-card'>Loading your performance data...</div>";
+
+    if (!window.getUserResults) return;
+    const results = await window.getUserResults();
+    
+    if (!results || results.length === 0) {
+        container.innerHTML = "<div class='question-card'>No performance data found. Take a Mock Test to see your BI analysis!</div>";
+        return;
+    }
+
+    // BI Logic: Aggregate data for visuals
+    const reversedResults = [...results].reverse(); // Oldest to newest for trend
+    const dates = reversedResults.map(r => r.timestamp ? r.timestamp.toDate().toLocaleDateString() : 'Just now');
+    const scores = reversedResults.map(r => r.percentage);
+    
+    const focusFrequencies = {};
+    let totalQuestions = 0;
+    let totalCorrect = 0;
+
+    results.forEach(r => {
+        totalQuestions += (r.total || 10);
+        totalCorrect += (r.score || 0);
+        if (r.focusArea && r.focusArea !== "None") {
+            focusFrequencies[r.focusArea] = (focusFrequencies[r.focusArea] || 0) + 1;
+        }
+    });
+
+    const avgAccuracy = Math.round((totalCorrect / totalQuestions) * 100);
+    const sortedWeaknesses = Object.entries(focusFrequencies).sort((a, b) => b[1] - a[1]);
+    const topWeakness = sortedWeaknesses.length > 0 ? sortedWeaknesses[0][0] : "None Detected";
+
+    // Render Layout
+    let html = `
+        <!-- Metric Row -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+            <div class="question-card" style="text-align: center; padding: 1.5rem; margin-bottom:0; border-bottom: 4px solid var(--primary);">
+                <p style="color: var(--text-muted); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 0.5rem;">Overall Accuracy</p>
+                <h2 style="font-size: 2.5rem; color: var(--text-dark);">${avgAccuracy}%</h2>
+            </div>
+            <div class="question-card" style="text-align: center; padding: 1.5rem; margin-bottom:0; border-bottom: 4px solid #f59e0b;">
+                <p style="color: var(--text-muted); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 0.5rem;">Total Attempts</p>
+                <h2 style="font-size: 2.5rem; color: var(--text-dark);">${results.length}</h2>
+            </div>
+            <div class="question-card" style="text-align: center; padding: 1.5rem; margin-bottom:0; border-bottom: 4px solid #ef4444;">
+                <p style="color: var(--text-muted); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 0.5rem;">Critical Weakness</p>
+                <h2 style="font-size: 1.25rem; color: #ef4444; height: 3rem; display: flex; align-items: center; justify-content: center;">${topWeakness}</h2>
+            </div>
+        </div>
+
+        <!-- Visual Analytics Row -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+            <div class="question-card" style="margin-bottom:0;">
+                <h3 style="margin-bottom: 1rem; font-size: 1rem;">Performance Trend</h3>
+                <canvas id="trendChart" height="250"></canvas>
+            </div>
+            <div class="question-card" style="margin-bottom:0;">
+                <h3 style="margin-bottom: 1rem; font-size: 1rem;">Repeated Mistakes by Topic</h3>
+                <canvas id="weaknessChart" height="250"></canvas>
+            </div>
+        </div>
+
+        <!-- History Table -->
+        <div class="question-card">
+            <h3 style="margin-bottom: 1.5rem;">Recent Attempt History</h3>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                        <tr style="text-align: left; border-bottom: 2px solid var(--border);">
+                            <th style="padding: 1rem;">Date</th>
+                            <th style="padding: 1rem;">Session</th>
+                            <th style="padding: 1rem;">Accuracy</th>
+                            <th style="padding: 1rem;">Primary Weakness</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${results.map(r => `
+                            <tr style="border-bottom: 1px solid var(--border);">
+                                <td style="padding: 1rem; color: var(--text-muted);">${r.timestamp ? r.timestamp.toDate().toLocaleDateString() : 'Just now'}</td>
+                                <td style="padding: 1rem; font-weight: 600;">${r.testType} ${r.testId}</td>
+                                <td style="padding: 1rem; font-weight: 700; color: ${r.percentage >= 70 ? 'var(--success)' : 'var(--primary)'}">${r.percentage}%</td>
+                                <td style="padding: 1rem;"><span class="q-tag">${r.focusArea}</span></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    `;
+
+    container.innerHTML = html;
+
+    // Initialize BI Visuals
+    if (window.Chart) {
+        setTimeout(() => {
+            // Performance Fix: Destroy existing chart instances before re-rendering
+            if (activeCharts.trend) activeCharts.trend.destroy();
+            if (activeCharts.weakness) activeCharts.weakness.destroy();
+
+            // 1. Trend Chart
+            const trendCtx = document.getElementById('trendChart').getContext('2d');
+            activeCharts.trend = new Chart(trendCtx, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: 'Score %',
+                        data: scores,
+                        borderColor: '#2563eb',
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, max: 100 } }
+                }
+            });
+
+            // 2. Weakness Chart
+            const weaknessCtx = document.getElementById('weaknessChart').getContext('2d');
+            activeCharts.weakness = new Chart(weaknessCtx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(focusFrequencies),
+                    datasets: [{
+                        label: 'Mistake Frequency',
+                        data: Object.values(focusFrequencies),
+                        backgroundColor: '#ef4444',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { beginAtZero: true, ticks: { stepSize: 1 } }
+                    }
+                }
+            });
+        }, 100);
+    }
+}
 // Add this function to handle sidebar click for Mock Tests
-function showMockInstructions(mockNum, element) {
+function showMockInstructions(mockNum, element, push = true) {
     // Update active class
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-    element.classList.add('active');
+    if (element) element.classList.add('active');
+    else {
+        // Highlight sidebar item based on mock number during back/forward navigation
+        const sidebarItems = document.querySelectorAll('.sidebar .nav-item');
+        const target = Array.from(sidebarItems).find(el => el.innerText.includes(`Mock Test ${mockNum}`));
+        if (target) target.classList.add('active');
+    }
     document.getElementById('bread-cat').innerText = "Mock Test " + mockNum;
     document.getElementById('display-title').innerText = "Mock Test " + mockNum;
     document.getElementById('mock-result').innerHTML = "";
@@ -187,8 +466,8 @@ function showMockInstructions(mockNum, element) {
         <div class="question-card" style="text-align:left;">
             <h2 style="color:#2563eb;">Mock Test ${mockNum} Instructions</h2>
             <ul style="margin-bottom:1.5rem;">
-                <li>This mock test contains 10 questions from all areas.</li>
-                <li>You have 10 minutes to complete the test.</li>
+                <li>This mock test contains 20 questions from all topics.</li>
+                <li>You have 15 minutes to complete the test.</li>
                 <li>Do not refresh or leave the page during the test.</li>
                 <li>Your score, percentage, answered/unanswered, and focus area will be shown after submission.</li>
             </ul>
@@ -197,10 +476,11 @@ function showMockInstructions(mockNum, element) {
             </div>
         </div>
     `;
+    if (push) history.pushState({ view: 'mockInstr', mockNum }, "", `/mock-test/${mockNum}/instructions`);
 }
 
 // Show mock test selection (if you want 3 mock tests)
-function chooseMockTest() {
+function chooseMockTest(push = true) {
     document.getElementById('questions-list').innerHTML = `
         <div class="question-card" style="text-align:left;">
             <h2 style="color:#2563eb;">Select Mock Test</h2>
@@ -211,11 +491,12 @@ function chooseMockTest() {
             </div>
         </div>
     `;
+    if (push) history.pushState({ view: 'mockSelect' }, "", "/mock-test");
 }
 
 let activeTimerInterval = null; // Global timer reference
 // MOCK TEST FEATURE
-async function startMockTest(mockNum) {
+async function startMockTest(mockNum, push = true, seed = null) {
     // Always clear any previous timer before starting a new one
     if (activeTimerInterval) {
         clearInterval(activeTimerInterval);
@@ -231,17 +512,19 @@ async function startMockTest(mockNum) {
     let mockQuestions = [];
     try {
         // For Mock Tests, we fetch from a shared pool containing a mix of all topics
-        const res = await fetch('data/mock_pool.json');
+        const res = await fetch('/data/mock_pool.json');
         const pool = await res.json();
-        const randomSeed = Math.floor(Math.random() * 1000000) + mockNum;
-        mockQuestions = shuffleArray(pool, randomSeed).slice(0, 10);
+        // Use existing seed if navigating, otherwise generate new
+        const finalSeed = seed || (Math.floor(Math.random() * 1000000) + mockNum);
+        mockQuestions = shuffleArray(pool, finalSeed).slice(0, 20);
+        
+        if (push) history.pushState({ view: 'mockActive', mockNum, seed: finalSeed }, "", `/mock-test/${mockNum}/active`);
     } catch (err) {
         alert("Failed to load Mock Test data. Ensure data/mock_pool.json exists.");
         return;
     }
-
-    // Set timer (e.g., 10 minutes for 10 questions)
-    let timeLimit = 10 * 60; // seconds
+    // Set timer (15 minutes for 20 questions)
+    let timeLimit = 15 * 60; 
     let timeLeft = timeLimit;
 
     document.getElementById('questions-list').innerHTML = `
@@ -297,6 +580,8 @@ async function startMockTest(mockNum) {
         let total = mockQuestions.length;
         let answered = 0;
         let wrongByTag = {};
+        // Load cumulative mistakes from localStorage
+        let cumulativeMistakes = JSON.parse(localStorage.getItem('cumulativeMistakes') || '{}');
         mockQuestions.forEach(q => {
             const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
             if(selected) {
@@ -305,20 +590,24 @@ async function startMockTest(mockNum) {
                     correct++;
                 } else {
                     wrongByTag[q.tag] = (wrongByTag[q.tag] || 0) + 1;
+                    cumulativeMistakes[q.tag] = (cumulativeMistakes[q.tag] || 0) + 1;
                 }
             } else {
                 wrongByTag[q.tag] = (wrongByTag[q.tag] || 0) + 1;
+                cumulativeMistakes[q.tag] = (cumulativeMistakes[q.tag] || 0) + 1;
             }
         });
+        // Save cumulative mistakes
+        localStorage.setItem('cumulativeMistakes', JSON.stringify(cumulativeMistakes));
         let percent = Math.round((correct/total)*100);
         let notAnswered = total - answered;
 
-        // Find focus area (tag with most mistakes)
+        // Find focus area (tag with most mistakes across all attempts)
         let focusArea = "None";
         let maxWrong = 0;
-        for (let tag in wrongByTag) {
-            if (wrongByTag[tag] > maxWrong) {
-                maxWrong = wrongByTag[tag];
+        for (let tag in cumulativeMistakes) {
+            if (cumulativeMistakes[tag] > maxWrong) {
+                maxWrong = cumulativeMistakes[tag];
                 focusArea = tag;
             }
         }
@@ -330,12 +619,24 @@ async function startMockTest(mockNum) {
                 <p><b>Score:</b> ${correct} / ${total}</p>
                 <p><b>Percentage:</b> ${percent}%</p>
                 <p><b>Answered:</b> ${answered} &nbsp; <b>Not Answered:</b> ${notAnswered}</p>
-                <p><b>Focus Area:</b> ${focusArea !== "None" ? focusArea : "Great job! No weak area detected."}</p>
-                <p><b>${percent >= 70 ? "Great job! Keep practicing." : "Keep practicing to improve your score."}</b></p>
-                ${autoSubmit ? `<p style="color:#e11d48;"><b>Time's up! Your test was auto-submitted.</b></p>` : ""}
+                <p><b>Focus Area (all attempts):</b> ${focusArea !== "None" ? focusArea : "Great job! No weak area detected."}</p>
+                <p style="margin-top:1rem;"><strong>${percent >= 70 ? "Great job! Keep practicing." : "Keep practicing to improve your score."}</strong></p>
+                ${autoSubmit ? `<p style="color:#e11d48;"><strong>Time's up! Your test was auto-submitted.</strong></p>` : ""}
             </div>
         `;
         document.getElementById('mock-result').scrollIntoView({behavior: "smooth"});
+
+        // Professional Tracking: Save the result to Firestore
+        if (window.savePerformanceResult) {
+            window.savePerformanceResult({
+                testType: "Mock Test",
+                testId: mockNum,
+                score: correct,
+                total: total,
+                percentage: percent,
+                focusArea: focusArea
+            });
+        }
     }
 }
 
@@ -358,3 +659,31 @@ function mulberry32(a) {
         return ((t ^ t >>> 14) >>> 0) / 4294967296;
     }
 }
+
+// --- BROWSER NAVIGATION LOGIC ---
+window.addEventListener('popstate', (event) => {
+    const state = event.state;
+    
+    // Clean up active timers if the user navigates away from a test
+    if (activeTimerInterval) {
+        clearInterval(activeTimerInterval);
+        activeTimerInterval = null;
+    }
+
+    if (!state || state.view === 'home') {
+        renderHome(false);
+    } else if (state.view === 'theory') {
+        renderTheory(state.category, state.subcat, false);
+    } else if (state.view === 'practice') {
+        currentTheory.category = state.category;
+        startPractice(state.tag, false);
+    } else if (state.view === 'stats') {
+        showStatistics(false);
+    } else if (state.view === 'mockInstr') {
+        showMockInstructions(state.mockNum, null, false);
+    } else if (state.view === 'mockSelect') {
+        chooseMockTest(false);
+    } else if (state.view === 'mockActive') {
+        startMockTest(state.mockNum, false, state.seed);
+    }
+});
