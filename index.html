@@ -6,7 +6,7 @@
     <title>Prepwithme | Modern Learning Platform</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="style.css">
     <!-- Chart.js CDN for bar chart visualization -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -85,7 +85,7 @@
                     </div>
                     <hr class="dropdown-divider">
                     <div class="dropdown-items">
-                        <div class="dropdown-item" onclick="alert('Profile settings coming soon!')">
+                        <div class="dropdown-item" onclick="showProfileDetails(); toggleProfileDropdown()">
                             <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                             <span>Profile Details</span>
                         </div>
@@ -198,6 +198,26 @@
       } catch (e) {
           console.error("Error fetching results:", e);
           return [];
+      }
+  };
+
+  // NEW: Global helper to update user profile name
+  window.updateUserProfileName = async (newName) => {
+      const user = auth.currentUser;
+      if (user) {
+          try {
+              await updateProfile(user, { displayName: newName });
+              // Force local UI update for immediate feedback
+              const userNameDisplay = document.getElementById('user-name');
+              const fullNameDisplay = document.getElementById('full-name');
+              const userPicDisplay = document.getElementById('user-pic');
+              
+              if (userNameDisplay) userNameDisplay.innerText = newName.split(' ')[0];
+              if (fullNameDisplay) fullNameDisplay.innerText = newName;
+              if (userPicDisplay && !user.photoURL) userPicDisplay.innerText = newName.charAt(0);
+              
+              return true;
+          } catch (e) { throw e; }
       }
   };
 
@@ -338,7 +358,7 @@
     }
   });
 </script>
-<script src="/script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
  

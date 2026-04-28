@@ -55,7 +55,7 @@ function clearActiveNavItems() {
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
 }
 
-fetch('/theory.json')
+fetch('theory.json')
   .then(res => res.json())
   .then(json => {
     theoryData = json; // Assign theoryData only once
@@ -86,7 +86,7 @@ function ensureDashboardShell() {
 }
 
 function handleInitialRouting() {
-    const path = window.location.pathname;
+    const path = window.location.hash || '#/';
     
     // If we have history state already (from a refresh), use it
     if (history.state && history.state.view) {
@@ -96,6 +96,7 @@ function handleInitialRouting() {
             currentTheory.category = state.category;
             return startPractice(state.tag, false);
         }
+        if (state.view === 'profile') return showProfileDetails(false);
         if (state.view === 'stats') return showStatistics(false);
         if (state.view === 'mockInstr') return showMockInstructions(state.mockNum, null, false);
         if (state.view === 'mockSelect') return chooseMockTest(false);
@@ -103,20 +104,22 @@ function handleInitialRouting() {
     }
 
     // Fallback: Parse URL path if state is missing (e.g. direct link/bookmark)
-    if (path === '/' || path === '/index.html') {
-        if (!history.state) history.replaceState({ view: 'home' }, "", "/");
+    if (path === '#/' || path === '#/index.html') {
+        if (!history.state) history.replaceState({ view: 'home' }, "", "#/");
         renderHome(false);
-    } else if (path.startsWith('/theory/')) {
+    } else if (path.startsWith('#/theory/')) {
         const parts = path.split('/').filter(Boolean); // ["theory", "category", "subcat"]
         const cat = parts[1] ? parts[1].replace(/-/g, ' ') : null;
         const sub = parts[2] ? parts[2].replace(/-/g, ' ') : null;
         // Note: This requires matching casing with theory.json keys
         renderTheory(Object.keys(theoryData).find(k => k.toLowerCase() === cat), sub, false);
-    } else if (path === '/statistics') {
+    } else if (path === '#/statistics') {
         showStatistics(false);
-    } else if (path === '/mock-test') {
+    } else if (path === '#/profile') {
+        showProfileDetails(false);
+    } else if (path === '#/mock-test') {
         chooseMockTest(false);
-    } else if (path.startsWith('/mock-test/')) {
+    } else if (path.startsWith('#/mock-test/')) {
         const parts = path.split('/').filter(Boolean); // ["mock-test", "1", "active"]
         const mockNum = parseInt(parts[1]);
         if (parts[2] === 'active') {
@@ -126,7 +129,7 @@ function handleInitialRouting() {
         }
     } else {
         // Default to home for unknown paths
-        history.replaceState({ view: 'home' }, "", "/");
+        history.replaceState({ view: 'home' }, "", "#/");
         renderHome(false);
     }
 }
@@ -165,7 +168,7 @@ function renderHome(push = true) {
     `;
     }
     currentTheory = { category: null, subcat: null };
-    if (push) history.pushState({ view: 'home' }, "", "/");
+    if (push) history.pushState({ view: 'home' }, "", "#/");
     clearActiveNavItems(); // Remove active class from all nav items
     document.getElementById('nav-home')?.classList.add('active'); // Set home as active
 }
@@ -228,8 +231,8 @@ function renderTheory(category, subcat = null, push = true) {
     currentTheory = { category, subcat };
     if (push) { // Push state to history
         const urlPath = subcat // Construct URL path based on subcategory existence
-            ? `/theory/${category.replace(/\s+/g, '-').toLowerCase()}/${subcat.replace(/\s+/g, '-').toLowerCase()}`
-            : `/theory/${category.replace(/\s+/g, '-').toLowerCase()}`;
+            ? `#/theory/${category.replace(/\s+/g, '-').toLowerCase()}/${subcat.replace(/\s+/g, '-').toLowerCase()}`
+            : `#/theory/${category.replace(/\s+/g, '-').toLowerCase()}`;
         history.pushState({ view: 'theory', category, subcat }, "", urlPath);
     }
 }
@@ -249,7 +252,7 @@ async function startPractice(tag, push = true) {
         allCatQuestions = questionsCache[catName];
     } else {
         try {
-            const res = await fetch(`/data/${fileName}`);
+            const res = await fetch(`data/${fileName}`);
             if (!res.ok) throw new Error();
             allCatQuestions = await res.json();
             questionsCache[catName] = allCatQuestions; // Save to cache
@@ -273,6 +276,7 @@ async function startPractice(tag, push = true) {
     
     questionsListContainer.innerHTML = questions.map((item, idx) => `
         <article class="question-card">
+            ${item.level ? `<span class="q-level level-${item.level.toLowerCase()}">${item.level}</span>` : ''}
             <p class="q-text">Q${idx + 1}. ${item.q}</p>
             <div class="options-grid">
                 ${item.options.map((opt, i) => {
@@ -293,7 +297,7 @@ async function startPractice(tag, push = true) {
     questionsListContainer.innerHTML += `<div class="cta-footer">
         <button class="btn btn-primary btn-lg" onclick="finishPractice('${tag}')">Finish Practice Test ➔</button>
     </div>`;
-    if (push) history.pushState({ view: 'practice', tag, category: catName }, "", `/practice/${tag.replace(/\s+/g, '-').toLowerCase()}`); // Update history
+    if (push) history.pushState({ view: 'practice', tag, category: catName }, "", `#/practice/${tag.replace(/\s+/g, '-').toLowerCase()}`); // Update history
 }
 
 function checkPracticeOption(element, selected, correct) {
@@ -414,7 +418,7 @@ async function showStatistics(push = true) {
     closeSidebarOnMobile();
     if (breadcrumbCat) breadcrumbCat.innerText = "Performance";
     if (displayTitle) displayTitle.innerText = "Your Statistics";
-    if (push) history.pushState({ view: 'stats' }, "", "/statistics");
+    if (push) history.pushState({ view: 'stats' }, "", "#/statistics");
     questionsListContainer.innerHTML = "<div class='question-card'>Loading your performance data...</div>";
 
     if (!window.getUserResults) return;
@@ -566,7 +570,7 @@ function showMockInstructions(mockNum, element, push = true) {
             </div>
         </div>
     `;
-    if (push) history.pushState({ view: 'mockInstr', mockNum }, "", `/mock-test/${mockNum}/instructions`);
+    if (push) history.pushState({ view: 'mockInstr', mockNum }, "", `#/mock-test/${mockNum}/instructions`);
 }
 
 function toggleExamPalette() {
@@ -591,7 +595,64 @@ function chooseMockTest(push = true) {
             </div>
         </div>
     `;
-    if (push) history.pushState({ view: 'mockSelect' }, "", "/mock-test");
+    if (push) history.pushState({ view: 'mockSelect' }, "", "#/mock-test");
+}
+
+function showProfileDetails(push = true) {
+    clearActiveNavItems();
+    ensureDashboardShell();
+    if (!questionsListContainer) return;
+    closeSidebarOnMobile();
+    if (breadcrumbCat) breadcrumbCat.innerText = "Profile";
+    if (displayTitle) displayTitle.innerText = "Account Settings";
+    if (push) history.pushState({ view: 'profile' }, "", "#/profile");
+
+    const currentName = document.getElementById('full-name')?.innerText || "Student";
+    const currentEmail = document.getElementById('user-email')?.innerText || "No email available";
+
+    questionsListContainer.innerHTML = `
+        <div class="question-card" style="max-width: 600px; margin: 1rem auto; animation: fadeIn 0.4s ease-out;">
+            <div style="text-align: left; padding: 1rem;">
+                <h3 style="margin-top: 0; margin-bottom: 2rem; border: none; color: var(--primary);">Profile Information</h3>
+                
+                <div style="margin-bottom: 2rem;">
+                    <label style="display: block; font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.75rem;">Registered Email</label>
+                    <div style="padding: 1rem; background: var(--bg); border-radius: 10px; border: 1px solid var(--border); color: var(--text-muted); display: flex; align-items: center; gap: 10px;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        <span>${currentEmail}</span>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 2.5rem;">
+                    <label style="display: block; font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.75rem;">Full Name</label>
+                    <div style="position: relative;">
+                        <input type="text" id="profile-name-input" value="${currentName}" 
+                               style="width: 100%; padding: 1rem 1rem 1rem 3rem; border-radius: 10px; border: 1px solid var(--border); font-size: 1rem; font-weight: 500; outline: none;">
+                        <svg style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary btn-lg" onclick="saveProfileChanges()" style="width: 100%; justify-content: center;">
+                    Update Name
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+function saveProfileChanges() {
+    const nameInput = document.getElementById('profile-name-input');
+    const newName = nameInput.value.trim();
+    if (!newName) return alert("Name cannot be empty");
+
+    if (window.updateUserProfileName) {
+        window.updateUserProfileName(newName)
+            .then(() => {
+                alert("Name updated successfully!");
+                renderHome();
+            })
+            .catch(err => alert("Error: " + err.message));
+    }
 }
 
 let activeTimerInterval = null; // Global timer reference
@@ -600,7 +661,7 @@ async function startMockTest(mockNum, push = true, seed = null) {
     if (examState.timerId) clearInterval(examState.timerId);
     
     try {
-        const res = await fetch('/data/mock_pool.json');
+        const res = await fetch('data/mock_pool.json');
         const pool = await res.json();
         const finalSeed = seed || (Math.floor(Math.random() * 1000000) + mockNum);
         
@@ -611,7 +672,7 @@ async function startMockTest(mockNum, push = true, seed = null) {
         examState.currentIndex = 0;
         examState.timeLeft = 15 * 60; // 15 minutes
         
-        if (push) history.pushState({ view: 'mockActive', mockNum, seed: finalSeed }, "", `/mock-test/${mockNum}/active`);
+        if (push) history.pushState({ view: 'mockActive', mockNum, seed: finalSeed }, "", `#/mock-test/${mockNum}/active`);
         
         renderExamLayout(mockNum);
         startExamTimer();
@@ -919,6 +980,8 @@ window.addEventListener('popstate', (event) => {
         startPractice(state.tag, false);
     } else if (state.view === 'stats') {
         showStatistics(false);
+    } else if (state.view === 'profile') {
+        showProfileDetails(false);
     } else if (state.view === 'mockInstr') {
         showMockInstructions(state.mockNum, null, false);
     } else if (state.view === 'mockSelect') {

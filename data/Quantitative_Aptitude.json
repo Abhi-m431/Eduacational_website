@@ -2,6 +2,7 @@
   {
     "id": 1,
     "tag": "Percentage",
+    "level": "Easy",
     "q": "A man buys an item for ₹1200 and sells it at a gain of 20%. What is the selling price?",
     "options": ["₹1400", "₹1440", "₹1500", "₹1340"],
     "ans": "B",
@@ -10,6 +11,7 @@
   {
     "id": 2,
     "tag": "Time, Speed and Distance",
+    "level": "Medium",
     "q": "A person crosses a 600m long street in 5 minutes. What is his speed in km/hr?",
     "options": ["3.6", "7.2", "8.4", "10"],
     "ans": "B",
@@ -18,6 +20,7 @@
   {
     "id": 3,
     "tag": "Simple and Compound Interest",
+    "level": "Easy",
     "q": "What is the simple interest on ₹1500 at 10% per annum for 2 years?",
     "options": ["₹200", "₹250", "₹300", "₹350"],
     "ans": "C",
@@ -26,6 +29,7 @@
   {
     "id": 4,
     "tag": "Ratio and Proportion",
+    "level": "Easy",
     "q": "Divide ₹600 in the ratio 2:3.",
     "options": ["₹200, ₹400", "₹240, ₹360", "₹250, ₹350", "₹300, ₹300"],
     "ans": "B",
@@ -34,6 +38,7 @@
   {
     "id": 14,
     "tag": "Profit & Loss",
+    "level": "Easy",
     "q": "If cost price is ₹500 and selling price is ₹600, what is the profit percentage?",
     "options": ["10%", "15%", "20%", "25%"],
     "ans": "C",
@@ -42,6 +47,7 @@
   {
     "id": 15,
     "tag": "Averages",
+    "level": "Easy",
     "q": "Find the average of 10, 20, 30, 40, 50.",
     "options": ["25", "30", "35", "40"],
     "ans": "B",
@@ -50,6 +56,7 @@
   {
     "id": 52,
     "tag": "Time & Work",
+    "level": "Medium",
     "q": "A can do a work in 10 days and B in 15 days. If they work together, in how many days will they finish?",
     "options": ["5", "6", "8", "9"],
     "ans": "B",
@@ -58,6 +65,7 @@
   {
     "id": 60,
     "tag": "Divisibility rules",
+    "level": "Easy",
     "q": "Which of the following is a prime number?",
     "options": ["33", "81", "93", "97"],
     "ans": "D",
@@ -66,6 +74,7 @@
   {
     "id": 93,
     "tag": "HCF & LCM",
+    "level": "Medium",
     "q": "The HCF of two numbers is 11 and their LCM is 693. If one is 77, find the other.",
     "options": ["88", "99", "101", "110"],
     "ans": "B",
@@ -74,6 +83,7 @@
   {
     "id": 101,
     "tag": "Problems on Ages",
+    "level": "Hard",
     "q": "The sum of ages of 5 children born at intervals of 3 years each is 50 years. Age of the youngest?",
     "options": ["4", "8", "10", "12"],
     "ans": "A",
@@ -82,6 +92,7 @@
   {
     "id": 105,
     "tag": "Probability",
+    "level": "Easy",
     "q": "A box has 8 red, 7 blue and 6 green balls. Prob. of picking a blue ball?",
     "options": ["1/3", "1/2", "7/21", "8/21"],
     "ans": "A",
