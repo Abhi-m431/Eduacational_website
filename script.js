@@ -32,10 +32,10 @@ let activeCharts = {};
 // Cache frequently used DOM elements for efficiency
 const sidebar = document.querySelector('.sidebar');
 const sidebarOverlay = document.getElementById('sidebar-overlay');
-const questionsListContainer = document.getElementById('questions-list');
-const breadcrumbCat = document.getElementById('bread-cat');
-const displayTitle = document.getElementById('display-title');
-const mockResultContainer = document.getElementById('mock-result');
+let questionsListContainer = document.getElementById('questions-list');
+let breadcrumbCat = document.getElementById('bread-cat');
+let displayTitle = document.getElementById('display-title');
+let mockResultContainer = document.getElementById('mock-result');
 function toggleSidebar() {
     if (sidebar && sidebarOverlay) {
         sidebar.classList.toggle('show');
@@ -76,6 +76,12 @@ function ensureDashboardShell() {
             <div id="questions-list"></div>
             <div id="mock-result"></div>
         `;
+
+        // Re-cache DOM elements as the previous ones were destroyed by the exam layout
+        questionsListContainer = document.getElementById('questions-list');
+        breadcrumbCat = document.getElementById('bread-cat');
+        displayTitle = document.getElementById('display-title');
+        mockResultContainer = document.getElementById('mock-result');
     } // This ensures the structure is always present when not in exam mode
 }
 
