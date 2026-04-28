@@ -29,26 +29,38 @@ let currentTheory = { category: null, subcat: null };
 let questionsCache = {};
 let activeCharts = {};
 
+// Cache frequently used DOM elements for efficiency
+const sidebar = document.querySelector('.sidebar');
+const sidebarOverlay = document.getElementById('sidebar-overlay');
+const questionsListContainer = document.getElementById('questions-list');
+const breadcrumbCat = document.getElementById('bread-cat');
+const displayTitle = document.getElementById('display-title');
+const mockResultContainer = document.getElementById('mock-result');
 function toggleSidebar() {
-    const sidebar = document.querySelector('.sidebar');
-    const overlay = document.getElementById('sidebar-overlay');
-    sidebar.classList.toggle('show');
-    overlay.classList.toggle('show');
+    if (sidebar && sidebarOverlay) {
+        sidebar.classList.toggle('show');
+        sidebarOverlay.classList.toggle('show');
+    }
 }
 
 function closeSidebarOnMobile() {
-    if (window.innerWidth <= 900) {
-        document.querySelector('.sidebar').classList.remove('show');
-        document.getElementById('sidebar-overlay').classList.remove('show');
+    if (window.innerWidth <= 900 && sidebar && sidebarOverlay) {
+        sidebar.classList.remove('show');
+        sidebarOverlay.classList.remove('show');
     }
+}
+
+// Helper to remove 'active' class from all nav items
+function clearActiveNavItems() {
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
 }
 
 fetch('/theory.json')
   .then(res => res.json())
   .then(json => {
-    theoryData = json;
-    renderSidebar();
-    handleInitialRouting();
+    theoryData = json; // Assign theoryData only once
+    renderSidebar(); // Render sidebar after data is loaded
+    handleInitialRouting(); // Handle routing based on initial URL
   });
 
 // Helper to ensure Dashboard layout is restored when exiting Exam Mode
@@ -64,7 +76,7 @@ function ensureDashboardShell() {
             <div id="questions-list"></div>
             <div id="mock-result"></div>
         `;
-    }
+    } // This ensures the structure is always present when not in exam mode
 }
 
 function handleInitialRouting() {
@@ -116,13 +128,13 @@ function handleInitialRouting() {
 function renderHome(push = true) {
     ensureDashboardShell();
     closeSidebarOnMobile();
-    const quote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
-    const container = document.getElementById('questions-list');
-    document.getElementById('bread-cat').innerText = "Home";
-    document.getElementById('display-title').innerText = "Student Dashboard";
-    document.getElementById('mock-result').innerHTML = "";
+    const quote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)]; // Get a random quote
+    if (breadcrumbCat) breadcrumbCat.innerText = "Home";
+    if (displayTitle) displayTitle.innerText = "Student Dashboard";
+    if (mockResultContainer) mockResultContainer.innerHTML = "";
     
-    container.innerHTML = `
+    if (questionsListContainer) {
+        questionsListContainer.innerHTML = `
         <div class="welcome-container">
             <div class="welcome-hero">
                 <h2>Fuel Your Ambition</h2>
@@ -145,18 +157,18 @@ function renderHome(push = true) {
             </div>
         </div>
     `;
+    }
     currentTheory = { category: null, subcat: null };
     if (push) history.pushState({ view: 'home' }, "", "/");
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-    document.getElementById('nav-home')?.classList.add('active');
+    clearActiveNavItems(); // Remove active class from all nav items
+    document.getElementById('nav-home')?.classList.add('active'); // Set home as active
 }
 
 function renderTheory(category, subcat = null, push = true) {
-    if (!theoryData) return;
+    if (!theoryData || !questionsListContainer) return;
     ensureDashboardShell();
     closeSidebarOnMobile();
-    const container = document.getElementById('questions-list');
-    const cat = theoryData[category];
+    const cat = theoryData[category]; // Get category data
     if (!cat) return;
     let title = cat.title;
     
@@ -202,12 +214,14 @@ function renderTheory(category, subcat = null, push = true) {
             <button class='btn btn-primary btn-lg' onclick='startPractice("${subcat}")'>Start ${subcat} Practice Test ➔</button>
         </div>`;
     }
-    document.getElementById('bread-cat').innerText = breadcrumb;
-    document.getElementById('display-title').innerText = title;
-    container.innerHTML = `<div class="question-card">${content}</div>`;
+
+    if (breadcrumbCat) breadcrumbCat.innerText = breadcrumb;
+    if (displayTitle) displayTitle.innerText = title;
+    questionsListContainer.innerHTML = `<div class="question-card">${content}</div>`;
+    
     currentTheory = { category, subcat };
-    if (push) {
-        const urlPath = subcat 
+    if (push) { // Push state to history
+        const urlPath = subcat // Construct URL path based on subcategory existence
             ? `/theory/${category.replace(/\s+/g, '-').toLowerCase()}/${subcat.replace(/\s+/g, '-').toLowerCase()}`
             : `/theory/${category.replace(/\s+/g, '-').toLowerCase()}`;
         history.pushState({ view: 'theory', category, subcat }, "", urlPath);
@@ -215,9 +229,9 @@ function renderTheory(category, subcat = null, push = true) {
 }
 
 async function startPractice(tag, push = true) {
+    if (!questionsListContainer) return;
     ensureDashboardShell();
-    const container = document.getElementById('questions-list');
-    container.innerHTML = "<div class='question-card'>Loading practice questions...</div>";
+    questionsListContainer.innerHTML = "<div class='question-card'>Loading practice questions...</div>"; // Show loading message
 
     // Get the category from global state to fetch the consolidated category file
     const catName = currentTheory.category;
@@ -249,9 +263,9 @@ async function startPractice(tag, push = true) {
         return;
     }
 
-    document.getElementById('display-title').innerText = `${tag} - Practice Test`;
+    if (displayTitle) displayTitle.innerText = `${tag} - Practice Test`;
     
-    container.innerHTML = questions.map((item, idx) => `
+    questionsListContainer.innerHTML = questions.map((item, idx) => `
         <article class="question-card">
             <p class="q-text">Q${idx + 1}. ${item.q}</p>
             <div class="options-grid">
@@ -269,10 +283,11 @@ async function startPractice(tag, push = true) {
             </div>
         </article>
     `).join('');
-    container.innerHTML += `<div class="cta-footer">
+
+    questionsListContainer.innerHTML += `<div class="cta-footer">
         <button class="btn btn-primary btn-lg" onclick="finishPractice('${tag}')">Finish Practice Test ➔</button>
     </div>`;
-    if (push) history.pushState({ view: 'practice', tag, category: catName }, "", `/practice/${tag.replace(/\s+/g, '-').toLowerCase()}`);
+    if (push) history.pushState({ view: 'practice', tag, category: catName }, "", `/practice/${tag.replace(/\s+/g, '-').toLowerCase()}`); // Update history
 }
 
 function checkPracticeOption(element, selected, correct) {
@@ -307,12 +322,11 @@ function finishPractice(tag) {
     if (cards.length === 0) return alert("Please answer at least one question before finishing.");
 
     const percent = Math.round((correct / total) * 100);
-    const container = document.getElementById('questions-list');
-    const mockResult = document.getElementById('mock-result');
 
     // Clear the question list and show a professional result card
-    container.innerHTML = "";
-    mockResult.innerHTML = `
+    if (questionsListContainer) questionsListContainer.innerHTML = "";
+    if (mockResultContainer) {
+        mockResultContainer.innerHTML = `
         <div class="question-card" style="background: #f0fdf4; border-left: 8px solid var(--success); animation: fadeIn 0.5s ease-out;">
             <h2 style="color: #16a34a; margin-bottom: 1rem;">Practice Test Complete</h2>
             <p style="font-size: 1.1rem; margin-bottom: 1rem;">Topic: <strong>${tag}</strong></p>
@@ -327,7 +341,8 @@ function finishPractice(tag) {
             </div>
         </div>
     `;
-    mockResult.scrollIntoView({ behavior: "smooth" });
+        mockResultContainer.scrollIntoView({ behavior: "smooth" });
+    }
 }
 
 function renderSidebar() {
@@ -387,21 +402,20 @@ function switchTab(cat, element, subtopic = null) {
 }
 
 async function showStatistics(push = true) {
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    clearActiveNavItems();
     ensureDashboardShell();
+    if (!questionsListContainer) return;
     closeSidebarOnMobile();
-    const container = document.getElementById('questions-list');
-    document.getElementById('bread-cat').innerText = "Performance";
-    document.getElementById('display-title').innerText = "Your Statistics";
+    if (breadcrumbCat) breadcrumbCat.innerText = "Performance";
+    if (displayTitle) displayTitle.innerText = "Your Statistics";
     if (push) history.pushState({ view: 'stats' }, "", "/statistics");
-
-    container.innerHTML = "<div class='question-card'>Loading your performance data...</div>";
+    questionsListContainer.innerHTML = "<div class='question-card'>Loading your performance data...</div>";
 
     if (!window.getUserResults) return;
     const results = await window.getUserResults();
     
     if (!results || results.length === 0) {
-        container.innerHTML = "<div class='question-card'>No performance data found. Take a Mock Test to see your BI analysis!</div>";
+        questionsListContainer.innerHTML = "<div class='question-card'>No performance data found. Take a Mock Test to see your BI analysis!</div>";
         return;
     }
 
@@ -457,7 +471,7 @@ async function showStatistics(push = true) {
         </div>
     `;
 
-    container.innerHTML = html;
+    questionsListContainer.innerHTML = html;
 
     // Initialize BI Visuals
     if (window.Chart) {
@@ -517,20 +531,22 @@ async function showStatistics(push = true) {
 // Add this function to handle sidebar click for Mock Tests
 function showMockInstructions(mockNum, element, push = true) {
     // Update active class
+    if (!questionsListContainer) return;
     ensureDashboardShell();
     closeSidebarOnMobile();
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    clearActiveNavItems();
     if (element) element.classList.add('active');
     else {
         // Highlight sidebar item based on mock number during back/forward navigation
         const sidebarItems = document.querySelectorAll('.sidebar .nav-item');
-        const target = Array.from(sidebarItems).find(el => el.innerText.includes(`Mock Test ${mockNum}`));
-        if (target) target.classList.add('active');
+        sidebarItems.forEach(el => {
+            if (el.innerText.includes(`Mock Test ${mockNum}`)) el.classList.add('active');
+        });
     }
-    document.getElementById('bread-cat').innerText = "Mock Test " + mockNum;
-    document.getElementById('display-title').innerText = "Mock Test " + mockNum;
-    document.getElementById('mock-result').innerHTML = "";
-    document.getElementById('questions-list').innerHTML = `
+    if (breadcrumbCat) breadcrumbCat.innerText = "Mock Test " + mockNum;
+    if (displayTitle) displayTitle.innerText = "Mock Test " + mockNum;
+    if (mockResultContainer) mockResultContainer.innerHTML = "";
+    questionsListContainer.innerHTML = `
         <div class="question-card" style="text-align:left;">
             <h2 style="color:#2563eb;">Mock Test ${mockNum} Instructions</h2>
             <ul style="margin-bottom:1.5rem;">
@@ -547,11 +563,19 @@ function showMockInstructions(mockNum, element, push = true) {
     if (push) history.pushState({ view: 'mockInstr', mockNum }, "", `/mock-test/${mockNum}/instructions`);
 }
 
+function toggleExamPalette() {
+    const panel = document.querySelector('.exam-side-panel');
+    if (panel) {
+        panel.classList.toggle('show-mobile-palette');
+    }
+}
+
 // Show mock test selection (if you want 3 mock tests)
 function chooseMockTest(push = true) {
+    if (!questionsListContainer) return;
     ensureDashboardShell();
-    document.getElementById('mock-result').innerHTML = "";
-    document.getElementById('questions-list').innerHTML = `
+    if (mockResultContainer) mockResultContainer.innerHTML = "";
+    questionsListContainer.innerHTML = `
         <div class="question-card" style="text-align:left;">
             <h2 style="color:#2563eb;">Select Mock Test</h2>
             <div style="margin-bottom:1rem;">
@@ -600,6 +624,13 @@ function renderExamLayout(mockNum) {
                 <svg style="width:24px; color:var(--primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
                 <h2 style="margin:0;">Mock Test ${mockNum}</h2>
             </div>
+            <button class="mobile-only-flex btn" onclick="toggleExamPalette()" style="margin-left: 10px; padding: 5px 10px; display: none;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                Grid
+            </button>
             <div style="flex-grow: 1;"></div>
             <div class="exam-timer" id="exam-timer-display" style="margin-left: auto;">15:00</div>
         </div>
@@ -628,6 +659,13 @@ function renderExamLayout(mockNum) {
             </div>
         </div>
     `;
+
+    // Show grid toggle button only on mobile
+    if (window.innerWidth <= 900) {
+        const gridBtn = document.querySelector('.mobile-only-flex');
+        if (gridBtn) gridBtn.style.display = 'flex';
+    }
+
     updateQuestionDisplay();
 }
 
@@ -689,6 +727,8 @@ function nextQuestion() {
         examState.currentIndex++;
         examState.visited.add(examState.currentIndex);
         updateQuestionDisplay();
+        // Auto-close palette on mobile when navigating
+        document.querySelector('.exam-side-panel')?.classList.remove('show-mobile-palette');
     }
 }
 
@@ -696,6 +736,7 @@ function prevQuestion() {
     if (examState.currentIndex > 0) {
         examState.currentIndex--;
         updateQuestionDisplay();
+        document.querySelector('.exam-side-panel')?.classList.remove('show-mobile-palette');
     }
 }
 
@@ -717,6 +758,7 @@ function jumpToQuestion(i) {
     examState.currentIndex = i;
     examState.visited.add(i);
     updateQuestionDisplay();
+    document.querySelector('.exam-side-panel')?.classList.remove('show-mobile-palette');
 }
 
 function startExamTimer() {
@@ -878,4 +920,4 @@ window.addEventListener('popstate', (event) => {
     } else if (state.view === 'mockActive') {
         startMockTest(state.mockNum, false, state.seed);
     }
-});
+})

@@ -328,6 +328,7 @@ h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-
     border: 1px solid var(--border);
     background: white;
     color: var(--text-dark);
+    transition: all 0.2s ease;
 }
 .btn-primary {
     background: var(--primary);
@@ -420,26 +421,45 @@ h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-
     .exam-container {
         grid-template-columns: 1fr !important; 
         height: calc(100vh - 60px) !important; 
-        display: grid !important;
+        display: block !important;
+        position: relative;
     }
     .exam-main-panel {
-        padding: 1rem 0.75rem;
+        padding: 1rem 1rem 80px 1rem;
         border-right: none;
         height: 100%;
         overflow-y: auto;
     }
     .exam-side-panel {
-        display: none !important;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100% !important;
+        height: 60%;
+        z-index: 2000;
+        transform: translateY(100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 -10px 25px rgba(0,0,0,0.1);
+        border-radius: 20px 20px 0 0;
+        display: flex !important;
+        background: white !important;
+    }
+    .exam-side-panel.show-mobile-palette {
+        transform: translateY(0);
     }
     .palette-btn {
-        width: 42px;
-        height: 42px;
+        width: 45px !important;
+        height: 45px !important;
         font-size: 0.75rem;
+    }
+    .question-palette {
+        grid-template-columns: repeat(5, 1fr) !important;
+        padding: 1rem;
     }
     .mock-option {
         padding: 0.8rem;
         margin-bottom: 8px;
-        font-size: 0.95rem;
+        
     }
     .q-text { font-size: 1rem; margin-bottom: 1rem; }
     .exam-mode-active .dashboard {
@@ -447,16 +467,20 @@ h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-
         overflow: hidden;
         gap: 0;
     }
-    .exam-header-strip h2 { font-size: 1.1rem; }
+    .exam-header-strip h2 { font-size: 1.2rem; }
     .exam-timer { font-size: 1.2rem; }
     .exam-header-strip { height: 60px; padding: 0 1rem; }
 
     .exam-footer {
         padding-top: 1rem;
         gap: 8px; /* Adds consistent space between buttons */
+        padding: 1rem;
+        gap: 8px;
+        background: white;
+        border-top: 1px solid var(--border);
     }
     .exam-footer .btn {
-        padding: 0.5rem 0.25rem; /* Reduces button height and internal width */
+        padding: 0.75rem 0.25rem; /* Reduces button height and internal width */
         font-size: 0.72rem; /* Reduces text size to fit on one line */
         flex: 1; /* Forces all buttons to be equal width */
         justify-content: center;
