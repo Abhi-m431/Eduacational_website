@@ -66,6 +66,7 @@ fetch('theory.json')
 // Helper to ensure Dashboard layout is restored when exiting Exam Mode
 function ensureDashboardShell() {
     document.body.classList.remove('exam-mode-active');
+    if (mockResultContainer) mockResultContainer.innerHTML = ""; // Clear practice/mock results when navigating to new sections
     const main = document.getElementById('main-content');
     if (!document.getElementById('questions-list')) {
         main.innerHTML = `
@@ -138,6 +139,7 @@ function renderHome(push = true) {
     ensureDashboardShell();
     closeSidebarOnMobile();
     const quote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)]; // Get a random quote
+    const firstName = document.getElementById('user-name')?.innerText || "Student";
     if (breadcrumbCat) breadcrumbCat.innerText = "Home";
     if (displayTitle) displayTitle.innerText = "Student Dashboard";
     if (mockResultContainer) mockResultContainer.innerHTML = "";
@@ -146,7 +148,7 @@ function renderHome(push = true) {
         questionsListContainer.innerHTML = `
         <div class="welcome-container">
             <div class="welcome-hero">
-                <h2>Fuel Your Ambition</h2>
+                <h2>Welcome back, ${firstName}!</h2>
             </div>
 
             <div class="quote-card">
@@ -266,6 +268,15 @@ async function startPractice(tag, push = true) {
     // Filter category questions by the specific subcategory tag
     const questions = allCatQuestions.filter(q => q.tag === tag);
 
+    // Sort questions by difficulty: Easy -> Medium -> Hard
+    const levelOrder = { 'easy': 1, 'medium': 2, 'hard': 3 };
+    questions.sort((a, b) => {
+        const levelA = levelOrder[(a.level || 'easy').toLowerCase()];
+        const levelB = levelOrder[(b.level || 'easy').toLowerCase()];
+        // Handle cases where level might be missing or unexpected, default to 'easy'
+        return (levelA || 99) - (levelB || 99);
+    });
+
     if (questions.length === 0) {
         alert(`No practice questions available for topic: ${tag}`);
         renderTheory(catName, tag);
@@ -284,7 +295,7 @@ async function startPractice(tag, push = true) {
                     return `<div class="option-label" onclick="checkPracticeOption(this, '${letter}', '${item.ans}')"><span>${letter}) ${opt}</span></div>`;
                 }).join('')}
             </div>
-            <button class="btn btn-primary" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer & Explanation</button>
+            <button class="btn btn-primary solution-btn" disabled onclick="this.nextElementSibling.classList.toggle('show')">Show Answer & Explanation</button>
             <div class="answer-container">
                 <div class="answer-content">
                     <span class="correct-badge">Correct Answer: ${item.ans}</span>
@@ -306,6 +317,11 @@ function checkPracticeOption(element, selected, correct) {
     // If already answered, do nothing
     if (card.getAttribute('data-answered') === 'true') return;
     card.setAttribute('data-answered', 'true');
+
+    // Enable solution button
+    const solutionBtn = card.querySelector('.solution-btn');
+    if (solutionBtn) solutionBtn.removeAttribute('disabled');
+
     if (selected === correct) {
         element.classList.add('correct');
     } else {
@@ -326,13 +342,14 @@ function finishPractice(tag) {
     let correct = 0;
 
     cards.forEach(card => {
-        if (card.querySelector('.option-label.correct')) correct++;
+        if (card.querySelector('.option-label.correct') && !card.querySelector('.option-label.wrong')) correct++;
     });
 
     if (cards.length === 0) return alert("Please answer at least one question before finishing.");
 
     const percent = Math.round((correct / total) * 100);
 
+    if (displayTitle) displayTitle.innerText = "Practice Result";
     // Clear the question list and show a professional result card
     if (questionsListContainer) questionsListContainer.innerHTML = "";
     if (mockResultContainer) {
@@ -479,6 +496,35 @@ async function showStatistics(push = true) {
                 <canvas id="weaknessChart" height="250"></canvas>
             </div>
         </div>
+
+        <!-- Mock History Row -->
+        <div class="question-card" style="margin-top: 2rem;">
+            <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem; border-bottom: 2px solid var(--primary-light); padding-bottom: 0.5rem;">Recent Mock Test History</h3>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--border); color: var(--text-muted);">
+                            <th style="padding: 1rem 0.5rem;">Date</th>
+                            <th style="padding: 1rem 0.5rem;">Test</th>
+                            <th style="padding: 1rem 0.5rem;">Score</th>
+                            <th style="padding: 1rem 0.5rem;">Accuracy</th>
+                            <th style="padding: 1rem 0.5rem;">Focus Area</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${results.map(r => `
+                            <tr style="border-bottom: 1px solid var(--border);">
+                                <td style="padding: 1rem 0.5rem;">${r.timestamp && typeof r.timestamp.toDate === 'function' ? r.timestamp.toDate().toLocaleDateString() : 'Recent'}</td>
+                                <td style="padding: 1rem 0.5rem; font-weight: 600;">Mock Test ${r.testId || '-'}</td>
+                                <td style="padding: 1rem 0.5rem;">${r.score}/${r.total}</td>
+                                <td style="padding: 1rem 0.5rem; font-weight: 700; color: ${r.percentage >= 70 ? 'var(--success)' : '#ef4444'};">${r.percentage}%</td>
+                                <td style="padding: 1rem 0.5rem;"><span class="q-tag" style="margin:0; font-size: 0.7rem; padding: 0.15rem 0.5rem;">${r.focusArea || 'General'}</span></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     `;
 
     questionsListContainer.innerHTML = html;
@@ -608,7 +654,7 @@ function showProfileDetails(push = true) {
     if (push) history.pushState({ view: 'profile' }, "", "#/profile");
 
     const currentName = document.getElementById('full-name')?.innerText || "Student";
-    const currentEmail = document.getElementById('user-email')?.innerText || "No email available";
+    const currentEmail = window.currentUserEmail || "No email available";
 
     questionsListContainer.innerHTML = `
         <div class="question-card" style="max-width: 600px; margin: 1rem auto; animation: fadeIn 0.4s ease-out;">
