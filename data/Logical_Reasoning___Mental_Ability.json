@@ -2,6 +2,7 @@
   {
     "id": 5,
     "tag": "Number Series",
+    "level": "Easy",
     "q": "Find the missing number in the series: 4, 9, 16, 25, ?",
     "options": ["30", "34", "36", "49"],
     "ans": "C",
@@ -10,6 +11,7 @@
   {
     "id": 6,
     "tag": "Coding-Decoding",
+    "level": "Easy",
     "q": "If CAT = 24 and DOG = 26, then BAT = ?",
     "options": ["22", "23", "24", "25"],
     "ans": "B",
@@ -18,6 +20,7 @@
   {
     "id": 7,
     "tag": "Blood Relations",
+    "level": "Medium",
     "q": "Pointing to a man, a woman said, 'His mother is the only daughter of my mother.' Relation?",
     "options": ["Mother", "Sister", "Aunt", "Grandmother"],
     "ans": "A",
@@ -26,6 +29,7 @@
   {
     "id": 16,
     "tag": "Clocks and Calendars",
+    "level": "Medium",
     "q": "If 1st January 2020 was a Wednesday, what day was 1st January 2021?",
     "options": ["Thursday", "Friday", "Saturday", "Sunday"],
     "ans": "B",
@@ -34,6 +38,7 @@
   {
     "id": 17,
     "tag": "Direction Sense",
+    "level": "Medium",
     "q": "A man facing north turns 90° right, then 180° left. Which direction is he facing?",
     "options": ["East", "West", "South", "North"],
     "ans": "B",
@@ -42,6 +47,7 @@
   {
     "id": 22,
     "tag": "Clocks and Calendars",
+    "level": "Hard",
     "q": "How many times do the hands of a clock coincide in a day?",
     "options": ["22", "24", "21", "23"],
     "ans": "A",
@@ -50,6 +56,7 @@
   {
     "id": 141,
     "tag": "Syllogism",
+    "level": "Medium",
     "q": "Statements: All bags are pockets. All pockets are shops. Conclusion: All bags are shops.",
     "options": ["Only I follows", "Only II follows", "Both", "Neither"],
     "ans": "A",
@@ -58,6 +65,7 @@
   {
     "id": 146,
     "tag": "Seating Arrangement (Linear/Circular)",
+    "level": "Hard",
     "q": "A, B, C, D, E on bench. A next to B, C next to D. C is 2nd from right. A is right of B. Position of A?",
     "options": ["Between B and D", "Between B and C", "Between E and D", "Between C and E"],
     "ans": "B",

@@ -75,35 +75,92 @@
       ],
       "Ratio and Proportion": [
         {
-          "title": "Ratio",
-          "content": "A ratio is a comparison of two quantities by division."
+          "title": "1. Ratio Basics",
+          "content": "<p>Think of a ratio as the <b>'language of comparison.'</b> It is a simple way to see how much bigger or smaller one thing is compared to another.</p><div class='formula-box'>In a ratio like <b>x : y</b>,<br>'x' is the <b>Antecedent</b> (the leader)<br>'y' is the <b>Consequent</b> (the follower)</div><p><small><b>The Golden Rule:</b> Always compare 'apples to apples.' You can compare weights to weights, but you cannot create a ratio between different units like apples and kilometers.</small></p>"
         },
         {
-          "title": "Proportion",
-          "content": "Proportion is an equation stating that two ratios are equal."
+          "title": "2. Ratio Upgrades",
+          "content": "<ul><li><b>Duplicate Ratio:</b> Square both numbers. <br>Example: 3:4 becomes 9:16.</li><li><b>Triplicate Ratio:</b> Cube both numbers. <br>Example: 2:3 becomes 8:27.</li><li><b>Inverse Ratio:</b> Swap their positions. <br>Example: 4:5 becomes 5:4.</li></ul>"
+        },
+        {
+          "title": "3. Comparison Shortcut",
+          "content": "<h3>Which is 'Better'?</h3><p><b>The Cross-Multiply Shortcut:</b> To compare 5/8 and 9/14:</p><div class='shortcut-box'>1. Multiply top-left by bottom-right: 5 &times; 14 = 70.<br>2. Multiply bottom-left by top-right: 8 &times; 9 = 72.<br>3. Since 72 is bigger than 70, the second ratio (9/14) is greater.</div>"
+        },
+        {
+          "title": "4. Proportion Rules",
+          "content": "<p>A proportion is just a fancy way of saying two ratios are perfectly equal (a/b = c/d).</p><div class='formula-box'><b>The Secret Property:</b> The 'Outsiders' multiplied together always equal the 'Insiders' (a &times; d = b &times; c).</div><h3>Finding Missing Values</h3><ul><li><b>Mean Proportional:</b> Square root of (a &times; b). <br>Example: The middle of 4 and 25 is &radic;100 = 10.</li><li><b>Fourth Proportional:</b> (b &times; c) / a. <br>Example: For 3, 7, and 9, the missing piece is (7 &times; 9) / 3 = 21.</li></ul>"
+        },
+        {
+          "title": "5. Pro Tricks",
+          "content": "<div class='shortcut-box'><ul><li><b>Componendo:</b> Add the bottom number to the top: (a + b) / b.</li><li><b>Dividendo:</b> Subtract the bottom number from the top: (a - b) / b.</li><li><b>The C&D Combo:</b> If a/b = 5/3, then (5+3) / (5-3) = 8/2 = 4.</li></ul></div>"
+        },
+        {
+          "title": "6. Beginner Cheat Sheet",
+          "content": "<table style='width:100%; border-collapse: collapse; margin-top: 10px; text-align: left;'><thead><tr style='border-bottom: 2px solid var(--border);'><th style='padding: 8px;'>Term</th><th style='padding: 8px;'>Meaning</th><th style='padding: 8px;'>Formula</th></tr></thead><tbody><tr style='border-bottom: 1px solid var(--border);'><td style='padding: 8px;'>Ratio</td><td style='padding: 8px;'>Comparing two things</td><td style='padding: 8px;'>x : y</td></tr><tr style='border-bottom: 1px solid var(--border);'><td style='padding: 8px;'>Inverse</td><td style='padding: 8px;'>Flipping the order</td><td style='padding: 8px;'>y : x</td></tr><tr style='border-bottom: 1px solid var(--border);'><td style='padding: 8px;'>Proportion</td><td style='padding: 8px;'>Two equal ratios</td><td style='padding: 8px;'>a:b :: c:d</td></tr><tr style='border-bottom: 1px solid var(--border);'><td style='padding: 8px;'>Mean Proportional</td><td style='padding: 8px;'>Finding the middle</td><td style='padding: 8px;'>&radic;(ab)</td></tr><tr style='border-bottom: 1px solid var(--border);'><td style='padding: 8px;'>Invertendo</td><td style='padding: 8px;'>Flipping both sides</td><td style='padding: 8px;'>b/a = d/c</td></tr></tbody></table>"
+        },
+        {
+          "title": "7. Advance Techniques",
+          "content": "<h3>Technique 1: Combining Multiple Ratios</h3><p>Used to find a single relationship when you have overlapping ratios.</p><div class='formula-box'>If A:B = a:b and B:C = m:n, then A:B:C = (am) : (mb) : (nb)</div><h3>Technique 2: Division of a Quantity</h3><p>To find a part, take that part's ratio, divide by the sum of all ratios, and multiply by the total.</p><div class='shortcut-box'>Part 1 = [a / (a+b)] &times; Total</div><h3>Technique 3: Income and Expenditure</h3><p>Shortcut for finding income when savings are equal.</p><div class='formula-box'>Income = [Savings &times; (Diff in Exp. Ratios) / (Cross Product)] &times; Individual Ratio.</div><h3>Technique 4 & 5: Adding/Subtracting Numbers</h3><p>Used when adding or subtracting a constant <i>x</i> to two numbers changes their ratio from a:b to c:d.</p><div class='shortcut-box'>Number = [x &times; a(d - c)] / (bc - ad)</div>"
         }
       ],
       "Averages": [
         {
-          "title": "Averages",
-          "content": "Average = (Sum of observations) / (Number of observations)."
-        }
-      ],
-      "Problems on Ages": [
-        {
-          "title": "Problems on Ages",
-          "content": "Problems on ages are solved using linear equations based on given conditions."
-        }
-      ],
-      "Time & Work": [
-        {
-          "title": "Concepts of Work and Efficiency",
-          "content": "<p>Time and work problems depend on the relationship between the time taken to complete a job and the rate of work (efficiency).</p><ul><li>If A completes a task in <b>n</b> days, his 1-day work is <b>1/n</b>.</li><li>Efficiency is inversely proportional to time. If A is twice as efficient as B, A will take half the time B takes.</li></ul>"
+          "title": "1. Basic Concepts & Formula",
+          "content": "<p>An average or an arithmetic mean of given data is the sum of the given observations divided by the number of observations.</p><div class='formula-box'><b>Average (A) = Sum of observations (S) / Number of observations (N)</b><br>Symbolically: <b>A = S / N</b></div>"
         },
         {
-          "title": "The Group Work Formula (Chain Rule)",
-          "content": "<p>When multiple people work together for different hours or days, use the <b>Man-Days Formula</b>:</p><div style='background:#f1f5f9; padding:1rem; border-radius:8px; font-family:monospace;'>(M1 \u00d7 D1 \u00d7 H1) / W1 = (M2 \u00d7 D2 \u00d7 H2) / W2</div><br><p>Where:<br>M = No. of Workers<br>D = Days<br>H = Hours per day<br>W = Total Work or Wages earned</p>"
+          "title": "2. Properties & Rules",
+          "content": "<h3>Key Properties</h3><ul><li><b>Range:</b> The average of a given data set is less than the greatest observation and greater than the smallest observation.</li><li><b>Equality:</b> If all observations are equal, the average will be the same as the observations.</li><li><b>Zero as an Observation:</b> If 0 is one of the observations, it must be included while calculating the average.</li></ul><h3>Arithmetic Rules</h3><ul><li>If all numbers increase by 'a', the average increases by 'a'.</li><li>If all numbers decrease by 'a', the average decreases by 'a'.</li><li>If all numbers are multiplied by 'a', the average is multiplied by 'a'.</li><li>If all numbers are divided by 'a', the average is divided by 'a'.</li></ul>"
+        },
+        {
+          "title": "3. Important Formulae",
+          "content": "<div class='shortcut-box'><ul><li>Average of first 'n' natural numbers = <b>(n + 1) / 2</b></li><li>Average of first 'n' even numbers = <b>n + 1</b></li><li>Average of first 'n' odd numbers = <b>n</b></li><li>Average of consecutive numbers = <b>(First number + Last number) / 2</b></li><li>Average of 1 to 'n' odd numbers = <b>(Last odd number + 1) / 2</b></li><li>Average of 1 to 'n' even numbers = <b>(Last even number + 2) / 2</b></li><li>Average of squares of first 'n' natural numbers = <b>[(n + 1)(2n + 1)] / 6</b></li><li>Average of cubes of first 'n' natural numbers = <b>[n(n + 1)&sup2;] / 4</b></li><li>Average of 'n' multiples of a number = <b>[Number &times; (n + 1)] / 2</b></li></ul></div>"
+        },
+        {
+          "title": "4. Solved Examples",
+          "content": "<div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1rem;'><p><b>Example 1:</b> Find out the average of 308, 125, 45, 120 and 102.</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b> Required average = (308 + 125 + 45 + 120 + 102) / 5 = 700 / 5 = <b>140</b></div></div><div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1rem;'><p><b>Example 2:</b> If the weight of A is 60 kg, B is 45 kg and C is 54 kg, what is the average weight of the three persons?</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b> Required average = (60 + 45 + 54) / 3 = 159 / 3 = <b>53 kg</b></div></div><div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1rem;'><p><b>Example 3:</b> Chandan's average expenditure for 4 days is &#8377;90. If the first 3 days were &#8377;100, &#8377;125 and &#8377;85, find the 4th day expenditure.</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b> Let 4th day be x. (100 + 125 + 85 + x) / 4 = 90 &rArr; 310 + x = 360 &rArr; x = <b>&#8377;50</b></div></div><div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1rem;'><p><b>Example 4:</b> What will be the average of numbers from 1 to 51?</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b> n = 51. Formula: (n + 1) / 2 = (51 + 1) / 2 = <b>26</b></div></div><div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1rem;'><p><b>Example 5:</b> Find out the average of 2, 4, 6, 8, 10, 12 and 14.</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b> n = 7. Formula: (n + 1) = (7 + 1) = <b>8</b></div></div><div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1rem;'><p><b>Example 6:</b> Calculate the average of 1, 3, 5, 7, 9, 11, 13, 15 and 17.</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b> n = 9. Formula: n = <b>9</b></div></div><div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1rem;'><p><b>Example 7:</b> What will be the average of 1, 2, 3, 4, ..., 51, 52, 53?</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b> First = 1, Last = 53. Formula: (1 + 53) / 2 = <b>27</b></div></div><div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1rem;'><p><b>Example 8:</b> Find out the average of 4, 7, 10, 13, ..., 28, 31.</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b> Common difference is 3. First = 4, Last = 31. Average = (4 + 31) / 2 = <b>17.5</b></div></div><div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1rem;'><p><b>Example 9:</b> Find the average of all odd and even numbers from 1 to 45.</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b> Odd: (45 + 1) / 2 = <b>23</b>. Even: (44 + 2) / 2 = <b>23</b></div></div><div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1rem;'><p><b>Example 10:</b> Calculate the average of the squares of natural numbers from 1 to 25.</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b> n = 25. Formula: [(n + 1)(2n + 1)] / 6 = (26 &times; 51) / 6 = <b>221</b></div></div><div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1rem;'><p><b>Example 11:</b> Calculate the average of the cubes of the first 9 natural numbers.</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b> n = 9. Formula: [n(n + 1)&sup2;] / 4 = [9 &times; 100] / 4 = <b>225</b></div></div><div class='question-card' style='background:white; border:1px solid var(--border);'><p><b>Example 12:</b> What will be the average of the first 9 multiples of 5?</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b> n = 9, Number = 5. Formula: [Number &times; (n + 1)] / 2 = [5 &times; 10] / 2 = <b>25</b></div></div>"
+        },
+        {
+          "title": "5. Advance Techniques",
+          "content": "<h3>Advanced Exam Formulas</h3><h4>Technique 1: Weighted Average</h4><p>Used when different groups have different averages.</p><div class='formula-box'>Average = (n<sub>1</sub>a<sub>1</sub> + n<sub>2</sub>a<sub>2</sub> + ...) / (n<sub>1</sub> + n<sub>2</sub> + ...)</div><h4>Technique 2: Average of Remaining Observations</h4><div class='shortcut-box'>Remaining Average = (ma - nb) / (m - n)</div><h4>Technique 3: Addition or Elimination of Observation</h4><div class='formula-box'>Eliminated Value = n(a - b) + b<br>Added Value = n(b - a) + b</div><h4>Technique 4: Replacement of Observations</h4><div class='shortcut-box'>New Value = Replaced Value &plusmn; (n &times; Change in Avg)</div><h4>Technique 5: Passed vs Failed Students</h4><div class='formula-box'>Passed Students = [n(Total Avg - Failed Avg)] / (Passed Avg - Failed Avg)</div><h4>Technique 6: Group Components (Officers/Non-officers)</h4><div class='formula-box'>Remaining Components = [n(Group Avg - Part1 Avg)] / (Part2 Avg - Group Avg)</div><h4>Technique 7: Average Speed</h4><div class='shortcut-box'><ul><li><b>Two equal distances:</b> 2AB / (A + B)</li><li><b>Three equal distances:</b> 3ABC / (AB + BC + CA)</li><li><b>Different distances:</b> Total Distance / Total Time</li></ul></div>"
         }
+      ],
+        "Problems Based on Ages": [
+        {
+          "title": "1. Basic Concept",
+          "content": "<p>Age is defined as a period of time that a person has lived or a thing has existed. It is generally measured in months, years, or decades.[cite: 1]</p><p>Problems based on ages usually provide a relationship between the ages of two or more people in the <b>present</b>, <b>future</b>, or <b>past</b> to calculate a missing value.[cite: 1]</p>"
+        },
+        {
+          "title": "2. Fundamental Rules",
+          "content": "<h3>Rule 1: Past Ratios</h3><p>If the ratio of present ages of A and B is x : y and <b>n yr ago</b>, the ratio was p : q:[cite: 1]</p><div class='formula-box'><b>(x - n) / (y - n) = p / q</b></div><h3>Rule 2: Future Ratios</h3><p>If the ratio of present ages of A and B is x : y and <b>after n yr</b>, the ratio will be p : q:[cite: 2]</p><div class='formula-box'><b>(x + n) / (y + n) = p / q</b></div><div class='shortcut-box'><b>Note:</b> Most age problems can be solved effectively using linear equations.[cite: 2]</div>"
+        },
+        {
+          "title": "3. Fast Track Techniques",
+          "content": "<h4>Technique 1: Present vs. Future Multiples</h4><p>If at present a person is <b>m</b> times as old as another, and after <b>t</b> years they become <b>n</b> times as old:[cite: 3]</p><div class='formula-box'>Age of first person = <b>tm [(n - 1) / (m - n)]</b><br>Age of second person = <b>t [(n - 1) / (m - n)]</b></div><h4>Technique 2: Past vs. Future Multiples</h4><p>If <b>t<sub>1</sub></b> yr ago, age was <b>m</b> times, and after <b>t<sub>2</sub></b> yr, age will be <b>n</b> times:[cite: 4]</p><div class='formula-box'>First Person = <b>[t<sub>2</sub>m(n - 1) + t<sub>1</sub>n(m - 1)] / (m - n)</b><br>Second Person = <b>[t<sub>2</sub>(n - 1) + t<sub>1</sub>(m - 1)] / (m - n)</b></div><h4>Technique 3: The Relationship Rule</h4><p>If person M is as much older to N as he is younger to P, and the sum of ages of N and P is <b>S</b>:</p><div class='shortcut-box'><b>M's age = S / 2</b></div>"
+        },
+        {
+          "title": "4. Solved Examples",
+          "content": "<div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1rem;'><p><b>Example 1:</b> A father is twice as old as his son. 20 yr back, he was twelve times as old as his son. What is the father's present age?[cite: 1]</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b> Let son = k, father = 2k. <br>(2k - 20) / (k - 20) = 12 / 1 <br>&rArr; 2k - 20 = 12k - 240 <br>&rArr; 10k = 220 &rArr; k = 22. <br>Father = 2 &times; 22 = <b>44 yr</b></div></div><div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1rem;'><p><b>Example 2:</b> I am 3 times as old as my son. 15 yr hence, I will be twice as old as my son. Sum of our present ages?[cite: 2]</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b> Let son = k, man = 3k. <br>(3k + 15) / (k + 15) = 2 / 1 <br>&rArr; 3k + 15 = 2k + 30 &rArr; k = 15. <br>Sum = 3k + k = 4k = 4 &times; 15 = <b>60 yr</b></div></div><div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1rem;'><p><b>Example 3:</b> 5 yr ago, Sachin was 4 times the age of Vineet. After 10 yr, he will be twice as old. Find Sachin's age.[cite: 4]</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b> t<sub>1</sub>=5, t<sub>2</sub>=10, m=4, n=2. <br>Sachin = [5&times;2(4-1) + 10&times;4(2-1)] / (4-2) <br>= [30 + 40] / 2 = <b>35 yr</b></div></div><div class='question-card' style='background:white; border:1px solid var(--border);'><p><b>Example 4:</b> Akshay is as much older than Vinay as he is younger to Kartik. Sum of Vinay and Kartik's age is 48. Find Akshay's age.</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b> Akshay = Sum / 2 <br>= 48 / 2 = <b>24 yr</b></div></div>"
+        }
+      ],
+    
+      "Time & Work": [
+      {
+        "title": "1. Basic Concepts & Relations",
+        "content": "<p>Work and Time problems deal with the relationship between the amount of work done, the number of people involved, and the time taken to complete it. In these problems, the total work done is always assumed to be <b>1</b>.</p><h3>Key Relationships</h3><ul><li><b>Work and Person:</b> Directly Proportional (More men = more work).</li><li><b>Time and Person:</b> Inversely Proportional (More men = less time).</li><li><b>Work and Time:</b> Directly Proportional (More work = more time).</li></ul>"
+      },
+      {
+        "title": "2. Fundamental Rules",
+        "content": "<h3>Rule 1: Unitary Work</h3><p>If a person completes a work in <b>n</b> days, then their 1 day's work is:</p><div class='formula-box'><b>1 Day's Work = 1 / n</b></div><h3>Rule 2: Completion Time</h3><p>If a person's 1 day's work is <b>1/n</b>, then the total time taken to complete the work is:</p><div class='formula-box'><b>Total Time = n days</b></div><h3>Rule 3: Efficiency & Ratio</h3><p>If A is <b>n</b> times more efficient than B, then the ratio of work done is <b>n : 1</b>, and the ratio of time taken is <b>1 : n</b>.</p>"
+      },
+      {
+        "title": "3. Fast Track Techniques",
+        "content": "<h4>Technique 1: The M-D-T-W Relation</h4><p>Used for complex problems involving Men (M), Days (D), Time (T), and Work (W):</p><div class='formula-box'><b>M₁D₁T₁W₂ = M₂D₂T₂W₁</b></div><h4>Technique 2: Combined Work</h4><p>If A takes <b>x</b> days and B takes <b>y</b> days, together they take:</p><div class='shortcut-box'><b>Time = (x &times; y) / (x + y)</b></div><h4>Technique 3: One Person Leaves (Early/Late)</h4><ul><li><b>Left before completion (x days):</b> Total Time = [(b + x) &times; a] / (a + b)</li><li><b>Left after starting (x days left for B):</b> Time A worked = [(b - x) &times; a] / (a + b)</li></ul><h4>Technique 4: 'Men or Women' (Alternative Work)</h4><p>If <b>a</b> men OR <b>b</b> women take <b>D</b> days, then <b>a₂</b> men AND <b>b₂</b> women take:</p><div class='formula-box'><b>Time = [D(a &times; b)] / (a₂b + ab₂)</b></div>"
+      },
+      {
+        "title": "4. Solved Examples",
+        "content": "<div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1rem;'><p><b>Example 1:</b> P can do a work 3 times faster than Q and takes 40 days less than Q. Find their individual times.</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b> Ratio of Time P:Q = 1:3. Difference (3k - k) = 2k. <br>2k = 40 &rArr; k = 20. <br><b>P = 20 days, Q = 60 days.</b></div></div><div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1rem;'><p><b>Example 2:</b> 10 men make 20 toys in 12 days (12h/day). How many days for 24 persons to make 32 toys (16h/day)?</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b> (10 &times; 12 &times; 12 &times; 32) = (24 &times; D₂ &times; 16 &times; 20). <br>D₂ = 46080 / 7680 = <b>6 days.</b></div></div><div class='question-card' style='background:white; border:1px solid var(--border);'><p><b>Example 3:</b> A takes 16 days more than (A+B), and B takes 9 days more than (A+B). How long do they take together?</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b> Using &radic;ab shortcut: <br>Time = &radic;(16 &times; 9) = &radic;144 = <b>12 days.</b></div></div>"
+      }
       ],
       "Pipes and Cisterns": [
         {

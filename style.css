@@ -115,6 +115,11 @@ header {
     z-index: 10;
 }
 
+/* Utility classes */
+.hidden {
+    display: none !important;
+}
+
 .sidebar-overlay {
     display: none;
     position: fixed;

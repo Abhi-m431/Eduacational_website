@@ -103,12 +103,12 @@
     "tag": "Coding-Decoding",
     "level": "Easy",
     "q": "If the code for 'BANK' is 'CNOL', what is the code for 'LOAN'?",
-    "options": ["MPBO", "MPBN", "MPBO", "MPBN"],
+    "options": ["MPBO", "MPBN", "NQCP", "LQBM"],
     "ans": "A",
     "explain": "Each letter is shifted by 1: L→M, O→P, A→B, N→O."
   },
   {
-    "id": 14,
+    "id": 13,
     "tag": "Profit & Loss",
     "level": "Easy",
     "q": "If the cost price is ₹500 and selling price is ₹600, what is the profit percentage?",
@@ -117,7 +117,7 @@
     "explain": "Profit = 100; Profit% = (100/500)*100 = 20%."
   },
   {
-    "id": 15,
+    "id": 14,
     "tag": "Averages",
     "level": "Easy",
     "q": "Find the average of 10, 20, 30, 40, 50.",
@@ -126,7 +126,7 @@
     "explain": "Sum = 150; Average = 150/5 = 30."
   },
   {
-    "id": 16,
+    "id": 15,
     "tag": "Clocks and Calendars",
     "level": "Medium",
     "q": "If 1st January 2020 was a Wednesday, what day was 1st January 2021?",
@@ -135,7 +135,7 @@
     "explain": "2020 is a leap year, so 2 days ahead: Wednesday + 2 = Friday."
   },
   {
-    "id": 17,
+    "id": 16,
     "tag": "Direction Sense",
     "level": "Medium",
     "q": "A man facing north turns 90° right, then 180° left. Which direction is he facing?",
@@ -144,7 +144,7 @@
     "explain": "North → Right = East; East → 180° left = West."
   },
   {
-    "id": 19,
+    "id": 17,
     "tag": "Blood Relations",
     "level": "Medium",
     "q": "If A is the brother of B, B is the sister of C, C is the father of D, how is A related to D?",
@@ -153,7 +153,7 @@
     "explain": "A is D's uncle."
   },
   {
-    "id": 22,
+    "id": 18,
     "tag": "Clocks and Calendars",
     "level": "Hard",
     "q": "How many times do the hands of a clock coincide in a day?",
@@ -162,7 +162,7 @@
     "explain": "22 times in 24 hours."
   },
   {
-    "id": 24,
+    "id": 19,
     "tag": "Profit & Loss",
     "level": "Easy",
     "q": "If a shopkeeper sells an article at a loss of 10%, and its cost price is ₹200, what is the selling price?",
@@ -171,7 +171,7 @@
     "explain": "Loss = 10% of 200 = 20; SP = 200 - 20 = 180."
   },
   {
-    "id": 25,
+    "id": 20,
     "tag": "Simple and Compound Interest",
     "level": "Easy",
     "q": "Find the simple interest on ₹1000 at 5% per annum for 3 years.",
@@ -180,7 +180,7 @@
     "explain": "SI = (1000×5×3)/100 = ₹150."
   },
   {
-    "id": 26,
+    "id": 21,
     "tag": "Percentage",
     "level": "Easy",
     "q": "What is 25% of 480?",
@@ -189,7 +189,7 @@
     "explain": "25% of 480 = (25/100)×480 = 120."
   },
   {
-    "id": 27,
+    "id": 22,
     "tag": "Averages",
     "level": "Easy",
     "q": "Average of first five odd numbers?",
@@ -198,7 +198,7 @@
     "explain": "Sum = 1+3+5+7+9=25; Average = 25/5=5."
   },
   {
-    "id": 28,
+    "id": 23,
     "tag": "Clocks and Calendars",
     "level": "Medium",
     "q": "If 15th August 1947 was a Friday, what day was 15th August 1948?",
@@ -207,7 +207,7 @@
     "explain": "1948 is a leap year, so 2 days ahead: Friday + 2 = Sunday."
   },
   {
-    "id": 29,
+    "id": 24,
     "tag": "Direction Sense",
     "level": "Medium",
     "q": "If you face east and turn 270° clockwise, which direction are you facing?",
@@ -216,7 +216,7 @@
     "explain": "East + 270° clockwise = South."
   },
   {
-    "id": 31,
+    "id": 25,
     "tag": "Blood Relations",
     "level": "Medium",
     "q": "If P is the father of Q and Q is the mother of R, how is P related to R?",
@@ -225,7 +225,7 @@
     "explain": "P is R's grandfather."
   },
   {
-    "id": 34,
+    "id": 26,
     "tag": "Clocks and Calendars",
     "level": "Hard",
     "q": "How many times do the hands of a clock form a right angle in a day?",
@@ -234,7 +234,7 @@
     "explain": "44 times in 24 hours."
   },
   {
-    "id": 36,
+    "id": 27,
     "tag": "Profit & Loss",
     "level": "Medium",
     "q": "If the cost price is ₹800 and profit is 25%, what is the selling price?",
@@ -243,7 +243,7 @@
     "explain": "Profit = 25% of 800 = 200; SP = 800 + 200 = 1000."
   },
   {
-    "id": 37,
+    "id": 28,
     "tag": "Simple and Compound Interest",
     "level": "Medium",
     "q": "Find the simple interest on ₹2000 at 8% per annum for 2 years.",
@@ -252,7 +252,7 @@
     "explain": "SI = (2000×8×2)/100 = ₹320."
   },
   {
-    "id": 38,
+    "id": 29,
     "tag": "Percentage",
     "level": "Easy",
     "q": "What is 10% of 250?",
@@ -261,7 +261,7 @@
     "explain": "10% of 250 = 25."
   },
   {
-    "id": 39,
+    "id": 30,
     "tag": "Averages",
     "level": "Easy",
     "q": "Average of 2, 4, 6, 8, 10?",
@@ -270,7 +270,7 @@
     "explain": "Sum = 30; Average = 30/5=6."
   },
   {
-    "id": 40,
+    "id": 31,
     "tag": "Clocks and Calendars",
     "level": "Medium",
     "q": "If 1st March 2000 was a Wednesday, what day was 1st March 2001?",
@@ -279,7 +279,7 @@
     "explain": "2000 is a leap year, so 2 days ahead: Wednesday + 2 = Friday."
   },
   {
-    "id": 41,
+    "id": 32,
     "tag": "Direction Sense",
     "level": "Easy",
     "q": "If you face south and turn 180°, which direction are you facing?",
@@ -288,7 +288,7 @@
     "explain": "South + 180° = North."
   },
   {
-    "id": 43,
+    "id": 33,
     "tag": "Blood Relations",
     "level": "Medium",
     "q": "If X is the son of Y and Y is the daughter of Z, how is X related to Z?",
@@ -297,7 +297,7 @@
     "explain": "X is Z's grandson."
   },
   {
-    "id": 46,
+    "id": 34,
     "tag": "Clocks and Calendars",
     "level": "Hard",
     "q": "How many times do the hands of a clock overlap in 12 hours?",
@@ -306,7 +306,7 @@
     "explain": "11 times in 12 hours."
   },
   {
-    "id": 48,
+    "id": 35,
     "tag": "Profit & Loss",
     "level": "Easy",
     "q": "If the cost price is ₹400 and loss is 10%, what is the selling price?",
@@ -315,7 +315,7 @@
     "explain": "Loss = 10% of 400 = 40; SP = 400 - 40 = 360."
   },
   {
-    "id": 49,
+    "id": 36,
     "tag": "Simple and Compound Interest",
     "level": "Easy",
     "q": "Find the simple interest on ₹500 at 12% per annum for 1 year.",
@@ -324,7 +324,7 @@
     "explain": "SI = (500×12×1)/100 = ₹60."
   },
   {
-    "id": 50,
+    "id": 37,
     "tag": "Percentage",
     "level": "Easy",
     "q": "What is 50% of 300?",
@@ -333,7 +333,7 @@
     "explain": "50% of 300 = 150."
   },
   {
-    "id": 51,
+    "id": 38,
     "tag": "Simple and Compound Interest",
     "level": "Medium",
     "q": "Find the compound interest on ₹10000 for 2 years at 10% per annum compounded annually.",
@@ -342,7 +342,7 @@
     "explain": "Amount = 10000(1.1)^2 = 12100. CI = 12100 - 10000 = ₹2100."
   },
   {
-    "id": 52,
+    "id": 39,
     "tag": "Time & Work",
     "level": "Medium",
     "q": "A can do a work in 10 days and B in 15 days. If they work together, in how many days will they finish the work?",
@@ -351,7 +351,7 @@
     "explain": "Together they take 6 days."
   },
   {
-    "id": 53,
+    "id": 40,
     "tag": "Clocks and Calendars",
     "level": "Hard",
     "q": "What is the angle between the hands of a clock at 4:20?",
@@ -360,7 +360,7 @@
     "explain": "Angle = |30(4) - 5.5(20)| = 10°."
   },
   {
-    "id": 54,
+    "id": 41,
     "tag": "Clocks and Calendars",
     "level": "Medium",
     "q": "Today is Monday. After 61 days, it will be:",
@@ -369,7 +369,7 @@
     "explain": "61 mod 7 = 5. Monday + 5 days = Saturday."
   },
   {
-    "id": 55,
+    "id": 42,
     "tag": "Idioms/Phrases",
     "level": "Easy",
     "q": "Meaning of the idiom: 'To spill the beans'",
@@ -378,7 +378,7 @@
     "explain": "'Spilling the beans' refers to revealing a secret."
   },
   {
-    "id": 56,
+    "id": 43,
     "tag": "Percentage",
     "level": "Medium",
     "q": "If 20% of a number is 120, what is 120% of that number?",
@@ -387,7 +387,7 @@
     "explain": "Number = 600. 120% of 600 = 720."
   },
   {
-    "id": 57,
+    "id": 44,
     "tag": "Direction Sense",
     "level": "Medium",
     "q": "A man walks 5km South, then turns right and walks 3km. Then he turns left and walks 5km. In which direction is he now from the starting point?",
@@ -396,7 +396,7 @@
     "explain": "The net movement is South and West."
   },
   {
-    "id": 58,
+    "id": 45,
     "tag": "Averages",
     "level": "Medium",
     "q": "The average of seven consecutive numbers is 20. The largest of these numbers is:",
@@ -405,7 +405,7 @@
     "explain": "Average x = 20. Largest is 20+3 = 23."
   },
   {
-    "id": 59,
+    "id": 46,
     "tag": "Ratio and Proportion",
     "level": "Medium",
     "q": "If A:B = 2:3 and B:C = 4:5, find A:C.",
@@ -414,7 +414,7 @@
     "explain": "A/C = (A/B) * (B/C) = 8/15."
   },
   {
-    "id": 60,
+    "id": 47,
     "tag": "Divisibility rules",
     "level": "Easy",
     "q": "Which of the following is a prime number?",
@@ -423,7 +423,7 @@
     "explain": "97 has no factors other than 1 and itself."
   },
   {
-    "id": 61,
+    "id": 48,
     "tag": "Percentage",
     "level": "Medium",
     "q": "If A's income is 25% more than B's income, then how much percent is B's income less than A's income?",
@@ -432,7 +432,7 @@
     "explain": "Let B=100, A=125. B is less than A by (25/125)*100 = 20%."
   },
   {
-    "id": 62,
+    "id": 49,
     "tag": "Percentage",
     "level": "Medium",
     "q": "The price of sugar rises by 20%. By how much percent should a housewife reduce her consumption so that the expenditure does not increase?",
@@ -441,7 +441,7 @@
     "explain": "[20/120]*100 = 16.66%."
   },
   {
-    "id": 65,
+    "id": 50,
     "tag": "Profit & Loss",
     "level": "Medium",
     "q": "If the cost price of 10 articles is equal to the selling price of 8 articles, find the gain or loss percent.",
@@ -450,7 +450,7 @@
     "explain": "[(10-8)/8]*100 = 25% gain."
   },
   {
-    "id": 69,
+    "id": 51,
     "tag": "Simple and Compound Interest",
     "level": "Medium",
     "q": "A sum of money at simple interest doubles itself in 10 years. In how many years will it triple itself?",
@@ -459,7 +459,7 @@
     "explain": "P to 2P takes 10 yrs. P to 3P needs 2P interest, which takes 20 yrs."
   },
   {
-    "id": 73,
+    "id": 52,
     "tag": "Simple and Compound Interest",
     "level": "Hard",
     "q": "The difference between CI and SI on a sum of money for 2 years at 10% per annum is ₹50. The sum is:",
@@ -468,7 +468,7 @@
     "explain": "50 = P(10/100)^2 => P = 5000."
   },
   {
-    "id": 77,
+    "id": 53,
     "tag": "Ratio and Proportion",
     "level": "Hard",
     "q": "Two numbers are in the ratio 3:5. If 9 is subtracted from each, they are in the ratio 12:23. The smaller number is:",
@@ -477,7 +477,7 @@
     "explain": "(3x-9)/(5x-9) = 12/23 => x=11. Smaller = 33."
   },
   {
-    "id": 81,
+    "id": 54,
     "tag": "Time, Speed and Distance",
     "level": "Hard",
     "q": "A train 240m long passes a pole in 24 seconds. How long will it take to pass a platform 650m long?",
@@ -486,7 +486,7 @@
     "explain": "Speed = 10 m/s. Dist = 890m. Time = 89 sec."
   },
   {
-    "id": 85,
+    "id": 55,
     "tag": "Time & Work",
     "level": "Hard",
     "q": "If 12 men can build a wall 100m long in 5 days, how many men are required to build a wall 200m long in 3 days?",
@@ -495,7 +495,7 @@
     "explain": "(12*5)/100 = (M*3)/200 => M=40."
   },
   {
-    "id": 89,
+    "id": 56,
     "tag": "Averages",
     "level": "Medium",
     "q": "The average of 50 numbers is 38. If two numbers, namely 45 and 55, are discarded, the average of the remaining numbers is:",
@@ -504,7 +504,7 @@
     "explain": "Sum=1900. New Sum=1800. Avg=1800/48=37.5."
   },
   {
-    "id": 93,
+    "id": 57,
     "tag": "HCF & LCM",
     "level": "Medium",
     "q": "The HCF of two numbers is 11 and their LCM is 693. If one of the numbers is 77, find the other.",
@@ -513,7 +513,7 @@
     "explain": "Num = (11*693)/77 = 99."
   },
   {
-    "id": 97,
+    "id": 58,
     "tag": "Divisibility rules",
     "level": "Medium",
     "q": "Which of the following numbers is divisible by 11?",
@@ -522,7 +522,7 @@
     "explain": "Diff of alternate digits is 11."
   },
   {
-    "id": 101,
+    "id": 59,
     "tag": "Problems on Ages",
     "level": "Hard",
     "q": "The sum of ages of 5 children born at intervals of 3 years each is 50 years. What is the age of the youngest child?",
@@ -531,7 +531,7 @@
     "explain": "5x + 30 = 50 => x = 4."
   },
   {
-    "id": 105,
+    "id": 60,
     "tag": "Probability",
     "level": "Easy",
     "q": "In a box, there are 8 red, 7 blue and 6 green balls. One ball is picked up randomly. What is the probability that it is neither red nor green?",
@@ -540,7 +540,7 @@
     "explain": "P = 7/21 = 1/3."
   },
   {
-    "id": 111,
+    "id": 61,
     "tag": "Number Series",
     "level": "Hard",
     "q": "Find the missing number: 1, 4, 27, 256, ?",
@@ -549,7 +549,7 @@
     "explain": "Pattern: n^n. 5^5 = 3125."
   },
   {
-    "id": 116,
+    "id": 62,
     "tag": "Coding-Decoding",
     "level": "Medium",
     "q": "If HEATER is coded as KBDHOQ, how will COOLER be coded?",
@@ -558,7 +558,7 @@
     "explain": "Pattern: +3, -3..."
   },
   {
-    "id": 121,
+    "id": 63,
     "tag": "Blood Relations",
     "level": "Medium",
     "q": "Pointing to a photograph, a man said, 'I have no brother or sister but that man's father is my father's son.' Whose photograph was it?",
@@ -567,7 +567,7 @@
     "explain": "The man is his son."
   },
   {
-    "id": 126,
+    "id": 64,
     "tag": "Clocks and Calendars",
     "level": "Hard",
     "q": "How many leap years in 400 years?",
@@ -576,7 +576,7 @@
     "explain": "100 - 3 = 97."
   },
   {
-    "id": 131,
+    "id": 65,
     "tag": "Direction Sense",
     "level": "Medium",
     "q": "The shadow of a pole fell exactly to his right. To which direction was he facing?",
@@ -585,7 +585,7 @@
     "explain": "Shadow West, facing South."
   },
   {
-    "id": 136,
+    "id": 66,
     "tag": "Clocks and Calendars",
     "level": "Hard",
     "q": "At what time between 4 and 5 o'clock will the hands of a clock be at right angle?",
@@ -594,7 +594,7 @@
     "explain": "Both cases satisfy the angle."
   },
   {
-    "id": 141,
+    "id": 67,
     "tag": "Syllogism",
     "level": "Medium",
     "q": "All bags are pockets. All pockets are shops. Conclusion: All bags are shops.",
@@ -603,7 +603,7 @@
     "explain": "Direct subsets."
   },
   {
-    "id": 146,
+    "id": 68,
     "tag": "Seating Arrangement (Linear/Circular)",
     "level": "Hard",
     "q": "A, B, C, D and E are sitting on a bench. A is next to B, C next to D. C is 2nd from right. A is right of B. A and C together. Position of A?",
@@ -612,7 +612,7 @@
     "explain": "E B A C D."
   },
   {
-    "id": 161,
+    "id": 69,
     "tag": "Synonyms",
     "level": "Easy",
     "q": "Synonym of: ABANDON",
@@ -621,7 +621,7 @@
     "explain": "Discard."
   },
   {
-    "id": 166,
+    "id": 70,
     "tag": "Antonyms",
     "level": "Easy",
     "q": "Antonym of: ANCIENT",
@@ -630,7 +630,7 @@
     "explain": "Modern."
   },
   {
-    "id": 171,
+    "id": 71,
     "tag": "Fill in the Blanks",
     "level": "Easy",
     "q": "The committee _______ unable to agree on a final decision.",
@@ -639,7 +639,7 @@
     "explain": "Singular verb."
   },
   {
-    "id": 176,
+    "id": 72,
     "tag": "Idioms/Phrases",
     "level": "Easy",
     "q": "Meaning of: 'Piece of cake'",
@@ -648,7 +648,7 @@
     "explain": "Very easy."
   },
   {
-    "id": 191,
+    "id": 73,
     "tag": "Sentence Improvement",
     "level": "Medium",
     "q": "Correct: 'Each of the boys have a pen.'",
@@ -657,7 +657,7 @@
     "explain": "Each takes singular verb."
   },
   {
-    "id": 196,
+    "id": 74,
     "tag": "Error Spotting",
     "level": "Easy",
     "q": "Correct spelling:",
@@ -667,7 +667,7 @@
   }
   ,
   {
-    "id": 201,
+    "id": 75,
     "tag": "Percentage",
     "level": "Easy",
     "q": "Convert 4% to a fraction. [CISF Head Constable 2023]",
@@ -676,7 +676,7 @@
     "explain": "4% = 4/100 = 1/25."
   },
   {
-    "id": 202,
+    "id": 76,
     "tag": "Percentage",
     "level": "Easy",
     "q": "What is 2/5 expressed as a percentage? [RRB NTPC 2021]",
@@ -685,7 +685,7 @@
     "explain": "2/5 * 100 = 40%."
   },
   {
-    "id": 203,
+    "id": 77,
     "tag": "Percentage",
     "level": "Medium",
     "q": "If x% of y is equal to 2/3 of 90, then find the value of xy. [SSC GD 2023]",
@@ -694,7 +694,7 @@
     "explain": "(x/100) * y = 60 => xy = 6000."
   },
   {
-    "id": 204,
+    "id": 78,
     "tag": "Percentage",
     "level": "Easy",
     "q": "0.5 is what percentage of 20? [SSC CGL 2022]",
@@ -703,7 +703,7 @@
     "explain": "(0.5/20) * 100 = 2.5%."
   },
   {
-    "id": 205,
+    "id": 79,
     "tag": "Percentage",
     "level": "Medium",
     "q": "If X's income is 44% more than that of Y, what percent is Y's income less than X's? [MHA IB 2024]",
@@ -712,7 +712,7 @@
     "explain": "Reduction = [44 / (100 + 44)] * 100 ≈ 30.5%."
   },
   {
-    "id": 206,
+    "id": 80,
     "tag": "Percentage",
     "level": "Medium",
     "q": "If A's income is 40% less than B's income, then how much percent is B's income more than A's? [UGC NET 2022]",
@@ -721,7 +721,7 @@
     "explain": "Increase = [40 / (100 - 40)] * 100 = 66.66%."
   },
   {
-    "id": 207,
+    "id": 81,
     "tag": "Percentage",
     "level": "Medium",
     "q": "A person's salary was decreased by 50% and subsequently increased by 50%. Find the net change in salary. [SSC CGL 2022]",
@@ -730,7 +730,7 @@
     "explain": "Net change = (50/10)^2 % decrease = 25% decrease."
   },
   {
-    "id": 208,
+    "id": 82,
     "tag": "Percentage",
     "level": "Medium",
     "q": "A number is first increased by 40% and then decreased by 40%. Find the net change. [DSSSB 2019]",
@@ -739,7 +739,7 @@
     "explain": "Net change = (40/10)^2 % decrease = 16% decrease."
   },
   {
-    "id": 209,
+    "id": 83,
     "tag": "Percentage",
     "level": "Medium",
     "q": "P is increased successively by 15% and 20% to get Q. If P = 200, find Q. [SSC MTS 2022]",
@@ -748,7 +748,7 @@
     "explain": "Q = 200 * 1.15 * 1.20 = 276."
   },
   {
-    "id": 210,
+    "id": 84,
     "tag": "Percentage",
     "level": "Medium",
     "q": "Price of sugar increased by 10%. By what % must a family reduce consumption so expenditure remains same? [RRB NTPC 2021]",
@@ -757,7 +757,7 @@
     "explain": "Reduction = [10 / (100 + 10)] * 100 = 9 1/11%."
   },
   {
-    "id": 211,
+    "id": 85,
     "tag": "Percentage",
     "level": "Hard",
     "q": "A reduction of 20% in price allows a buyer to get 2.5 kg more for ₹160. Find the original price per kg. [RRB ALP 2018]",
@@ -766,7 +766,7 @@
     "explain": "Original Price = (20 * 160) / ((100-20) * 2.5) = 3200 / 200 = ₹16."
   },
   {
-    "id": 212,
+    "id": 86,
     "tag": "Percentage",
     "level": "Hard",
     "q": "Raushan got 25% marks and failed by 64 marks. If he got 40% marks, he would have passed by 32 marks. Find max marks. [SBI Clerk 2021]",
@@ -775,7 +775,7 @@
     "explain": "Max Marks = [100 * (64 + 32)] / (40 - 25) = 9600 / 15 = 640."
   },
   {
-    "id": 213,
+    "id": 87,
     "tag": "Percentage",
     "level": "Medium",
     "q": "Population of a town is 12,000 and increases at 10% per annum. Find the population after 3 years. [SSC MTS 2022]",
@@ -784,7 +784,7 @@
     "explain": "12000 * (1.1)^3 = 12000 * 1.331 = 15,972."
   },
   {
-    "id": 214,
+    "id": 88,
     "tag": "Percentage",
     "level": "Hard",
     "q": "A computer depreciates at 20% per annum. It was bought 3 years ago for ₹12,288. Find the purchase price. [RRB NTPC 2021]",
@@ -793,7 +793,7 @@
     "explain": "Price = 12288 / (0.8)^3 = 12288 / 0.512 = ₹24,000."
   },
   {
-    "id": 215,
+    "id": 89,
     "tag": "Profit & Loss",
     "level": "Medium",
     "q": "A salesman expects a gain of 13% on his cost price. If in a month, his sale was ₹7,91,000, then what was his profit? [CUET 2023]",
@@ -802,7 +802,7 @@
     "explain": "Gain = 13%, SP = ₹7,91,000. CP = (7,91,000 × 100) / 113 = ₹7,00,000. Profit = SP - CP = ₹91,000."
   },
   {
-    "id": 216,
+    "id": 90,
     "tag": "Profit & Loss",
     "level": "Medium",
     "q": "If the selling price of a toy is 3/5 of its cost price, then the loss per cent is: [MHA IB 2023]",
@@ -811,7 +811,7 @@
     "explain": "Let CP = x. SP = 3/5x. Loss = CP - SP = 2/5x. Loss% = (Loss/CP) × 100 = (2/5) × 100 = 40%."
   },
   {
-    "id": 217,
+    "id": 91,
     "tag": "Profit & Loss",
     "level": "Easy",
     "q": "If an article is sold at 20% profit, then which of the following is the ratio of its cost price to its selling price? [HCET 2022]",
@@ -820,7 +820,7 @@
     "explain": "Let CP = 100. Profit = 20%, so SP = 120. Ratio CP:SP = 100:120 = 5:6."
   },
   {
-    "id": 218,
+    "id": 92,
     "tag": "Profit & Loss",
     "level": "Hard",
     "q": "When a plot is sold for ₹18,700, the owner loses 15%. At what price must the plot be sold in order to gain 15%? [HCET 2022]",
@@ -829,7 +829,7 @@
     "explain": "SP1 = 18700, Loss = 15%. CP = (18700 × 100)/85 = 22000. To gain 15%, New SP = 22000 × 1.15 = ₹25,300."
   },
   {
-    "id": 219,
+    "id": 93,
     "tag": "Profit & Loss",
     "level": "Medium",
     "q": "A shopkeeper sells two articles at ₹840 each. He earns a 20% profit on the first article and incurs a 20% loss on the second article. Determine the percentage of net profit or loss he incurs. [UP Constable 2023]",
@@ -838,7 +838,7 @@
     "explain": "When SP is same and gain/loss% is same, Loss % = (a/10)² = (20/10)² = 4%."
   },
   {
-    "id": 220,
+    "id": 94,
     "tag": "Profit & Loss",
     "level": "Medium",
     "q": "The selling price of 10 articles is equal to the cost price of 13 articles. What is the gain percentage? [MTS 2023]",
@@ -847,7 +847,7 @@
     "explain": "Gain % = [(CP items - SP items) / SP items] * 100 = [(13-10)/10] * 100 = 30%."
   },
   {
-    "id": 221,
+    "id": 95,
     "tag": "Profit & Loss",
     "level": "Medium",
     "q": "A vendor bought bananas at 6 for ₹10 and sold them at 4 for ₹6. Find his gain or loss per cent. [UP Constable 2024]",
@@ -856,7 +856,7 @@
     "explain": "Gain/Loss% = [(my-nx)/nx]*100 = [(6*6 - 4*10)/40]*100 = -10% (Loss)."
   },
   {
-    "id": 222,
+    "id": 96,
     "tag": "Profit & Loss",
     "level": "Medium",
     "q": "A person sold an article at a loss of 16%. Had he sold it for ₹660 more, he would have gained 8%. What should be the selling price to gain 12%? [SSC CPO 2020]",
@@ -865,7 +865,7 @@
     "explain": "CP = 660/(16+8) * 100 = ₹2750. For 12% gain, SP = 2750 * 1.12 = ₹3080."
   },
   {
-    "id": 223,
+    "id": 97,
     "tag": "Profit & Loss",
     "level": "Medium",
     "q": "A sells a watch to B at a profit of 33% and B sells it to C at a loss of 20%. If C pays ₹532, then what was the cost price for A? [SSC CHSL 2024]",
@@ -874,7 +874,7 @@
     "explain": "532 = CP * 1.33 * 0.8 => CP = 532 / 1.064 = ₹500."
   },
   {
-    "id": 224,
+    "id": 98,
     "tag": "Profit & Loss",
     "level": "Hard",
     "q": "A dishonest vendor weighing 850 gm for 1000 gm while selling at CP. What is his profit percentage? [RRB Group D 2022]",
@@ -883,7 +883,7 @@
     "explain": "Gain% = [(True - False)/False] * 100 = (150/850) * 100 = 17.65%."
   },
   {
-    "id": 225,
+    "id": 99,
     "tag": "Profit & Loss",
     "level": "Hard",
     "q": "A dealer sells goods at 6% loss on CP but uses 14 gm instead of 16 gm. What is his percentage profit or loss? [AFCAT 2021]",
@@ -892,12 +892,237 @@
     "explain": "Result = [(100-6)*(16/14)] - 100 = 7.428% or 7(3/7)% profit."
   },
   {
-    "id": 226,
+    "id": 100,
     "tag": "Profit & Loss",
     "level": "Hard",
     "q": "A man sells rice at 10% profit and uses a weight that is 20% less than the actual measure. His gain percentage is: [SSC GD 2023]",
     "options": ["37(2/3)%", "37(1/2)%", "37(1/5)%", "37(1/3)%"],
     "ans": "B",
     "explain": "Gain% = [(20+10)/(100-20)] * 100 = (30/80) * 100 = 37.5% or 37(1/2)%."
+  },
+  {
+    "id": 101,
+    "tag": "Averages",
+    "level": "Easy",
+    "q": "Find out the average of 308, 125, 45, 120 and 102.",
+    "options": ["130", "140", "150", "160"],
+    "ans": "B",
+    "explain": "Required average = (308 + 125 + 45 + 120 + 102) / 5 = 700 / 5 = 140."
+  },
+  {
+    "id": 102,
+    "tag": "Averages",
+    "level": "Easy",
+    "q": "If the weight of A is 60 kg, B is 45 kg and C is 54 kg, what is the average weight of the three persons?",
+    "options": ["50 kg", "52 kg", "53 kg", "55 kg"],
+    "ans": "C",
+    "explain": "Required average = (60 + 45 + 54) / 3 = 159 / 3 = 53 kg."
+  },
+  {
+    "id": 103,
+    "tag": "Averages",
+    "level": "Medium",
+    "q": "Chandan's average expenditure for 4 days is ₹90. If the first 3 days were ₹100, ₹125 and ₹85, find the 4th day expenditure.",
+    "options": ["₹40", "₹50", "₹60", "₹70"],
+    "ans": "B",
+    "explain": "Let 4th day be x. (100 + 125 + 85 + x) / 4 = 90 => 310 + x = 360 => x = ₹50."
+  },
+  {
+    "id": 104,
+    "tag": "Averages",
+    "level": "Easy",
+    "q": "What will be the average of numbers from 1 to 51?",
+    "options": ["25", "26", "27", "28"],
+    "ans": "B",
+    "explain": "n = 51. Formula: (n + 1) / 2 = (51 + 1) / 2 = 26."
+  },
+  {
+    "id": 105,
+    "tag": "Averages",
+    "level": "Easy",
+    "q": "Find out the average of 2, 4, 6, 8, 10, 12 and 14.",
+    "options": ["7", "8", "9", "10"],
+    "ans": "B",
+    "explain": "n = 7. Formula: (n + 1) = (7 + 1) = 8."
+  },
+  {
+    "id": 106,
+    "tag": "Averages",
+    "level": "Easy",
+    "q": "Calculate the average of 1, 3, 5, 7, 9, 11, 13, 15 and 17.",
+    "options": ["8", "9", "10", "11"],
+    "ans": "B",
+    "explain": "n = 9. Formula: n = 9."
+  },
+  {
+    "id": 107,
+    "tag": "Averages",
+    "level": "Easy",
+    "q": "What will be the average of 1, 2, 3, 4, ..., 51, 52, 53?",
+    "options": ["26", "27", "28", "29"],
+    "ans": "B",
+    "explain": "First = 1, Last = 53. Formula: (1 + 53) / 2 = 27."
+  },
+  {
+    "id": 108,
+    "tag": "Averages",
+    "level": "Medium",
+    "q": "Find out the average of 4, 7, 10, 13, ..., 28, 31.",
+    "options": ["16", "17", "17.5", "18"],
+    "ans": "C",
+    "explain": "Common difference is 3. First = 4, Last = 31. Average = (4 + 31) / 2 = 17.5."
+  },
+  {
+    "id": 109,
+    "tag": "Averages",
+    "level": "Medium",
+    "q": "Find the average of all odd and even numbers from 1 to 45.",
+    "options": ["22", "23", "24", "25"],
+    "ans": "B",
+    "explain": "Odd: (45 + 1) / 2 = 23. Even: (44 + 2) / 2 = 23."
+  },
+  {
+    "id": 110,
+    "tag": "Averages",
+    "level": "Hard",
+    "q": "Calculate the average of the squares of natural numbers from 1 to 25.",
+    "options": ["210", "221", "230", "241"],
+    "ans": "B",
+    "explain": "n = 25. Formula: [(n + 1)(2n + 1)] / 6 = (26 × 51) / 6 = 221."
+  },
+  {
+    "id": 111,
+    "tag": "Averages",
+    "level": "Hard",
+    "q": "Calculate the average of the cubes of the first 9 natural numbers.",
+    "options": ["200", "225", "250", "275"],
+    "ans": "B",
+    "explain": "n = 9. Formula: [n(n + 1)²] / 4 = [9 × 100] / 4 = 225."
+  },
+  {
+    "id": 112,
+    "tag": "Averages",
+    "level": "Medium",
+    "q": "What will be the average of the first 9 multiples of 5?",
+    "options": ["20", "25", "30", "35"],
+    "ans": "B",
+    "explain": "n = 9, Number = 5. Formula: [Number × (n + 1)] / 2 = [5 × 10] / 2 = 25."
+  },
+  {
+    "id": 113,
+    "tag": "Averages",
+    "level": "Easy",
+    "q": "A class has 30 boys whose average age is 12 yr and 60 girls whose average age is 10 yr. What is the average age of the entire class?",
+    "options": ["10.55 yr", "10.66 yr", "11.20 yr", "10.80 yr"],
+    "ans": "B",
+    "explain": "Using Weighted Average: Total Age / Total Students = (30 * 12 + 60 * 10) / (30 + 60) = 960 / 90 = 10.66 yr."
+  },
+  {
+    "id": 114,
+    "tag": "Averages",
+    "level": "Medium",
+    "q": "Pinky bought 20 books at ₹10 each, 45 pens at ₹5 each and 15 pencils at ₹3 each. Calculate the average price of all the items.",
+    "options": ["₹5.500", "₹6.125", "₹5.875", "₹5.250"],
+    "ans": "C",
+    "explain": "Average = Total Price / Total Items = (20 * 10 + 45 * 5 + 15 * 3) / (20 + 45 + 15) = 470 / 80 = ₹5.875."
+  },
+  {
+    "id": 115,
+    "tag": "Averages",
+    "level": "Medium",
+    "q": "A man bought 20 cows for ₹200,000. If the average cost of 12 of them is ₹12,500, what is the average cost of the remaining cows?",
+    "options": ["₹6,500", "₹6,000", "₹7,250", "₹6,250"],
+    "ans": "D",
+    "explain": "Average of rest = (Total Cost - Cost of 12 cows) / (20 - 12) = (200,000 - 150,000) / 8 = 50,000 / 8 = ₹6,250."
+  },
+  {
+    "id": 116,
+    "tag": "Averages",
+    "level": "Medium",
+    "q": "A team of 11 players and a coach has an average age of 18 yr. If the coach is excluded, the average age decreases by 1 yr. What is the age of the coach?",
+    "options": ["27 yr", "29 yr", "30 yr", "28 yr"],
+    "ans": "B",
+    "explain": "Age of excluded person = n(a - b) + b. Here n=12, a=18, b=17. Age = 12(18 - 17) + 17 = 12 + 17 = 29 yr."
+  },
+  {
+    "id": 117,
+    "tag": "Averages",
+    "level": "Medium",
+    "q": "The average of runs of a batsman in 20 innings is 32. After the 21st inning, his average score becomes 34. How many runs did he score in the 21st inning?",
+    "options": ["70", "72", "74", "76"],
+    "ans": "C",
+    "explain": "Runs = n(b - a) + b. Here n=20, a=32, b=34. Runs = 20(34 - 32) + 34 = 20(2) + 34 = 74."
+  },
+  {
+    "id": 118,
+    "tag": "Averages",
+    "level": "Easy",
+    "q": "The average weight of 3 women is increased by 4 kg when one of them whose weight is 100 kg is replaced by another woman. What is the weight of the new woman?",
+    "options": ["108 kg", "112 kg", "110 kg", "104 kg"],
+    "ans": "B",
+    "explain": "New weight = Replaced weight + (n * Increase) = 100 + (3 * 4) = 112 kg."
+  },
+  {
+    "id": 119,
+    "tag": "Averages",
+    "level": "Easy",
+    "q": "The average age of 25 boys in a class decreases by 6 months when a new boy takes the place of a 20 yr old boy. Find the age of the new boy.",
+    "options": ["7.5 yr", "8.0 yr", "7.0 yr", "12.5 yr"],
+    "ans": "A",
+    "explain": "6 months = 0.5 yr. New age = Replaced age - (n * Decrease) = 20 - (25 * 0.5) = 20 - 12.5 = 7.5 yr."
+  },
+  {
+    "id": 120,
+    "tag": "Averages",
+    "level": "Hard",
+    "q": "The average marks of 75 students in a class is 35. The average marks of passed students is 55 and that of failed students is 30. What is the number of passed students?",
+    "options": ["20", "15", "60", "25"],
+    "ans": "B",
+    "explain": "Passed = [Total students * (Total Avg - Failed Avg)] / (Passed Avg - Failed Avg) = [75 * (35 - 30)] / (55 - 30) = 375 / 25 = 15."
+  },
+  {
+    "id": 121,
+    "tag": "Averages",
+    "level": "Hard",
+    "q": "The average salary of the entire staff in an office is ₹200. The average salary of 16 officers is ₹550 and that of non-officers is ₹120. Find the number of non-officers.",
+    "options": ["60", "80", "70", "75"],
+    "ans": "C",
+    "explain": "Non-officers = [Officers * (Officer Avg - Total Avg)] / (Total Avg - Non-officer Avg) = [16 * (550 - 200)] / (200 - 120) = (16 * 350) / 80 = 70."
+  },
+  {
+    "id": 122,
+    "tag": "Averages",
+    "level": "Medium",
+    "q": "A person goes to a destination at a speed of 25 km/h and returns at a speed of 40 km/h. What is his average speed for the whole journey?",
+    "options": ["32.50 km/h", "30.76 km/h", "31.25 km/h", "30.00 km/h"],
+    "ans": "B",
+    "explain": "Avg Speed = 2xy / (x + y) = (2 * 25 * 40) / (25 + 40) = 2000 / 65 = 30.76 km/h."
+  },
+  {
+    "id": 123,
+    "tag": "Averages",
+    "level": "Medium",
+    "q": "A person covers three equal distances with speeds of 30 km/h, 15 km/h and 10 km/h respectively. Find his average speed for the whole journey.",
+    "options": ["18 km/h", "20 km/h", "12 km/h", "15 km/h"],
+    "ans": "D",
+    "explain": "Avg Speed = 3xyz / (xy + yz + zx) = (3 * 30 * 15 * 10) / (450 + 150 + 300) = 13500 / 900 = 15 km/h."
+  },
+  {
+    "id": 124,
+    "tag": "Averages",
+    "level": "Hard",
+    "q": "A person covers 20 km at 5 km/h, then 15 km at 3 km/h and finally 10 km at 2 km/h. What is his average speed?",
+    "options": ["3(3/14) km/h", "3(1/2) km/h", "4 km/h", "3(5/14) km/h"],
+    "ans": "A",
+    "explain": "Avg Speed = Total Distance / Total Time = (20+15+10) / (20/5 + 15/3 + 10/2) = 45 / (4+5+5) = 45/14 = 3(3/14) km/h."
+  },
+  {
+    "id": 125,
+    "tag": "Averages",
+    "level": "Hard",
+    "q": "A person covers 25% of the journey at 10 km/h, 45% at 5 km/h and the remaining 30% at 15 km/h. His average speed for the whole journey is:",
+    "options": ["8.20 km/h", "7.40 km/h", "6.50 km/h", "7.00 km/h"],
+    "ans": "B",
+    "explain": "Avg Speed = 1 / (P/x + Q/y + R/z) = 1 / (0.25/10 + 0.45/5 + 0.30/15) = 1 / (0.025 + 0.09 + 0.02) = 1 / 0.135 = 7.40 km/h."
   }
 ]

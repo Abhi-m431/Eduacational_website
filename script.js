@@ -8,6 +8,18 @@ let examState = {
     timerId: null
 };
 
+// Centralized DOM element cache
+const ui = {
+    sidebar: document.querySelector('.sidebar'),
+    sidebarOverlay: document.getElementById('sidebar-overlay'),
+    mainContent: document.getElementById('main-content'),
+    userName: document.getElementById('user-name'),
+    questionsList: null, // Initialized via ensureDashboardShell
+    breadcrumbCat: null,
+    displayTitle: null,
+    mockResult: null
+};
+
 // Smooth scroll to section
 function scrollToSection(id) {
   document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
@@ -29,24 +41,17 @@ let currentTheory = { category: null, subcat: null };
 let questionsCache = {};
 let activeCharts = {};
 
-// Cache frequently used DOM elements for efficiency
-const sidebar = document.querySelector('.sidebar');
-const sidebarOverlay = document.getElementById('sidebar-overlay');
-let questionsListContainer = document.getElementById('questions-list');
-let breadcrumbCat = document.getElementById('bread-cat');
-let displayTitle = document.getElementById('display-title');
-let mockResultContainer = document.getElementById('mock-result');
 function toggleSidebar() {
-    if (sidebar && sidebarOverlay) {
-        sidebar.classList.toggle('show');
-        sidebarOverlay.classList.toggle('show');
+    if (ui.sidebar && ui.sidebarOverlay) {
+        ui.sidebar.classList.toggle('show');
+        ui.sidebarOverlay.classList.toggle('show');
     }
 }
 
 function closeSidebarOnMobile() {
-    if (window.innerWidth <= 900 && sidebar && sidebarOverlay) {
-        sidebar.classList.remove('show');
-        sidebarOverlay.classList.remove('show');
+    if (window.innerWidth <= 900 && ui.sidebar && ui.sidebarOverlay) {
+        ui.sidebar.classList.remove('show');
+        ui.sidebarOverlay.classList.remove('show');
     }
 }
 
@@ -66,9 +71,8 @@ fetch('theory.json')
 // Helper to ensure Dashboard layout is restored when exiting Exam Mode
 function ensureDashboardShell() {
     document.body.classList.remove('exam-mode-active');
-    if (mockResultContainer) mockResultContainer.innerHTML = ""; // Clear practice/mock results when navigating to new sections
-    const main = document.getElementById('main-content');
     if (!document.getElementById('questions-list')) {
+        const main = ui.mainContent;
         main.innerHTML = `
             <div class="header-meta">
                 <div class="breadcrumb">Dashboard / <span id="bread-cat"></span></div>
@@ -78,42 +82,46 @@ function ensureDashboardShell() {
             <div id="mock-result"></div>
         `;
 
-        // Re-cache DOM elements as the previous ones were destroyed by the exam layout
-        questionsListContainer = document.getElementById('questions-list');
-        breadcrumbCat = document.getElementById('bread-cat');
-        displayTitle = document.getElementById('display-title');
-        mockResultContainer = document.getElementById('mock-result');
-    } // This ensures the structure is always present when not in exam mode
+        // Update references to newly created elements
+        ui.questionsList = document.getElementById('questions-list');
+        ui.breadcrumbCat = document.getElementById('bread-cat');
+        ui.displayTitle = document.getElementById('display-title');
+        ui.mockResult = document.getElementById('mock-result');
+    }
+    if (ui.mockResult) ui.mockResult.innerHTML = ""; 
 }
 
 function handleInitialRouting() {
     const path = window.location.hash || '#/';
     
-    // If we have history state already (from a refresh), use it
     if (history.state && history.state.view) {
         const state = history.state;
-        if (state.view === 'theory') return renderTheory(state.category, state.subcat, false);
-        if (state.view === 'practice') {
-            currentTheory.category = state.category;
-            return startPractice(state.tag, false);
+        switch(state.view) {
+            case 'theory': return renderTheory(state.category, state.subcat, false);
+            case 'practice': 
+                currentTheory.category = state.category;
+                return startPractice(state.tag, false);
+            case 'profile': return showProfileDetails(false);
+            case 'stats': return showStatistics(false);
+            case 'mockInstr': return showMockInstructions(state.mockNum, null, false);
+            case 'mockSelect': return chooseMockTest(false);
+            case 'mockActive': return startMockTest(state.mockNum, false, state.seed);
         }
-        if (state.view === 'profile') return showProfileDetails(false);
-        if (state.view === 'stats') return showStatistics(false);
-        if (state.view === 'mockInstr') return showMockInstructions(state.mockNum, null, false);
-        if (state.view === 'mockSelect') return chooseMockTest(false);
-        if (state.view === 'mockActive') return startMockTest(state.mockNum, false, state.seed);
     }
 
-    // Fallback: Parse URL path if state is missing (e.g. direct link/bookmark)
     if (path === '#/' || path === '#/index.html') {
         if (!history.state) history.replaceState({ view: 'home' }, "", "#/");
         renderHome(false);
     } else if (path.startsWith('#/theory/')) {
-        const parts = path.split('/').filter(Boolean); // ["theory", "category", "subcat"]
+        const parts = path.split('/').filter(Boolean);
         const cat = parts[1] ? parts[1].replace(/-/g, ' ') : null;
         const sub = parts[2] ? parts[2].replace(/-/g, ' ') : null;
-        // Note: This requires matching casing with theory.json keys
-        renderTheory(Object.keys(theoryData).find(k => k.toLowerCase() === cat), sub, false);
+        const categoryKey = Object.keys(theoryData).find(k => k.toLowerCase() === cat);
+        if (categoryKey) {
+            renderTheory(categoryKey, sub, false);
+        } else {
+            renderHome(false);
+        }
     } else if (path === '#/statistics') {
         showStatistics(false);
     } else if (path === '#/profile') {
@@ -121,7 +129,7 @@ function handleInitialRouting() {
     } else if (path === '#/mock-test') {
         chooseMockTest(false);
     } else if (path.startsWith('#/mock-test/')) {
-        const parts = path.split('/').filter(Boolean); // ["mock-test", "1", "active"]
+        const parts = path.split('/').filter(Boolean);
         const mockNum = parseInt(parts[1]);
         if (parts[2] === 'active') {
             startMockTest(mockNum, false);
@@ -139,13 +147,13 @@ function renderHome(push = true) {
     ensureDashboardShell();
     closeSidebarOnMobile();
     const quote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)]; // Get a random quote
-    const firstName = document.getElementById('user-name')?.innerText || "Student";
-    if (breadcrumbCat) breadcrumbCat.innerText = "Home";
-    if (displayTitle) displayTitle.innerText = "Student Dashboard";
-    if (mockResultContainer) mockResultContainer.innerHTML = "";
+    const firstName = ui.userName?.innerText || "Student";
+    if (ui.breadcrumbCat) ui.breadcrumbCat.innerText = "Home";
+    if (ui.displayTitle) ui.displayTitle.innerText = "Student Dashboard";
+    if (ui.mockResult) ui.mockResult.innerHTML = "";
     
-    if (questionsListContainer) {
-        questionsListContainer.innerHTML = `
+    if (ui.questionsList) {
+        ui.questionsList.innerHTML = `
         <div class="welcome-container">
             <div class="welcome-hero">
                 <h2>Welcome back, ${firstName}!</h2>
@@ -176,7 +184,7 @@ function renderHome(push = true) {
 }
 
 function renderTheory(category, subcat = null, push = true) {
-    if (!theoryData || !questionsListContainer) return;
+    if (!theoryData || !ui.questionsList) return;
     ensureDashboardShell();
     closeSidebarOnMobile();
     const cat = theoryData[category]; // Get category data
@@ -226,9 +234,9 @@ function renderTheory(category, subcat = null, push = true) {
         </div>`;
     }
 
-    if (breadcrumbCat) breadcrumbCat.innerText = breadcrumb;
-    if (displayTitle) displayTitle.innerText = title;
-    questionsListContainer.innerHTML = `<div class="question-card">${content}</div>`;
+    if (ui.breadcrumbCat) ui.breadcrumbCat.innerText = breadcrumb;
+    if (ui.displayTitle) ui.displayTitle.innerText = title;
+    ui.questionsList.innerHTML = `<div class="question-card">${content}</div>`;
     
     currentTheory = { category, subcat };
     if (push) { // Push state to history
@@ -240,10 +248,10 @@ function renderTheory(category, subcat = null, push = true) {
 }
 
 async function startPractice(tag, push = true) {
-    if (!questionsListContainer) return;
+    if (!ui.questionsList) return;
     ensureDashboardShell();
-    questionsListContainer.innerHTML = "<div class='question-card'>Loading practice questions...</div>"; // Show loading message
-
+    ui.questionsList.innerHTML = "<div class='question-card'>Loading practice questions...</div>";
+    
     // Get the category from global state to fetch the consolidated category file
     const catName = currentTheory.category;
     const fileName = catName.replace(/[^a-z0-9]/gi, '_') + '.json';
@@ -283,9 +291,9 @@ async function startPractice(tag, push = true) {
         return;
     }
 
-    if (displayTitle) displayTitle.innerText = `${tag} - Practice Test`;
+    if (ui.displayTitle) ui.displayTitle.innerText = `${tag} - Practice Test`;
     
-    questionsListContainer.innerHTML = questions.map((item, idx) => `
+    ui.questionsList.innerHTML = questions.map((item, idx) => `
         <article class="question-card">
             ${item.level ? `<span class="q-level level-${item.level.toLowerCase()}">${item.level}</span>` : ''}
             <p class="q-text">Q${idx + 1}. ${item.q}</p>
@@ -305,7 +313,7 @@ async function startPractice(tag, push = true) {
         </article>
     `).join('');
 
-    questionsListContainer.innerHTML += `<div class="cta-footer">
+    ui.questionsList.innerHTML += `<div class="cta-footer">
         <button class="btn btn-primary btn-lg" onclick="finishPractice('${tag}')">Finish Practice Test ➔</button>
     </div>`;
     if (push) history.pushState({ view: 'practice', tag, category: catName }, "", `#/practice/${tag.replace(/\s+/g, '-').toLowerCase()}`); // Update history
@@ -349,11 +357,11 @@ function finishPractice(tag) {
 
     const percent = Math.round((correct / total) * 100);
 
-    if (displayTitle) displayTitle.innerText = "Practice Result";
+    if (ui.displayTitle) ui.displayTitle.innerText = "Practice Result";
     // Clear the question list and show a professional result card
-    if (questionsListContainer) questionsListContainer.innerHTML = "";
-    if (mockResultContainer) {
-        mockResultContainer.innerHTML = `
+    if (ui.questionsList) ui.questionsList.innerHTML = "";
+    if (ui.mockResult) {
+        ui.mockResult.innerHTML = `
         <div class="question-card" style="background: #f0fdf4; border-left: 8px solid var(--success); animation: fadeIn 0.5s ease-out;">
             <h2 style="color: #16a34a; margin-bottom: 1rem;">Practice Test Complete</h2>
             <p style="font-size: 1.1rem; margin-bottom: 1rem;">Topic: <strong>${tag}</strong></p>
@@ -368,7 +376,7 @@ function finishPractice(tag) {
             </div>
         </div>
     `;
-        mockResultContainer.scrollIntoView({ behavior: "smooth" });
+        ui.mockResult.scrollIntoView({ behavior: "smooth" });
     }
 }
 
@@ -431,18 +439,18 @@ function switchTab(cat, element, subtopic = null) {
 async function showStatistics(push = true) {
     clearActiveNavItems();
     ensureDashboardShell();
-    if (!questionsListContainer) return;
+    if (!ui.questionsList) return;
     closeSidebarOnMobile();
-    if (breadcrumbCat) breadcrumbCat.innerText = "Performance";
-    if (displayTitle) displayTitle.innerText = "Your Statistics";
+    if (ui.breadcrumbCat) ui.breadcrumbCat.innerText = "Performance";
+    if (ui.displayTitle) ui.displayTitle.innerText = "Your Statistics";
     if (push) history.pushState({ view: 'stats' }, "", "#/statistics");
-    questionsListContainer.innerHTML = "<div class='question-card'>Loading your performance data...</div>";
+    ui.questionsList.innerHTML = "<div class='question-card'>Loading your performance data...</div>";
 
     if (!window.getUserResults) return;
     const results = await window.getUserResults();
     
     if (!results || results.length === 0) {
-        questionsListContainer.innerHTML = "<div class='question-card'>No performance data found. Take a Mock Test to see your BI analysis!</div>";
+        ui.questionsList.innerHTML = "<div class='question-card'>No performance data found. Take a Mock Test to see your BI analysis!</div>";
         return;
     }
 
@@ -527,7 +535,7 @@ async function showStatistics(push = true) {
         </div>
     `;
 
-    questionsListContainer.innerHTML = html;
+    ui.questionsList.innerHTML = html;
 
     // Initialize BI Visuals
     if (window.Chart) {
@@ -587,7 +595,7 @@ async function showStatistics(push = true) {
 // Add this function to handle sidebar click for Mock Tests
 function showMockInstructions(mockNum, element, push = true) {
     // Update active class
-    if (!questionsListContainer) return;
+    if (!ui.questionsList) return;
     ensureDashboardShell();
     closeSidebarOnMobile();
     clearActiveNavItems();
@@ -599,10 +607,10 @@ function showMockInstructions(mockNum, element, push = true) {
             if (el.innerText.includes(`Mock Test ${mockNum}`)) el.classList.add('active');
         });
     }
-    if (breadcrumbCat) breadcrumbCat.innerText = "Mock Test " + mockNum;
-    if (displayTitle) displayTitle.innerText = "Mock Test " + mockNum;
-    if (mockResultContainer) mockResultContainer.innerHTML = "";
-    questionsListContainer.innerHTML = `
+    if (ui.breadcrumbCat) ui.breadcrumbCat.innerText = "Mock Test " + mockNum;
+    if (ui.displayTitle) ui.displayTitle.innerText = "Mock Test " + mockNum;
+    if (ui.mockResult) ui.mockResult.innerHTML = "";
+    ui.questionsList.innerHTML = `
         <div class="question-card" style="text-align:left;">
             <h2 style="color:#2563eb;">Mock Test ${mockNum} Instructions</h2>
             <ul style="margin-bottom:1.5rem;">
@@ -628,10 +636,10 @@ function toggleExamPalette() {
 
 // Show mock test selection (if you want 3 mock tests)
 function chooseMockTest(push = true) {
-    if (!questionsListContainer) return;
+    if (!ui.questionsList) return;
     ensureDashboardShell();
-    if (mockResultContainer) mockResultContainer.innerHTML = "";
-    questionsListContainer.innerHTML = `
+    if (ui.mockResult) ui.mockResult.innerHTML = "";
+    ui.questionsList.innerHTML = `
         <div class="question-card" style="text-align:left;">
             <h2 style="color:#2563eb;">Select Mock Test</h2>
             <div style="margin-bottom:1rem;">
@@ -647,16 +655,16 @@ function chooseMockTest(push = true) {
 function showProfileDetails(push = true) {
     clearActiveNavItems();
     ensureDashboardShell();
-    if (!questionsListContainer) return;
+    if (!ui.questionsList) return;
     closeSidebarOnMobile();
-    if (breadcrumbCat) breadcrumbCat.innerText = "Profile";
-    if (displayTitle) displayTitle.innerText = "Account Settings";
+    if (ui.breadcrumbCat) ui.breadcrumbCat.innerText = "Profile";
+    if (ui.displayTitle) ui.displayTitle.innerText = "Account Settings";
     if (push) history.pushState({ view: 'profile' }, "", "#/profile");
 
     const currentName = document.getElementById('full-name')?.innerText || "Student";
     const currentEmail = window.currentUserEmail || "No email available";
 
-    questionsListContainer.innerHTML = `
+    ui.questionsList.innerHTML = `
         <div class="question-card" style="max-width: 600px; margin: 1rem auto; animation: fadeIn 0.4s ease-out;">
             <div style="text-align: left; padding: 1rem;">
                 <h3 style="margin-top: 0; margin-bottom: 2rem; border: none; color: var(--primary);">Profile Information</h3>
@@ -701,14 +709,13 @@ function saveProfileChanges() {
     }
 }
 
-let activeTimerInterval = null; // Global timer reference
 // MOCK TEST FEATURE
 async function startMockTest(mockNum, push = true, seed = null) {
     if (examState.timerId) clearInterval(examState.timerId);
     
     try {
         const res = await fetch('data/mock_pool.json');
-        const pool = await res.json();
+        let pool = await res.json();
         const finalSeed = seed || (Math.floor(Math.random() * 1000000) + mockNum);
         
         examState.questions = shuffleArray(pool, finalSeed).slice(0, 20);
@@ -730,8 +737,7 @@ async function startMockTest(mockNum, push = true, seed = null) {
 }
 
 function renderExamLayout(mockNum) {
-    const container = document.getElementById('main-content');
-    container.innerHTML = `
+    ui.mainContent.innerHTML = `
         <div class="exam-header-strip" style="position: sticky; top: 0; z-index: 1000; width: 100%;">
             <div style="display: flex; align-items: center; gap: 1rem;">
                 <svg style="width:24px; color:var(--primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
@@ -1007,11 +1013,6 @@ function mulberry32(a) {
 window.addEventListener('popstate', (event) => {
     const state = event.state;
     
-    // Clean up active timers if the user navigates away from a test
-    if (activeTimerInterval) {
-        clearInterval(activeTimerInterval);
-        activeTimerInterval = null;
-    }
     if (examState.timerId) {
         clearInterval(examState.timerId);
         examState.timerId = null;
