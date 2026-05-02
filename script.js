@@ -10,10 +10,10 @@ let examState = {
 
 // Centralized DOM element cache
 const ui = {
-    sidebar: document.querySelector('.sidebar'),
-    sidebarOverlay: document.getElementById('sidebar-overlay'),
-    mainContent: document.getElementById('main-content'),
-    userName: document.getElementById('user-name'),
+    get sidebar() { return document.querySelector('.sidebar'); },
+    get sidebarOverlay() { return document.getElementById('sidebar-overlay'); },
+    get mainContent() { return document.getElementById('main-content'); },
+    get userName() { return document.getElementById('user-name'); },
     questionsList: null, // Initialized via ensureDashboardShell
     breadcrumbCat: null,
     displayTitle: null,
@@ -60,19 +60,28 @@ function clearActiveNavItems() {
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
 }
 
-fetch('theory.json')
-  .then(res => res.json())
-  .then(json => {
-    theoryData = json; // Assign theoryData only once
-    renderSidebar(); // Render sidebar after data is loaded
-    handleInitialRouting(); // Handle routing based on initial URL
-  });
+if (!theoryData) {
+    fetch('theory.json')
+      .then(res => {
+          if (!res.ok) throw new Error("Failed to load theory.json");
+          return res.json();
+      })
+      .then(json => {
+        theoryData = json;
+        renderSidebar();
+        handleInitialRouting();
+      })
+      .catch(err => console.error("Initialization error:", err));
+}
 
 // Helper to ensure Dashboard layout is restored when exiting Exam Mode
 function ensureDashboardShell() {
     document.body.classList.remove('exam-mode-active');
-    if (!document.getElementById('questions-list')) {
-        const main = ui.mainContent;
+    const main = ui.mainContent;
+    if (!main) return console.error("Main content container not found.");
+
+    const existingQuestionsList = document.getElementById('questions-list');
+    if (!existingQuestionsList) {
         main.innerHTML = `
             <div class="header-meta">
                 <div class="breadcrumb">Dashboard / <span id="bread-cat"></span></div>
@@ -81,13 +90,14 @@ function ensureDashboardShell() {
             <div id="questions-list"></div>
             <div id="mock-result"></div>
         `;
-
-        // Update references to newly created elements
-        ui.questionsList = document.getElementById('questions-list');
-        ui.breadcrumbCat = document.getElementById('bread-cat');
-        ui.displayTitle = document.getElementById('display-title');
-        ui.mockResult = document.getElementById('mock-result');
     }
+
+    // Always ensure references are fresh and populated
+    ui.questionsList = document.getElementById('questions-list');
+    ui.breadcrumbCat = document.getElementById('bread-cat');
+    ui.displayTitle = document.getElementById('display-title');
+    ui.mockResult = document.getElementById('mock-result');
+    
     if (ui.mockResult) ui.mockResult.innerHTML = ""; 
 }
 
