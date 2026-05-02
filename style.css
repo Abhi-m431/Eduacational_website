@@ -8,7 +8,7 @@
     --text-muted: #64748b;
     --border: #dee2e6;
     --success: #10b981;
-    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -230,10 +230,37 @@ header {
     font-size: 0.85rem;
 }
 
+/* --- Special Technique Styling --- */
+.technique-item {
+    margin: 2.5rem 0;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--primary);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+.technique-label {
+    display: inline-block;
+    color: var(--primary);
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 2px solid var(--primary-light);
+}
+
 /* --- W3Schools Style Callouts --- */
-.formula-box { background-color: #f8fafc; border-left: 6px solid #2196F3; padding: 15px; font-family: monospace; font-size: 1.1rem; margin: 15px 0; }
-.shortcut-box { background-color: #fff4a3; border-left: 6px solid #facc15; padding: 15px; margin: 15px 0; font-weight: bold; }
-h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-top: 1rem; }
+.formula-box { background-color: #f8fafc; border: 1px solid var(--border); border-left: 4px solid var(--primary); padding: 1.5rem; font-family: 'Inter', sans-serif; font-size: 1.15rem; margin: 2rem 0; border-radius: 4px; color: var(--text-dark); }
+.shortcut-box { background-color: #fefce8; border: 1px solid #fef08a; border-left: 4px solid #f59e0b; padding: 1.5rem; margin: 2rem 0; font-weight: 500; border-radius: 4px; line-height: 1.6; }
+h3 { color: var(--text-dark); border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-top: 2rem; font-weight: 700; }
+
+.example-step { display: block; margin-top: 0.5rem; padding-left: 1rem; border-left: 2px solid #e2e8f0; color: #475569; font-size: 0.95rem; }
+.example-final { color: var(--success); font-weight: 700; margin-top: 0.75rem; display: block; }
+h2.theory-title-focused { font-size: 2.25rem; letter-spacing: -0.05em; margin-bottom: 1rem; }
 
 
 /* --- Main Content --- */
@@ -246,6 +273,85 @@ h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-
     letter-spacing: -0.025em;
     margin-top: 0.25rem;
 }
+
+/* --- Focus Mode & Category Layouts --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.theory-reader-container {
+    background: var(--card-bg);
+    padding: 3rem;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    max-width: 850px;
+    margin: 0 auto;
+    box-shadow: var(--shadow);
+    animation: fadeIn 0.4s ease-out;
+}
+
+.theory-header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 2.5rem; 
+    flex-wrap: wrap; 
+    gap: 1rem;
+    border-bottom: 2px solid var(--primary-light);
+    padding-bottom: 1.5rem;
+}
+
+.theory-title-focused {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+.theory-overview {
+    margin-bottom: 2.5rem; 
+    font-size: 1.125rem; 
+    color: var(--text-muted);
+    line-height: 1.8;
+}
+
+.curriculum-title {
+    margin-bottom: 1.5rem; 
+    color: var(--text-dark); 
+    border-bottom: 2px solid var(--primary-light); 
+    padding-bottom: 0.5rem; 
+    display: inline-block;
+    font-weight: 700;
+}
+
+.glance-grid {
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: 1.25rem; 
+    margin-top: 0.5rem;
+}
+
+.glance-card {
+    background: white; 
+    border: 1px solid var(--border); 
+    padding: 1.25rem; 
+    border-radius: 12px; 
+    cursor: pointer; 
+    transition: all 0.2s ease; 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.glance-card:hover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+.glance-topic-name { font-weight: 600; color: var(--text-dark); }
+.glance-arrow { color: var(--primary); font-weight: 800; }
 
 /* --- Professional Theory Layout --- */
 .question-card h2 {
@@ -269,7 +375,12 @@ h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-
     margin-bottom: 1.25rem;
 }
 
-.theory-content { color: #475569; font-size: 1.05rem; line-height: 1.7; }
+.theory-content { 
+    color: #1e293b; 
+    font-size: 1.125rem; 
+    line-height: 1.9; 
+    font-weight: 400;
+}
 
 /* --- Question Card --- */
 .question-card {

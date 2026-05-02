@@ -14,10 +14,10 @@ const ui = {
     get sidebarOverlay() { return document.getElementById('sidebar-overlay'); },
     get mainContent() { return document.getElementById('main-content'); },
     get userName() { return document.getElementById('user-name'); },
-    questionsList: null, // Initialized via ensureDashboardShell
-    breadcrumbCat: null,
-    displayTitle: null,
-    mockResult: null
+    get questionsList() { return document.getElementById('questions-list'); },
+    get breadcrumbCat() { return document.getElementById('bread-cat'); },
+    get displayTitle() { return document.getElementById('display-title'); },
+    get mockResult() { return document.getElementById('mock-result'); }
 };
 
 // Smooth scroll to section
@@ -92,17 +92,21 @@ function ensureDashboardShell() {
         `;
     }
 
-    // Always ensure references are fresh and populated
-    ui.questionsList = document.getElementById('questions-list');
-    ui.breadcrumbCat = document.getElementById('bread-cat');
-    ui.displayTitle = document.getElementById('display-title');
-    ui.mockResult = document.getElementById('mock-result');
-    
     if (ui.mockResult) ui.mockResult.innerHTML = ""; 
+}
+
+// Helper to find which category a specific topic (tag) belongs to
+function findCategoryByTopic(topicName) {
+    if (!theoryData) return null;
+    return Object.keys(theoryData).find(cat => 
+        Object.keys(theoryData[cat].topics).some(t => t.toLowerCase() === topicName.toLowerCase())
+    );
 }
 
 function handleInitialRouting() {
     const path = window.location.hash || '#/';
+    // Normalize path by removing #/ and splitting into parts
+    const routeParts = path.replace(/^#\/?/, '').split('/').filter(Boolean);
     
     if (history.state && history.state.view) {
         const state = history.state;
@@ -119,32 +123,38 @@ function handleInitialRouting() {
         }
     }
 
-    if (path === '#/' || path === '#/index.html') {
+    if (routeParts.length === 0 || routeParts[0] === 'index.html') {
         if (!history.state) history.replaceState({ view: 'home' }, "", "#/");
         renderHome(false);
-    } else if (path.startsWith('#/theory/')) {
-        const parts = path.split('/').filter(Boolean);
-        const cat = parts[1] ? parts[1].replace(/-/g, ' ') : null;
-        const sub = parts[2] ? parts[2].replace(/-/g, ' ') : null;
-        const categoryKey = Object.keys(theoryData).find(k => k.toLowerCase() === cat);
+    } else if (routeParts[0] === 'theory') {
+        const catName = routeParts[1] ? routeParts[1].replace(/-/g, ' ') : null;
+        const subName = routeParts[2] ? routeParts[2].replace(/-/g, ' ') : null;
+        const categoryKey = Object.keys(theoryData).find(k => k.toLowerCase() === catName?.toLowerCase());
         if (categoryKey) {
-            renderTheory(categoryKey, sub, false);
+            renderTheory(categoryKey, subName, false);
         } else {
             renderHome(false);
         }
-    } else if (path === '#/statistics') {
+    } else if (routeParts[0] === 'practice') {
+        const tagName = routeParts[1] ? routeParts[1].replace(/-/g, ' ') : null;
+        const categoryKey = findCategoryByTopic(tagName);
+        if (categoryKey && tagName) {
+            currentTheory.category = categoryKey;
+            startPractice(tagName, false);
+        } else { renderHome(false); }
+    } else if (routeParts[0] === 'statistics') {
         showStatistics(false);
-    } else if (path === '#/profile') {
+     } else if (routeParts[0] === 'profile') {
         showProfileDetails(false);
-    } else if (path === '#/mock-test') {
+    } else if (routeParts[0] === 'mock-test') {
         chooseMockTest(false);
-    } else if (path.startsWith('#/mock-test/')) {
-        const parts = path.split('/').filter(Boolean);
-        const mockNum = parseInt(parts[1]);
-        if (parts[2] === 'active') {
-            startMockTest(mockNum, false);
-        } else {
-            showMockInstructions(mockNum, null, false);
+        if (routeParts[1]) {
+            const mockNum = parseInt(routeParts[1]);
+            if (routeParts[2] === 'active') {
+                startMockTest(mockNum, false);
+            } else {
+                showMockInstructions(mockNum, null, false);
+            }
         }
     } else {
         // Default to home for unknown paths
@@ -152,26 +162,28 @@ function handleInitialRouting() {
         renderHome(false);
     }
 }
-
 function renderHome(push = true) {
     ensureDashboardShell();
     closeSidebarOnMobile();
-    const quote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)]; // Get a random quote
-    const firstName = ui.userName?.innerText || "Student";
+    
+    const quote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
+    // Improvement: Fallback to "Student" only if the name is explicitly missing
+    let firstName = ui.userName?.innerText;
+    if (!firstName || firstName === "") {
+        firstName = "Student";
+    }
+
     if (ui.breadcrumbCat) ui.breadcrumbCat.innerText = "Home";
     if (ui.displayTitle) ui.displayTitle.innerText = "Student Dashboard";
     if (ui.mockResult) ui.mockResult.innerHTML = "";
     
     if (ui.questionsList) {
         ui.questionsList.innerHTML = `
-        <div class="welcome-container">
-            <div class="welcome-hero">
-                <h2>Welcome back, ${firstName}!</h2>
-            </div>
-
+        <div class="welcome-container focused-mode">
+            <h2 class="section-heading">Welcome back, ${firstName}</h2>
+            
             <div class="quote-card">
-                <p class="quote-label">Daily Motivation</p>
-                <p class="quote-text">"${quote}"</p>
+                <p class="quote-text">"${quote}" — <em>Focus on your goals.</em></p>
             </div>
             
             <div class="dashboard-grid">
@@ -194,8 +206,8 @@ function renderHome(push = true) {
 }
 
 function renderTheory(category, subcat = null, push = true) {
-    if (!theoryData || !ui.questionsList) return;
     ensureDashboardShell();
+    if (!theoryData || !ui.questionsList) return;
     closeSidebarOnMobile();
     const cat = theoryData[category]; // Get category data
     if (!cat) return;
@@ -204,13 +216,13 @@ function renderTheory(category, subcat = null, push = true) {
     // Default "At a Glance" view for the Main Category
     let content = `
         <div class="category-glance">
-            <p class="theory-content" style="margin-bottom: 2.5rem; font-size: 1.125rem; color: #475569;">${cat.overview || ''}</p>
-            <h3 style="margin-bottom: 1.5rem; color: var(--text-dark); border-bottom: 2px solid var(--primary-light); padding-bottom: 0.5rem; display: inline-block;">Module Curriculum</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-top: 0.5rem;">
+            <p class="theory-overview">${cat.overview || ''}</p>
+            <h3 class="curriculum-title">Module Curriculum</h3>
+            <div class="glance-grid">
                 ${Object.keys(cat.topics).map(topic => `
-                    <div class="glance-card" onclick="renderTheory('${category}', '${topic}')" style="background: white; border: 1px solid var(--border); padding: 1.25rem; border-radius: 12px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-                        <span style="font-weight: 600; color: var(--text-dark);">${topic}</span>
-                        <span style="color: var(--primary); font-weight: 800;">➔</span>
+                    <div class="glance-card" onclick="renderTheory('${category}', '${topic}')">
+                        <span class="glance-topic-name">${topic}</span>
+                        <span class="glance-arrow">➔</span>
                     </div>
                 `).join('')}
             </div>
@@ -218,17 +230,20 @@ function renderTheory(category, subcat = null, push = true) {
     `;
 
     let breadcrumb = category;
-    if (subcat && cat.topics[subcat]) {
-        const topicsList = cat.topics[subcat];
+    // Robust Case-Insensitive Sub-Topic Lookup
+    const subcatKey = subcat ? Object.keys(cat.topics).find(k => k.toLowerCase() === subcat.toLowerCase()) : null;
+
+    if (subcatKey) {
+        const topicsList = cat.topics[subcatKey];
         if (!topicsList || !topicsList.length) return;
         
-        title = subcat;
-        breadcrumb = `${category} / ${subcat}`;
-        
+        title = subcatKey;
+        breadcrumb = `${category} / ${subcatKey}`;
+
         content = `
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
-                <h2 style="margin-bottom: 0;">${subcat} Overview</h2>
-                <button class='btn btn-primary' onclick='startPractice("${subcat}")'>Take Practice Test ➔</button>
+            <div class="theory-header">
+                <h2 class="theory-title-focused">${subcatKey}</h2>
+                <button class='btn btn-primary' onclick='startPractice("${subcatKey}")'>Take Practice Test ➔</button>
             </div>`;
         topicsList.forEach(topicData => {
             content += `
@@ -240,26 +255,29 @@ function renderTheory(category, subcat = null, push = true) {
         });
 
         content += `<div class="cta-footer">
-            <button class='btn btn-primary btn-lg' onclick='startPractice("${subcat}")'>Start ${subcat} Practice Test ➔</button>
+            <button class='btn btn-primary btn-lg' onclick='startPractice("${subcatKey}")'>Start ${subcatKey} Practice Test ➔</button>
         </div>`;
     }
 
     if (ui.breadcrumbCat) ui.breadcrumbCat.innerText = breadcrumb;
     if (ui.displayTitle) ui.displayTitle.innerText = title;
-    ui.questionsList.innerHTML = `<div class="question-card">${content}</div>`;
     
-    currentTheory = { category, subcat };
+    // Revert logic: Main Category glance uses full-width container, sub-topics use Focused Reader
+    const wrapperClass = subcatKey ? "theory-reader-container" : "question-card";
+    ui.questionsList.innerHTML = `<div class="${wrapperClass}">${content}</div>`;
+    
+    currentTheory = { category, subcat: subcatKey };
     if (push) { // Push state to history
-        const urlPath = subcat // Construct URL path based on subcategory existence
-            ? `#/theory/${category.replace(/\s+/g, '-').toLowerCase()}/${subcat.replace(/\s+/g, '-').toLowerCase()}`
+        const urlPath = subcatKey
+            ? `#/theory/${category.replace(/\s+/g, '-').toLowerCase()}/${subcatKey.replace(/\s+/g, '-').toLowerCase()}`
             : `#/theory/${category.replace(/\s+/g, '-').toLowerCase()}`;
         history.pushState({ view: 'theory', category, subcat }, "", urlPath);
     }
 }
 
 async function startPractice(tag, push = true) {
-    if (!ui.questionsList) return;
     ensureDashboardShell();
+    if (!ui.questionsList) return;
     ui.questionsList.innerHTML = "<div class='question-card'>Loading practice questions...</div>";
     
     // Get the category from global state to fetch the consolidated category file
@@ -283,8 +301,9 @@ async function startPractice(tag, push = true) {
         }
     }
 
-    // Filter category questions by the specific subcategory tag
-    const questions = allCatQuestions.filter(q => q.tag === tag);
+  
+    // Filter questions (case-insensitive)
+    const questions = allCatQuestions.filter(q => q.tag?.toLowerCase() === tag?.toLowerCase());
 
     // Sort questions by difficulty: Easy -> Medium -> Hard
     const levelOrder = { 'easy': 1, 'medium': 2, 'hard': 3 };
@@ -605,8 +624,8 @@ async function showStatistics(push = true) {
 // Add this function to handle sidebar click for Mock Tests
 function showMockInstructions(mockNum, element, push = true) {
     // Update active class
-    if (!ui.questionsList) return;
     ensureDashboardShell();
+    if (!ui.questionsList) return;
     closeSidebarOnMobile();
     clearActiveNavItems();
     if (element) element.classList.add('active');
@@ -646,8 +665,8 @@ function toggleExamPalette() {
 
 // Show mock test selection (if you want 3 mock tests)
 function chooseMockTest(push = true) {
-    if (!ui.questionsList) return;
     ensureDashboardShell();
+    if (!ui.questionsList) return;
     if (ui.mockResult) ui.mockResult.innerHTML = "";
     ui.questionsList.innerHTML = `
         <div class="question-card" style="text-align:left;">
@@ -905,99 +924,102 @@ function startExamTimer() {
     }, 1000);
 }
 
-function finishMockTest(autoSubmit) {
+async function finishMockTest(autoSubmit) {
     hideFinishModal();
     clearInterval(examState.timerId);
     const mockNum = history.state?.mockNum || 1;
     
-        let correct = 0;
-        let total = examState.questions.length;
-        let answered = 0;
-        let cumulativeMistakes = JSON.parse(localStorage.getItem('cumulativeMistakes') || '{}');
-        
-        examState.questions.forEach(q => {
-            const selected = examState.responses[q.id];
-            if(selected) {
-                answered++;
-                if(selected === q.ans) {
-                    correct++;
-                } else {
-                    cumulativeMistakes[q.tag] = (cumulativeMistakes[q.tag] || 0) + 1;
-                }
+    let correct = 0;
+    let total = examState.questions.length;
+    let answered = 0;
+    let cumulativeMistakes = {};
+    try {
+        cumulativeMistakes = JSON.parse(localStorage.getItem('cumulativeMistakes') || '{}');
+    } catch (e) { cumulativeMistakes = {}; }
+    
+    examState.questions.forEach(q => {
+        const selected = examState.responses[q.id];
+        if(selected) {
+            answered++;
+            if(selected === q.ans) {
+                correct++;
             } else {
                 cumulativeMistakes[q.tag] = (cumulativeMistakes[q.tag] || 0) + 1;
             }
-        });
-
-        localStorage.setItem('cumulativeMistakes', JSON.stringify(cumulativeMistakes));
-        let percent = Math.round((correct/total)*100);
-        let notAnswered = total - answered;
-
-        // Find focus area (tag with most mistakes across all attempts)
-        let focusArea = "None";
-        let maxWrong = 0;
-        for (let tag in cumulativeMistakes) {
-            if (cumulativeMistakes[tag] > maxWrong) {
-                maxWrong = cumulativeMistakes[tag];
-                focusArea = tag;
-            }
+        } else {
+            cumulativeMistakes[q.tag] = (cumulativeMistakes[q.tag] || 0) + 1;
         }
+    });
 
-        // Display result in the same window (Exam UI)
-        const area = document.getElementById('exam-question-area');
-        const timerDisplay = document.getElementById('exam-timer-display');
-        if (timerDisplay) timerDisplay.innerText = "Exam Completed";
+    localStorage.setItem('cumulativeMistakes', JSON.stringify(cumulativeMistakes));
+    let percent = Math.round((correct/total)*100);
+    let notAnswered = total - answered;
 
-        if (area) {
-            area.innerHTML = `
-                <div class="question-card" style="background:#f0fdf4; border:none; box-shadow:none;">
-                    <h2 style="color:#16a34a; margin-bottom: 1.5rem;">Mock Test Result Analysis</h2>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
-                        <div class="question-card" style="margin:0; text-align:center; padding: 1.5rem; background: white;">
-                            <p style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Final Score</p>
-                            <h1 style="font-size:3rem; color:var(--primary); border:none; margin:0;">${correct}/${total}</h1>
-                        </div>
-                        <div class="question-card" style="margin:0; text-align:center; padding: 1.5rem; background: white;">
-                            <p style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Accuracy</p>
-                            <h1 style="font-size:3rem; color:var(--success); border:none; margin:0;">${percent}%</h1>
-                        </div>
-                    </div>
-                    <p style="margin-bottom: 1.5rem; font-size: 1.1rem;"><b>Focus Area:</b> <span class="q-tag">${focusArea}</span></p>
-                    ${autoSubmit ? `<p style="color:#e11d48; margin-bottom: 1.5rem;"><strong>Note:</strong> Test was auto-submitted due to time limit.</p>` : ""}
-                    
-                    <div class="exam-footer" style="border:none; padding:0; margin-top:2rem;">
-                        <button class="btn btn-primary btn-lg" style="width: 100%; justify-content: center;" onclick="chooseMockTest()">Back to Mock Section ➔</button>
-                    </div>
-                </div>
-            `;
-
-            // Update sidebar palette area to show a summary
-            const paletteGrid = document.getElementById('palette-grid');
-            if (paletteGrid) {
-                const sidePanel = paletteGrid.closest('.exam-side-panel');
-                sidePanel.innerHTML = `
-                    <div class="nav-group-title">Status Summary</div>
-                    <div style="padding: 1rem; display: flex; flex-direction: column; gap: 1rem;">
-                        <div class="legend-item" style="font-weight:600;"><div class="legend-box answered" style="width:20px; height:20px;"></div> Answered: <span style="margin-left:auto; color:var(--success);">${answered}</span></div>
-                        <div class="legend-item" style="font-weight:600;"><div class="legend-box not-answered" style="width:20px; height:20px;"></div> Not Answered: <span style="margin-left:auto; color:#ef4444;">${total - answered}</span></div>
-                        <div class="legend-item" style="font-weight:600;"><div class="legend-box marked" style="width:20px; height:20px;"></div> For Review: <span style="margin-left:auto; color:#8b5cf6;">${examState.marked.size}</span></div>
-                    </div>
-                `;
-            }
-        }
-
-        // Professional Tracking: Save the result to Firestore
-        if (window.savePerformanceResult) {
-            window.savePerformanceResult({
-                testType: "Mock Test",
-                testId: mockNum,
-                score: correct,
-                total: total,
-                percentage: percent,
-                focusArea: focusArea
-            });
+    // Find focus area (tag with most mistakes across all attempts)
+    let focusArea = "None";
+    let maxWrong = 0;
+    for (let tag in cumulativeMistakes) {
+        if (cumulativeMistakes[tag] > maxWrong) {
+            maxWrong = cumulativeMistakes[tag];
+            focusArea = tag;
         }
     }
+
+    // Display result in the same window (Exam UI)
+    const area = document.getElementById('exam-question-area');
+    const timerDisplay = document.getElementById('exam-timer-display');
+    if (timerDisplay) timerDisplay.innerText = "Exam Completed";
+
+    if (area) {
+        area.innerHTML = `
+            <div class="question-card" style="background:#f0fdf4; border:none; box-shadow:none;">
+                <h2 style="color:#16a34a; margin-bottom: 1.5rem;">Mock Test Result Analysis</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                    <div class="question-card" style="margin:0; text-align:center; padding: 1.5rem; background: white;">
+                        <p style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Final Score</p>
+                        <h1 style="font-size:3rem; color:var(--primary); border:none; margin:0;">${correct}/${total}</h1>
+                    </div>
+                    <div class="question-card" style="margin:0; text-align:center; padding: 1.5rem; background: white;">
+                        <p style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Accuracy</p>
+                        <h1 style="font-size:3rem; color:var(--success); border:none; margin:0;">${percent}%</h1>
+                    </div>
+                </div>
+                <p style="margin-bottom: 1.5rem; font-size: 1.1rem;"><b>Focus Area:</b> <span class="q-tag">${focusArea}</span></p>
+                ${autoSubmit ? `<p style="color:#e11d48; margin-bottom: 1.5rem;"><strong>Note:</strong> Test was auto-submitted due to time limit.</p>` : ""}
+                
+                <div class="exam-footer" style="border:none; padding:0; margin-top:2rem;">
+                    <button class="btn btn-primary btn-lg" style="width: 100%; justify-content: center;" onclick="chooseMockTest()">Back to Mock Section ➔</button>
+                </div>
+            </div>
+        `;
+
+        // Update sidebar palette area to show a summary
+        const paletteGrid = document.getElementById('palette-grid');
+        if (paletteGrid) {
+            const sidePanel = paletteGrid.closest('.exam-side-panel');
+            sidePanel.innerHTML = `
+                <div class="nav-group-title">Status Summary</div>
+                <div style="padding: 1rem; display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="legend-item" style="font-weight:600;"><div class="legend-box answered" style="width:20px; height:20px;"></div> Answered: <span style="margin-left:auto; color:var(--success);">${answered}</span></div>
+                    <div class="legend-item" style="font-weight:600;"><div class="legend-box not-answered" style="width:20px; height:20px;"></div> Not Answered: <span style="margin-left:auto; color:#ef4444;">${total - answered}</span></div>
+                    <div class="legend-item" style="font-weight:600;"><div class="legend-box marked" style="width:20px; height:20px;"></div> For Review: <span style="margin-left:auto; color:#8b5cf6;">${examState.marked.size}</span></div>
+                </div>
+            `;
+        }
+    }
+
+    // Professional Tracking: Save the result to Firestore
+    if (window.savePerformanceResult) {
+        await window.savePerformanceResult({
+            testType: "Mock Test",
+            testId: mockNum,
+            score: correct,
+            total: total,
+            percentage: percent,
+            focusArea: focusArea
+        });
+    }
+}
 
 // Utility: Shuffle array (Fisher-Yates)
 function shuffleArray(array, seed) {

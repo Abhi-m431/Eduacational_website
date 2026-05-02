@@ -36,7 +36,7 @@
     "explain": "2/5 of 600 = 240, 3/5 of 600 = 360."
   },
   {
-    "id": 14,
+    "id": 5,
     "tag": "Profit & Loss",
     "level": "Easy",
     "q": "If cost price is ₹500 and selling price is ₹600, what is the profit percentage?",
@@ -45,7 +45,7 @@
     "explain": "Profit% = (100/500)*100 = 20%."
   },
   {
-    "id": 15,
+    "id": 6,
     "tag": "Averages",
     "level": "Easy",
     "q": "Find the average of 10, 20, 30, 40, 50.",
@@ -54,7 +54,7 @@
     "explain": "150/5 = 30."
   },
   {
-    "id": 52,
+    "id": 7,
     "tag": "Time & Work",
     "level": "Medium",
     "q": "A can do a work in 10 days and B in 15 days. If they work together, in how many days will they finish?",
@@ -63,7 +63,7 @@
     "explain": "Together = (10*15)/(10+15) = 150/25 = 6 days."
   },
   {
-    "id": 60,
+    "id": 8,
     "tag": "Divisibility rules",
     "level": "Easy",
     "q": "Which of the following is a prime number?",
@@ -72,7 +72,7 @@
     "explain": "97 is a prime number."
   },
   {
-    "id": 93,
+    "id": 9,
     "tag": "HCF & LCM",
     "level": "Medium",
     "q": "The HCF of two numbers is 11 and their LCM is 693. If one is 77, find the other.",
@@ -81,7 +81,7 @@
     "explain": "(11*693)/77 = 99."
   },
   {
-    "id": 101,
+    "id": 10,
     "tag": "Problems on Ages",
     "level": "Hard",
     "q": "The sum of ages of 5 children born at intervals of 3 years each is 50 years. Age of the youngest?",
@@ -90,7 +90,7 @@
     "explain": "x + (x+3)... = 50. 5x + 30 = 50. x = 4."
   },
   {
-    "id": 105,
+    "id": 11,
     "tag": "Probability",
     "level": "Easy",
     "q": "A box has 8 red, 7 blue and 6 green balls. Prob. of picking a blue ball?",
@@ -99,7 +99,7 @@
     "explain": "7/21 = 1/3."
   },
   {
-    "id": 205,
+    "id": 12,
     "tag": "Percentage",
     "level": "Medium",
     "q": "If X's income is 44% more than that of Y, what percent is Y's income less than X's? [MHA IB 2024]",
@@ -108,7 +108,7 @@
     "explain": "Reduction = [44 / (100 + 44)] * 100 ≈ 30.5%."
   },
   {
-    "id": 206,
+    "id": 13,
     "tag": "Percentage",
     "level": "Medium",
     "q": "If A's income is 40% less than B's income, then how much percent is B's income more than A's? [UGC NET 2022]",
@@ -117,7 +117,7 @@
     "explain": "Increase = [40 / (100 - 40)] * 100 = 66.66%."
   },
   {
-    "id": 207,
+    "id": 14,
     "tag": "Percentage",
     "level": "Medium",
     "q": "A person's salary was decreased by 50% and subsequently increased by 50%. Find the net change in salary. [SSC CGL 2022]",
@@ -126,7 +126,7 @@
     "explain": "Net change = (50/10)^2 % decrease = 25% decrease."
   },
   {
-    "id": 208,
+    "id": 15,
     "tag": "Percentage",
     "level": "Medium",
     "q": "A number is first increased by 40% and then decreased by 40%. Find the net change. [DSSSB 2019]",
@@ -135,7 +135,7 @@
     "explain": "Net change = (40/10)^2 % decrease = 16% decrease."
   },
   {
-    "id": 209,
+    "id": 16,
     "tag": "Percentage",
     "level": "Medium",
     "q": "P is increased successively by 15% and 20% to get Q. If P = 200, find Q. [SSC MTS 2022]",
@@ -144,7 +144,7 @@
     "explain": "Q = 200 * 1.15 * 1.20 = 276."
   },
   {
-    "id": 210,
+    "id": 17,
     "tag": "Percentage",
     "level": "Medium",
     "q": "Price of sugar increased by 10%. By what % must a family reduce consumption so expenditure remains same? [RRB NTPC 2021]",
@@ -153,7 +153,7 @@
     "explain": "Reduction = [10 / (100 + 10)] * 100 = 9 1/11%."
   },
   {
-    "id": 211,
+    "id": 18,
     "tag": "Percentage",
     "level": "Hard",
     "q": "A reduction of 20% in price allows a buyer to get 2.5 kg more for ₹160. Find the original price per kg. [RRB ALP 2018]",
@@ -162,7 +162,7 @@
     "explain": "Original Price = (20 * 160) / ((100-20) * 2.5) = 3200 / 200 = ₹16."
   },
   {
-    "id": 212,
+    "id": 19,
     "tag": "Percentage",
     "level": "Hard",
     "q": "Raushan got 25% marks and failed by 64 marks. If he got 40% marks, he would have passed by 32 marks. Find max marks. [SBI Clerk 2021]",
@@ -171,7 +171,7 @@
     "explain": "Max Marks = [100 * (64 + 32)] / (40 - 25) = 9600 / 15 = 640."
   },
   {
-    "id": 213,
+    "id": 20,
     "tag": "Percentage",
     "level": "Medium",
     "q": "Population of a town is 12,000 and increases at 10% per annum. Find the population after 3 years. [SSC MTS 2022]",
@@ -180,7 +180,7 @@
     "explain": "12000 * (1.1)^3 = 12000 * 1.331 = 15,972."
   },
   {
-    "id": 214,
+    "id": 21,
     "tag": "Percentage",
     "level": "Hard",
     "q": "A computer depreciates at 20% per annum. It was bought 3 years ago for ₹12,288. Find the purchase price. [RRB NTPC 2021]",
@@ -189,7 +189,7 @@
     "explain": "Price = 12288 / (0.8)^3 = 12288 / 0.512 = ₹24,000."
   },
   {
-    "id": 215,
+    "id": 22,
     "tag": "Profit & Loss",
     "level": "Medium",
     "q": "A salesman expects a gain of 13% on his cost price. If in a month, his sale was ₹7,91,000, then what was his profit? [CUET 2023]",
@@ -198,7 +198,7 @@
     "explain": "Gain = 13%, SP = ₹7,91,000. CP = (7,91,000 × 100) / 113 = ₹7,00,000. Profit = SP - CP = ₹91,000."
   },
   {
-    "id": 216,
+    "id": 23,
     "tag": "Profit & Loss",
     "level": "Medium",
     "q": "If the selling price of a toy is 3/5 of its cost price, then the loss per cent is: [MHA IB 2023]",
@@ -207,7 +207,7 @@
     "explain": "Let CP = x. SP = 3/5x. Loss = CP - SP = 2/5x. Loss% = (Loss/CP) × 100 = (2/5) × 100 = 40%."
   },
   {
-    "id": 217,
+    "id": 24,
     "tag": "Profit & Loss",
     "level": "Easy",
     "q": "If an article is sold at 20% profit, then which of the following is the ratio of its cost price to its selling price? [HCET 2022]",
@@ -216,7 +216,7 @@
     "explain": "Let CP = 100. Profit = 20%, so SP = 120. Ratio CP:SP = 100:120 = 5:6."
   },
   {
-    "id": 218,
+    "id": 25,
     "tag": "Profit & Loss",
     "level": "Hard",
     "q": "When a plot is sold for ₹18,700, the owner loses 15%. At what price must the plot be sold in order to gain 15%? [HCET 2022]",
@@ -225,7 +225,7 @@
     "explain": "SP1 = 18700, Loss = 15%. CP = (18700 × 100)/85 = 22000. To gain 15%, New SP = 22000 × 1.15 = ₹25,300."
   },
   {
-    "id": 219,
+    "id": 26,
     "tag": "Profit & Loss",
     "level": "Medium",
     "q": "A shopkeeper sells two articles at ₹840 each. He earns a 20% profit on the first article and incurs a 20% loss on the second article. Determine the percentage of net profit or loss he incurs. [UP Constable 2023]",
@@ -234,7 +234,7 @@
     "explain": "When SP is same and gain/loss% is same, Loss % = (a/10)² = (20/10)² = 4%."
   },
   {
-    "id": 220,
+    "id": 27,
     "tag": "Profit & Loss",
     "level": "Medium",
     "q": "The selling price of 10 articles is equal to the cost price of 13 articles. What is the gain percentage? [MTS 2023]",
@@ -243,7 +243,7 @@
     "explain": "Gain % = [(CP items - SP items) / SP items] * 100 = [(13-10)/10] * 100 = 30%."
   },
   {
-    "id": 221,
+    "id": 28,
     "tag": "Profit & Loss",
     "level": "Medium",
     "q": "A vendor bought bananas at 6 for ₹10 and sold them at 4 for ₹6. Find his gain or loss per cent. [UP Constable 2024]",
@@ -252,7 +252,7 @@
     "explain": "Gain/Loss% = [(my-nx)/nx]*100 = [(6*6 - 4*10)/40]*100 = -10% (Loss)."
   },
   {
-    "id": 222,
+    "id": 29,
     "tag": "Profit & Loss",
     "level": "Medium",
     "q": "A person sold an article at a loss of 16%. Had he sold it for ₹660 more, he would have gained 8%. What should be the selling price to gain 12%? [SSC CPO 2020]",
@@ -261,7 +261,7 @@
     "explain": "CP = 660/(16+8) * 100 = ₹2750. For 12% gain, SP = 2750 * 1.12 = ₹3080."
   },
   {
-    "id": 223,
+    "id": 30,
     "tag": "Profit & Loss",
     "level": "Medium",
     "q": "A sells a watch to B at a profit of 33% and B sells it to C at a loss of 20%. If C pays ₹532, then what was the cost price for A? [SSC CHSL 2024]",
@@ -270,7 +270,7 @@
     "explain": "532 = CP * 1.33 * 0.8 => CP = 532 / 1.064 = ₹500."
   },
   {
-    "id": 224,
+    "id": 31,
     "tag": "Profit & Loss",
     "level": "Hard",
     "q": "A dishonest vendor weighing 850 gm for 1000 gm while selling at CP. What is his profit percentage? [RRB Group D 2022]",
@@ -279,7 +279,7 @@
     "explain": "Gain% = [(True - False)/False] * 100 = (150/850) * 100 = 17.65%."
   },
   {
-    "id": 225,
+    "id": 32,
     "tag": "Profit & Loss",
     "level": "Hard",
     "q": "A dealer sells goods at 6% loss on CP but uses 14 gm instead of 16 gm. What is his percentage profit or loss? [AFCAT 2021]",
@@ -288,7 +288,7 @@
     "explain": "Result = [(100-6)*(16/14)] - 100 = 7.428% or 7(3/7)% profit."
   },
   {
-    "id": 226,
+    "id": 33,
     "tag": "Profit & Loss",
     "level": "Hard",
     "q": "A man sells rice at 10% profit and uses a weight that is 20% less than the actual measure. His gain percentage is: [SSC GD 2023]",
@@ -297,7 +297,7 @@
     "explain": "Gain% = [(20+10)/(100-20)] * 100 = (30/80) * 100 = 37.5% or 37(1/2)%."
   },
   {
-    "id": 240,
+    "id": 34,
     "tag": "Averages",
     "level": "Easy",
     "q": "A class has 30 boys whose average age is 12 yr and 60 girls whose average age is 10 yr. What is the average age of the entire class?",
@@ -306,7 +306,7 @@
     "explain": "Using Weighted Average: Total Age / Total Students = (30 * 12 + 60 * 10) / (30 + 60) = 960 / 90 = 10.66 yr."
   },
   {
-    "id": 241,
+    "id": 35,
     "tag": "Averages",
     "level": "Medium",
     "q": "Pinky bought 20 books at ₹10 each, 45 pens at ₹5 each and 15 pencils at ₹3 each. Calculate the average price of all the items.",
@@ -315,7 +315,7 @@
     "explain": "Average = Total Price / Total Items = (20 * 10 + 45 * 5 + 15 * 3) / (20 + 45 + 15) = 470 / 80 = ₹5.875."
   },
   {
-    "id": 242,
+    "id": 36,
     "tag": "Averages",
     "level": "Medium",
     "q": "A man bought 20 cows for ₹200,000. If the average cost of 12 of them is ₹12,500, what is the average cost of the remaining cows?",
@@ -324,7 +324,7 @@
     "explain": "Average of rest = (Total Cost - Cost of 12 cows) / (20 - 12) = (200,000 - 150,000) / 8 = 50,000 / 8 = ₹6,250."
   },
   {
-    "id": 243,
+    "id": 37,
     "tag": "Averages",
     "level": "Medium",
     "q": "A team of 11 players and a coach has an average age of 18 yr. If the coach is excluded, the average age decreases by 1 yr. What is the age of the coach?",
@@ -333,7 +333,7 @@
     "explain": "Age of excluded person = n(a - b) + b. Here n=12, a=18, b=17. Age = 12(18 - 17) + 17 = 12 + 17 = 29 yr."
   },
   {
-    "id": 244,
+    "id": 38,
     "tag": "Averages",
     "level": "Medium",
     "q": "The average of runs of a batsman in 20 innings is 32. After the 21st inning, his average score becomes 34. How many runs did he score in the 21st inning?",
@@ -342,7 +342,7 @@
     "explain": "Runs = n(b - a) + b. Here n=20, a=32, b=34. Runs = 20(34 - 32) + 34 = 20(2) + 34 = 74."
   },
   {
-    "id": 245,
+    "id": 39,
     "tag": "Averages",
     "level": "Easy",
     "q": "The average weight of 3 women is increased by 4 kg when one of them whose weight is 100 kg is replaced by another woman. What is the weight of the new woman?",
@@ -351,7 +351,7 @@
     "explain": "New weight = Replaced weight + (n * Increase) = 100 + (3 * 4) = 112 kg."
   },
   {
-    "id": 246,
+    "id": 40,
     "tag": "Averages",
     "level": "Easy",
     "q": "The average age of 25 boys in a class decreases by 6 months when a new boy takes the place of a 20 yr old boy. Find the age of the new boy.",
@@ -360,7 +360,7 @@
     "explain": "6 months = 0.5 yr. New age = Replaced age - (n * Decrease) = 20 - (25 * 0.5) = 20 - 12.5 = 7.5 yr."
   },
   {
-    "id": 247,
+    "id": 41,
     "tag": "Averages",
     "level": "Hard",
     "q": "The average marks of 75 students in a class is 35. The average marks of passed students is 55 and that of failed students is 30. What is the number of passed students?",
@@ -369,7 +369,7 @@
     "explain": "Passed = [Total students * (Total Avg - Failed Avg)] / (Passed Avg - Failed Avg) = [75 * (35 - 30)] / (55 - 30) = 375 / 25 = 15."
   },
   {
-    "id": 248,
+    "id": 42,
     "tag": "Averages",
     "level": "Hard",
     "q": "The average salary of the entire staff in an office is ₹200. The average salary of 16 officers is ₹550 and that of non-officers is ₹120. Find the number of non-officers.",
@@ -378,7 +378,7 @@
     "explain": "Non-officers = [Officers * (Officer Avg - Total Avg)] / (Total Avg - Non-officer Avg) = [16 * (550 - 200)] / (200 - 120) = (16 * 350) / 80 = 70."
   },
   {
-    "id": 249,
+    "id": 43,
     "tag": "Averages",
     "level": "Medium",
     "q": "A person goes to a destination at a speed of 25 km/h and returns at a speed of 40 km/h. What is his average speed for the whole journey?",
@@ -387,7 +387,7 @@
     "explain": "Avg Speed = 2xy / (x + y) = (2 * 25 * 40) / (25 + 40) = 2000 / 65 = 30.76 km/h."
   },
   {
-    "id": 250,
+    "id": 44,
     "tag": "Averages",
     "level": "Medium",
     "q": "A person covers three equal distances with speeds of 30 km/h, 15 km/h and 10 km/h respectively. Find his average speed for the whole journey.",
@@ -396,7 +396,7 @@
     "explain": "Avg Speed = 3xyz / (xy + yz + zx) = (3 * 30 * 15 * 10) / (450 + 150 + 300) = 13500 / 900 = 15 km/h."
   },
   {
-    "id": 251,
+    "id": 45,
     "tag": "Averages",
     "level": "Hard",
     "q": "A person covers 20 km at 5 km/h, then 15 km at 3 km/h and finally 10 km at 2 km/h. What is his average speed?",
@@ -405,7 +405,7 @@
     "explain": "Avg Speed = Total Distance / Total Time = (20+15+10) / (20/5 + 15/3 + 10/2) = 45 / (4+5+5) = 45/14 = 3(3/14) km/h."
   },
   {
-    "id": 252,
+    "id": 46,
     "tag": "Averages",
     "level": "Hard",
     "q": "A person covers 25% of the journey at 10 km/h, 45% at 5 km/h and the remaining 30% at 15 km/h. His average speed for the whole journey is:",
@@ -414,7 +414,7 @@
     "explain": "Avg Speed = 1 / (P/x + Q/y + R/z) = 1 / (0.25/10 + 0.45/5 + 0.30/15) = 1 / (0.025 + 0.09 + 0.02) = 1 / 0.135 = 7.40 km/h."
   },
   {
-    "id": 301,
+    "id": 47,
     "tag": "Ratio and Proportion",
     "level": "Easy",
     "q": "If a:b = 5:14 and b:c = 7:3, then find the combined ratio a:b:c.",
@@ -423,7 +423,7 @@
     "explain": "Using Technique 1: a:b:c = (5×7) : (14×7) : (14×3) = 35 : 98 : 42. Dividing all terms by 7, we get 5 : 14 : 6."
   },
   {
-    "id": 302,
+    "id": 48,
     "tag": "Ratio and Proportion",
     "level": "Medium",
     "q": "Divide the number 1111 in the ratio of 8:3. What are the two parts?",
@@ -432,7 +432,7 @@
     "explain": "Total parts = 8 + 3 = 11. 1st part = (8/11) × 1111 = 808. 2nd part = (3/11) × 1111 = 303."
   },
   {
-    "id": 303,
+    "id": 49,
     "tag": "Ratio and Proportion",
     "level": "Hard",
     "q": "The ratio of incomes of Raman and Gagan is 4:3 and their expenditures are in the ratio 3:2. If each saves ₹2500, find Raman's income.",
@@ -441,7 +441,7 @@
     "explain": "Using the Income Technique: Income = [X(d-c) / (ad-bc)] × a. Here X=2500, a=4, b=3, c=3, d=2. Raman's Income = [2500(2-3) / (4*2 - 3*3)] × 4 = [2500(-1) / (-1)] × 4 = 2500 × 4 = ₹10,000."
   },
   {
-    "id": 304,
+    "id": 50,
     "tag": "Problems Based on Ages",
     "level": "Easy",
     "q": "Akshay is as much older than Vinay as he is younger to Kartik. If the sum of the ages of Vinay and Kartik is 48 yr, find the age of Akshay.",
@@ -450,7 +450,7 @@
     "explain": "Relationship Rule: If M is exactly between N and P in age, M's age = (Sum of N + P) / 2. Akshay's age = 48 / 2 = 24 yr."
   },
   {
-    "id": 305,
+    "id": 51,
     "tag": "Problems Based on Ages",
     "level": "Medium",
     "q": "A father is twice as old as his son. 20 yr back, he was twelve times as old as his son. What is the present age of the father?",
@@ -459,12 +459,138 @@
     "explain": "Let son = k, father = 2k. 20 years ago: (2k - 20) / (k - 20) = 12 / 1. 2k - 20 = 12k - 240. 10k = 220, so k = 22. Father's age = 2k = 44 yr."
   },
   {
-    "id": 306,
+    "id": 52,
     "tag": "Problems Based on Ages",
     "level": "Hard",
     "q": "5 yr ago, the age of Sachin was 4 times the age of Vineet. After 10 yr, Sachin will be twice as old as Vineet. Find the present age of Sachin.",
     "options": ["30 yr", "35 yr", "32.5 yr", "40 yr"],
     "ans": "B",
     "explain": "Fast Track Technique 2: t1=5, t2=10, m=4, n=2. Sachin's age = [t1*n*(m-1) + t2*m*(n-1)] / (m-n) = [5*2(3) + 10*4(1)] / (4-2) = (30 + 40) / 2 = 35 yr."
+    },
+    {
+      "id": 53,
+      "tag": "Pipes and Cisterns",
+      "level": "Medium",
+      "q": "Pipe A and B can fill a tank in 20 and 30 minutes respectively. If both are opened together, the time taken to fill the tank is:",
+      "options": ["10 min", "12 min", "15 min", "25 min"],
+      "ans": "B",
+      "explain": "Together = (x*y)/(x+y) = (20*30)/(20+30) = 600/50 = 12 minutes."
+    },
+    {
+      "id": 54,
+      "tag": "Problems Based on Ages",
+      "level": "Medium",
+      "q": "The sum of ages of A and B is 40 years. 5 years ago, the ratio of their ages was 2:1. Find A's present age.",
+      "options": ["20 yr", "25 yr", "15 yr", "30 yr"],
+      "ans": "B",
+      "explain": "x+y=40. 5 yr ago: (x-5)/(y-5)=2/1 => x-2y=-5. Solving these: y=15, x=25."
+  },
+  {
+    "id": 55,
+    "tag": "Pipes and Cisterns",
+    "level": "Easy",
+    "q": "An outlet pipe can empty a full cistern in 5 hours. In how many hours will the pipe empty 2/5 part of the cistern?",
+    "options": ["1 hour", "2 hours", "3 hours", "2.5 hours"],
+    "ans": "B",
+    "explain": "Time taken to empty 2/5 part = 2/5 * 5 = 2 hours."
+  },
+  {
+    "id": 56,
+    "tag": "Pipes and Cisterns",
+    "level": "Easy",
+    "q": "Pipe A can fill a tank in 2 hours and pipe B can fill the same tank in 6 hours. If both pipes are opened together, what part of the tank will be filled in 1 hour?",
+    "options": ["1/2 part", "1/3 part", "2/3 part", "1/4 part"],
+    "ans": "C",
+    "explain": "Part filled by A in 1h = 1/2. Part filled by B in 1h = 1/6. Together in 1h = 1/2 + 1/6 = 2/3 part."
+  },
+  {
+    "id": 57,
+    "tag": "Pipes and Cisterns",
+    "level": "Easy",
+    "q": "Pipe P1 can fill a tank in 5 hours, while pipe P2 can empty it in 10 hours. If both are opened together, what part of the tank is filled in 1 hour?",
+    "options": ["1/5 part", "1/10 part", "1/15 part", "1/20 part"],
+    "ans": "B",
+    "explain": "Net work done in 1 hour = (1/5 - 1/10) = 1/10 part."
+  },
+  {
+    "id": 58,
+    "tag": "Pipes and Cisterns",
+    "level": "Medium",
+    "q": "Pipe A can fill a tank in 18 hours and pipe B can fill it in 12 hours. How long will it take for both pipes to fill the tank together?",
+    "options": ["6 hours", "7.2 hours", "8 hours", "10 hours"],
+    "ans": "B",
+    "explain": "Total time = (18 * 12) / (18 + 12) = 216 / 30 = 7.2 hours."
+  },
+  {
+    "id": 59,
+    "tag": "Pipes and Cisterns",
+    "level": "Medium",
+    "q": "A pipe can fill a tank in 10 hours. Due to a leak in the bottom, it is filled in 20 hours. If the tank is full, how much time will the leak take to empty it?",
+    "options": ["10 hours", "15 hours", "20 hours", "30 hours"],
+    "ans": "C",
+    "explain": "Leak work in 1h = 1/10 - 1/20 = 1/20. So, it takes 20 hours to empty."
+  },
+  {
+    "id": 60,
+    "tag": "Pipes and Cisterns",
+    "level": "Hard",
+    "q": "Two pipes A and B can fill a tank in 20h and 10h respectively, while pipe C can empty it in 30h. If all three are opened together, find the time to fill the tank.",
+    "options": ["7 4/7 hours", "8 4/7 hours", "9 4/7 hours", "10 hours"],
+    "ans": "B",
+    "explain": "Part filled in 1h = 1/20 + 1/10 - 1/30 = 7/60. Time = 60/7 = 8 4/7 hours."
+  },
+  {
+    "id": 61,
+    "tag": "Pipes and Cisterns",
+    "level": "Hard",
+    "q": "A and B fill a tank in 't' min. A takes 4 min more than t, and B takes 64 min more than t. Find 't'.",
+    "options": ["12 min", "14 min", "16 min", "20 min"],
+    "ans": "C",
+    "explain": "t = sqrt(4 * 64) = sqrt(256) = 16 minutes."
+  },
+  {
+    "id": 62,
+    "tag": "Pipes and Cisterns",
+    "level": "Hard",
+    "q": "A leak empties a tank in 6 min. An inlet pipe fills 8 L/min; now the tank empties in 10 min. Find the tank capacity.",
+    "options": ["100 L", "110 L", "120 L", "150 L"],
+    "ans": "C",
+    "explain": "Capacity = (6 * 8 * 10) / (10 - 6) = 120 Liters."
+  },
+  {
+    "id": 63,
+    "tag": "Pipes and Cisterns",
+    "level": "Medium",
+    "q": "Pipe A is 3 times faster than B and takes 28 min less than B to fill a tank. Find the time taken if both work together.",
+    "options": ["9 min", "10.5 min", "12 min", "15 min"],
+    "ans": "B",
+    "explain": "Time together = (3 * 28) / (3^2 - 1) = 84 / 8 = 10.5 minutes."
+  },
+  {
+    "id": 64,
+    "tag": "Pipes and Cisterns",
+    "level": "Hard",
+    "q": "Pipes A (12 min) and B (16 min) fill a tank. After how much time should B be closed so the tank is full in 9 min?",
+    "options": ["2 min", "3 min", "4 min", "5 min"],
+    "ans": "C",
+    "explain": "Time = 16 * (1 - 9/12) = 16 * (1/4) = 4 minutes."
+  },
+  {
+    "id": 65,
+    "tag": "Pipes and Cisterns",
+    "level": "Easy",
+    "q": "If pipe A fills a tank in 'm' hours and pipe B fills it in 'n' hours, what part is filled by both in 1 hour?",
+    "options": ["(m+n)/mn", "mn/(m+n)", "1/(m+n)", "mn"],
+    "ans": "A",
+    "explain": "1/m + 1/n = (n+m)/mn."
+  },
+  {
+    "id": 66,
+    "tag": "Pipes and Cisterns",
+    "level": "Medium",
+    "q": "Three pipes fill a tank in m, n, and p hours. Find the total time taken if all three are opened together.",
+    "options": ["mnp/(np+mp+mn)", "mnp/(m+n+p)", "(m+n+p)/mnp", "mnp"],
+    "ans": "A",
+    "explain": "Total time = 1 / (1/m + 1/n + 1/p) = mnp / (np + mp + mn)."
   }
 ]

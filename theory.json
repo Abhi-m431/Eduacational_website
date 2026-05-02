@@ -10,19 +10,19 @@
         },
         {
           "title": "Solved Examples ",
-          "content": "<div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1rem;'><p><b>Example 1:</b> Convert 4% to a fraction. (CISF Head Constable 2023)</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b><br>4% = 4/100 = <b>1/25</b></div></div><div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1rem;'><p><b>Example 2:</b> What is 2/5 expressed as a percentage? (RRB NTPC 2021)</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b><br>2/5 &times; 100 = <b>40%</b></div></div><div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1rem;'><p><b>Example 3:</b> If x% of y is equal to 2/3 of 90, then find the value of xy. (SSC GD 2023)</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b><br>(x/100) &times; y = 2/3 &times; 90<br>xy/100 = 60 &rArr; xy = <b>6000</b></div></div><div class='question-card' style='background:white; border:1px solid var(--border);'><p><b>Example 4:</b> 0.5 is what percentage of 20? (SSC CGL 2022)</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b><br>(0.5/20) &times; 100 = <b>2.5%</b></div></div>"
+          "content": "<div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1.5rem;'><p><b>Example 1 (Exam Pattern):</b> In an examination, a student must score 33% marks to pass. He gets 125 marks and fails by 40 marks. What are the maximum marks?</p><div class='explanation' style='background:#f8fafc; padding:1.5rem; border-radius:12px; margin-top:10px;'><span class='example-step'><b>Step 1:</b> Calculate the total passing marks required. <br>Passing Marks = Obtained Marks + Marks failed by = 125 + 40 = 165.</span><span class='example-step'><b>Step 2:</b> We know 33% of Max Marks = 165. Let Max marks be 'M'. <br>(33/100) &times; M = 165.</span><span class='example-step'><b>Step 3:</b> Solve for M: M = (165 &times; 100) / 33 = 5 &times; 100 = 500.</span><span class='example-final'>Final Answer: 500 marks</span></div></div><div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1.5rem;'><p><b>Example 2:</b> The price of sugar is increased by 25%. If a family wants to keep its expenses on sugar unaltered, then the family should reduce its consumption by what percentage?</p><div class='explanation' style='background:#f8fafc; padding:1.5rem; border-radius:12px; margin-top:10px;'><span class='example-step'><b>Logic:</b> If price (P) increases, consumption (C) must decrease for same Expenditure (E = P &times; C).</span><span class='example-step'><b>Step 1:</b> Let original price be 100. New price = 125.</span><span class='example-step'><b>Step 2:</b> Reduction % = [ (Increase in Price) / (New Price) ] &times; 100</span><span class='example-step'><b>Step 3:</b> Reduction = (25 / 125) &times; 100 = 1/5 &times; 100 = 20%.</span><span class='example-final'>Final Answer: 20%</span></div></div>"
         },
         {
           "title": "2. Comparison Techniques",
-          "content": "<p><b>Technique 1:</b> If X is <b>a%</b> more than Y, then Y is less than X by:</p><div class='shortcut-box'>[ a / (100 + a) ] &times; 100 %</div><p>If X is <b>a%</b> less than Y, then Y is more than X by:</p><div class='shortcut-box'>[ a / (100 - a) ] &times; 100 %</div>"
+          "content": "<div class='technique-item'><span class='technique-label'>Technique 1: Comparison</span><p>If X is <b>a% more</b> than Y, then Y is less than X by:</p><div class='shortcut-box'>[ a / (100 + a) ] &times; 100 %</div></div><div class='technique-item'><span class='technique-label'>Technique 2: Comparison</span><p>If X is <b>a% less</b> than Y, then Y is more than X by:</p><div class='shortcut-box'>[ a / (100 - a) ] &times; 100 %</div></div>"
         },
         {
           "title": "3. Successive Changes",
-          "content": "<p><b>Technique 2: Equal Increase then Decrease</b></p><p>If a value is first increased by a% and then decreased by a%, the net effect is <b>always a decrease</b> of:</p><div class='formula-box'>(a/10)&sup2; % or (a&sup2;/100) %</div><p><b>Technique 3: General Successive Change</b></p><p>If a value changes by a% and then by b%, the net change is:</p><div class='formula-box'>[ &plusmn; a &plusmn; b + (ab/100) ] %</div><p><small>Use (+) for increase and (-) for decrease.</small></p>"
+          "content": "<div class='technique-item'><span class='technique-label'>Technique 3: The Mirror Rule</span><p>If a value is first increased by a% and then decreased by a%, the net effect is <b>always a decrease</b> of:</p><div class='formula-box'>(a/10)&sup2; % or (a&sup2;/100) %</div></div><div class='technique-item'><span class='technique-label'>Technique 4: Net Change</span><p>If a value changes by a% and then by b%, the total net change is:</p><div class='formula-box'>[ &plusmn; a &plusmn; b + (ab/100) ] %</div><p><small>Note: Use (+) for increase and (-) for decrease.</small></p></div>"
         },
         {
           "title": "4. Expenditure & Consumption",
-          "content": "<p><b>Technique 4: Price vs. Consumption</b></p><p>If the price of a commodity increases or decreases by a%, the change in consumption required to keep expenditure constant is:</p><div class='shortcut-box'>[ a / (100 &plusmn; a) ] &times; 100 %</div><p><b>Technique 5: Quantity for Fixed Price</b></p><p>If a price change of r% allows a person to buy A kg more or less for &#8377;X:</p><ul><li><b>Reduced Price:</b> (rX / 100A) per kg</li><li><b>Original Price:</b> (rX / (100 &plusmn; r)A) per kg</li></ul>"
+          "content": "<div class='technique-item'><span class='technique-label'>Technique 5: Budget Balance</span><p>If the price increases/decreases by a%, the change in consumption needed to keep budget constant is:</p><div class='shortcut-box'>[ a / (100 &plusmn; a) ] &times; 100 %</div></div><div class='technique-item'><span class='technique-label'>Technique 6: Fixed Spending</span><p>If a price change of r% allows buying A kg more/less for &#8377;X:</p><ul><li><b>Reduced Price:</b> (rX / 100A) per kg</li><li><b>Original Price:</b> (rX / (100 &plusmn; r)A) per kg</li></ul></div>"
         },
         {
           "title": "5. Examination & Marks",
@@ -51,12 +51,12 @@
           "content": "<div class='formula-box'><b>Basic Formulas:</b><br>Profit (Gain) = SP - CP<br>Loss = CP - SP</div><div class='formula-box'><b>Percentage Formulas:</b><br>Gain % = (Gain / CP) &times; 100<br>Loss % = (Loss / CP) &times; 100</div><div class='shortcut-box'><b>Finding Selling Price (SP):</b><br>SP = [(100 + Gain%) / 100] &times; CP<br>SP = [(100 - Loss%) / 100] &times; CP</div><div class='shortcut-box'><b>Finding Cost Price (CP):</b><br>CP = [100 / (100 + Gain%)] &times; SP<br>CP = [100 / (100 - Loss%)] &times; SP</div>"
         },
         {
-      "title": "4. Solved Examples",
-      "content": "<div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1rem;'><p><b>Example 1 :</b> A salesman expects a gain of 13% on his cost price. If in a month, his sale was &#8377;7,91,000, then what was his profit? (CUET 2023)</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b><br>Gain = 13%, SP = &#8377;7,91,000<br>CP = (SP &times; 100) / (100 + Gain%) = (7,91,000 &times; 100) / 113 = &#8377;7,00,000<br>Profit = SP - CP = 7,91,000 - 7,00,000 = <b>&#8377;91,000</b></div></div><div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1rem;'><p><b>Example 2 :</b> If the selling price of a toy is 3/5 of its cost price, then the loss per cent is: (MHA IB 2023)</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b><br>Let CP = x. Then SP = 3/5x.<br>Loss = CP - SP = x - (3/5)x = (2/5)x<br>Loss% = (Loss / CP) &times; 100 = [(2/5)x / x] &times; 100 = 2/5 &times; 100 = <b>40%</b></div></div><div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1rem;'><p><b>Example 3 :</b> If an article is sold at 20% profit, what is the ratio of CP to SP? (HCET 2022)</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b><br>Let CP = 100. Profit = 20% &rArr; SP = 120.<br>Ratio CP : SP = 100 : 120 = <b>5 : 6</b></div></div><div class='question-card' style='background:white; border:1px solid var(--border);'><p><b>Example 4 :</b> When a plot is sold for &#8377;18,700, the owner loses 15%. At what price must it be sold to gain 15%? (HCET 2022)</p><div class='explanation' style='background:#f8fafc; padding:10px; border-radius:8px; margin-top:10px;'><b>Solution:</b><br>SP1 = &#8377;18,700, Loss = 15%.<br>CP = (18,700 &times; 100) / 85 = &#8377;22,000.<br>New SP for 15% Gain = 22,000 &times; 1.15 = <b>&#8377;25,300</b></div></div>"
+          "title": "4. Solved Examples (Step-by-Step)",
+          "content": "<div class='question-card' style='background:white; border:1px solid var(--border); margin-bottom:1.5rem;'><p><b>Scenario 1:</b> A person sold an item for &#8377;6,600 at a loss of 12%. At what price should he have sold it to earn a profit of 15%?</p><div class='explanation' style='background:#f8fafc; padding:1.5rem; border-radius:12px; margin-top:10px;'><span class='example-step'><b>Step 1: Find Cost Price (CP).</b><br>Loss = 12%, SP = &#8377;6,600. <br>CP = (SP &times; 100) / (100 - Loss%) = (6600 &times; 100) / 88 = &#8377;7,500.</span><span class='example-step'><b>Step 2: Calculate New Selling Price.</b><br>Desired Profit = 15% on &#8377;7,500.<br>New SP = CP &times; (115/100) = 7500 &times; 1.15 = &#8377;8,625.</span><span class='example-final'>Final Answer: &#8377;8,625</span></div></div><div class='question-card' style='background:white; border:1px solid var(--border);'><p><b>Scenario 2:</b> A shopkeeper marks his goods 20% above the cost price and allows a discount of 10% on the marked price. What is his actual profit percentage?</p><div class='explanation' style='background:#f8fafc; padding:1.5rem; border-radius:12px; margin-top:10px;'><span class='example-step'><b>Step 1:</b> Let CP = 100.</span><span class='example-step'><b>Step 2:</b> Marked Price (MP) = 100 + 20% of 100 = 120.</span><span class='example-step'><b>Step 3:</b> Selling Price (SP) = MP - Discount = 120 - 10% of 120 = 120 - 12 = 108.</span><span class='example-step'><b>Step 4:</b> Profit % = SP - CP = 108 - 100 = 8.</span><span class='example-final'>Final Answer: 8% Profit</span></div></div>"
         },
         {
           "title": "5. Advanced Techniques",
-          "content": "<h4>Technique 1: Common Gain and Loss</h4><p><b>Condition:</b> When two items are sold at the same Selling Price (SP), one at a gain of a% and another at a loss of a%.</p><div class='formula-box'>Loss % = (a / 10)&sup2; %</div><p><small>Note: In this specific case, the seller always incurs a loss, and the actual SP value is immaterial to the percentage calculation.</small></p><h4>Technique 2: Relation between CP and SP quantity</h4><p><b>Condition:</b> If the Cost Price (CP) of 'a' articles is equal to the Selling Price (SP) of 'b' articles.</p><div class='shortcut-box'>Profit/Loss % = [(a - b) / b] &times; 100%</div><p><small>Note: A positive result indicates profit; a negative result indicates loss.</small></p><h4>Technique 3: Price and Quantity Variations</h4><p><b>Condition:</b> If 'm' items are purchased for &#8377;x and 'n' items are sold for &#8377;y.</p><div class='shortcut-box'>Profit/Loss % = [(my - nx) / nx] &times; 100%</div><p><small>Note: Cross-multiply items and prices: (Items_Buy * Price_Sell - Items_Sell * Price_Buy) / (Items_Sell * Price_Buy).</small></p><h4>Technique 4: Change in Selling Price</h4><p><b>Condition:</b> A man sells an item at a% profit/loss. If he had sold it for &#8377;R more, he would have gained/lost b%.</p><div class='formula-box'>CP = [R / (b &plusmn; a)] &times; 100</div><p><small>Note: Use '-' if both cases are the same (both profit or both loss). Use '+' if one is profit and the other is loss.</small></p><h4>Technique 5: Successive Transactions</h4><p><b>Condition:</b> If A sells to B at r1% profit/loss, and B sells to C at r2% profit/loss.</p><div class='formula-box'>CP for C = CP for A &times; [1 &plusmn; (r1/100)] &times; [1 &plusmn; (r2/100)]</div><p><small>Note: Use '+' for profit and '-' for loss.</small></p><h4>Technique 6: Dishonest Dealer (False Weights)</h4><p><b>Condition:</b> A trader sells at CP but uses a false weight.</p><div class='shortcut-box'>Gain % = [Error / (True Value - Error)] &times; 100%</div><p>Alternatively: <div class='formula-box'>[ (True Weight - False Weight) / False Weight ] &times; 100%</div></p><h4>Technique 7: Loss on CP with False Weights</h4><p><b>Condition:</b> If a shopkeeper sells at a% loss on CP but uses 'b' grams instead of 'c' grams.</p><div class='shortcut-box'>Profit/Loss % = [ (100 - a) &times; (c / b) ] - 100</div><p><small>Note: Positive result = Profit; Negative result = Loss.</small></p><h4>Technique 8: Combined Profit/Loss and Weight Fraud</h4><p><b>Condition:</b> A dealer sells at a% profit/loss on CP and uses b% less weight.</p><div class='shortcut-box'>Profit/Loss % = [ (b &plusmn; a) / (100 - b) ] &times; 100%</div><p><small>Note: Use '+a' for profit and '-a' for loss.</small></p>"
+          "content": "<div class='technique-item'><span class='technique-label'>Technique 1: The Identical SP Rule</span><p>When two items are sold at the same price, one at a gain of a% and another at a loss of a%:</p><div class='formula-box'><b>Total Loss % = (a / 10)&sup2; %</b></div></div><div class='technique-item'><span class='technique-label'>Technique 2: Quantity Comparison</span><p>If CP of 'a' articles = SP of 'b' articles:</p><div class='shortcut-box'><b>Profit/Loss % = [(a - b) / b] &times; 100%</b></div></div><div class='technique-item'><span class='technique-label'>Technique 3: Cross-Multiplication</span><p>If 'm' items are bought for &#8377;x and 'n' items are sold for &#8377;y:</p><div class='shortcut-box'><b>Profit/Loss % = [(my - nx) / nx] &times; 100%</b></div></div><div class='technique-item'><span class='technique-label'>Technique 4: The 'More' Price Factor</span><p>If selling for &#8377;R more changes profit/loss from a% to b%:</p><div class='formula-box'><b>CP = [R / (b &plusmn; a)] &times; 100</b></div><p><small>Note: Use (-) if both are profit/loss, (+) if one of each.</small></p></div>"
         },
         {
           "title": "6. Advanced Examples",
@@ -65,12 +65,16 @@
       ],
       "Simple and Compound Interest": [
         {
-          "title": "Simple Interest",
-          "content": "Simple Interest (SI) is calculated only on the principal amount. SI = (P × R × T) / 100."
+          "title": "1. Simple Interest (SI)",
+          "content": "<p>Simple Interest is the fixed amount paid for using borrowed money over a period. It is calculated only on the original principal.</p><div class='formula-box'><b>SI = (P &times; R &times; T) / 100</b></div><ul><li><b>P:</b> Principal (Original sum)</li><li><b>R:</b> Rate of Interest (%)</li><li><b>T:</b> Time (Years)</li></ul>"
         },
         {
-          "title": "Compound Interest",
-          "content": "Compound Interest (CI) is calculated on the principal and also on the accumulated interest. CI = P(1 + R/100)^T - P."
+          "title": "2. Compound Interest (CI)",
+          "content": "<p>Compound Interest is 'interest on interest.' It is calculated on the principal plus the interest accumulated from previous periods.</p><div class='formula-box'><b>Amount (A) = P [1 + (R/100)]<sup>n</sup></b><br><b>CI = Amount - Principal</b></div>"
+        },
+        {
+          "title": "3. Comparison Shortcut",
+          "content": "<h3>Difference between CI and SI</h3><p>For a period of <b>2 years</b>, the difference (D) is:</p><div class='shortcut-box'><b>D = P (R / 100)&sup2;</b></div><p>For a period of <b>3 years</b>:</p><div class='shortcut-box'><b>D = [ P (R / 100)&sup2; ] &times; [ (300 + R) / 100 ]</b></div>"
         }
       ],
       "Ratio and Proportion": [
@@ -159,42 +163,74 @@
       ], 
       "Pipes and Cisterns": [
         {
-          "title": "Pipes and Cisterns",
-          "content": "Problems involving filling and emptying tanks using pipes. Use the concept of work/time."
-        }
-      ],
-      "Time, Speed and Distance": [
-        {
-          "title": "The Speed-Time-Distance Relationship",
-          "content": "<p>This is the foundation of all problems involving motion. The three variables are linked by one simple equation:</p><div style='background:#f1f5f9; padding:1rem; border-radius:8px; text-align:center; font-size:1.1rem;'><b>Distance = Speed \u00d7 Time</b></div><br><b>Unit Conversion (The 5/18 Rule):</b><ul><li>To convert <b>km/hr</b> to <b>m/s</b>: Multiply by 5/18.</li><li>To convert <b>m/s</b> to <b>km/hr</b>: Multiply by 18/5.</li></ul>"
+          "title": "1. Basic Concepts & Definitions",
+          "content": "<p>Problems on Pipes and Cisterns are based on the basic concept of <b>Time and Work</b>. In these problems, work is done in the form of filling or emptying a cistern or tank.</p><ul><li><b>Inlet Pipe:</b> A pipe that fills a tank, cistern, or reservoir.</li><li><b>Outlet Pipe:</b> A pipe that empties a tank, cistern, or reservoir.</li></ul>"
         },
         {
-          "title": "Relative Speed and Trains",
-          "content": "<p>Relative speed is the speed of one object with respect to another.</p><ul><li><b>Same Direction:</b> Relative Speed = |S1 - S2|</li><li><b>Opposite Direction:</b> Relative Speed = S1 + S2</li></ul><br><b>Train Crossing Logic:</b><br>1. When a train crosses a <u>stationary pole/man</u>, the distance covered equals the <b>Length of the Train</b>.<br>2. When a train crosses a <u>bridge/platform</u>, the distance covered equals <b>(Length of Train + Length of Platform)</b>."
+          "title": "2. Important Points & Sign Convention",
+          "content": "<h3>Fundamental Rules</h3><ul><li><b>Work Rate:</b> If a pipe fills/empties a tank in <b>m</b> hours, the part filled/emptied in 1 hour is <b>1/m</b>.</li><li><b>Total Time:</b> If a pipe fills/empties <b>1/m</b> part in 1 hour, it completes the whole tank in <b>m</b> hours.</li><li><b>Sign Convention:</b> Time taken to <b>fill</b> a tank is positive (+ve), and time taken to <b>empty</b> it is negative (-ve).</li></ul><h3>Combined Work</h3><p>If pipe A fills in <b>m</b> hours and pipe B fills in <b>n</b> hours, the part filled by both in 1 hour is:</p><div class='formula-box'><b>(1/m) + (1/n)</b></div>"
+        },
+        {
+        "title": "3. Fast Track Techniques",
+        "content": "<h4>Technique 1: Two Pipes</h4><ul><li>Both fill/empty: <b>t = mn / (m + n)</b></li><li>One fills (m), one empties (n) [m > n]: <b>t = mn / (m - n)</b></li><li>One fills (m), one empties (n) [n > m]: <b>t = mn / (n - m)</b></li></ul><h4>Technique 2: Three Pipes</h4><p>Total time: <b>mnp / (np + mp + mn)</b>. (Note: Use negative sign for any emptying pipe, e.g., <b>mnp / (np + mp - mn)</b> if the 3rd pipe empties).</p><h4>Technique 3: Extra Time Taken (&radic;ab)</h4><p>If A takes <b>a</b> mins more than <b>t</b>, and B takes <b>b</b> mins more than <b>t</b>: <b>t = &radic;ab</b>.</p><h4>Technique 4: Volume with Leakage</h4><p>If a leak empties a tank in <b>a</b> hours, but an inlet of <b>b</b> L/h changes this to <b>c</b> hours: <b>Volume = abc / (c - a)</b>.</p><h4>Technique 5: Efficiency & Relative Time</h4><ul><li>Time together: <b>nt / (n² - 1)</b></li><li>Faster tap: <b>t / (n - 1)</b></li><li>Slower tap: <b>nt / (n - 1)</b></li></ul><h4>Technique 6: Closing Pipe Mid-Operation</h4><p>Time to close pipe B so tank fills in <b>t</b> mins (where A = x, B = y): <b>Time = y(1 - t/x)</b>.</p>"
+        },
+        {
+          "title": "4. Practical Examples",
+          "content": "<div class='question-card'><b>Ex 1 (Partial):</b> Outlet empties in 5 h. Time for 2/5 part?<br><b>Sol:</b> 2/5 &times; 5 = <b>2 h</b>.</div><div class='question-card'><b>Ex 2:</b> A fills in 2 h, B in 6 h. 1 h together?<br><b>Sol:</b> 1/2 + 1/6 = 4/6 = <b>2/3 part</b>.</div><div class='question-card'><b>Ex 3:</b> P1 fills in 5 h, P2 empties in 10 h. 1 h net?<br><b>Sol:</b> 1/5 - 1/10 = <b>1/10 part</b>.</div><div class='question-card'><b>Ex 4:</b> A fills in 18 h, B in 12 h. Total time?<br><b>Sol:</b> (18&times;12)/(18+12) = 216/30 = <b>7.2 h</b>.</div><div class='question-card'><b>Ex 6 (Leak):</b> Fill in 10 h; with leak 20 h. Leak alone?<br><b>Sol:</b> 1/10 - 1/20 = 1/20. <b>20 h</b>.</div><div class='question-card'><b>Ex 8:</b> A=20h, B=10h (fill); C=30h (empty).<br><b>Sol:</b> 1/20 + 1/10 - 1/30 = 7/60. Time = <b>8 4/7 h</b>.</div><div class='question-card'><b>Ex 9:</b> A takes 4 min more, B takes 64 min more. Find t.<br><b>Sol:</b> &radic;(4 &times; 64) = <b>16 min</b>.</div><div class='question-card'><b>Ex 10 (Capacity):</b> Empty in 6 min; inlet 8 L/min; now empty in 10 min.<br><b>Sol:</b> (6&times;8&times;10)/(10-6) = <b>120 L</b>.</div><div class='question-card'><b>Ex 11:</b> A is 3x faster, takes 28 min less. Together?<br><b>Sol:</b> (3&times;28)/(3²-1) = 84/8 = <b>10.5 min</b>.</div><div class='question-card'><b>Ex 12:</b> A=12m, B=16m. Close B so full in 9 min?<br><b>Sol:</b> 16(1 - 9/12) = <b>4 min</b>.</div>"
+        }
+      ],
+      "Speed, Time and Distance": [
+        {
+          "title": "1. Basic Concepts & Definitions",
+          "content": "<p><b>Speed:</b> The rate at which a body or an object travels to cover a certain distance is called speed of that body.</p><p><b>Time:</b> The duration in hours, minutes, or seconds spent to cover a certain distance is called the time.</p><p><b>Distance:</b> The length of the path travelled by any object or a person between two places is known as distance.</p><h3>Fundamental Relations</h3><p>Speed is the distance covered by an object in unit time. It is calculated by dividing the distance travelled by the time taken.</p><ul><li><b>Speed</b> = Distance / Time</li><li><b>Time</b> = Distance / Speed</li><li><b>Distance</b> = Speed * Time</li></ul><p><i>Note: Remember, units of speed, time and distance should be in the same metric system.</i></p>"
+        },
+        {
+          "title": "2. Unit Conversions & Proportionality",
+          "content": "<h3>Conversion of Units</h3><p>To solve problems correctly, it is often necessary to convert speeds between different metric units.</p><ul><li><b>Converting km/h to m/s:</b> Multiply by <b>5/18</b>.</li><li><b>Converting m/s to km/h:</b> Multiply by <b>18/5</b>.</li></ul><h3>Proportionality Rules</h3><ul><li><b>Formula 2 (Speed Constant):</b> Distance ∝ Time. <b>D1/T1 = D2/T2</b></li><li><b>Formula 3 (Time Constant):</b> Distance ∝ Speed. <b>D1/S1 = D2/S2</b></li><li><b>Formula 4 (Distance Constant):</b> Speed ∝ 1/Time. <b>S1T1 = S2T2</b>. (Note: If speed ratio is x:y, time ratio is y:x).</li></ul><h3>Relative Speed</h3><p>When two bodies A and B are moving with speed a km/h and b km/h respectively:</p><ul><li><b>Opposite Directions:</b> Relative Speed = <b>(a + b) km/h</b></li><li><b>Same Direction:</b> Relative Speed = <b>(a - b) km/h</b></li></ul>"
+        },
+        {
+          "title": "3. Average Speed & Fast Track Techniques",
+          "content": "<h4>Average Speed Definition</h4><p>Average speed = Total distance / Total time.</p><h4>Technique 1: Equal Distances</h4><p>When a certain distance is covered at speed A and the same distance is covered at speed B: <b>Avg Speed = 2AB / (A + B)</b>.</p><h4>Technique 2: Fractional Journey Parts</h4><p>If 1/a part of journey at A km/h, 1/b part at B km/h, 1/c part at C km/h: <b>Avg Speed = 1 / (1/aA + 1/bB + 1/cC...)</b>.</p><h4>Technique 3: Late and Early Arrivals</h4><p>When speed 'a' makes late by t1 and speed 'b' makes early by t2: <b>Distance (D) = ab(t1 + t2) / (b - a)</b>.</p><h4>Technique 4: Multiple Late Arrivals</h4><p>When speed 'a' is t1 late, and speed increases by 'b' to be t2 late: <b>Distance (D) = (t1 - t2)(a + b) * (a / b)</b>.</p><h4>Technique 5: Meeting after Destination Reach</h4><p>B reaches Q first, returns and meets A at R: <b>Dist A = 2D * (a / a+b)</b>; <b>Dist B = 2D * (b / a+b)</b>.</p><h4>Technique 6: Police and Thief</h4><p>Policeman at distance d chases thief (speed a) with speed b: <b>Distance covered by thief = d * (a / b-a)</b>.</p><h4>Technique 7: Journey Completion Ratio</h4><p>After passing each other, journeys finished in x and y hours: <b>A's speed : B's speed = √y : √x</b>.</p><h4>Technique 8: Usual Time from Speed Change</h4><p>If speed changes to (x/y) of usual speed: <b>Usual Time = (t * x) / (y - x)</b> if (y > x) OR <b>(t * x) / (x - y)</b> if (x > y).</p>"
+        },
+        {
+          "title": "4. Practical Examples",
+          "content": "<div class='question-card'><b>Example 1:</b> A car covers 125 km in 5 h.<br><b>Sol:</b> Speed = 125/5 = <b>25 km/h</b>.</div><div class='question-card'><b>Ex 2:</b> 200 km distance at 10 km/h.<br><b>Sol:</b> Time = 200/10 = <b>20 h</b>.</div><div class='question-card'><b>Ex 3:</b> 108 km/h for 8 h.<br><b>Sol:</b> Length = 108 * 8 = <b>864 km</b>.</div><div class='question-card'><b>Ex 4:</b> Convert 72 km/h into m/s.<br><b>Sol:</b> 72 * (5/18) = <b>20 m/s</b>.</div><div class='question-card'><b>Ex 6:</b> Covers 20 2/5 km in 3 h. Distance in 5 h?<br><b>Sol:</b> (102/5)/3 = D2/5 → D2 = <b>34 km</b>.</div><div class='question-card'><b>Ex 11:</b> 20 km (35m), 20m rest, 10 km (20m).<br><b>Sol:</b> Total Dist = 30km, Time = 75m (5/4 h). Avg Speed = 30/(5/4) = <b>24 km/h</b>.</div><div class='question-card'><b>Ex 13:</b> 35 km/h out, 25 km/h return.<br><b>Sol:</b> (2 * 35 * 25)/(35 + 25) = <b>29.16 km/h</b>.</div><div class='question-card'><b>Ex 15:</b> 30 km/h (20 min late), 40 km/h (10 min early).<br><b>Sol:</b> D = (30 * 40 / 10) * (30/60) = <b>60 km</b>.</div><div class='question-card'><b>Ex 18:</b> Police (4 m/s) chases thief (2 m/s) from 50 m distance.<br><b>Sol:</b> 50 * (2 / (4-2)) = <b>50 m</b>.</div><div class='question-card'><b>Ex 20:</b> Speed is 7/5, reaches 20 min early. Find usual time.<br><b>Sol:</b> (20 * 7) / (7 - 5) = <b>70 min</b>.</div>"
         }
       ],
       "HCF & LCM": [
         {
-          "title": "HCF and LCM Concepts",
-          "content": "<ul><li><b>HCF (Highest Common Factor):</b> The greatest number that exactly divides two or more numbers. Also known as GCD.</li><li><b>LCM (Least Common Multiple):</b> The smallest number which is exactly divisible by two or more numbers.</li></ul><br><b>Crucial Rule for Two Numbers:</b><br><div style='background:#f0fdf4; padding:1rem; border-radius:8px; text-align:center;'><b>HCF(a,b) \u00d7 LCM(a,b) = a \u00d7 b</b></div>"
+          "title": "1. Fundamental Concepts",
+          "content": "<p>HCF and LCM are the building blocks of number theory used in simplification, fractions, and time-sharing problems.</p><ul><li><b>HCF (Highest Common Factor):</b> Also known as GCD (Greatest Common Divisor), it is the largest positive integer that divides each of the integers without leaving a remainder.</li><li><b>LCM (Least Common Multiple):</b> It is the smallest positive integer that is evenly divisible by all the numbers in a set.</li></ul><div class='formula-box'><b>The Product Rule:</b><br>For any two numbers 'a' and 'b':<br>HCF(a, b) &times; LCM(a, b) = a &times; b</div>"
+        },
+        {
+          "title": "2. Methods of Calculation",
+          "content": "<h3>Finding HCF</h3><p><b>Prime Factorization Method:</b> Express numbers as products of primes and take the product of the <i>lowest</i> powers of all common prime factors.</p><h3>Finding LCM</h3><p><b>Division Method:</b> Arrange numbers in a row, divide by prime numbers that divide at least two numbers, and multiply all divisors and the remaining numbers.</p>"
         }
       ],
       "Divisibility rules": [
         {
-          "title": "Divisibility rules",
-          "content": "Rules to quickly check if a number is divisible by another (e.g., 2, 3, 5, 9, 11)."
+          "title": "1. Essential Rules",
+          "content": "<ul><li><b>Divisibility by 2:</b> The number must end in an even digit (0, 2, 4, 6, 8).</li><li><b>Divisibility by 3:</b> The sum of the digits must be divisible by 3 (e.g., 123 &rarr; 1+2+3=6).</li><li><b>Divisibility by 4:</b> The number formed by the last two digits must be divisible by 4.</li><li><b>Divisibility by 5:</b> The last digit must be either 0 or 5.</li><li><b>Divisibility by 8:</b> The number formed by the last three digits must be divisible by 8.</li><li><b>Divisibility by 9:</b> The sum of the digits must be divisible by 9.</li></ul>"
+        },
+        {
+          "title": "2. Advanced Rules (7, 11, 13)",
+          "content": "<div class='technique-item'><span class='technique-label'>Rule of 11</span><p>A number is divisible by 11 if the <b>difference</b> between the sum of digits at odd places and the sum of digits at even places is either 0 or a multiple of 11.</p></div><div class='technique-item'><span class='technique-label'>Rule of 7</span><p>Double the last digit and subtract it from the remaining number. If the result is divisible by 7, the original number is also divisible by 7.</p></div>"
         }
       ],
       "Simplification (BODMAS)": [
         {
-          "title": "Simplification (BODMAS)",
-          "content": "Order of operations: Brackets, Orders, Division, Multiplication, Addition, Subtraction."
+          "title": "1. The Order of Operations",
+          "content": "<p>In mathematics, the BODMAS rule determines the correct order to solve an expression:</p><table style='width:100%; border-collapse: collapse; margin-top: 10px;'><thead><tr style='border-bottom: 2px solid var(--border);'><th style='padding: 8px;'>Letter</th><th style='padding: 8px;'>Meaning</th></tr></thead><tbody><tr style='border-bottom: 1px solid var(--border);'><td><b>B</b></td><td>Brackets ( (), {}, [] )</td></tr><tr style='border-bottom: 1px solid var(--border);'><td><b>O</b></td><td>Of / Orders (Squares, Roots)</td></tr><tr style='border-bottom: 1px solid var(--border);'><td><b>D</b></td><td>Division</td></tr><tr style='border-bottom: 1px solid var(--border);'><td><b>M</b></td><td>Multiplication</td></tr><tr style='border-bottom: 1px solid var(--border);'><td><b>A</b></td><td>Addition</td></tr><tr style='border-bottom: 1px solid var(--border);'><td><b>S</b></td><td>Subtraction</td></tr></tbody></table>"
         }
       ],
       "Number Series": [
         {
-          "title": "Number Series",
-          "content": "Find the pattern in a sequence of numbers and predict the next term."
+          "title": "1. Logic Patterns",
+          "content": "<p>Number series require identifying the underlying logic that progresses from one term to the next.</p><ul><li><b>Arithmetic Progression:</b> Each term is obtained by adding/subtracting a constant (Common Difference).</li><li><b>Geometric Progression:</b> Each term is multiplied by a constant (Common Ratio).</li><li><b>Fibonacci Series:</b> Each term is the sum of the two preceding ones (e.g., 0, 1, 1, 2, 3, 5...).</li><li><b>Alternating Series:</b> Two different patterns used in alternate positions.</li></ul>"
+        },
+        {
+          "title": "2. Pattern Finding Strategy",
+          "content": "<div class='shortcut-box'><b>The Difference Method:</b> If a pattern isn't obvious, find the difference between consecutive terms. If that fails, find the 'difference of differences'.</div>"
         }
       ],
       "Permutation & Combination": [
@@ -216,21 +252,25 @@
         }
       ]
     }
-
-    
   },
   "Logical Reasoning & Mental Ability": {
     "title": "Logical Reasoning & Mental Ability",
     "overview": "Logical reasoning helps in developing analytical skills through patterns and puzzles.",
     "topics": {
       "Syllogism": [
-        { "title": "Syllogism", "content": "Problems involving logical deduction using statements and conclusions. Use Venn diagrams for clarity." }
+        { "title": "1. Venn Diagram Logic", "content": "<p>Syllogism is a form of deductive reasoning where a conclusion is drawn from two or more given premises.</p><h3>The Four Types of Statements</h3><ul><li><b>All A are B (Universal Positive):</b> Set A is entirely inside Set B.</li><li><b>No A are B (Universal Negative):</b> Set A and Set B are disjoint (no overlap).</li><li><b>Some A are B (Particular Positive):</b> There is at least one common element between A and B.</li><li><b>Some A are not B (Particular Negative):</b> There is at least one element in A that is not in B.</li></ul>" }
       ],
       "Blood Relations": [
-        { "title": "Blood Relations", "content": "Questions based on family relationships. Draw family trees for accuracy." }
+        { 
+          "title": "1. Family Tree Construction", 
+          "content": "<p>To solve blood relation problems accurately, represent family data using standard symbols:</p><ul><li><b>[ + ] or Square:</b> Represents a Male.</li><li><b>[ - ] or Circle:</b> Represents a Female.</li><li><b>Double Line (=):</b> Represents a Married Couple.</li><li><b>Single Horizontal Line (-):</b> Represents Siblings.</li><li><b>Vertical Line:</b> Represents a generation gap (Parents above, Children below).</li></ul><h3>Important Relation Groups</h3><p><b>Paternal:</b> Relations from the Father's side (Paternal Uncle, Grandfather).</p><p><b>Maternal:</b> Relations from the Mother's side (Maternal Aunt, Grandmother).</p>" 
+        }
       ],
       "Coding-Decoding": [
-        { "title": "Coding-Decoding", "content": "Questions where words or numbers are coded using a pattern. Find the logic to decode." }
+        { 
+          "title": "1. Core Logic", 
+          "content": "<p>Coding-Decoding usually follows specific shifts:</p><ul><li><b>Forward Shift:</b> Each letter is replaced by the next one (A &rarr; B).</li><li><b>Backward Shift:</b> Each letter is replaced by the previous one (B &rarr; A).</li><li><b>Opposite Letters:</b> A &harr; Z, B &harr; Y (Sum of positions = 27).</li></ul>" 
+        }
       ],
       "Seating Arrangement (Linear/Circular)": [
         { "title": "Seating Arrangement", "content": "Arranging people in a line or circle based on given conditions. Visualize positions for accuracy." }
