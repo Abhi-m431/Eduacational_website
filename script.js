@@ -119,6 +119,7 @@ function handleInitialRouting() {
             case 'stats': return showStatistics(false);
             case 'mockInstr': return showMockInstructions(state.mockNum, null, false);
             case 'mockSelect': return chooseMockTest(false);
+            case 'adminReview': return showTopicWiseReview(false);
             case 'mockActive': return startMockTest(state.mockNum, false, state.seed);
         }
     }
@@ -156,6 +157,8 @@ function handleInitialRouting() {
                 showMockInstructions(mockNum, null, false);
             }
         }
+    } else if (routeParts[0] === 'admin-review') {
+        showTopicWiseReview(false);
     } else {
         // Default to home for unknown paths
         history.replaceState({ view: 'home' }, "", "#/");
@@ -413,6 +416,8 @@ function renderSidebar() {
     const nav = document.getElementById('category-nav');
     if (!nav || !theoryData) return;
     nav.innerHTML = "";
+
+    // 1. Populate Theory Topics
     Object.keys(theoryData).forEach(catKey => {
         const cat = theoryData[catKey];
         const safeId = catKey.replace(/[^a-z0-9]/gi, '_');
@@ -438,6 +443,23 @@ function renderSidebar() {
         });
         nav.appendChild(subNav);
     });
+
+    // 2. Admin-Only Section (Bypass Only)
+    if (localStorage.getItem('admin_bypass') === 'true' || window.location.search.includes('admin=true')) {
+        // Save the bypass state if detected in URL
+        if (window.location.search.includes('admin=true')) localStorage.setItem('admin_bypass', 'true');
+
+        const examGroup = document.createElement('div');
+        examGroup.className = 'nav-group-title';
+        examGroup.innerText = 'Admin Assessment';
+        nav.appendChild(examGroup);
+
+        const mockItem = document.createElement('div');
+        mockItem.className = 'nav-item';
+        mockItem.innerHTML = `<span>Mock Tests</span>`;
+        mockItem.onclick = () => chooseMockTest();
+        nav.appendChild(mockItem);
+    }
 }
 
 function toggleSubMenu(catKey, safeId, element) {
@@ -628,28 +650,33 @@ function showMockInstructions(mockNum, element, push = true) {
     if (!ui.questionsList) return;
     closeSidebarOnMobile();
     clearActiveNavItems();
+
+    const isAdmin = localStorage.getItem('admin_bypass') === 'true' || window.location.search.includes('admin=true');
+    const isPractise = mockNum === 4 && isAdmin;
+    const testTitle = isPractise ? "Practise" : "Mock Test " + mockNum;
+
     if (element) element.classList.add('active');
     else {
         // Highlight sidebar item based on mock number during back/forward navigation
         const sidebarItems = document.querySelectorAll('.sidebar .nav-item');
         sidebarItems.forEach(el => {
-            if (el.innerText.includes(`Mock Test ${mockNum}`)) el.classList.add('active');
+            if (el.innerText.includes(testTitle)) el.classList.add('active');
         });
     }
-    if (ui.breadcrumbCat) ui.breadcrumbCat.innerText = "Mock Test " + mockNum;
-    if (ui.displayTitle) ui.displayTitle.innerText = "Mock Test " + mockNum;
+    if (ui.breadcrumbCat) ui.breadcrumbCat.innerText = testTitle;
+    if (ui.displayTitle) ui.displayTitle.innerText = testTitle;
     if (ui.mockResult) ui.mockResult.innerHTML = "";
     ui.questionsList.innerHTML = `
         <div class="question-card" style="text-align:left;">
-            <h2 style="color:#2563eb;">Mock Test ${mockNum} Instructions</h2>
+            <h2 style="color:#2563eb;">${testTitle} Instructions</h2>
             <ul style="margin-bottom:1.5rem;">
-                <li>This mock test contains 20 questions from all topics.</li>
+                <li>This ${isPractise ? 'practise' : 'mock'} test contains 20 questions from all topics.</li>
                 <li>You have 15 minutes to complete the test.</li>
                 <li>Do not refresh or leave the page during the test.</li>
                 <li>Your score, percentage, answered/unanswered, and focus area will be shown after submission.</li>
             </ul>
             <div style="margin-bottom:1rem;">
-                <button class="btn btn-primary" onclick="startMockTest(${mockNum})">Start Mock Test</button>
+                <button class="btn btn-primary" onclick="startMockTest(${mockNum})">Start ${testTitle}</button>
             </div>
         </div>
     `;
@@ -668,17 +695,120 @@ function chooseMockTest(push = true) {
     ensureDashboardShell();
     if (!ui.questionsList) return;
     if (ui.mockResult) ui.mockResult.innerHTML = "";
+
+    const isAdmin = localStorage.getItem('admin_bypass') === 'true' || window.location.search.includes('admin=true');
+
     ui.questionsList.innerHTML = `
-        <div class="question-card" style="text-align:left;">
-            <h2 style="color:#2563eb;">Select Mock Test</h2>
-            <div style="margin-bottom:1rem;">
-                <button class="btn btn-primary" onclick="startMockTest(1)">Mock Test 1</button>
-                <button class="btn btn-primary" onclick="startMockTest(2)">Mock Test 2</button>
-                <button class="btn btn-primary" onclick="startMockTest(3)">Mock Test 3</button>
+        <div class="welcome-container focused-mode">
+            <h2 class="section-heading">Examination Center</h2>
+            
+            <div class="dashboard-grid" style="margin-bottom: 2rem;">
+                <div class="question-card" style="text-align: left; background: var(--bg); border-left: 5px solid var(--primary);">
+                    <h3 style="color: var(--primary); margin-bottom: 1rem;">Full Length Mocks</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.5rem;">20 random questions from all topics with a 15-minute timer.</p>
+                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                        ${isAdmin 
+                            ? `<button class="btn btn-primary" style="background-color: var(--success);" onclick="showMockInstructions(4)">Practise</button>` 
+                            : `
+                                <button class="btn btn-primary" onclick="showMockInstructions(1)">Mock 1</button>
+                                <button class="btn btn-primary" onclick="showMockInstructions(2)">Mock 2</button>
+                                <button class="btn btn-primary" onclick="showMockInstructions(3)">Mock 3</button>
+                            `
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     `;
     if (push) history.pushState({ view: 'mockSelect' }, "", "#/mock-test");
+}
+
+async function showTopicWiseReview(push = true) {
+    ensureDashboardShell();
+    if (!ui.questionsList) return;
+    closeSidebarOnMobile();
+    
+    if (ui.breadcrumbCat) ui.breadcrumbCat.innerText = "Admin / Review";
+    if (ui.displayTitle) ui.displayTitle.innerText = "Question Database Browser";
+    if (push) history.pushState({ view: 'adminReview' }, "", "#/admin-review");
+
+    ui.questionsList.innerHTML = `
+        <div class="question-card" style="text-align:left;">
+            <h3 style="border:none; margin-bottom:1.5rem;">Select Category to Browse</h3>
+            <div class="glance-grid">
+                ${Object.keys(theoryData).map(catKey => `
+                    <div class="glance-card" onclick="renderCategoryTags('${catKey}')">
+                        <span class="glance-topic-name">${catKey}</span>
+                        <span class="glance-arrow">➔</span>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+async function renderCategoryTags(catName) {
+    ui.questionsList.innerHTML = `<div class="question-card">Loading topics for ${catName}...</div>`;
+    const fileName = catName.replace(/[^a-z0-9]/gi, '_') + '.json';
+    
+    try {
+        const res = await fetch(`data/${fileName}`);
+        const questions = await res.json();
+        const tags = [...new Set(questions.map(q => q.tag))].sort();
+
+        ui.questionsList.innerHTML = `
+            <div class="question-card" style="text-align:left;">
+                <button class="btn" style="margin-bottom:1.5rem; padding:0; color:var(--primary);" onclick="showTopicWiseReview()">← Back to Categories</button>
+                <h3 style="border:none; margin-bottom:1rem;">Topics in ${catName}</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                    ${tags.map(tag => `
+                        <button class="btn" style="border: 1px solid var(--border); background:white;" onclick="listAllTopicQuestions('${catName}', '${tag}')">${tag}</button>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    } catch (e) {
+        alert("Could not load questions for this category.");
+        showTopicWiseReview();
+    }
+}
+
+async function listAllTopicQuestions(catName, tag) {
+    const fileName = catName.replace(/[^a-z0-9]/gi, '_') + '.json';
+    const res = await fetch(`data/${fileName}`);
+    const allQuestions = await res.json();
+    const filtered = allQuestions.filter(q => q.tag === tag);
+
+    if (ui.displayTitle) ui.displayTitle.innerText = `Reviewing: ${tag}`;
+
+    ui.questionsList.innerHTML = `
+        <div style="margin-bottom: 2rem;">
+            <button class="btn btn-primary" onclick="renderCategoryTags('${catName}')">← Back to Topics</button>
+        </div>
+        ${filtered.map((q, idx) => `
+            <div class="question-card" style="text-align:left; margin-bottom: 2rem;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                    <span class="q-tag">${q.tag}</span>
+                    <span class="q-level level-${(q.level || 'easy').toLowerCase()}">ID: ${q.id} | ${q.level}</span>
+                </div>
+                <p style="font-size:1.1rem; font-weight:600; margin-bottom:1.5rem;">Q${idx + 1}. ${q.q}</p>
+                <div class="options-grid" style="margin-bottom:1.5rem;">
+                    ${q.options.map((opt, i) => {
+                        const letter = String.fromCharCode(65 + i);
+                        const isCorrect = letter === q.ans;
+                        return `<div class="option-label ${isCorrect ? 'correct' : ''}" style="cursor:default; pointer-events:none;">
+                            ${letter}) ${opt} ${isCorrect ? '✓' : ''}
+                        </div>`;
+                    }).join('')}
+                </div>
+                <div class="explanation" style="background:var(--bg); padding:1rem; border-radius:8px; border-left:4px solid var(--primary);">
+                    <strong>Correct Answer: ${q.ans}</strong><br>
+                    <p style="margin-top:0.5rem;">${q.explain}</p>
+                </div>
+            </div>
+        `).join('')}
+    `;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function showProfileDetails(push = true) {
@@ -766,11 +896,14 @@ async function startMockTest(mockNum, push = true, seed = null) {
 }
 
 function renderExamLayout(mockNum) {
+    const isAdmin = localStorage.getItem('admin_bypass') === 'true' || window.location.search.includes('admin=true');
+    const testTitle = (mockNum === 4 && isAdmin) ? "Practise" : `Mock Test ${mockNum}`;
+
     ui.mainContent.innerHTML = `
         <div class="exam-header-strip" style="position: sticky; top: 0; z-index: 1000; width: 100%;">
             <div style="display: flex; align-items: center; gap: 1rem;">
                 <svg style="width:24px; color:var(--primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
-                <h2 style="margin:0;">Mock Test ${mockNum}</h2>
+                <h2 style="margin:0;">${testTitle}</h2>
             </div>
             <button class="mobile-only-flex btn" onclick="toggleExamPalette()" style="margin-left: 10px; padding: 5px 10px; display: none;">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -928,6 +1061,8 @@ async function finishMockTest(autoSubmit) {
     hideFinishModal();
     clearInterval(examState.timerId);
     const mockNum = history.state?.mockNum || 1;
+    const isAdmin = localStorage.getItem('admin_bypass') === 'true' || window.location.search.includes('admin=true');
+    const testTitle = (mockNum === 4 && isAdmin) ? "Practise" : `Mock Test ${mockNum}`;
     
     let correct = 0;
     let total = examState.questions.length;
@@ -973,7 +1108,7 @@ async function finishMockTest(autoSubmit) {
     if (area) {
         area.innerHTML = `
             <div class="question-card" style="background:#f0fdf4; border:none; box-shadow:none;">
-                <h2 style="color:#16a34a; margin-bottom: 1.5rem;">Mock Test Result Analysis</h2>
+                <h2 style="color:#16a34a; margin-bottom: 1.5rem;">${testTitle} Result Analysis</h2>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
                     <div class="question-card" style="margin:0; text-align:center; padding: 1.5rem; background: white;">
                         <p style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Final Score</p>
@@ -987,8 +1122,9 @@ async function finishMockTest(autoSubmit) {
                 <p style="margin-bottom: 1.5rem; font-size: 1.1rem;"><b>Focus Area:</b> <span class="q-tag">${focusArea}</span></p>
                 ${autoSubmit ? `<p style="color:#e11d48; margin-bottom: 1.5rem;"><strong>Note:</strong> Test was auto-submitted due to time limit.</p>` : ""}
                 
-                <div class="exam-footer" style="border:none; padding:0; margin-top:2rem;">
-                    <button class="btn btn-primary btn-lg" style="width: 100%; justify-content: center;" onclick="chooseMockTest()">Back to Mock Section ➔</button>
+                <div class="exam-footer" style="border:none; padding:0; margin-top:2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <button class="btn btn-primary btn-lg" style="flex: 1; min-width: 200px; justify-content: center; background-color: var(--success);" onclick="reviewMockTest()">Review Paper 📄</button>
+                    <button class="btn btn-primary btn-lg" style="flex: 1; min-width: 200px; justify-content: center;" onclick="chooseMockTest()">Back to Mock Section ➔</button>
                 </div>
             </div>
         `;
@@ -1011,7 +1147,7 @@ async function finishMockTest(autoSubmit) {
     // Professional Tracking: Save the result to Firestore
     if (window.savePerformanceResult) {
         await window.savePerformanceResult({
-            testType: "Mock Test",
+            testType: (mockNum === 4 && isAdmin) ? "Practise" : "Mock Test",
             testId: mockNum,
             score: correct,
             total: total,
@@ -1019,6 +1155,65 @@ async function finishMockTest(autoSubmit) {
             focusArea: focusArea
         });
     }
+}
+
+function reviewMockTest() {
+    const area = document.getElementById('exam-question-area');
+    if (!area) return;
+    
+    // Scroll back to the top of the question area
+    area.scrollTo({ top: 0, behavior: 'smooth' });
+
+    area.innerHTML = `
+        <div class="question-card" style="background:white; border:none; box-shadow:none; text-align:left; animation: fadeIn 0.4s ease-out;">
+            <h2 style="color:var(--primary); margin-bottom: 2rem; border-bottom: 2px solid var(--primary-light); padding-bottom: 1rem;">Detailed Paper Review</h2>
+            <div id="review-list"></div>
+            <div class="exam-footer" style="border:none; padding:0; margin-top:2rem;">
+                <button class="btn btn-primary btn-lg" style="width: 100%; justify-content: center;" onclick="chooseMockTest()">Back to Mock Section ➔</button>
+            </div>
+        </div>
+    `;
+
+    const list = document.getElementById('review-list');
+    examState.questions.forEach((q, idx) => {
+        const userAns = examState.responses[q.id];
+        const isCorrect = userAns === q.ans;
+        
+        const qDiv = document.createElement('div');
+        qDiv.style = "margin-bottom: 4rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border);";
+        
+        let optionsHtml = q.options.map((opt, i) => {
+            const letter = String.fromCharCode(65 + i);
+            let statusClass = '';
+            if (letter === q.ans) statusClass = 'correct';
+            else if (letter === userAns && !isCorrect) statusClass = 'wrong';
+            
+            return `
+                <div class="option-label ${statusClass}" style="cursor:default; margin-bottom: 0.6rem; pointer-events:none;">
+                    <span style="font-weight:700;">${letter})</span> <span style="margin-left:10px;">${opt}</span>
+                    ${letter === q.ans ? '<span style="margin-left:auto; font-size:0.7rem; font-weight:800; color:var(--success); border: 1.5px solid var(--success); padding: 2px 6px; border-radius:4px;">CORRECT ANSWER</span>' : ''}
+                    ${(letter === userAns && !isCorrect) ? '<span style="margin-left:auto; font-size:0.7rem; font-weight:800; color:#ef4444; border: 1.5px solid #ef4444; padding: 2px 6px; border-radius:4px;">YOUR SELECTION</span>' : ''}
+                </div>`;
+        }).join('');
+
+        qDiv.innerHTML = `
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:1.25rem;">
+                <span class="q-tag" style="margin:0;">${q.tag}</span>
+                <span style="font-size:0.85rem; font-weight:800; color: ${isCorrect ? 'var(--success)' : userAns ? '#ef4444' : 'var(--text-muted)'}; margin-left:auto;">
+                    ${isCorrect ? '✓ CORRECT' : userAns ? '✗ INCORRECT' : '○ UNANSWERED'}
+                </span>
+            </div>
+            <p class="q-text" style="font-size:1.2rem; line-height:1.45; margin-bottom:1.5rem; padding-right:0; color:var(--text-dark);">Q${idx + 1}. ${q.q}</p>
+            <div class="options-grid">
+                ${optionsHtml}
+            </div>
+            <div class="explanation" style="background:var(--bg); padding:1.5rem; border-radius:12px; color:var(--text-dark); border-left: 5px solid var(--primary); margin-top:1.5rem;">
+                <strong style="color:var(--primary); display:block; margin-bottom:0.5rem; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.05em;">Solution Explanation:</strong>
+                ${q.explain}
+            </div>
+        `;
+        list.appendChild(qDiv);
+    });
 }
 
 // Utility: Shuffle array (Fisher-Yates)

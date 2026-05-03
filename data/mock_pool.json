@@ -10,7 +10,7 @@
   },
   {
     "id": 2,
-    "tag": "Time, Speed and Distance",
+    "tag": "Speed, Time and Distance",
     "level": "Medium",
     "q": "A person crosses a 600m long street in 5 minutes. What is his speed in km/hr?",
     "options": ["3.6", "7.2", "8.4", "10"],
@@ -343,7 +343,7 @@
   },
   {
     "id": 39,
-    "tag": "Time & Work",
+    "tag": "Work and Time",
     "level": "Medium",
     "q": "A can do a work in 10 days and B in 15 days. If they work together, in how many days will they finish the work?",
     "options": ["5", "6", "8", "9"],
@@ -478,7 +478,7 @@
   },
   {
     "id": 54,
-    "tag": "Time, Speed and Distance",
+    "tag": "Speed, Time and Distance",
     "level": "Hard",
     "q": "A train 240m long passes a pole in 24 seconds. How long will it take to pass a platform 650m long?",
     "options": ["65 sec", "89 sec", "100 sec", "150 sec"],
@@ -487,7 +487,7 @@
   },
   {
     "id": 55,
-    "tag": "Time & Work",
+    "tag": "Work and Time",
     "level": "Hard",
     "q": "If 12 men can build a wall 100m long in 5 days, how many men are required to build a wall 200m long in 3 days?",
     "options": ["20", "30", "40", "50"],
@@ -514,7 +514,7 @@
   },
   {
     "id": 58,
-    "tag": "Divisibility rules",
+    "tag": "Number system",
     "level": "Medium",
     "q": "Which of the following numbers is divisible by 11?",
     "options": ["4832718", "4823718", "8423718", "8432718"],
@@ -523,7 +523,7 @@
   },
   {
     "id": 59,
-    "tag": "Problems on Ages",
+    "tag": "Problems Based on Ages",
     "level": "Hard",
     "q": "The sum of ages of 5 children born at intervals of 3 years each is 50 years. What is the age of the youngest child?",
     "options": ["4", "8", "10", "12"],
@@ -1541,7 +1541,7 @@
   },
   {
     "id": 172,
-    "tag": "Simplification (BODMAS)",
+    "tag": "HCF & LCM",
     "level": "Hard",
     "q": "Six bells ring at intervals of 2, 4, 6, 8, 10, and 12 seconds. In 30 minutes, how many times do they ring together?",
     "options": ["15", "16", "30", "31"],
@@ -1549,7 +1549,7 @@
     "explain": "LCM = 120 sec = 2 mins. (30 / 2) + 1 = 16 times."
   },
   {
-    "id": 164,
+    "id": 173,
     "tag": "Simplification (BODMAS)",
     "level": "Medium",
     "q": "Simplify: 4 - [6 - {12 - (10 - (8 - 6))}]",
@@ -1558,7 +1558,7 @@
     "explain": "4 - [6 - {12 - (10 - 2)}] = 4 - [6 - {12 - 8}] = 4 - [6 - 4] = 4 - 2 = 2."
   },
   {
-    "id": 165,
+    "id": 174,
     "tag": "Simplification (BODMAS)",
     "level": "Medium",
     "q": "Evaluate: (9.6 x 3.6 ÷ 7.2 + 10.8 of 1/18 - 1/10)",
@@ -1567,7 +1567,7 @@
     "explain": "10.8 of 1/18 = 0.6. 3.6 / 7.2 = 0.5. (9.6 * 0.5) + 0.6 - 0.1 = 4.8 + 0.6 - 0.1 = 5.3."
   },
   {
-    "id": 166,
+    "id": 175,
     "tag": "Simplification (BODMAS)",
     "level": "Easy",
     "q": "Find the value of: 18800 ÷ 940 ÷ 10",
@@ -1576,7 +1576,7 @@
     "explain": "18800 / 940 = 20. 20 / 10 = 2."
   },
   {
-    "id": 167,
+    "id": 176,
     "tag": "Simplification (BODMAS)",
     "level": "Medium",
     "q": "Simplify: 4(1/6) + 5(1/6) + 8(1/6)",
@@ -1585,7 +1585,7 @@
     "explain": "(4+5+8) + (1/6 + 1/6 + 1/6) = 17 + 3/6 = 17(1/2)."
   },
   {
-    "id": 168,
+    "id": 177,
     "tag": "Simplification (BODMAS)",
     "level": "Hard",
     "q": "If (a + 1/a) = 4√2, find (a^6 + 1/a^6).",
@@ -1594,12 +1594,782 @@
     "explain": "Square: a^2 + 1/a^2 = 30. Cube: (a^2+1/a^2)^3 = 30^3 => a^6+1/a^6 + 3(30) = 27000. a^6+1/a^6 = 26910."
   },
   {
-    "id": 172,
+    "id": 178,
     "tag": "HCF & LCM",
     "level": "Medium",
     "q": "Six bells ring at intervals of 2, 4, 6, 8, 10, and 12 seconds. In 30 minutes, how many times do they ring together?",
     "options": ["15", "16", "30", "31"],
     "ans": "B",
     "explain": "LCM = 120 sec = 2 mins. (30 / 2) + 1 = 16 times."
+  },
+  {
+    "id": 179,
+    "tag": "Number System",
+    "level": "Hard",
+    "q": "The sum of all the possible values of (a + b) so that number 4a067b is divisible by 11.",
+    "options": [
+      "5",
+      "16",
+      "21",
+      "11"
+    ],
+    "ans": "C",
+    "explain": "Sum of odd places = 11. Sum of even places = a+6+b. Difference 11-(a+b+6) = 0 or mult of 11. a+b=5 or 16. Sum = 5+16=21.[cite: 1, 2]"
+  },
+  {
+    "id": 180,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "If 1234567y is divisible by 11, then what is the value of y?",
+    "options": [
+      "3",
+      "1",
+      "4",
+      "2"
+    ],
+    "ans": "C",
+    "explain": "(1+3+5+7) - (2+4+6+y) = 0 => 16 - 12 - y = 0 => y = 4.[cite: 1, 2]"
+  },
+  {
+    "id": 181,
+    "tag": "Number System",
+    "level": "Hard",
+    "q": "Find the lowest positive value of (c - b) such that the 7-digit number 1738b9c is divisible by 12.",
+    "options": [
+      "4",
+      "2",
+      "1",
+      "7"
+    ],
+    "ans": "C",
+    "explain": "Divisible by 4 => c=6. Divisible by 3 => 34+b must be divisible by 3, so b=5. c-b = 6-5=1.[cite: 1, 2]"
+  },
+  {
+    "id": 182,
+    "tag": "Number System",
+    "level": "Hard",
+    "q": "Which of the following numbers will completely divide (6^61 + 6^62 + 6^63 + 6^64)?",
+    "options": [
+      "10",
+      "13",
+      "7",
+      "11"
+    ],
+    "ans": "C",
+    "explain": "6^61(1+6+36+216) = 6^61 * 259 = 6^61 * 37 * 7. Divisible by 7.[cite: 1, 2]"
+  },
+  {
+    "id": 183,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "In a division problem, the divisor is 4 times the quotient and 2 times the remainder. If the remainder is 32, then find the dividend.",
+    "options": [
+      "1056",
+      "1650",
+      "3240",
+      "1065"
+    ],
+    "ans": "A",
+    "explain": "Divisor = 2 * 32 = 64. Quotient = 64/4 = 16. Dividend = 64 * 16 + 32 = 1056.[cite: 1, 2]"
+  },
+  {
+    "id": 184,
+    "tag": "Number System",
+    "level": "Easy",
+    "q": "The number 2918245 is divisible by which of the following numbers?",
+    "options": [
+      "3",
+      "11",
+      "12",
+      "9"
+    ],
+    "ans": "B",
+    "explain": "Difference of sum of digits at odd and even places = (9+8+4) - (2+1+2+5) = 11. Divisible by 11.[cite: 1, 2]"
+  },
+  {
+    "id": 185,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "If the four-digit number 463y is divisible by 7, then what is the value of y?",
+    "options": [
+      "6",
+      "3",
+      "5",
+      "4"
+    ],
+    "ans": "D",
+    "explain": "463y / 7 leaves 0 remainder when y=4.[cite: 1, 2]"
+  },
+  {
+    "id": 186,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "Which number among 38211, 38121, 32118 and 31128 is divisible by 24?",
+    "options": [
+      "32118",
+      "31128",
+      "38121",
+      "38211"
+    ],
+    "ans": "B",
+    "explain": "Divisible by 24 (8 and 3). 31128: 128 is div by 8, and sum 15 is div by 3.[cite: 1, 2]"
+  },
+  {
+    "id": 187,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "Which of the following numbers is divisible by 7, 11 and 13?",
+    "options": [
+      "1002001",
+      "1003001",
+      "1005001",
+      "1004001"
+    ],
+    "ans": "A",
+    "explain": "LCM(7,11,13) = 1001. 1002001 is (1001)^2, so it is divisible.[cite: 1, 2]"
+  },
+  {
+    "id": 188,
+    "tag": "Number System",
+    "level": "Easy",
+    "q": "If a number P is divisible by 2 and another number Q is divisible by 3, then which of the following is true?",
+    "options": [
+      "P + Q is divisible by 6",
+      "P + Q is divisible by 5",
+      "P * Q is always divisible by 6",
+      "P * Q is divisible by 5"
+    ],
+    "ans": "C",
+    "explain": "If P is div by 2 and Q by 3, P*Q is always divisible by 2*3 = 6.[cite: 1, 2]"
+  },
+  {
+    "id": 189,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "If 5A72B is divisible by 11, then what is the value of B - A?",
+    "options": [
+      "3",
+      "2",
+      "1",
+      "4"
+    ],
+    "ans": "C",
+    "explain": "(5+7+B)-(A+2) = 0 or 11. B-A+10=11 => B-A=1.[cite: 1, 2]"
+  },
+  {
+    "id": 190,
+    "tag": "Number System",
+    "level": "Hard",
+    "q": "The 6-digit number 473xy5 is divisible by 125. How many such 6-digit numbers are there?",
+    "options": [
+      "3",
+      "4",
+      "1",
+      "2"
+    ],
+    "ans": "B",
+    "explain": "Last 3 digits xy5 must be a multiple of 125. Possible: 125, 375, 625, 875. Total = 4.[cite: 1, 2]"
+  },
+  {
+    "id": 191,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "The smallest 1-digit number to be added to the 6-digit number 910300 so that it is completely divisible by 11 is",
+    "options": [
+      "6",
+      "2",
+      "9",
+      "5"
+    ],
+    "ans": "D",
+    "explain": "(9+0+0)-(1+3+x) = 5-x. For div by 11, x=5.[cite: 1, 2]"
+  },
+  {
+    "id": 192,
+    "tag": "Number System",
+    "level": "Hard",
+    "q": "Consider a 6 digit number of the form xyxyxy. The number is divisible by?",
+    "options": [
+      "3 and 7 only",
+      "7 and 13 only",
+      "3, 13 and 37 only",
+      "3, 7, 13 and 37"
+    ],
+    "ans": "D",
+    "explain": "xyxyxy = 10101 * xy. 10101 = 3 * 7 * 13 * 37.[cite: 1, 2]"
+  },
+  {
+    "id": 193,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "Which of the following numbers is a divisor of (49^15 - 1)?",
+    "options": [
+      "46",
+      "14",
+      "8",
+      "50"
+    ],
+    "ans": "C",
+    "explain": "49^15 - 1 = (7^2)^15 - 1 = 7^30 - 1. (a^n-b^n) is divisible by (a+b) and (a-b) if n is even. Divisible by 8 and 6.[cite: 1, 2]"
+  },
+  {
+    "id": 194,
+    "tag": "Number System",
+    "level": "Hard",
+    "q": "A four-digit number abba is divisible by 4 and a < b. How many such numbers are there?",
+    "options": [
+      "10",
+      "8",
+      "12",
+      "6"
+    ],
+    "ans": "B",
+    "explain": "Last two digits 'ba' must be div by 4 where a < b. Possible pairs for ba: 32, 52, 64, 72, 76, 84, 92, 96. Total = 8.[cite: 1, 2]"
+  },
+  {
+    "id": 195,
+    "tag": "Number System",
+    "level": "Easy",
+    "q": "If 'a' and 'b' are prime numbers, which of the following cannot be the sum of 'a' and 'b'?",
+    "options": [
+      "6",
+      "10",
+      "28",
+      "14"
+    ],
+    "ans": "A",
+    "explain": "10=7+3, 28=23+5, 14=11+3. 6 cannot be sum of distinct primes (only 3+3, not distinct).[cite: 1, 2]"
+  },
+  {
+    "id": 196,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "Four prime numbers are taken in ascending order. The product of the first three is 385. The product of the last three is 1001. Which is the first number?",
+    "options": [
+      "5",
+      "17",
+      "13",
+      "7"
+    ],
+    "ans": "A",
+    "explain": "Factors of 385 = 5 * 7 * 11. Last product = 7 * 11 * 13 = 1001. First prime is 5.[cite: 1, 2]"
+  },
+  {
+    "id": 197,
+    "tag": "Number System",
+    "level": "Hard",
+    "q": "On adding 984 to a 3-digit number 4a3, we get a 4-digit number 13b7. The minimum number c, so that (13b7 + c) is completely divisible by 8 is",
+    "options": [
+      "5",
+      "2",
+      "6",
+      "3"
+    ],
+    "ans": "D",
+    "explain": "1397 + 3 = 1400, which is divisible by 8. Minimum value of c = 3.[cite: 1, 2]"
+  },
+  {
+    "id": 198,
+    "tag": "Number System",
+    "level": "Hard",
+    "q": "If (77^77 + 77) is divided by 78, then the remainder will be",
+    "options": [
+      "76",
+      "77",
+      "78",
+      "1"
+    ],
+    "ans": "A",
+    "explain": "(-1)^77 + (-1) = -1 - 1 = -2. Remainder = -2 + 78 = 76.[cite: 1, 2]"
+  },
+  {
+    "id": 199,
+    "tag": "Number System",
+    "level": "Easy",
+    "q": "A number when divided by 119, leaves 19 as remainder. If it is divided by 17, it will leave a remainder",
+    "options": [
+      "4",
+      "3",
+      "1",
+      "2"
+    ],
+    "ans": "D",
+    "explain": "19 / 17 leaves remainder 2.[cite: 1, 2]"
+  },
+  {
+    "id": 200,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "The remainder when 72 * 73 * 78 * 76 is divided by 35 is",
+    "options": [
+      "12",
+      "15",
+      "22",
+      "8"
+    ],
+    "ans": "D",
+    "explain": "Remainders are 2, 3, 8, 6. (2*3*8*6) = 288. 288/35 leaves remainder 8.[cite: 1, 2]"
+  },
+  {
+    "id": 201,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "Find the remainder when 7^7 is divided by 4.",
+    "options": [
+      "3",
+      "1",
+      "0",
+      "2"
+    ],
+    "ans": "A",
+    "explain": "7^7/4 = (49^3 * 7)/4. Remainder = (1^3 * 3) = 3.[cite: 1, 2]"
+  },
+  {
+    "id": 202,
+    "tag": "Number System",
+    "level": "Easy",
+    "q": "The remainder, when (29)^72 is divided by 28 is",
+    "options": [
+      "1",
+      "2",
+      "8",
+      "14"
+    ],
+    "ans": "A",
+    "explain": "Remainder of 29/28 = 1. So 1^72 = 1.[cite: 1, 2]"
+  },
+  {
+    "id": 203,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "Find the remainder when (25)^25 + 26 is divided by 26.",
+    "options": [
+      "25",
+      "-1",
+      "0",
+      "22"
+    ],
+    "ans": "A",
+    "explain": "(-1)^25 + 26 = -1 + 26 = 25.[cite: 1, 2]"
+  },
+  {
+    "id": 204,
+    "tag": "Number System",
+    "level": "Easy",
+    "q": "If a positive integer n is divided by 7, then the remainder is 3. Which of the following numbers yields a remainder of 0 when it is divided by 7?",
+    "options": [
+      "n + 3",
+      "n + 4",
+      "n + 2",
+      "n + 5"
+    ],
+    "ans": "B",
+    "explain": "n = 7Q + 3. (n + 4) = 7Q + 7, which is divisible by 7.[cite: 1, 2]"
+  },
+  {
+    "id": 205,
+    "tag": "Number System",
+    "level": "Hard",
+    "q": "Find the number when successively divided by 3, 5 and 7 leaves remainder 2, 1 and 3, respectively, and the last quotient is 3.",
+    "options": [
+      "360",
+      "362",
+      "365",
+      "367"
+    ],
+    "ans": "C",
+    "explain": "Work backwards: 7*3+3=24; 5*24+1=121; 3*121+2=365.[cite: 1, 2]"
+  },
+  {
+    "id": 206,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "When a positive number N is divided by 13 leaves the remainder 11, then find the remainder when 26 N is divided by the same divisor.",
+    "options": [
+      "0",
+      "8",
+      "3",
+      "10"
+    ],
+    "ans": "A",
+    "explain": "26N is a multiple of 13. Any multiple of 13 divided by 13 leaves 0 remainder.[cite: 1, 2]"
+  },
+  {
+    "id": 207,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "Find the remainder when: 1661 + 1551 + 1441 + 1331 + 1221 is divided by 20.",
+    "options": [
+      "25",
+      "5",
+      "11",
+      "1"
+    ],
+    "ans": "B",
+    "explain": "Remainders: 1, 11, 1, 11, 1. Sum = 25. 25/20 leaves remainder 5.[cite: 1, 2]"
+  },
+  {
+    "id": 208,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "Let N = 1420 * 1423 * 1425 What is the remainder when N is dividend by 12?",
+    "options": [
+      "0",
+      "4",
+      "6",
+      "2"
+    ],
+    "ans": "A",
+    "explain": "1420 is div by 4 and 1425 is div by 3. Thus N is divisible by 12. Remainder = 0.[cite: 1, 2]"
+  },
+  {
+    "id": 209,
+    "tag": "Number System",
+    "level": "Hard",
+    "q": "What is the remainder when 3^8 is divided by 7?",
+    "options": [
+      "1",
+      "4",
+      "6",
+      "2"
+    ],
+    "ans": "D",
+    "explain": "3^8/7 = (3^6 * 3^2)/7. By Fermat's theorem 3^6/7 leaves 1. Remainder = 1 * 9 / 7 = 2.[cite: 1, 2]"
+  },
+  {
+    "id": 210,
+    "tag": "Number System",
+    "level": "Hard",
+    "q": "When the number (12345678910111213 ... 99100) is divided by 16, what will be the remainder?",
+    "options": [
+      "15",
+      "12",
+      "4",
+      "3"
+    ],
+    "ans": "B",
+    "explain": "Divisibility by 16 depends on last 4 digits (9100). 9100 / 16 leaves remainder 12.[cite: 1, 2]"
+  },
+  {
+    "id": 211,
+    "tag": "Number System",
+    "level": "Easy",
+    "q": "Find the unit digit in the product 6812 * 3528 * 3179 * 4324",
+    "options": [
+      "7",
+      "6",
+      "3",
+      "5"
+    ],
+    "ans": "B",
+    "explain": "Product of units: 2 * 8 * 9 * 4 = 576. Unit digit = 6.[cite: 1, 2]"
+  },
+  {
+    "id": 212,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "In the product; 46* * 281 * 49 * 34 if the digit in the unit place is 2, then the digit in place of * will always be",
+    "options": [
+      "2",
+      "7",
+      "2 or 7",
+      "6"
+    ],
+    "ans": "C",
+    "explain": "* * 1 * 9 * 4 = 2 => * * 36 = 2. * * 6 ends in 2, so * could be 2 or 7.[cite: 1, 2]"
+  },
+  {
+    "id": 213,
+    "tag": "Number System",
+    "level": "Easy",
+    "q": "Find the digit in the unit's place of 124^n + 124^(n+1) where n is any whole number.",
+    "options": [
+      "0",
+      "4",
+      "2",
+      "8"
+    ],
+    "ans": "A",
+    "explain": "One is 4^even (6) and other is 4^odd (4). 6+4 = 10, so unit digit is 0.[cite: 1, 2]"
+  },
+  {
+    "id": 214,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "The digit in the unit's place of the number (67)^25 - 1 must be",
+    "options": [
+      "7",
+      "6",
+      "8",
+      "10"
+    ],
+    "ans": "B",
+    "explain": "Unit digit of 7^25 = 7^1 = 7. 7 - 1 = 6.[cite: 1, 2]"
+  },
+  {
+    "id": 215,
+    "tag": "Number System",
+    "level": "Hard",
+    "q": "If x = (164)^169 + (333)^337 - (727)^726, then what is the units digit of x?",
+    "options": [
+      "5",
+      "7",
+      "8",
+      "9"
+    ],
+    "ans": "C",
+    "explain": "Unit digits: 4^1 + 3^1 - 7^2 = 4 + 3 - 9 = -2. 10 - 2 = 8.[cite: 1, 2]"
+  },
+  {
+    "id": 216,
+    "tag": "Number System",
+    "level": "Hard",
+    "q": "The total number of prime numbers in (25)^13 * (10)^7 * (27)^5",
+    "options": [
+      "25",
+      "45",
+      "55",
+      "56"
+    ],
+    "ans": "C",
+    "explain": "(5^2)^13 * (2*5)^7 * (3^3)^5 = 5^26 * 2^7 * 5^7 * 3^15 = 2^7 * 3^15 * 5^33. Total prime factors = 7+15+33 = 55.[cite: 1, 2]"
+  },
+  {
+    "id": 217,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "Which of the following is a common factor of (89^89 + 87^89) and (89^97 + 87^97)?",
+    "options": [
+      "176",
+      "178",
+      "186",
+      "174"
+    ],
+    "ans": "A",
+    "explain": "a^m + b^m is div by (a+b) if m is odd. Both are div by 89+87=176.[cite: 1, 2]"
+  },
+  {
+    "id": 218,
+    "tag": "Number System",
+    "level": "Easy",
+    "q": "The number 323 has",
+    "options": [
+      "No prime factors",
+      "Four prime factors",
+      "Two prime factors",
+      "Three prime factors"
+    ],
+    "ans": "C",
+    "explain": "323 = 17 * 19. It has two prime factors.[cite: 1, 2]"
+  },
+  {
+    "id": 219,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "x is a whole number. If the only common factors of x and x^2 are 1 and x, then x is",
+    "options": [
+      "1",
+      "a perfect square",
+      "an odd number",
+      "a prime number"
+    ],
+    "ans": "D",
+    "explain": "The only factors of x^2 are 1, x, and x^2 if x is prime. Common factors with x would be 1 and x.[cite: 1, 2]"
+  },
+  {
+    "id": 220,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "How many of the factors of 256 are perfect squares?",
+    "options": [
+      "4",
+      "3",
+      "6",
+      "5"
+    ],
+    "ans": "D",
+    "explain": "256 = 2^8. Perfect square factors are 2^0, 2^2, 2^4, 2^6, 2^8. Total = 5.[cite: 1, 2]"
+  },
+  {
+    "id": 221,
+    "tag": "Number System",
+    "level": "Hard",
+    "q": "The prime factorisation of the number 266805 is",
+    "options": [
+      "3^3 * 5^2 * 7 * 11^2",
+      "3^2 * 5 * 7^2 * 11^2",
+      "3^4 * 5^2 * 7^2 * 11^2",
+      "3 * 5 * 7^3 * 11^2"
+    ],
+    "ans": "B",
+    "explain": "266805 = 3 * 3 * 5 * 7 * 7 * 11 * 11 = 3^2 * 5 * 7^2 * 11^2.[cite: 1, 2]"
+  },
+  {
+    "id": 222,
+    "tag": "Number System",
+    "level": "Hard",
+    "q": "Let x = 55^100 + 55^101 + 55^102 Which of the following prime numbers is not a factor of x?",
+    "options": [
+      "71",
+      "3",
+      "79",
+      "11"
+    ],
+    "ans": "A",
+    "explain": "x = 55^100(1+55+3025) = 55^100 * 3081 = 55^100 * 3 * 13 * 79. 71 is not a factor.[cite: 1, 2]"
+  },
+  {
+    "id": 223,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "The number of factors of 4200 are",
+    "options": [
+      "64",
+      "56",
+      "46",
+      "48"
+    ],
+    "ans": "D",
+    "explain": "4200 = 2^3 * 3^1 * 5^2 * 7^1. Total factors = (3+1)(1+1)(2+1)(1+1) = 48.[cite: 1, 2]"
+  },
+  {
+    "id": 224,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "If a number is in the form of 8^10 * 9^7 * 7^8 find the total number of prime factors of the given number.",
+    "options": [
+      "52",
+      "560",
+      "3360",
+      "25"
+    ],
+    "ans": "A",
+    "explain": "2^30 * 3^14 * 7^8. Total prime factors = 30 + 14 + 8 = 52.[cite: 1, 2]"
+  },
+  {
+    "id": 225,
+    "tag": "Number System",
+    "level": "Hard",
+    "q": "Number of prime factors of (1/6)^12 * 8^25 * (3/4)^15",
+    "options": [
+      "36",
+      "37",
+      "52",
+      "33"
+    ],
+    "ans": "A",
+    "explain": "2^-12 * 3^-12 * 2^75 * 3^15 * 2^-30 = 2^33 * 3^3. Total prime factors = 33 + 3 = 36.[cite: 1, 2]"
+  },
+  {
+    "id": 226,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "Find the sum of the prime factors of 9^6 * 12^4 * 7^7",
+    "options": [
+      "13",
+      "12",
+      "14",
+      "11"
+    ],
+    "ans": "B",
+    "explain": "Factors are 2, 3, 7. Sum = 2+3+7 = 12.[cite: 1, 2]"
+  },
+  {
+    "id": 227,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "The number of zeroes at the end of the product of 8 * 12 * 14 * 15 * 27 * 32 * 25 * 22 * 40 * 75 * 125 * 212 is",
+    "options": [
+      "8",
+      "9",
+      "10",
+      "11"
+    ],
+    "ans": "B",
+    "explain": "Count pairs of 2 and 5. 2^17 and 5^9. Max zeroes = 9.[cite: 1, 2]"
+  },
+  {
+    "id": 228,
+    "tag": "Number System",
+    "level": "Hard",
+    "q": "Find the number of trailing zeros in 15870!",
+    "options": [
+      "3765",
+      "3965",
+      "3665",
+      "3865"
+    ],
+    "ans": "B",
+    "explain": "15870/5 + 15870/25 + 15870/125 + ... = 3174 + 634 + 126 + 25 + 5 + 1 = 3965.[cite: 1, 2]"
+  },
+  {
+    "id": 229,
+    "tag": "Number System",
+    "level": "Hard",
+    "q": "The value of 1^2 + ... + n^2 - (1 + ... + n) is",
+    "options": [
+      "n(n^2 - 1) / 2",
+      "n(n^2 - 1) / 3",
+      "n(n + 1)^2 / 3",
+      "n^2(n + 1) / 3"
+    ],
+    "ans": "B",
+    "explain": "[n(n+1)(2n+1)/6] - [n(n+1)/2] = n(n+1)(n-1)/3 = n(n^2-1)/3.[cite: 1, 2]"
+  },
+  {
+    "id": 230,
+    "tag": "Number System",
+    "level": "Hard",
+    "q": "The value of 1^3 + 2^3 + ... + n^3 - (1 + 2 + ... + n) is",
+    "options": [
+      "(n^2 + n)(n^2 + n - 1) / 4",
+      "(n^2 + n)(n^2 + n - 2) / 2",
+      "(n^2 + n)(n^2 + n - 2) / 4",
+      "(n^2 + n)(n^2 + n - 1) / 2"
+    ],
+    "ans": "C",
+    "explain": "[n(n+1)/2]^2 - [n(n+1)/2] = (n^2+n)(n^2+n-2)/4.[cite: 1, 2]"
+  },
+  {
+    "id": 231,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "If 1^2 + 2^2 + 3^2 + ... + 14^2 = 1015, then 3^2 + 6^2 + 9^2 + ... + 42^2 is equal to",
+    "options": [
+      "9135",
+      "9325",
+      "9235",
+      "9315"
+    ],
+    "ans": "A",
+    "explain": "3^2(1^2 + 2^2 + ... + 14^2) = 9 * 1015 = 9135.[cite: 1, 2]"
+  },
+  {
+    "id": 232,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "What is the sum of the cubes of the natural numbers from 5 to 14?",
+    "options": [
+      "10920",
+      "10925",
+      "10930",
+      "10935"
+    ],
+    "ans": "B",
+    "explain": "Sum(1-14)^3 - Sum(1-4)^3 = (14*15/2)^2 - (4*5/2)^2 = 11025 - 100 = 10925.[cite: 1, 2]"
+  },
+  {
+    "id": 233,
+    "tag": "Number System",
+    "level": "Medium",
+    "q": "Find the value of 21^2 + 22^2 + 23^2 + .... + 30^2",
+    "options": [
+      "6855",
+      "6585",
+      "5865",
+      "8565"
+    ],
+    "ans": "B",
+    "explain": "Sum(1-30)^2 - Sum(1-20)^2 = (30*31*61/6) - (20*21*41/6) = 9455 - 2870 = 6585.[cite: 1, 2]"
   }
 ]
