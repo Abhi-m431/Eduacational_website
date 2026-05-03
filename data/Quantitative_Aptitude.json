@@ -64,7 +64,7 @@
   },
   {
     "id": 8,
-    "tag": "Divisibility rules",
+    "tag": "Number system",
     "level": "Easy",
     "q": "Which of the following is a prime number?",
     "options": ["33", "81", "93", "97"],
@@ -592,5 +592,339 @@
     "options": ["mnp/(np+mp+mn)", "mnp/(m+n+p)", "(m+n+p)/mnp", "mnp"],
     "ans": "A",
     "explain": "Total time = 1 / (1/m + 1/n + 1/p) = mnp / (np + mp + mn)."
+  },
+  {
+    "id": 91,
+    "tag": "Simplification (BODMAS)",
+    "level": "Medium",
+    "q": "Simplify: 4 - [6 - {12 - (10 - (8 - 6))}]",
+    "options": ["0", "2", "4", "6"],
+    "ans": "B",
+    "explain": "4 - [6 - {12 - (10 - 2)}] = 4 - [6 - {12 - 8}] = 4 - [6 - 4] = 4 - 2 = 2."
+  },
+  {
+    "id": 92,
+    "tag": "Simplification (BODMAS)",
+    "level": "Medium",
+    "q": "Evaluate: (9.6 x 3.6 ÷ 7.2 + 10.8 of 1/18 - 1/10)",
+    "options": ["4.8", "5.1", "5.3", "6.2"],
+    "ans": "C",
+    "explain": "10.8 of 1/18 = 0.6. 3.6 / 7.2 = 0.5. (9.6 * 0.5) + 0.6 - 0.1 = 4.8 + 0.6 - 0.1 = 5.3."
+  },
+  {
+    "id": 93,
+    "tag": "Simplification (BODMAS)",
+    "level": "Easy",
+    "q": "Find the value of: 18800 ÷ 940 ÷ 10",
+    "options": ["2", "20", "200", "0.2"],
+    "ans": "A",
+    "explain": "18800 / 940 = 20. 20 / 10 = 2."
+  },
+  {
+    "id": 94,
+    "tag": "Simplification (BODMAS)",
+    "level": "Medium",
+    "q": "Simplify: 4 - [6 - {12 - (10 - (8 - 6))}]",
+    "options": ["0", "2", "4", "6"],
+    "ans": "B",
+    "explain": "4 - [6 - {12 - (10 - 2)}] = 4 - [6 - {12 - 8}] = 4 - [6 - 4] = 4 - 2 = 2."
+  },
+  {
+    "id": 92,
+    "tag": "Simplification (BODMAS)",
+    "level": "Medium",
+    "q": "Evaluate: (9.6 x 3.6 ÷ 7.2 + 10.8 of 1/18 - 1/10)",
+    "options": ["4.8", "5.1", "5.3", "6.2"],
+    "ans": "C",
+    "explain": "10.8 of 1/18 = 0.6. 3.6 / 7.2 = 0.5. (9.6 * 0.5) + 0.6 - 0.1 = 4.8 + 0.6 - 0.1 = 5.3."
+  },
+  {
+    "id": 93,
+    "tag": "Simplification (BODMAS)",
+    "level": "Easy",
+    "q": "Find the value of: 18800 ÷ 940 ÷ 10",
+    "options": ["2", "20", "200", "0.2"],
+    "ans": "A",
+    "explain": "18800 / 940 = 20. 20 / 10 = 2."
+  },
+  {
+    "id": 94,
+    "tag": "Simplification (BODMAS)",
+    "level": "Medium",
+    "q": "Simplify: 4(1/6) + 5(1/6) + 8(1/6)",
+    "options": ["17", "17(1/3)", "17(1/2)", "18"],
+    "ans": "C",
+    "explain": "(4+5+8) + (1/6 + 1/6 + 1/6) = 17 + 3/6 = 17(1/2)."
+  },
+  {
+    "id": 95,
+    "tag": "Simplification (BODMAS)",
+    "level": "Hard",
+    "q": "Simplify: n - [n - (m + n) - {n - (n - (m - n))} + 2m]",
+    "options": ["0", "m", "n", "2m"],
+    "ans": "A",
+    "explain": "n - [n - m - n - {n - (2n - m)} + 2m] = n - [n - m - n - {-n + m} + 2m] = n - [n - m - n + n - m + 2m] = n - [n] = 0."
+  },
+  {
+    "id": 96,
+    "tag": "Simplification (BODMAS)",
+    "level": "Hard",
+    "q": "Simplify: ((7/2 + 5/2 x 3/2) / (7/2 + 5/2 of 3/2)) ÷ 15/14",
+    "options": ["1", "14/15", "15/14", "29/4"],
+    "ans": "B",
+    "explain": "Numerator = 29/4. Denominator = 29/4. (29/4)/(29/4) = 1. 1 ÷ 15/14 = 14/15."
+  },
+  {
+    "id": 97,
+    "tag": "Simplification (BODMAS)",
+    "level": "Hard",
+    "q": "If x = 3 + √8, find x^2 + 1/x^2.",
+    "options": ["30", "32", "34", "36"],
+    "ans": "C",
+    "explain": "x = 3 + 2√2. 1/x = 3 - 2√2. x + 1/x = 6. (x + 1/x)^2 = x^2 + 1/x^2 + 2 = 36. So x^2 + 1/x^2 = 34."
+  },
+  {
+    "id": 98,
+    "tag": "Simplification (BODMAS)",
+    "level": "Hard",
+    "q": "If (a + 1/a) = 4√2, find (a^6 + 1/a^6).",
+    "options": ["26910", "27000", "27090", "26820"],
+    "ans": "A",
+    "explain": "Square: a^2 + 1/a^2 = 30. Cube: (a^2+1/a^2)^3 = 30^3 => a^6+1/a^6 + 3(30) = 27000. a^6+1/a^6 = 26910."
+  }
+    "q": "Simplify: 4(1/6) + 5(1/6) + 8(1/6)",
+    "options": ["17", "17(1/3)", "17(1/2)", "18"],
+    "ans": "C",
+    "explain": "(4+5+8) + (1/6 + 1/6 + 1/6) = 17 + 3/6 = 17(1/2)."
+  },
+  {
+    "id": 95,
+    "tag": "Simplification (BODMAS)",
+    "level": "Hard",
+    "q": "If (a + 1/a) = 4√2, find (a^6 + 1/a^6).",
+    "options": ["26910", "27000", "27090", "26820"],
+    "ans": "A",
+    "explain": "Square: a^2 + 1/a^2 = 30. Cube: (a^2+1/a^2)^3 = 30^3 => a^6+1/a^6 + 3(30) = 27000. a^6+1/a^6 = 26910."
+  }
+    "q": "Three pipes fill a tank in m, n, and p hours. Find the total time taken if all three are opened together.",
+    "options": ["mnp/(np+mp+mn)", "mnp/(m+n+p)", "(m+n+p)/mnp", "mnp"],
+    "ans": "A",
+    "explain": "Total time = 1 / (1/m + 1/n + 1/p) = mnp / (np + mp + mn)."
+  },
+  {
+    "id": 67,
+    "tag": "HCF & LCM",
+    "level": "Easy",
+    "q": "Which of the following sets represent the factors of 8?",
+    "options": ["{1, 2, 4, 8}", "{8, 16, 24, 32}", "{1, 8, 16, 24}", "{2, 4, 6, 8}"],
+    "ans": "A",
+    "explain": "Factors are the exact divisors of a number. For 8, they are 1, 2, 4, and 8."
+  },
+  {
+    "id": 68,
+    "tag": "HCF & LCM",
+    "level": "Easy",
+    "q": "Find the common multiples of 3, 5, and 10.",
+    "options": ["{10, 20, 30...}", "{15, 30, 45...}", "{30, 60, 90...}", "{5, 10, 15...}"],
+    "ans": "C",
+    "explain": "The first common multiple (LCM) is 30, so all common multiples are products of 30."
+  },
+  {
+    "id": 69,
+    "tag": "HCF & LCM",
+    "level": "Easy",
+    "q": "What is the Least Common Multiple (LCM) of 4 and 12?",
+    "options": ["4", "12", "24", "48"],
+    "ans": "B",
+    "explain": "Multiples 4: 4,8,12... Multiples 12: 12,24... The least common multiple is 12."
+  },
+  {
+    "id": 70,
+    "tag": "HCF & LCM",
+    "level": "Easy",
+    "q": "Find the LCM of 8, 12, and 15 using the prime factorisation method.",
+    "options": ["60", "90", "120", "150"],
+    "ans": "C",
+    "explain": "8=2^3, 12=2^2*3, 15=3*5. LCM = 2^3 * 3 * 5 = 120."
+  },
+  {
+    "id": 71,
+    "tag": "HCF & LCM",
+    "level": "Medium",
+    "q": "Calculate the LCM of 15, 24, 32, and 45.",
+    "options": ["1440", "720", "480", "1200"],
+    "ans": "A",
+    "explain": "Using the division method with common prime factors, the LCM is 1440."
+  },
+  {
+    "id": 72,
+    "tag": "HCF & LCM",
+    "level": "Easy",
+    "q": "Identify the common factors of 12, 48, 54, and 63.",
+    "options": ["2", "3", "6", "9"],
+    "ans": "B",
+    "explain": "The number 3 divides 12, 48, 54, and 63 exactly."
+  },
+  {
+    "id": 73,
+    "tag": "HCF & LCM",
+    "level": "Easy",
+    "q": "Find the HCF of 24, 30, and 42.",
+    "options": ["4", "6", "8", "12"],
+    "ans": "B",
+    "explain": "Common prime factors with least powers: 2^1 and 3^1. HCF = 6."
+  },
+  {
+    "id": 74,
+    "tag": "HCF & LCM",
+    "level": "Easy",
+    "q": "Find the HCF of 26 and 455.",
+    "options": ["11", "13", "17", "19"],
+    "ans": "B",
+    "explain": "455 / 26 = 17 rem 13. 26 / 13 = 2 rem 0. HCF is 13."
+  },
+  {
+    "id": 75,
+    "tag": "HCF & LCM",
+    "level": "Medium",
+    "q": "What is the HCF of 1785, 1995, and 3381?",
+    "options": ["15", "21", "35", "105"],
+    "ans": "B",
+    "explain": "HCF(1785, 1995) = 105. HCF(105, 3381) = 21."
+  },
+  {
+    "id": 76,
+    "tag": "HCF & LCM",
+    "level": "Medium",
+    "q": "Find the HCF of 30, 42, and 135 using the difference method.",
+    "options": ["3", "6", "12", "15"],
+    "ans": "A",
+    "explain": "Smallest difference is |42-30|=12. The largest factor of 12 dividing all three is 3."
+  },
+  {
+    "id": 77,
+    "tag": "HCF & LCM",
+    "level": "Medium",
+    "q": "Calculate the LCM of 72/250, 126/75 and 162/165.",
+    "options": ["151 1/5", "150 2/5", "148 1/5", "152"],
+    "ans": "A",
+    "explain": "Terms: 36/125, 42/25, 54/55. LCM = LCM(36,42,54)/HCF(125,25,55) = 756/5 = 151.2."
+  },
+  {
+    "id": 78,
+    "tag": "HCF & LCM",
+    "level": "Medium",
+    "q": "Find the HCF of 36/51 and 3 9/17.",
+    "options": ["12/17", "6/17", "18/17", "1/17"],
+    "ans": "A",
+    "explain": "Terms: 12/17 and 60/17. HCF = HCF(12,60)/LCM(17,17) = 12/17."
+  },
+  {
+    "id": 79,
+    "tag": "HCF & LCM",
+    "level": "Hard",
+    "q": "Find the LCM of 0.6, 9.6, and 0.12.",
+    "options": ["9.6", "0.96", "96", "0.096"],
+    "ans": "A",
+    "explain": "LCM of 60/100, 960/100, 12/100 is 960/100 = 9.6."
+  },
+  {
+    "id": 80,
+    "tag": "HCF & LCM",
+    "level": "Easy",
+    "q": "The HCF of two numbers is 27 and their LCM is 2079. If one number is 189, find the other.",
+    "options": ["198", "216", "297", "324"],
+    "ans": "C",
+    "explain": "Product = HCF * LCM. Other number = (27 * 2079) / 189 = 297."
+  },
+  {
+    "id": 81,
+    "tag": "HCF & LCM",
+    "level": "Medium",
+    "q": "Find the greatest number that will divide 29, 60, and 103 leaving remainders 5, 12, and 7 respectively.",
+    "options": ["12", "18", "24", "30"],
+    "ans": "C",
+    "explain": "HCF of (24, 48, 96) is 24."
+  },
+  {
+    "id": 82,
+    "tag": "HCF & LCM",
+    "level": "Hard",
+    "q": "Find the least number which when divided by 24, 30, and 54 leaves a remainder of 5 in each case.",
+    "options": ["1080", "1085", "1075", "1090"],
+    "ans": "B",
+    "explain": "LCM(24, 30, 54) + 5 = 1080 + 5 = 1085."
+  },
+  {
+    "id": 83,
+    "tag": "HCF & LCM",
+    "level": "Hard",
+    "q": "Find the greatest number that will divide 99, 123, and 183 leaving the same remainder in each case.",
+    "options": ["12", "24", "36", "48"],
+    "ans": "A",
+    "explain": "HCF of differences |99-123|, |123-183|, |183-99| = HCF(24, 60, 84) = 12."
+  },
+  {
+    "id": 84,
+    "tag": "HCF & LCM",
+    "level": "Medium",
+    "q": "The HCF of any two numbers in a set of five is 4 and their LCM is 27720. Find the product of these five numbers.",
+    "options": ["7,096,320", "1,108,800", "443,520", "27,720"],
+    "ans": "A",
+    "explain": "Product = (HCF)^(n-1) * LCM = 4^4 * 27720 = 7,096,320."
+  },
+  {
+    "id": 85,
+    "tag": "HCF & LCM",
+    "level": "Easy",
+    "q": "Can the number 1394 be divided into two parts such that their HCF is 34?",
+    "options": ["Yes", "No", "Depends on the parts", "None of these"],
+    "ans": "A",
+    "explain": "1394 / 34 = 41. Since it is exactly divisible, it is possible."
+  },
+  {
+    "id": 86,
+    "tag": "HCF & LCM",
+    "level": "Easy",
+    "q": "Are 6 and 11 coprimes?",
+    "options": ["Yes", "No", "Only if added", "None of these"],
+    "ans": "A",
+    "explain": "HCF(6, 11) = 1, so they are coprime."
+  },
+  {
+    "id": 87,
+    "tag": "HCF & LCM",
+    "level": "Medium",
+    "q": "Find the largest 5-digit number exactly divisible by 32, 36, and 40.",
+    "options": ["99999", "99360", "99440", "99000"],
+    "ans": "B",
+    "explain": "LCM = 1440. 99999 / 1440 gives rem 639. 99999 - 639 = 99360."
+  },
+  {
+    "id": 88,
+    "tag": "HCF & LCM",
+    "level": "Medium",
+    "q": "Find the least 5-digit number which when divided by 10, 12, 16, and 18 leaves a remainder of 27.",
+    "options": ["10107", "10027", "10720", "10827"],
+    "ans": "A",
+    "explain": "LCM = 720. 10000 / 720 rem 640. Min mult = 10080. Result = 10080 + 27 = 10107."
+  },
+  {
+    "id": 89,
+    "tag": "HCF & LCM",
+    "level": "Medium",
+    "q": "Seven bells ring at intervals of 2, 3, 4, 6, 8, 9, and 12 minutes respectively. If they ring together at 5:00 AM, at what time will they next ring together?",
+    "options": ["5:12 AM", "6:00 AM", "6:12 AM", "6:24 AM"],
+    "ans": "C",
+    "explain": "LCM = 72 mins = 1h 12m. 5:00 + 1:12 = 6:12 AM."
+  },
+  {
+    "id": 90,
+    "tag": "HCF & LCM",
+    "level": "Medium",
+    "q": "Six bells ring at intervals of 2, 4, 6, 8, 10, and 12 seconds respectively. In 30 minutes, how many times do they ring together?",
+    "options": ["15", "16", "30", "31"],
+    "ans": "B",
+    "explain": "LCM = 120 sec = 2 mins. (30 / 2) + 1 = 16 times."
   }
 ]
