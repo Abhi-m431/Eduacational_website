@@ -414,7 +414,7 @@
     "explain": "A/C = (A/B) * (B/C) = 8/15."
   },
   {
-    "id": 47,
+    "id": 174,
     "tag": "Number system",
     "level": "Easy",
     "q": "Which of the following is a prime number?",
@@ -775,7 +775,7 @@
     "explain": "Max Marks = [100 * (64 + 32)] / (40 - 25) = 9600 / 15 = 640."
   },
   {
-    "id": 87,
+    "id": 175,
     "tag": "Percentage",
     "level": "Medium",
     "q": "Population of a town is 12,000 and increases at 10% per annum. Find the population after 3 years. [SSC MTS 2022]",
@@ -1541,72 +1541,51 @@
   },
   {
     "id": 172,
-    "tag": "HCF & LCM",
+    "tag": "Number system",
     "level": "Hard",
-    "q": "Six bells ring at intervals of 2, 4, 6, 8, 10, and 12 seconds. In 30 minutes, how many times do they ring together?",
-    "options": ["15", "16", "30", "31"],
-    "ans": "B",
-    "explain": "LCM = 120 sec = 2 mins. (30 / 2) + 1 = 16 times."
+    "q": "If the 9-digit number 7x79251y8 is divisible by 36. What is the value of (10x^2 - 3y^2) for the largest possible value of y?",
+    "options": [
+      "490",
+      "289",
+      "192",
+      "298"
+    ],
+    "ans": "D",
+    "explain": "Divisible by 36 (4 and 9). For 4, largest y=8. For 9, sum of digits 47+x must be divisible by 9, so x=7. 10(7)^2 - 3(8)^2 = 490 - 192 = 298.[cite: 1, 2]"
   },
   {
     "id": 173,
-    "tag": "Simplification (BODMAS)",
+    "tag": "Number system",
     "level": "Medium",
-    "q": "Simplify: 4 - [6 - {12 - (10 - (8 - 6))}]",
-    "options": ["0", "2", "4", "6"],
+    "q": "If P is a prime number and P divides Q^2, then P will not necessarily divide",
+    "options": [
+      "3Q",
+      "Q + 1",
+      "2Q^2",
+      "Q"
+    ],
     "ans": "B",
-    "explain": "4 - [6 - {12 - (10 - 2)}] = 4 - [6 - {12 - 8}] = 4 - [6 - 4] = 4 - 2 = 2."
+    "explain": "As P is prime and divides Q^2, it must divide Q. Thus (Q+1) will not be divisible by P.[cite: 1, 2]"
   },
   {
     "id": 174,
-    "tag": "Simplification (BODMAS)",
-    "level": "Medium",
-    "q": "Evaluate: (9.6 x 3.6 ÷ 7.2 + 10.8 of 1/18 - 1/10)",
-    "options": ["4.8", "5.1", "5.3", "6.2"],
-    "ans": "C",
-    "explain": "10.8 of 1/18 = 0.6. 3.6 / 7.2 = 0.5. (9.6 * 0.5) + 0.6 - 0.1 = 4.8 + 0.6 - 0.1 = 5.3."
+    "tag": "Number system",
+    "level": "Easy",
+    "q": "If 572X41 is divisible by 9, then what is the value of X?",
+    "options": [
+      "6",
+      "4",
+      "2",
+      "8"
+    ],
+    "ans": "D",
+    "explain": "Sum = 5+7+2+X+4+1 = 19+X. For divisibility by 9, X must be 8.[cite: 1, 2]"
   },
   {
     "id": 175,
-    "tag": "Simplification (BODMAS)",
-    "level": "Easy",
-    "q": "Find the value of: 18800 ÷ 940 ÷ 10",
-    "options": ["2", "20", "200", "0.2"],
-    "ans": "A",
-    "explain": "18800 / 940 = 20. 20 / 10 = 2."
-  },
-  {
-    "id": 176,
-    "tag": "Simplification (BODMAS)",
-    "level": "Medium",
-    "q": "Simplify: 4(1/6) + 5(1/6) + 8(1/6)",
-    "options": ["17", "17(1/3)", "17(1/2)", "18"],
-    "ans": "C",
-    "explain": "(4+5+8) + (1/6 + 1/6 + 1/6) = 17 + 3/6 = 17(1/2)."
-  },
-  {
-    "id": 177,
-    "tag": "Simplification (BODMAS)",
+    "tag": "Number system",
     "level": "Hard",
-    "q": "If (a + 1/a) = 4√2, find (a^6 + 1/a^6).",
-    "options": ["26910", "27000", "27090", "26820"],
-    "ans": "A",
-    "explain": "Square: a^2 + 1/a^2 = 30. Cube: (a^2+1/a^2)^3 = 30^3 => a^6+1/a^6 + 3(30) = 27000. a^6+1/a^6 = 26910."
-  },
-  {
-    "id": 178,
-    "tag": "HCF & LCM",
-    "level": "Medium",
-    "q": "Six bells ring at intervals of 2, 4, 6, 8, 10, and 12 seconds. In 30 minutes, how many times do they ring together?",
-    "options": ["15", "16", "30", "31"],
-    "ans": "B",
-    "explain": "LCM = 120 sec = 2 mins. (30 / 2) + 1 = 16 times."
-  },
-  {
-    "id": 179,
-    "tag": "Number System",
-    "level": "Hard",
-    "q": "The sum of all the possible values of (a + b) so that number 4a067b is divisible by 11.",
+    "q": "Find the sum of all the possible values of (a + b) so that number 4a067b is divisible by 11.",
     "options": [
       "5",
       "16",
@@ -1617,8 +1596,8 @@
     "explain": "Sum of odd places = 11. Sum of even places = a+6+b. Difference 11-(a+b+6) = 0 or mult of 11. a+b=5 or 16. Sum = 5+16=21.[cite: 1, 2]"
   },
   {
-    "id": 180,
-    "tag": "Number System",
+    "id": 176,
+    "tag": "Number system",
     "level": "Medium",
     "q": "If 1234567y is divisible by 11, then what is the value of y?",
     "options": [
@@ -1631,8 +1610,8 @@
     "explain": "(1+3+5+7) - (2+4+6+y) = 0 => 16 - 12 - y = 0 => y = 4.[cite: 1, 2]"
   },
   {
-    "id": 181,
-    "tag": "Number System",
+    "id": 177,
+    "tag": "Number system",
     "level": "Hard",
     "q": "Find the lowest positive value of (c - b) such that the 7-digit number 1738b9c is divisible by 12.",
     "options": [
@@ -1645,8 +1624,8 @@
     "explain": "Divisible by 4 => c=6. Divisible by 3 => 34+b must be divisible by 3, so b=5. c-b = 6-5=1.[cite: 1, 2]"
   },
   {
-    "id": 182,
-    "tag": "Number System",
+    "id": 178,
+    "tag": "Number system",
     "level": "Hard",
     "q": "Which of the following numbers will completely divide (6^61 + 6^62 + 6^63 + 6^64)?",
     "options": [
@@ -1659,8 +1638,8 @@
     "explain": "6^61(1+6+36+216) = 6^61 * 259 = 6^61 * 37 * 7. Divisible by 7.[cite: 1, 2]"
   },
   {
-    "id": 183,
-    "tag": "Number System",
+    "id": 179,
+    "tag": "Number system",
     "level": "Medium",
     "q": "In a division problem, the divisor is 4 times the quotient and 2 times the remainder. If the remainder is 32, then find the dividend.",
     "options": [
@@ -1673,8 +1652,8 @@
     "explain": "Divisor = 2 * 32 = 64. Quotient = 64/4 = 16. Dividend = 64 * 16 + 32 = 1056.[cite: 1, 2]"
   },
   {
-    "id": 184,
-    "tag": "Number System",
+    "id": 180,
+    "tag": "Number system",
     "level": "Easy",
     "q": "The number 2918245 is divisible by which of the following numbers?",
     "options": [
@@ -1687,8 +1666,8 @@
     "explain": "Difference of sum of digits at odd and even places = (9+8+4) - (2+1+2+5) = 11. Divisible by 11.[cite: 1, 2]"
   },
   {
-    "id": 185,
-    "tag": "Number System",
+    "id": 181,
+    "tag": "Number system",
     "level": "Medium",
     "q": "If the four-digit number 463y is divisible by 7, then what is the value of y?",
     "options": [
@@ -1701,8 +1680,8 @@
     "explain": "463y / 7 leaves 0 remainder when y=4.[cite: 1, 2]"
   },
   {
-    "id": 186,
-    "tag": "Number System",
+    "id": 182,
+    "tag": "Number system",
     "level": "Medium",
     "q": "Which number among 38211, 38121, 32118 and 31128 is divisible by 24?",
     "options": [
@@ -1715,8 +1694,8 @@
     "explain": "Divisible by 24 (8 and 3). 31128: 128 is div by 8, and sum 15 is div by 3.[cite: 1, 2]"
   },
   {
-    "id": 187,
-    "tag": "Number System",
+    "id": 183,
+    "tag": "Number system",
     "level": "Medium",
     "q": "Which of the following numbers is divisible by 7, 11 and 13?",
     "options": [
@@ -1729,8 +1708,8 @@
     "explain": "LCM(7,11,13) = 1001. 1002001 is (1001)^2, so it is divisible.[cite: 1, 2]"
   },
   {
-    "id": 188,
-    "tag": "Number System",
+    "id": 184,
+    "tag": "Number system",
     "level": "Easy",
     "q": "If a number P is divisible by 2 and another number Q is divisible by 3, then which of the following is true?",
     "options": [
@@ -1743,8 +1722,8 @@
     "explain": "If P is div by 2 and Q by 3, P*Q is always divisible by 2*3 = 6.[cite: 1, 2]"
   },
   {
-    "id": 189,
-    "tag": "Number System",
+    "id": 185,
+    "tag": "Number system",
     "level": "Medium",
     "q": "If 5A72B is divisible by 11, then what is the value of B - A?",
     "options": [
@@ -1757,8 +1736,8 @@
     "explain": "(5+7+B)-(A+2) = 0 or 11. B-A+10=11 => B-A=1.[cite: 1, 2]"
   },
   {
-    "id": 190,
-    "tag": "Number System",
+    "id": 186,
+    "tag": "Number system",
     "level": "Hard",
     "q": "The 6-digit number 473xy5 is divisible by 125. How many such 6-digit numbers are there?",
     "options": [
@@ -1771,8 +1750,8 @@
     "explain": "Last 3 digits xy5 must be a multiple of 125. Possible: 125, 375, 625, 875. Total = 4.[cite: 1, 2]"
   },
   {
-    "id": 191,
-    "tag": "Number System",
+    "id": 187,
+    "tag": "Number system",
     "level": "Medium",
     "q": "The smallest 1-digit number to be added to the 6-digit number 910300 so that it is completely divisible by 11 is",
     "options": [
@@ -1785,8 +1764,8 @@
     "explain": "(9+0+0)-(1+3+x) = 5-x. For div by 11, x=5.[cite: 1, 2]"
   },
   {
-    "id": 192,
-    "tag": "Number System",
+    "id": 188,
+    "tag": "Number system",
     "level": "Hard",
     "q": "Consider a 6 digit number of the form xyxyxy. The number is divisible by?",
     "options": [
@@ -1799,8 +1778,8 @@
     "explain": "xyxyxy = 10101 * xy. 10101 = 3 * 7 * 13 * 37.[cite: 1, 2]"
   },
   {
-    "id": 193,
-    "tag": "Number System",
+    "id": 189,
+    "tag": "Number system",
     "level": "Medium",
     "q": "Which of the following numbers is a divisor of (49^15 - 1)?",
     "options": [
@@ -1813,8 +1792,8 @@
     "explain": "49^15 - 1 = (7^2)^15 - 1 = 7^30 - 1. (a^n-b^n) is divisible by (a+b) and (a-b) if n is even. Divisible by 8 and 6.[cite: 1, 2]"
   },
   {
-    "id": 194,
-    "tag": "Number System",
+    "id": 190,
+    "tag": "Number system",
     "level": "Hard",
     "q": "A four-digit number abba is divisible by 4 and a < b. How many such numbers are there?",
     "options": [
@@ -1827,8 +1806,8 @@
     "explain": "Last two digits 'ba' must be div by 4 where a < b. Possible pairs for ba: 32, 52, 64, 72, 76, 84, 92, 96. Total = 8.[cite: 1, 2]"
   },
   {
-    "id": 195,
-    "tag": "Number System",
+    "id": 191,
+    "tag": "Number system",
     "level": "Easy",
     "q": "If 'a' and 'b' are prime numbers, which of the following cannot be the sum of 'a' and 'b'?",
     "options": [
@@ -1841,8 +1820,8 @@
     "explain": "10=7+3, 28=23+5, 14=11+3. 6 cannot be sum of distinct primes (only 3+3, not distinct).[cite: 1, 2]"
   },
   {
-    "id": 196,
-    "tag": "Number System",
+    "id": 192,
+    "tag": "Number system",
     "level": "Medium",
     "q": "Four prime numbers are taken in ascending order. The product of the first three is 385. The product of the last three is 1001. Which is the first number?",
     "options": [
@@ -1855,8 +1834,8 @@
     "explain": "Factors of 385 = 5 * 7 * 11. Last product = 7 * 11 * 13 = 1001. First prime is 5.[cite: 1, 2]"
   },
   {
-    "id": 197,
-    "tag": "Number System",
+    "id": 193,
+    "tag": "Number system",
     "level": "Hard",
     "q": "On adding 984 to a 3-digit number 4a3, we get a 4-digit number 13b7. The minimum number c, so that (13b7 + c) is completely divisible by 8 is",
     "options": [
@@ -1869,8 +1848,8 @@
     "explain": "1397 + 3 = 1400, which is divisible by 8. Minimum value of c = 3.[cite: 1, 2]"
   },
   {
-    "id": 198,
-    "tag": "Number System",
+    "id": 194,
+    "tag": "Number system",
     "level": "Hard",
     "q": "If (77^77 + 77) is divided by 78, then the remainder will be",
     "options": [
@@ -1883,8 +1862,8 @@
     "explain": "(-1)^77 + (-1) = -1 - 1 = -2. Remainder = -2 + 78 = 76.[cite: 1, 2]"
   },
   {
-    "id": 199,
-    "tag": "Number System",
+    "id": 195,
+    "tag": "Number system",
     "level": "Easy",
     "q": "A number when divided by 119, leaves 19 as remainder. If it is divided by 17, it will leave a remainder",
     "options": [
@@ -1897,8 +1876,8 @@
     "explain": "19 / 17 leaves remainder 2.[cite: 1, 2]"
   },
   {
-    "id": 200,
-    "tag": "Number System",
+    "id": 196,
+    "tag": "Number system",
     "level": "Medium",
     "q": "The remainder when 72 * 73 * 78 * 76 is divided by 35 is",
     "options": [
@@ -1911,8 +1890,8 @@
     "explain": "Remainders are 2, 3, 8, 6. (2*3*8*6) = 288. 288/35 leaves remainder 8.[cite: 1, 2]"
   },
   {
-    "id": 201,
-    "tag": "Number System",
+    "id": 197,
+    "tag": "Number system",
     "level": "Medium",
     "q": "Find the remainder when 7^7 is divided by 4.",
     "options": [
@@ -1925,8 +1904,8 @@
     "explain": "7^7/4 = (49^3 * 7)/4. Remainder = (1^3 * 3) = 3.[cite: 1, 2]"
   },
   {
-    "id": 202,
-    "tag": "Number System",
+    "id": 198,
+    "tag": "Number system",
     "level": "Easy",
     "q": "The remainder, when (29)^72 is divided by 28 is",
     "options": [
@@ -1939,8 +1918,8 @@
     "explain": "Remainder of 29/28 = 1. So 1^72 = 1.[cite: 1, 2]"
   },
   {
-    "id": 203,
-    "tag": "Number System",
+    "id": 199,
+    "tag": "Number system",
     "level": "Medium",
     "q": "Find the remainder when (25)^25 + 26 is divided by 26.",
     "options": [
@@ -1953,8 +1932,8 @@
     "explain": "(-1)^25 + 26 = -1 + 26 = 25.[cite: 1, 2]"
   },
   {
-    "id": 204,
-    "tag": "Number System",
+    "id": 200,
+    "tag": "Number system",
     "level": "Easy",
     "q": "If a positive integer n is divided by 7, then the remainder is 3. Which of the following numbers yields a remainder of 0 when it is divided by 7?",
     "options": [
@@ -1967,8 +1946,8 @@
     "explain": "n = 7Q + 3. (n + 4) = 7Q + 7, which is divisible by 7.[cite: 1, 2]"
   },
   {
-    "id": 205,
-    "tag": "Number System",
+    "id": 201,
+    "tag": "Number system",
     "level": "Hard",
     "q": "Find the number when successively divided by 3, 5 and 7 leaves remainder 2, 1 and 3, respectively, and the last quotient is 3.",
     "options": [
@@ -1981,8 +1960,8 @@
     "explain": "Work backwards: 7*3+3=24; 5*24+1=121; 3*121+2=365.[cite: 1, 2]"
   },
   {
-    "id": 206,
-    "tag": "Number System",
+    "id": 202,
+    "tag": "Number system",
     "level": "Medium",
     "q": "When a positive number N is divided by 13 leaves the remainder 11, then find the remainder when 26 N is divided by the same divisor.",
     "options": [
@@ -1995,8 +1974,8 @@
     "explain": "26N is a multiple of 13. Any multiple of 13 divided by 13 leaves 0 remainder.[cite: 1, 2]"
   },
   {
-    "id": 207,
-    "tag": "Number System",
+    "id": 203,
+    "tag": "Number system",
     "level": "Medium",
     "q": "Find the remainder when: 1661 + 1551 + 1441 + 1331 + 1221 is divided by 20.",
     "options": [
@@ -2009,8 +1988,8 @@
     "explain": "Remainders: 1, 11, 1, 11, 1. Sum = 25. 25/20 leaves remainder 5.[cite: 1, 2]"
   },
   {
-    "id": 208,
-    "tag": "Number System",
+    "id": 204,
+    "tag": "Number system",
     "level": "Medium",
     "q": "Let N = 1420 * 1423 * 1425 What is the remainder when N is dividend by 12?",
     "options": [
@@ -2023,8 +2002,8 @@
     "explain": "1420 is div by 4 and 1425 is div by 3. Thus N is divisible by 12. Remainder = 0.[cite: 1, 2]"
   },
   {
-    "id": 209,
-    "tag": "Number System",
+    "id": 205,
+    "tag": "Number system",
     "level": "Hard",
     "q": "What is the remainder when 3^8 is divided by 7?",
     "options": [
@@ -2037,8 +2016,8 @@
     "explain": "3^8/7 = (3^6 * 3^2)/7. By Fermat's theorem 3^6/7 leaves 1. Remainder = 1 * 9 / 7 = 2.[cite: 1, 2]"
   },
   {
-    "id": 210,
-    "tag": "Number System",
+    "id": 206,
+    "tag": "Number system",
     "level": "Hard",
     "q": "When the number (12345678910111213 ... 99100) is divided by 16, what will be the remainder?",
     "options": [
@@ -2051,8 +2030,8 @@
     "explain": "Divisibility by 16 depends on last 4 digits (9100). 9100 / 16 leaves remainder 12.[cite: 1, 2]"
   },
   {
-    "id": 211,
-    "tag": "Number System",
+    "id": 207,
+    "tag": "Number system",
     "level": "Easy",
     "q": "Find the unit digit in the product 6812 * 3528 * 3179 * 4324",
     "options": [
@@ -2065,8 +2044,8 @@
     "explain": "Product of units: 2 * 8 * 9 * 4 = 576. Unit digit = 6.[cite: 1, 2]"
   },
   {
-    "id": 212,
-    "tag": "Number System",
+    "id": 208,
+    "tag": "Number system",
     "level": "Medium",
     "q": "In the product; 46* * 281 * 49 * 34 if the digit in the unit place is 2, then the digit in place of * will always be",
     "options": [
@@ -2079,8 +2058,8 @@
     "explain": "* * 1 * 9 * 4 = 2 => * * 36 = 2. * * 6 ends in 2, so * could be 2 or 7.[cite: 1, 2]"
   },
   {
-    "id": 213,
-    "tag": "Number System",
+    "id": 209,
+    "tag": "Number system",
     "level": "Easy",
     "q": "Find the digit in the unit's place of 124^n + 124^(n+1) where n is any whole number.",
     "options": [
@@ -2093,8 +2072,8 @@
     "explain": "One is 4^even (6) and other is 4^odd (4). 6+4 = 10, so unit digit is 0.[cite: 1, 2]"
   },
   {
-    "id": 214,
-    "tag": "Number System",
+    "id": 210,
+    "tag": "Number system",
     "level": "Medium",
     "q": "The digit in the unit's place of the number (67)^25 - 1 must be",
     "options": [
@@ -2107,8 +2086,8 @@
     "explain": "Unit digit of 7^25 = 7^1 = 7. 7 - 1 = 6.[cite: 1, 2]"
   },
   {
-    "id": 215,
-    "tag": "Number System",
+    "id": 211,
+    "tag": "Number system",
     "level": "Hard",
     "q": "If x = (164)^169 + (333)^337 - (727)^726, then what is the units digit of x?",
     "options": [
@@ -2121,8 +2100,8 @@
     "explain": "Unit digits: 4^1 + 3^1 - 7^2 = 4 + 3 - 9 = -2. 10 - 2 = 8.[cite: 1, 2]"
   },
   {
-    "id": 216,
-    "tag": "Number System",
+    "id": 212,
+    "tag": "Number system",
     "level": "Hard",
     "q": "The total number of prime numbers in (25)^13 * (10)^7 * (27)^5",
     "options": [
@@ -2135,8 +2114,8 @@
     "explain": "(5^2)^13 * (2*5)^7 * (3^3)^5 = 5^26 * 2^7 * 5^7 * 3^15 = 2^7 * 3^15 * 5^33. Total prime factors = 7+15+33 = 55.[cite: 1, 2]"
   },
   {
-    "id": 217,
-    "tag": "Number System",
+    "id": 213,
+    "tag": "Number system",
     "level": "Medium",
     "q": "Which of the following is a common factor of (89^89 + 87^89) and (89^97 + 87^97)?",
     "options": [
@@ -2149,8 +2128,8 @@
     "explain": "a^m + b^m is div by (a+b) if m is odd. Both are div by 89+87=176.[cite: 1, 2]"
   },
   {
-    "id": 218,
-    "tag": "Number System",
+    "id": 214,
+    "tag": "Number system",
     "level": "Easy",
     "q": "The number 323 has",
     "options": [
@@ -2163,8 +2142,8 @@
     "explain": "323 = 17 * 19. It has two prime factors.[cite: 1, 2]"
   },
   {
-    "id": 219,
-    "tag": "Number System",
+    "id": 215,
+    "tag": "Number system",
     "level": "Medium",
     "q": "x is a whole number. If the only common factors of x and x^2 are 1 and x, then x is",
     "options": [
@@ -2177,8 +2156,8 @@
     "explain": "The only factors of x^2 are 1, x, and x^2 if x is prime. Common factors with x would be 1 and x.[cite: 1, 2]"
   },
   {
-    "id": 220,
-    "tag": "Number System",
+    "id": 216,
+    "tag": "Number system",
     "level": "Medium",
     "q": "How many of the factors of 256 are perfect squares?",
     "options": [
@@ -2191,8 +2170,8 @@
     "explain": "256 = 2^8. Perfect square factors are 2^0, 2^2, 2^4, 2^6, 2^8. Total = 5.[cite: 1, 2]"
   },
   {
-    "id": 221,
-    "tag": "Number System",
+    "id": 217,
+    "tag": "Number system",
     "level": "Hard",
     "q": "The prime factorisation of the number 266805 is",
     "options": [
@@ -2205,8 +2184,8 @@
     "explain": "266805 = 3 * 3 * 5 * 7 * 7 * 11 * 11 = 3^2 * 5 * 7^2 * 11^2.[cite: 1, 2]"
   },
   {
-    "id": 222,
-    "tag": "Number System",
+    "id": 218,
+    "tag": "Number system",
     "level": "Hard",
     "q": "Let x = 55^100 + 55^101 + 55^102 Which of the following prime numbers is not a factor of x?",
     "options": [
@@ -2219,8 +2198,8 @@
     "explain": "x = 55^100(1+55+3025) = 55^100 * 3081 = 55^100 * 3 * 13 * 79. 71 is not a factor.[cite: 1, 2]"
   },
   {
-    "id": 223,
-    "tag": "Number System",
+    "id": 219,
+    "tag": "Number system",
     "level": "Medium",
     "q": "The number of factors of 4200 are",
     "options": [
@@ -2233,8 +2212,8 @@
     "explain": "4200 = 2^3 * 3^1 * 5^2 * 7^1. Total factors = (3+1)(1+1)(2+1)(1+1) = 48.[cite: 1, 2]"
   },
   {
-    "id": 224,
-    "tag": "Number System",
+    "id": 220,
+    "tag": "Number system",
     "level": "Medium",
     "q": "If a number is in the form of 8^10 * 9^7 * 7^8 find the total number of prime factors of the given number.",
     "options": [
@@ -2247,8 +2226,8 @@
     "explain": "2^30 * 3^14 * 7^8. Total prime factors = 30 + 14 + 8 = 52.[cite: 1, 2]"
   },
   {
-    "id": 225,
-    "tag": "Number System",
+    "id": 221,
+    "tag": "Number system",
     "level": "Hard",
     "q": "Number of prime factors of (1/6)^12 * 8^25 * (3/4)^15",
     "options": [
@@ -2261,8 +2240,8 @@
     "explain": "2^-12 * 3^-12 * 2^75 * 3^15 * 2^-30 = 2^33 * 3^3. Total prime factors = 33 + 3 = 36.[cite: 1, 2]"
   },
   {
-    "id": 226,
-    "tag": "Number System",
+    "id": 222,
+    "tag": "Number system",
     "level": "Medium",
     "q": "Find the sum of the prime factors of 9^6 * 12^4 * 7^7",
     "options": [
@@ -2275,8 +2254,8 @@
     "explain": "Factors are 2, 3, 7. Sum = 2+3+7 = 12.[cite: 1, 2]"
   },
   {
-    "id": 227,
-    "tag": "Number System",
+    "id": 223,
+    "tag": "Number system",
     "level": "Medium",
     "q": "The number of zeroes at the end of the product of 8 * 12 * 14 * 15 * 27 * 32 * 25 * 22 * 40 * 75 * 125 * 212 is",
     "options": [
@@ -2289,8 +2268,8 @@
     "explain": "Count pairs of 2 and 5. 2^17 and 5^9. Max zeroes = 9.[cite: 1, 2]"
   },
   {
-    "id": 228,
-    "tag": "Number System",
+    "id": 224,
+    "tag": "Number system",
     "level": "Hard",
     "q": "Find the number of trailing zeros in 15870!",
     "options": [
@@ -2303,8 +2282,8 @@
     "explain": "15870/5 + 15870/25 + 15870/125 + ... = 3174 + 634 + 126 + 25 + 5 + 1 = 3965.[cite: 1, 2]"
   },
   {
-    "id": 229,
-    "tag": "Number System",
+    "id": 225,
+    "tag": "Number system",
     "level": "Hard",
     "q": "The value of 1^2 + ... + n^2 - (1 + ... + n) is",
     "options": [
@@ -2317,8 +2296,8 @@
     "explain": "[n(n+1)(2n+1)/6] - [n(n+1)/2] = n(n+1)(n-1)/3 = n(n^2-1)/3.[cite: 1, 2]"
   },
   {
-    "id": 230,
-    "tag": "Number System",
+    "id": 226,
+    "tag": "Number system",
     "level": "Hard",
     "q": "The value of 1^3 + 2^3 + ... + n^3 - (1 + 2 + ... + n) is",
     "options": [
@@ -2331,8 +2310,8 @@
     "explain": "[n(n+1)/2]^2 - [n(n+1)/2] = (n^2+n)(n^2+n-2)/4.[cite: 1, 2]"
   },
   {
-    "id": 231,
-    "tag": "Number System",
+    "id": 227,
+    "tag": "Number system",
     "level": "Medium",
     "q": "If 1^2 + 2^2 + 3^2 + ... + 14^2 = 1015, then 3^2 + 6^2 + 9^2 + ... + 42^2 is equal to",
     "options": [
@@ -2345,8 +2324,8 @@
     "explain": "3^2(1^2 + 2^2 + ... + 14^2) = 9 * 1015 = 9135.[cite: 1, 2]"
   },
   {
-    "id": 232,
-    "tag": "Number System",
+    "id": 228,
+    "tag": "Number system",
     "level": "Medium",
     "q": "What is the sum of the cubes of the natural numbers from 5 to 14?",
     "options": [
@@ -2359,8 +2338,8 @@
     "explain": "Sum(1-14)^3 - Sum(1-4)^3 = (14*15/2)^2 - (4*5/2)^2 = 11025 - 100 = 10925.[cite: 1, 2]"
   },
   {
-    "id": 233,
-    "tag": "Number System",
+    "id": 229,
+    "tag": "Number system",
     "level": "Medium",
     "q": "Find the value of 21^2 + 22^2 + 23^2 + .... + 30^2",
     "options": [
@@ -2371,5 +2350,717 @@
     ],
     "ans": "B",
     "explain": "Sum(1-30)^2 - Sum(1-20)^2 = (30*31*61/6) - (20*21*41/6) = 9455 - 2870 = 6585.[cite: 1, 2]"
+  },
+  {
+    "question_number": 230,
+    "series": "15, 23, 30, 36, 41, ?",
+    "answer": "45",
+    "option": "c",
+    "solution": "The pattern is: +8, +7, +6, +5, +4. So, 41 + 4 = 45.[cite: 6]"
+  },
+  {
+    "question_number": 231,
+    "series": "6, 8, 11, 16, 23, ?",
+    "answer": "34",
+    "option": "c",
+    "solution": "The pattern is an increasing prime/gap: +2, +3, +5, +7, +11. So, 23 + 11 = 34.[cite: 6]"
+  },
+  {
+    "question_number": 232,
+    "series": "36, 38, 41, 46, 53, 64, ?",
+    "answer": "77",
+    "option": "b",
+    "solution": "The pattern involves adding consecutive prime numbers: +2, +3, +5, +7, +11, +13. So, 64 + 13 = 77.[cite: 6]"
+  },
+  {
+    "question_number": 233,
+    "series": "?, 198, 294, 388, 480, 570",
+    "answer": "100",
+    "option": "e",
+    "solution": "The pattern is decreasing gaps: +98, +96, +94, +92, +90. Working backward: 198 - 98 = 100.[cite: 6]"
+  },
+  {
+    "question_number": 234,
+    "series": "16, 33, ?, 67, 84, 101",
+    "answer": "50",
+    "option": "b",
+    "solution": "The pattern is a constant addition of +17. So, 33 + 17 = 50.[cite: 6]"
+  },
+  {
+    "question_number": 235,
+    "series": "26, 38, 52, ?, 86, 106",
+    "answer": "68",
+    "option": "a",
+    "solution": "The pattern is an increasing even gap: +12, +14, +16, +18, +20. So, 52 + 16 = 68.[cite: 6]"
+  },
+  {
+    "question_number": 236,
+    "series": "49, 41, 33, 25, 17, ?",
+    "answer": "9",
+    "option": "c",
+    "solution": "The pattern is a constant subtraction of -8. So, 17 - 8 = 9.[cite: 6]"
+  },
+  {
+    "question_number": 237,
+    "series": "88, 99, 92, 97, 94, ?",
+    "answer": "96",
+    "option": "b",
+    "solution": "The pattern is alternating: +11, -7, +5, -3, +2.[cite: 6]"
+  },
+  {
+    "question_number": 238,
+    "series": "4.5, ?, 27, 108, 540, 3240",
+    "answer": "9",
+    "option": "d",
+    "solution": "The pattern is multiplication by increasing integers: x2, x3, x4, x5, x6. So, 4.5 x 2 = 9.[cite: 6]"
+  },
+  {
+    "question_number": 239,
+    "series": "144, 72, 108, 270, ?, 4252.5",
+    "answer": "945",
+    "option": "d",
+    "solution": "The pattern is multiplication by increments of 1: x0.5, x1.5, x2.5, x3.5, x4.5. So, 270 x 3.5 = 945.[cite: 6]"
+  },
+  {
+    "question_number": 240,
+    "series": "8, ?, 4, 6, 12, 30",
+    "answer": "4",
+    "option": "d",
+    "solution": "The pattern is: x0.5, x1, x1.5, x2, x2.5. So, 8 x 0.5 = 4.[cite: 6]"
+  },
+  {
+    "question_number": 241,
+    "series": "?, 100, 150, 375, 1312.5",
+    "answer": "200",
+    "option": "e",
+    "solution": "The pattern is multiplication: x0.5, x1.5, x2.5, x3.5. Working backward: 100 / 0.5 = 200.[cite: 6]"
+  },
+  {
+    "question_number": 242,
+    "series": "160, 240, 600, 2100, ?",
+    "answer": "9450",
+    "option": "d",
+    "solution": "The pattern uses multipliers: x1.5, x2.5, x3.5, x4.5. So, 2100 x 4.5 = 9450.[cite: 6]"
+  },
+  {
+    "question_number": 243,
+    "series": "50, 200, 700, 2100, ?",
+    "answer": "5250",
+    "option": "c",
+    "solution": "The pattern is multiplication with decreasing multipliers: x4, x3.5, x3, x2.5. So, 2100 x 2.5 = 5250.[cite: 6]"
+  },
+  {
+    "question_number": 244,
+    "series": "4, 6, 12, 30, ?, 315",
+    "answer": "90",
+    "option": "d",
+    "solution": "The pattern is: x1.5, x2, x2.5, x3, x3.5. So, 30 x 3 = 90.[cite: 6]"
+  },
+  {
+    "question_number": 245,
+    "series": "500, ?, 250, 750, 187.5",
+    "answer": "500",
+    "option": "a",
+    "solution": "The pattern is: x1, /2, x3, /4. So, 500 x 1 = 500.[cite: 6]"
+  },
+  {
+    "question_number": 246,
+    "series": "6, 17, ?, 28, 16, 39",
+    "answer": "5",
+    "option": "d",
+    "solution": "Two alternating series: (6, ?, 16) with +11, -11 logic and (17, 28, 39) with +11. 16 - 11 = 5.[cite: 6]"
+  },
+  {
+    "question_number": 247,
+    "series": "480, ?, 605, 830, 1230, 1855",
+    "answer": "505",
+    "option": "b",
+    "solution": "The pattern is adding squares of multiples of 5: +5^2, +10^2, +15^2, +20^2, +25^2. So, 480 + 25 = 505.[cite: 6]"
+  },
+  {
+    "question_number": 248,
+    "series": "170, 268, 464, 856, ?",
+    "answer": "1640",
+    "option": "d",
+    "solution": "The pattern is adding multiples of 49: +49x2, +49x4, +49x8, +49x16. 856 + 784 = 1640.[cite: 6]"
+  },
+  {
+    "question_number": 249,
+    "series": "2, 3, 6, 15, 42, ?",
+    "answer": "123",
+    "option": "b",
+    "solution": "The pattern is adding powers of 3: +3^0, +3^1, +3^2, +3^3, +3^4. So, 42 + 81 = 123.[cite: 6]"
+  },
+  {
+    "question_number": 250,
+    "series": "11, 12, 26, 81, ?, 1645",
+    "answer": "328",
+    "option": "a",
+    "solution": "The pattern is: x1+1, x2+2, x3+3, x4+4, x5+5. So, 81 x 4 + 4 = 328.[cite: 6]"
+  },
+  {
+    "question_number": 251,
+    "series": "5, 16, 51, 158, ?",
+    "answer": "481",
+    "option": "d",
+    "solution": "The pattern is: x3+1, x3+3, x3+5, x3+7. So, 158 x 3 + 7 = 481.[cite: 6]"
+  },
+  {
+    "question_number": 252,
+    "series": "540, 419, ?, 345, 336, 332",
+    "answer": "370",
+    "option": "c",
+    "solution": "The pattern is subtracting squares of prime numbers: -11^2, -7^2, -5^2, -3^2, -2^2. So, 419 - 49 = 370.[cite: 6]"
+  },
+  {
+    "question_number": 253,
+    "series": "2, 5, 11, 23, 44, 77, ?",
+    "answer": "125",
+    "option": "c",
+    "solution": "The difference between terms increases: +3, +6, +12, +21, +33, +48. The second layer of differences is +3, +6, +9, +12, +15. So, 77 + 48 = 125.[cite: 6]"
+  },
+  {
+    "question_number": 254,
+    "series": "10, 35, 135, 360, 760, ?",
+    "answer": "1385",
+    "option": "d",
+    "solution": "Pattern: +25, +100, +225, +400, +625 (squares of 5, 10, 15, 20, 25 multiplied by a factor). 760 + 625 = 1385.[cite: 6]"
+  },
+  {
+    "question_number": 255,
+    "series": "8, 22, 50, 92, 148, ?",
+    "answer": "218",
+    "option": "a",
+    "solution": "The pattern is: +14, +28, +42, +56, +70. So, 148 + 70 = 218.[cite: 6]"
+  },
+  {
+    "question_number": 256,
+    "series": "12, 15, 24, 39, 60, ?",
+    "answer": "87",
+    "option": "d",
+    "solution": "The pattern is adding multiples of 3 (steps of +6 in the difference): +3, +9, +15, +21, +27. 60 + 27 = 87.[cite: 6]"
+  },
+  {
+    "question_number": 257,
+    "series": "49, 57, 84, ?, 552",
+    "answer": "209",
+    "option": "d",
+    "solution": "The pattern is adding cubes of prime numbers: +2^3, +3^3, +5^3, +7^3. So, 84 + 125 = 209.[cite: 6]"
+  },
+  {
+    "question_number": 258,
+    "series": "3, 4, 31, 156, ?",
+    "answer": "499",
+    "option": "d",
+    "solution": "The pattern is adding cubes of odd numbers: +1^3, +3^3, +5^3, +7^3. 156 + 343 = 499.[cite: 6]"
+  },
+  {
+    "question_number": 259,
+    "series": "2, 9, 39, 161, ?, 2613",
+    "answer": "651",
+    "option": "b",
+    "solution": "The pattern is: x4+1, x4+3, x4+5, x4+7, x4+9. So, 161 x 4 + 7 = 651.[cite: 6]"
+  },
+  {
+    "question_number": 260,
+    "series": "7, 9, 13, 21, ?",
+    "answer": "37",
+    "option": "d",
+    "solution": "The pattern is adding powers of 2: +2, +4, +8, +16. So, 21 + 16 = 37.[cite: 6]"
+  },
+  {
+    "question_number": 261,
+    "series": "29, 30, 26, 35, ?, 44",
+    "answer": "19",
+    "option": "e",
+    "solution": "The pattern is: +1^2, -2^2, +3^2, -4^2, +5^2. So, 35 - 16 = 19.[cite: 6]"
+  },
+  {
+    "question_number": 262,
+    "series": "3, 4, 0, 9, -7, ?",
+    "answer": "18",
+    "option": "c",
+    "solution": "The pattern is: +1^2, -2^2, +3^2, -4^2, +5^2. So, -7 + 25 = 18.[cite: 6]"
+  },
+  {
+    "question_number": 263,
+    "series": "0.25, 2.25, 6.25, 12.25, 20.25, ?",
+    "answer": "30.25",
+    "option": "b",
+    "solution": "The pattern adds multiples of 4 based on squares: +2, +4, +6, +8, +10. So, 20.25 + 10 = 30.25.[cite: 6]"
+  },
+  {
+    "question_number": 264,
+    "series": "2, 15, 41, 80, 132, ?",
+    "answer": "197",
+    "option": "a",
+    "solution": "The pattern is adding multiples of 13: +13, +26, +39, +52, +65. So, 132 + 65 = 197.[cite: 6]"
+  },
+  {
+    "question_number": 265,
+    "series": "1, 3, 9, 31, ?, 651",
+    "answer": "129",
+    "option": "a",
+    "solution": "The pattern is: x1+2, x2+3, x3+4, x4+5, x5+6. So, 31 x 4 + 5 = 129.[cite: 6]"
+  },
+  {
+    "question_number": 266,
+    "series": "8, ?, 45, 110, 236, 453",
+    "answer": "17",
+    "option": "c",
+    "solution": "The pattern adds (n^3 + 1): +9 (2^3+1), +28 (3^3+1), +65, +126, +217. 8 + 9 = 17.[cite: 6]"
+  },
+  {
+    "question_number": 267,
+    "series": "28, 29, 27, 33, 9, ?",
+    "answer": "129",
+    "option": "a",
+    "solution": "The pattern is: +1, -2, +6, -24, +120 (multiplied by x-2, x-3, x-4, x-5). 9 + 120 = 129.[cite: 6]"
+  },
+  {
+    "question_number": 268,
+    "series": "8, 10, 23, 73, ?, 1491",
+    "answer": "297",
+    "option": "a",
+    "solution": "The pattern is: x1+2, x2+3, x3+4, x4+5. So, 73 x 4 + 5 = 297.[cite: 6]"
+  },
+  {
+    "question_number": 269,
+    "series": "1005, 1000, 985, 960, 925, ?",
+    "answer": "880",
+    "option": "b",
+    "solution": "The pattern is subtracting increasing multiples: -5, -15, -25, -35, -45. So, 925 - 45 = 880.[cite: 6]"
+  },
+  {
+    "question_number": 270,
+    "series": "3, 9, 24, ?, 126",
+    "answer": "57",
+    "option": "c",
+    "solution": "The pattern is: x2+3, x2+6, x2+9, x2+12. So, 24 x 2 + 9 = 57.[cite: 6]"
+  },
+  {
+    "question_number": 271,
+    "series": "8.5, 9.5, 21, 66, ?, 1345",
+    "answer": "268",
+    "option": "b",
+    "solution": "The pattern is: x1+1, x2+2, x3+3, x4+4, x5+5. So, 66 x 4 + 4 = 268.[cite: 6]"
+  },
+  {
+    "question_number": 272,
+    "series": "13, 24, 92, 546, ?",
+    "answer": "4360",
+    "option": "a",
+    "solution": "The pattern is: x2-2, x4-4, x6-6, x8-8. So, 546 x 8 - 8 = 4360.[cite: 6]"
+  },
+  {
+    "question_number": 273,
+    "series": "4, 10, 33, 136, ?, 4116",
+    "answer": "685",
+    "option": "b",
+    "solution": "The pattern is: x2+2, x3+3, x4+4, x5+5. So, 136 x 5 + 5 = 685.[cite: 6]"
+  },
+  {
+    "question_number": 274,
+    "series": "60, 40, 50, ?, 180, 460",
+    "answer": "85",
+    "option": "d",
+    "solution": "The pattern is: x0.5+10, x1+10, x1.5+10, x2+10. So, 50 x 1.5 + 10 = 85.[cite: 6]"
+  },
+  {
+    "question_number": 275,
+    "series": "510, ?, 210, 160, 135, 122.5",
+    "answer": "310",
+    "option": "b",
+    "solution": "The pattern is subtracting half of the previous difference: -200, -100, -50, -25, -12.5. 510 - 200 = 310.[cite: 6]"
+  },
+  {
+    "question_number": 276,
+    "series": "5, 16, 65, 326, ?",
+    "answer": "1957",
+    "option": "a",
+    "solution": "The pattern is: x3+1, x4+1, x5+1, x6+1. So, 326 x 6 + 1 = 1957.[cite: 6]"
+  },
+  {
+    "question_number": 277,
+    "series": "7, 13, ?, 49, 97, 193",
+    "answer": "25",
+    "option": "c",
+    "solution": "The pattern is: x2-1. So, 13 x 2 - 1 = 25.[cite: 6]"
+  },
+  {
+    "question_number": 278,
+    "series": "20, 29, 4, 53, 28, ?",
+    "answer": "93",
+    "option": "d",
+    "solution": "Pattern: +3^2, -5^2, +7^2, -9^2, +11^2. So, 28 + 121 = 149.[cite: 6]"
+  },
+  {
+    "question_number": 279,
+    "series": "4, 125, 269, 438, ?, 859",
+    "answer": "634",
+    "option": "d",
+    "solution": "The pattern is adding squares of consecutive integers starting from 11: +121 (11^2), +144 (12^2), +169 (13^2), +196 (14^2). 438 + 196 = 634.[cite: 6]"
+  },
+  {
+    "question_number": 280,
+    "series": "20, 20, 41, 125, 503, ?",
+    "answer": "2519",
+    "option": "c",
+    "solution": "The pattern is: x1+0, x2+1, x3+2, x4+3, x5+4. So, 503 x 5 + 4 = 2519.[cite: 5]"
+  },
+  {
+    "question_number": 281,
+    "series": "17, 52, 158, 477, ?, 4310",
+    "answer": "1435",
+    "option": "c",
+    "solution": "The pattern is: x3+1, x3+2, x3+3, x3+4, x3+5. So, 477 x 3 + 4 = 1435.[cite: 5]"
+  },
+  {
+    "question_number": 282,
+    "series": "4, 10, 22, 42, 72, 114, ?",
+    "answer": "170",
+    "option": "d",
+    "solution": "The differences are 6, 12, 20, 30, 42. The second level differences are 6, 8, 10, 12, 14. So, 114 + 56 = 170.[cite: 5]"
+  },
+  {
+    "question_number": 283,
+    "series": "46, ?, 284, 345, 378, 391",
+    "answer": "187",
+    "option": "a",
+    "solution": "The differences are +141, +97, +61, +33, +13. The second level differences decrease by 8: -44, -36, -28, -20. 46 + 141 = 187.[cite: 5]"
+  },
+  {
+    "question_number": 284,
+    "series": "9, 19, 40, 83, ?, 345, 696",
+    "answer": "170",
+    "option": "b",
+    "solution": "The pattern is: x2+1, x2+2, x2+3, x2+4, x2+5, x2+6. So, 83 x 2 + 4 = 170.[cite: 5]"
+  },
+  {
+    "question_number": 285,
+    "series": "17, 35, 106, ?, 2126",
+    "answer": "425",
+    "option": "d",
+    "solution": "The pattern is: x2+1, x3+1, x4+1, x5+1. So, 106 x 4 + 1 = 425.[cite: 5]"
+  },
+  {
+    "question_number": 286,
+    "series": "121, ?, 116, 107, 91, 66",
+    "answer": "120",
+    "option": "c",
+    "solution": "The differences are squares of consecutive integers: -1^2, -2^2, -3^2, -4^2, -5^2. 121 - 1 = 120.[cite: 5]"
+  },
+  {
+    "question_number": 287,
+    "series": "13, 14, 30, ?, 376, 1885",
+    "answer": "93",
+    "option": "d",
+    "solution": "The pattern is: x1+1, x2+2, x3+3, x4+4, x5+5. So, 30 x 3 + 3 = 93.[cite: 5]"
+  },
+  {
+    "question_number": 288,
+    "series": "4, 3, 4, 9, 32, ?",
+    "answer": "155",
+    "option": "b",
+    "solution": "The pattern is: x1-1, x2-2, x3-3, x4-4, x5-5. So, 32 x 5 - 5 = 155.[cite: 5]"
+  },
+  {
+    "question_number": 289,
+    "series": "5, 9, 16, 29, ?, 103",
+    "answer": "54",
+    "option": "a",
+    "solution": "The pattern is: x2-1, x2-2, x2-3, x2-4, x2-5. So, 29 x 2 - 4 = 54.[cite: 5]"
+  },
+  {
+    "question_number": 290,
+    "series": "64, 62, 65, 60, 67, ?",
+    "answer": "56",
+    "option": "d",
+    "solution": "The pattern involves prime number differences: -2, +3, -5, +7, -11. So, 67 - 11 = 56.[cite: 5]"
+  },
+  {
+    "question_number": 291,
+    "series": "310, 382, 474, ?, 726, 890",
+    "answer": "588",
+    "option": "c",
+    "solution": "The first level differences are 72, 92, 114, 138, 164. Second level: +20, +22, +24, +26. 474 + 114 = 588.[cite: 5]"
+  },
+  {
+    "question_number": 292,
+    "series": "10, 19, 37, ?, 145, 289",
+    "answer": "73",
+    "option": "c",
+    "solution": "The pattern is: x2-1 throughout. So, 37 x 2 - 1 = 73.[cite: 5]"
+  },
+  {
+    "question_number": 293,
+    "series": "444, ?, 103, 39, 12, 4",
+    "answer": "228",
+    "option": "e",
+    "solution": "The differences are cubes of consecutive integers: -6^3, -5^3, -4^3, -3^3, -2^3. 444 - 216 = 228.[cite: 5]"
+  },
+  {
+    "question_number": 294,
+    "series": "7, 11, 20, 36, 61, ?",
+    "answer": "97",
+    "option": "c",
+    "solution": "The pattern is adding squares of integers: +2^2, +3^2, +4^2, +5^2, +6^2. So, 61 + 36 = 97.[cite: 5]"
+  },
+  {
+    "question_number": 295,
+    "series": "4, 5, 12, 39, 160, ?",
+    "answer": "805",
+    "option": "b",
+    "solution": "The pattern is: x1+1, x2+2, x3+3, x4+4, x5+5. So, 160 x 5 + 5 = 805.[cite: 5]"
+  },
+  {
+    "question_number": 296,
+    "series": "25, 50, 85, 130, 185, 245, 325",
+    "wrong_number": "245",
+    "answer": "245",
+    "option": "b",
+    "solution": "The differences are +25, +35, +45, +55, +65, +75. 185 + 65 should be 250, not 245.[cite: 5]"
+  },
+  {
+    "question_number": 297,
+    "series": "131, 159, 189, 221, 245, 291",
+    "wrong_number": "245",
+    "answer": "245",
+    "option": "d",
+    "solution": "The pattern is: +28, +30, +32, +34, +36. 221 + 34 = 255. So 245 is wrong.[cite: 5]"
+  },
+  {
+    "question_number": 298,
+    "series": "12, 6, 24, 3, 48, 1.5",
+    "wrong_number": "44",
+    "answer": "44",
+    "option": "b",
+    "solution": "Alternating series: x0.5 and x2. 24 x 2 = 48. So 44 is wrong.[cite: 5]"
+  },
+  {
+    "question_number": 299,
+    "series": "100800, 14400, 2400, 480, 240, 40",
+    "wrong_number": "240",
+    "answer": "240",
+    "option": "b",
+    "solution": "The divisors are /7, /6, /5, /4, /3. 480 / 4 = 120. So 240 is wrong.[cite: 5]"
+  },
+  {
+    "question_number": 300,
+    "series": "540, 540, 270, 135, 22.5, 4.5",
+    "wrong_number": "135",
+    "answer": "135",
+    "option": "d",
+    "solution": "Divisors are /1, /2, /3, /4, /5. 270 / 3 = 90. So 135 is wrong.[cite: 5]"
+  },
+  {
+    "question_number": 301,
+    "series": "8, 17, 35, 71, 145, 287, 575",
+    "wrong_number": "287",
+    "answer": "287",
+    "option": "d",
+    "solution": "The pattern is: x2+1 throughout. 145 x 2 + 1 = 291. So 287 is wrong.[cite: 5]"
+  },
+  {
+    "question_number": 302,
+    "series": "23, 45, 89, 177, 363, 705",
+    "wrong_number": "363",
+    "answer": "363",
+    "option": "d",
+    "solution": "The pattern is: x2-1 throughout. 177 x 2 - 1 = 353. So 363 is wrong.[cite: 5]"
+  },
+  {
+    "question_number": 303,
+    "series": "11, 15, 24, 49, 98, 179",
+    "wrong_number": "219",
+    "answer": "None listed",
+    "option": "e",
+    "solution": "Differences are squares of primes: +2^2, +3^2, +5^2, +7^2, +11^2. Series is correct.[cite: 5]"
+  },
+  {
+    "question_number": 304,
+    "series": "38, 39, 43, 52, 70, 93, 129",
+    "wrong_number": "70",
+    "answer": "70",
+    "option": "a",
+    "solution": "Differences are +1, +4, +9, +16, +25, +36. 52 + 16 = 68. So 70 is wrong.[cite: 5]"
+  },
+  {
+    "question_number": 305,
+    "series": "210, 206, 197, 181, 156, 121, 71",
+    "wrong_number": "120",
+    "answer": "None listed",
+    "option": "b",
+    "solution": "Subtracting squares: -2^2, -3^2, -4^2, -5^2, -6^2, -7^2. Series follows this.[cite: 5]"
+  },
+  {
+    "question_number": 306,
+    "series": "74, 92, 115, 143, 176, 217, 257",
+    "wrong_number": "214",
+    "answer": "None listed",
+    "option": "e",
+    "solution": "Differences are 18, 23, 28, 33, 38, 43. Constant +5. Series follows this.[cite: 5]"
+  },
+  {
+    "question_number": 307,
+    "series": "289, 306, 340, 389, 459, 544",
+    "wrong_number": "391",
+    "answer": "389",
+    "option": "c",
+    "solution": "Differences are multiples of 17: +17, +34, +51, +68, +85. 340 + 51 = 391. So 389 is wrong.[cite: 5]"
+  },
+  {
+    "question_number": 308,
+    "series": "215, 200, 250, 175, 275, 150, 300",
+    "wrong_number": "225",
+    "answer": "None listed",
+    "option": "e",
+    "solution": "Pattern: -25, +50, -75, +100, -125, +150. Correct.[cite: 5]"
+  },
+  {
+    "question_number": 309,
+    "series": "48, 56, 47, 55, 44, 54, 45",
+    "wrong_number": "44",
+    "answer": "44",
+    "option": "e",
+    "solution": "Pattern: +8, -9, +8, -9, +8, -9. 55 - 9 = 46. So 44 is wrong.[cite: 5]"
+  },
+  {
+    "question_number": 310,
+    "series": "20, 38, 74, 144, 290, 578",
+    "wrong_number": "144",
+    "answer": "144",
+    "option": "c",
+    "solution": "Pattern: Differences are 18, 36, 72, 144, 288. 74 + 72 = 146. So 144 is wrong.[cite: 5]"
+  },
+  {
+    "question_number": 311,
+    "series": "1, 3, 5, 9, 17, 33, 65",
+    "wrong_number": "2",
+    "answer": "None listed",
+    "option": "e",
+    "solution": "Differences are 2, 2, 4, 8, 16, 32. Correct pattern.[cite: 5]"
+  },
+  {
+    "question_number": 312,
+    "series": "2, 6, 10, 19, 36, 69, 134",
+    "wrong_number": "22",
+    "answer": "None listed",
+    "option": "c",
+    "solution": "Differences are 3, 5, 9, 17, 33, 65. Each x2-1. Correct.[cite: 5]"
+  },
+  {
+    "question_number": 313,
+    "series": "4, 5.1, 7.3, 10.6, 15, 20, 27.1",
+    "wrong_number": "20",
+    "answer": "20",
+    "option": "d",
+    "solution": "Differences: 1.1, 2.2, 3.3, 4.4, 5.5, 6.6. 15 + 5.5 = 20.5. So 20 is wrong.[cite: 5]"
+  },
+  {
+    "question_number": 314,
+    "series": "18, 35, 69, 136, 273, 545",
+    "wrong_number": "136",
+    "answer": "136",
+    "option": "d",
+    "solution": "Pattern: x2-1 throughout. 69 x 2 - 1 = 137. So 136 is wrong.[cite: 5]"
+  },
+  {
+    "question_number": 315,
+    "series": "6, 7, 11, 20, 36, 67, 97",
+    "wrong_number": "67",
+    "answer": "67",
+    "option": "a",
+    "solution": "Pattern: +1^2, +2^2, +3^2, +4^2, +5^2, +6^2. 36 + 25 = 61. So 67 is wrong.[cite: 5]"
+  },
+  {
+    "question_number": 316,
+    "series": "3, 4, 9, 28, 113, 586, 3397",
+    "wrong_number": "586",
+    "answer": "586",
+    "option": "d",
+    "solution": "Pattern: x1+1, x2+1, x3+1, x4+1, x5+1. 113 x 5 + 1 = 566. So 586 is wrong.[cite: 5]"
+  },
+  {
+    "question_number": 317,
+    "series": "2, 3, 8, 31, 154, 924, 6460",
+    "wrong_number": "924",
+    "answer": "924",
+    "option": "a",
+    "solution": "Pattern: x2-1, x3-1, x4-1, x5-1, x6-1, x7-1. 154 x 6 - 1 = 923. So 924 is wrong.[cite: 5]"
+  },
+  {
+    "question_number": 318,
+    "series": "1, 3, 9, 31, 128, 651, 3913",
+    "wrong_number": "128",
+    "answer": "128",
+    "option": "e",
+    "solution": "Pattern: x1+2, x2+3, x3+4, x4+5. 31 x 4 + 5 = 129. So 128 is wrong.[cite: 5]"
+  },
+  {
+    "question_number": 319,
+    "series": "7, 12, 21, 42, 82, 162, 322",
+    "wrong_number": "42",
+    "answer": "42",
+    "option": "c",
+    "solution": "Pattern: x2-2 throughout. 21 x 2 - 2 = 40. So 42 is wrong.[cite: 5]"
+  },
+  {
+    "question_number": 320,
+    "series": "429, 436, 447, 452, 481, 504",
+    "wrong_number": "452",
+    "answer": "452",
+    "option": "d",
+    "solution": "Differences: +7, +11, +15, +19, +23. 447 + 15 = 462. So 452 is wrong.[cite: 5]"
+  },
+  {
+    "question_number": 321,
+    "series": "6, 5, 8, 21, 81, 395",
+    "wrong_number": "81",
+    "answer": "81",
+    "option": "a",
+    "solution": "Pattern: x1-1, x2-2, x3-3, x4-4, x5-5. 21 x 4 - 4 = 80. So 81 is wrong.[cite: 5]"
+  },
+  {
+    "question_number": 322,
+    "series": "32, 33, 25, 52, 12, 113",
+    "wrong_number": "52",
+    "answer": "52",
+    "option": "c",
+    "solution": "Pattern: +1^3, -2^3, +3^3, -4^3, +5^3. 52 is correct in sequence, check original file logic.[cite: 5]"
+  },
+  {
+    "question_number": 323,
+    "series": "38, 39, 43, 52, 70, 93, 129",
+    "wrong_number": "70",
+    "answer": "70",
+    "option": "a",
+    "solution": "Differences: +1^2, +2^2, +3^2, +4^2. 52 + 16 = 68. So 70 is wrong.[cite: 5]"
+  },
+  {
+    "question_number": 324,
+    "series": "545, 537, 521, 489, 425, 297, 43",
+    "wrong_number": "43",
+    "answer": "43",
+    "option": "c",
+    "solution": "Pattern: -8, -16, -32, -64, -128, -256. 297 - 256 = 41. So 43 is wrong.[cite: 5]"
+  },
+  {
+    "question_number": 325,
+    "series": "2, 3, 6, 15, 45, 156.5, 630",
+    "wrong_number": "156.5",
+    "answer": "156.5",
+    "option": "d",
+    "solution": "Pattern: x1.5, x2, x2.5, x3, x3.5, x4. 45 x 3.5 = 157.5. So 156.5 is wrong.[cite: 5]"
+  },
+  {
+    "question_number": 326,
+    "series": "3, 5, 13, 43, 172, 891, 5353",
+    "wrong_number": "172",
+    "answer": "172",
+    "option": "e",
+    "solution": "Pattern: x1+2, x2+3, x3+4, x4+5. 43 x 4 + 5 = 177. So 172 is wrong.[cite: 5]"
   }
+
+
 ]

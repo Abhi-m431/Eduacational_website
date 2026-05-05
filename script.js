@@ -119,7 +119,6 @@ function handleInitialRouting() {
             case 'stats': return showStatistics(false);
             case 'mockInstr': return showMockInstructions(state.mockNum, null, false);
             case 'mockSelect': return chooseMockTest(false);
-            case 'adminReview': return showTopicWiseReview(false);
             case 'mockActive': return startMockTest(state.mockNum, false, state.seed);
         }
     }
@@ -157,8 +156,6 @@ function handleInitialRouting() {
                 showMockInstructions(mockNum, null, false);
             }
         }
-    } else if (routeParts[0] === 'admin-review') {
-        showTopicWiseReview(false);
     } else {
         // Default to home for unknown paths
         history.replaceState({ view: 'home' }, "", "#/");
@@ -417,6 +414,8 @@ function renderSidebar() {
     if (!nav || !theoryData) return;
     nav.innerHTML = "";
 
+    const isAdmin = localStorage.getItem('admin_bypass') === 'true' || window.location.search.includes('admin=true');
+
     // 1. Populate Theory Topics
     Object.keys(theoryData).forEach(catKey => {
         const cat = theoryData[catKey];
@@ -444,21 +443,22 @@ function renderSidebar() {
         nav.appendChild(subNav);
     });
 
-    // 2. Admin-Only Section (Bypass Only)
-    if (localStorage.getItem('admin_bypass') === 'true' || window.location.search.includes('admin=true')) {
-        // Save the bypass state if detected in URL
-        if (window.location.search.includes('admin=true')) localStorage.setItem('admin_bypass', 'true');
+    // 2. Mock Tests Section
+    const mockGroup = document.createElement('div');
+    mockGroup.className = 'nav-group-title';
+    mockGroup.innerText = 'Mock Tests';
+    nav.appendChild(mockGroup);
 
-        const examGroup = document.createElement('div');
-        examGroup.className = 'nav-group-title';
-        examGroup.innerText = 'Admin Assessment';
-        nav.appendChild(examGroup);
-
+    [1, 2, 3].forEach(num => {
         const mockItem = document.createElement('div');
         mockItem.className = 'nav-item';
-        mockItem.innerHTML = `<span>Mock Tests</span>`;
-        mockItem.onclick = () => chooseMockTest();
+        mockItem.innerHTML = `<span>Mock Test ${num}</span>`;
+        mockItem.onclick = () => showMockInstructions(num, mockItem);
         nav.appendChild(mockItem);
+    });
+
+    if (isAdmin && window.location.search.includes('admin=true')) {
+        localStorage.setItem('admin_bypass', 'true');
     }
 }
 
@@ -651,9 +651,8 @@ function showMockInstructions(mockNum, element, push = true) {
     closeSidebarOnMobile();
     clearActiveNavItems();
 
-    const isAdmin = localStorage.getItem('admin_bypass') === 'true' || window.location.search.includes('admin=true');
-    const isPractise = mockNum === 4 && isAdmin;
-    const testTitle = isPractise ? "Practise" : "Mock Test " + mockNum;
+    const testTitle = mockNum === 4 ? "Practise Test" : "Mock Test " + mockNum;
+    const topicName = history.state?.topicName || "all topics"; // Get topic name if available
 
     if (element) element.classList.add('active');
     else {
@@ -670,8 +669,10 @@ function showMockInstructions(mockNum, element, push = true) {
         <div class="question-card" style="text-align:left;">
             <h2 style="color:#2563eb;">${testTitle} Instructions</h2>
             <ul style="margin-bottom:1.5rem;">
-                <li>This ${isPractise ? 'practise' : 'mock'} test contains 20 questions from all topics.</li>
+                <li>This test contains ${mockNum === 4 ? `all questions for the selected topic (${topicName})` : '20 questions from all topics'}.</li>
                 <li>You have 15 minutes to complete the test.</li>
+                <li>This test contains ${mockNum === 4 ? `all questions for the selected topic (${topicName})` : '30 questions from all topics'}.</li>
+                <li>You have 20 minutes to complete the test.</li>
                 <li>Do not refresh or leave the page during the test.</li>
                 <li>Your score, percentage, answered/unanswered, and focus area will be shown after submission.</li>
             </ul>
@@ -696,8 +697,6 @@ function chooseMockTest(push = true) {
     if (!ui.questionsList) return;
     if (ui.mockResult) ui.mockResult.innerHTML = "";
 
-    const isAdmin = localStorage.getItem('admin_bypass') === 'true' || window.location.search.includes('admin=true');
-
     ui.questionsList.innerHTML = `
         <div class="welcome-container focused-mode">
             <h2 class="section-heading">Examination Center</h2>
@@ -706,15 +705,11 @@ function chooseMockTest(push = true) {
                 <div class="question-card" style="text-align: left; background: var(--bg); border-left: 5px solid var(--primary);">
                     <h3 style="color: var(--primary); margin-bottom: 1rem;">Full Length Mocks</h3>
                     <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.5rem;">20 random questions from all topics with a 15-minute timer.</p>
+                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.5rem;">30 random questions from all topics with a 20-minute timer.</p>
                     <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-                        ${isAdmin 
-                            ? `<button class="btn btn-primary" style="background-color: var(--success);" onclick="showMockInstructions(4)">Practise</button>` 
-                            : `
-                                <button class="btn btn-primary" onclick="showMockInstructions(1)">Mock 1</button>
-                                <button class="btn btn-primary" onclick="showMockInstructions(2)">Mock 2</button>
-                                <button class="btn btn-primary" onclick="showMockInstructions(3)">Mock 3</button>
-                            `
-                        }
+                        <button class="btn btn-primary" onclick="showMockInstructions(1)">Mock 1</button>
+                        <button class="btn btn-primary" onclick="showMockInstructions(2)">Mock 2</button>
+                        <button class="btn btn-primary" onclick="showMockInstructions(3)">Mock 3</button>
                     </div>
                 </div>
             </div>
@@ -723,92 +718,45 @@ function chooseMockTest(push = true) {
     if (push) history.pushState({ view: 'mockSelect' }, "", "#/mock-test");
 }
 
-async function showTopicWiseReview(push = true) {
+async function showTopicSelectionForPractice(push = true) {
     ensureDashboardShell();
     if (!ui.questionsList) return;
     closeSidebarOnMobile();
-    
-    if (ui.breadcrumbCat) ui.breadcrumbCat.innerText = "Admin / Review";
-    if (ui.displayTitle) ui.displayTitle.innerText = "Question Database Browser";
-    if (push) history.pushState({ view: 'adminReview' }, "", "#/admin-review");
+
+    if (ui.breadcrumbCat) ui.breadcrumbCat.innerText = "Practise Test";
+    if (ui.displayTitle) ui.displayTitle.innerText = "Select Topic for Practise";
+    if (ui.mockResult) ui.mockResult.innerHTML = "";
+
+    // Aggregate all unique tags from theoryData
+    const allTopics = new Set();
+    for (const catKey in theoryData) {
+        for (const topicKey in theoryData[catKey].topics) {
+            allTopics.add(topicKey);
+        }
+    }
+
+    const sortedTopics = Array.from(allTopics).sort();
 
     ui.questionsList.innerHTML = `
         <div class="question-card" style="text-align:left;">
-            <h3 style="border:none; margin-bottom:1.5rem;">Select Category to Browse</h3>
+            <h3 style="border:none; margin-bottom:1.5rem;">Choose a topic to start your practice session:</h3>
             <div class="glance-grid">
-                ${Object.keys(theoryData).map(catKey => `
-                    <div class="glance-card" onclick="renderCategoryTags('${catKey}')">
-                        <span class="glance-topic-name">${catKey}</span>
+                ${sortedTopics.map(topic => `
+                    <div class="glance-card" onclick="startTopicPractice('${topic}')">
+                        <span class="glance-topic-name">${topic}</span>
                         <span class="glance-arrow">➔</span>
                     </div>
                 `).join('')}
             </div>
         </div>
     `;
+    if (push) history.pushState({ view: 'topicPracticeSelect' }, "", "#/mock-test/practise/select-topic");
 }
 
-async function renderCategoryTags(catName) {
-    ui.questionsList.innerHTML = `<div class="question-card">Loading topics for ${catName}...</div>`;
-    const fileName = catName.replace(/[^a-z0-9]/gi, '_') + '.json';
-    
-    try {
-        const res = await fetch(`data/${fileName}`);
-        const questions = await res.json();
-        const tags = [...new Set(questions.map(q => q.tag))].sort();
-
-        ui.questionsList.innerHTML = `
-            <div class="question-card" style="text-align:left;">
-                <button class="btn" style="margin-bottom:1.5rem; padding:0; color:var(--primary);" onclick="showTopicWiseReview()">← Back to Categories</button>
-                <h3 style="border:none; margin-bottom:1rem;">Topics in ${catName}</h3>
-                <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
-                    ${tags.map(tag => `
-                        <button class="btn" style="border: 1px solid var(--border); background:white;" onclick="listAllTopicQuestions('${catName}', '${tag}')">${tag}</button>
-                    `).join('')}
-                </div>
-            </div>
-        `;
-    } catch (e) {
-        alert("Could not load questions for this category.");
-        showTopicWiseReview();
-    }
-}
-
-async function listAllTopicQuestions(catName, tag) {
-    const fileName = catName.replace(/[^a-z0-9]/gi, '_') + '.json';
-    const res = await fetch(`data/${fileName}`);
-    const allQuestions = await res.json();
-    const filtered = allQuestions.filter(q => q.tag === tag);
-
-    if (ui.displayTitle) ui.displayTitle.innerText = `Reviewing: ${tag}`;
-
-    ui.questionsList.innerHTML = `
-        <div style="margin-bottom: 2rem;">
-            <button class="btn btn-primary" onclick="renderCategoryTags('${catName}')">← Back to Topics</button>
-        </div>
-        ${filtered.map((q, idx) => `
-            <div class="question-card" style="text-align:left; margin-bottom: 2rem;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-                    <span class="q-tag">${q.tag}</span>
-                    <span class="q-level level-${(q.level || 'easy').toLowerCase()}">ID: ${q.id} | ${q.level}</span>
-                </div>
-                <p style="font-size:1.1rem; font-weight:600; margin-bottom:1.5rem;">Q${idx + 1}. ${q.q}</p>
-                <div class="options-grid" style="margin-bottom:1.5rem;">
-                    ${q.options.map((opt, i) => {
-                        const letter = String.fromCharCode(65 + i);
-                        const isCorrect = letter === q.ans;
-                        return `<div class="option-label ${isCorrect ? 'correct' : ''}" style="cursor:default; pointer-events:none;">
-                            ${letter}) ${opt} ${isCorrect ? '✓' : ''}
-                        </div>`;
-                    }).join('')}
-                </div>
-                <div class="explanation" style="background:var(--bg); padding:1rem; border-radius:8px; border-left:4px solid var(--primary);">
-                    <strong>Correct Answer: ${q.ans}</strong><br>
-                    <p style="margin-top:0.5rem;">${q.explain}</p>
-                </div>
-            </div>
-        `).join('')}
-    `;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+function startTopicPractice(topicName) {
+    // Mock 4 is now the dedicated topic practice test
+    // We pass the topicName so instructions and test can use it
+    startMockTest(4, true, null, topicName); 
 }
 
 function showProfileDetails(push = true) {
@@ -869,23 +817,45 @@ function saveProfileChanges() {
 }
 
 // MOCK TEST FEATURE
+// Performance Optimization: Cache for the entire mock pool to avoid re-fetching
+let mockPoolCache = null;
+
 async function startMockTest(mockNum, push = true, seed = null) {
     if (examState.timerId) clearInterval(examState.timerId);
     
     try {
-        const res = await fetch('data/mock_pool.json');
-        let pool = await res.json();
+        let pool;
+        if (mockPoolCache) {
+            pool = mockPoolCache;
+        } else {
+            const res = await fetch('data/mock_pool.json');
+            if (!res.ok) throw new Error("Failed to fetch mock_pool.json");
+            pool = await res.json();
+            if (!Array.isArray(pool)) throw new Error("Mock pool is not a valid array");
+            mockPoolCache = pool; // Store in cache for future tests
+        }
+
+        // Filter for specific topic if it's the "Number system" practice mode (Mock 4)
+        let questionsToUse = pool;
+        const topicName = arguments[3] || history.state?.topicName; // Get topic name from argument or history state
+        if (mockNum === 4 && topicName) {
+            questionsToUse = pool.filter(q => q.tag?.toLowerCase() === topicName.toLowerCase());
+        }
+
         const finalSeed = seed || (Math.floor(Math.random() * 1000000) + mockNum);
-        
-        examState.questions = shuffleArray(pool, finalSeed).slice(0, 20);
+        const shuffled = shuffleArray(questionsToUse, finalSeed);
+        examState.questions = (mockNum === 4) ? shuffled : shuffled.slice(0, 20); // All questions for practice, 20 for mocks
+        examState.questions = (mockNum === 4) ? shuffled : shuffled.slice(0, 30); // All questions for practice, 30 for mocks
+
         examState.responses = {};
         examState.marked = new Set();
         examState.visited = new Set([0]);
         examState.currentIndex = 0;
-        examState.timeLeft = 15 * 60; // 15 minutes
+        examState.timeLeft = mockNum === 4 ? Infinity : 15 * 60; // No time limit for practice
+        examState.timeLeft = mockNum === 4 ? Infinity : 20 * 60; // No time limit for practice
         
-        if (push) history.pushState({ view: 'mockActive', mockNum, seed: finalSeed }, "", `#/mock-test/${mockNum}/active`);
-        
+        if (push) history.pushState({ view: 'mockActive', mockNum, seed: finalSeed, topicName }, "", `#/mock-test/${mockNum}/active`);
+        if (push && mockNum === 4 && topicName) history.replaceState({ view: 'mockActive', mockNum, seed: finalSeed, topicName }, "", `#/mock-test/${mockNum}/active/${topicName.replace(/\s+/g, '-').toLowerCase()}`);
         renderExamLayout(mockNum);
         startExamTimer();
         document.body.classList.add('exam-mode-active');
@@ -896,8 +866,8 @@ async function startMockTest(mockNum, push = true, seed = null) {
 }
 
 function renderExamLayout(mockNum) {
-    const isAdmin = localStorage.getItem('admin_bypass') === 'true' || window.location.search.includes('admin=true');
-    const testTitle = (mockNum === 4 && isAdmin) ? "Practise" : `Mock Test ${mockNum}`;
+    const topicName = history.state?.topicName;
+    const testTitle = mockNum === 4 ? `Practise: ${topicName || 'Selected Topic'}` : `Mock Test ${mockNum}`;
 
     ui.mainContent.innerHTML = `
         <div class="exam-header-strip" style="position: sticky; top: 0; z-index: 1000; width: 100%;">
@@ -912,8 +882,9 @@ function renderExamLayout(mockNum) {
                 </svg>
                 Grid
             </button>
-            <div style="flex-grow: 1;"></div>
-            <div class="exam-timer" id="exam-timer-display" style="margin-left: auto;">15:00</div>
+            <div style="flex-grow: 1;"></div> 
+            <div class="exam-timer" id="exam-timer-display" style="margin-left: auto;">${mockNum === 4 ? 'No Time Limit' : '15:00'}</div>
+            <div class="exam-timer" id="exam-timer-display" style="margin-left: auto;">${mockNum === 4 ? 'No Time Limit' : '20:00'}</div>
         </div>
         <div class="exam-container">
             <div class="exam-main-panel" id="exam-question-area"></div>
@@ -1007,17 +978,25 @@ function nextQuestion() {
     if (examState.currentIndex < examState.questions.length - 1) {
         examState.currentIndex++;
         examState.visited.add(examState.currentIndex);
-        updateQuestionDisplay();
-        // Auto-close palette on mobile when navigating
-        document.querySelector('.exam-side-panel')?.classList.remove('show-mobile-palette');
+        
+        // Wrap DOM update in setTimeout to allow current event loop to finish,
+        // preventing issues with rapid clicks and DOM replacement.
+        setTimeout(() => {
+            updateQuestionDisplay();
+            document.querySelector('.exam-side-panel')?.classList.remove('show-mobile-palette');
+        }, 0); // 0ms delay pushes it to the end of the current event queue
     }
 }
 
 function prevQuestion() {
     if (examState.currentIndex > 0) {
         examState.currentIndex--;
-        updateQuestionDisplay();
-        document.querySelector('.exam-side-panel')?.classList.remove('show-mobile-palette');
+        
+        // Wrap DOM update in setTimeout for smoother event handling.
+        setTimeout(() => {
+            updateQuestionDisplay();
+            document.querySelector('.exam-side-panel')?.classList.remove('show-mobile-palette');
+        }, 0); // 0ms delay pushes it to the end of the current event queue
     }
 }
 
@@ -1036,10 +1015,21 @@ function updatePalette() {
 }
 
 function jumpToQuestion(i) {
+    if (examState.currentIndex === i) return; // Prevent unnecessary re-renders
     examState.currentIndex = i;
     examState.visited.add(i);
-    updateQuestionDisplay();
-    document.querySelector('.exam-side-panel')?.classList.remove('show-mobile-palette');
+    
+    // Wrap DOM update in setTimeout to allow current event loop to finish,
+    // preventing issues with rapid clicks and DOM replacement.
+    setTimeout(() => {
+        updateQuestionDisplay();
+        
+        // Use instant scroll (scrollTop = 0) for better perceived performance during rapid navigation
+        // Smooth scrolling can sometimes add a slight delay that feels unresponsive.
+        const area = document.getElementById('exam-question-area');
+        if (area) area.scrollTop = 0; // Scroll to top instantly
+        document.querySelector('.exam-side-panel')?.classList.remove('show-mobile-palette'); // Close palette on mobile
+    }, 0); // 0ms delay pushes it to the end of the current event queue
 }
 
 function startExamTimer() {
@@ -1049,7 +1039,11 @@ function startExamTimer() {
         const secs = examState.timeLeft % 60;
         const display = document.getElementById('exam-timer-display');
         if (display) display.innerText = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-        
+
+        if (examState.timeLeft === Infinity) { // For practice mode
+            if (display) display.innerText = "No Time Limit";
+            return;
+        }
         if (examState.timeLeft <= 0) {
             clearInterval(examState.timerId);
             finishMockTest(true);
@@ -1061,8 +1055,8 @@ async function finishMockTest(autoSubmit) {
     hideFinishModal();
     clearInterval(examState.timerId);
     const mockNum = history.state?.mockNum || 1;
-    const isAdmin = localStorage.getItem('admin_bypass') === 'true' || window.location.search.includes('admin=true');
-    const testTitle = (mockNum === 4 && isAdmin) ? "Practise" : `Mock Test ${mockNum}`;
+    const topicName = history.state?.topicName;
+    const testTitle = mockNum === 4 ? `Practise: ${topicName || 'Selected Topic'}` : `Mock Test ${mockNum}`;
     
     let correct = 0;
     let total = examState.questions.length;
@@ -1147,7 +1141,7 @@ async function finishMockTest(autoSubmit) {
     // Professional Tracking: Save the result to Firestore
     if (window.savePerformanceResult) {
         await window.savePerformanceResult({
-            testType: (mockNum === 4 && isAdmin) ? "Practise" : "Mock Test",
+            testType: mockNum === 4 ? `Topic Practice (${topicName || 'Unknown'})` : "Mock Test",
             testId: mockNum,
             score: correct,
             total: total,
