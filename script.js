@@ -20,6 +20,16 @@ const ui = {
     get mockResult() { return document.getElementById('mock-result'); }
 };
 
+// Helper to create navigation items dynamically
+function createNavItemElement(text, classes = [], onClickHandler = null, id = null) {
+    const element = document.createElement('div');
+    element.className = 'nav-item ' + classes.join(' ');
+    element.innerHTML = text;
+    if (onClickHandler) element.onclick = onClickHandler;
+    if (id) element.id = id;
+    return element;
+}
+
 // Smooth scroll to section
 function scrollToSection(id) {
   document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
@@ -449,17 +459,17 @@ function renderSidebar() {
     mockGroup.innerText = 'Mock Tests';
     nav.appendChild(mockGroup);
 
-    [1, 2, 3].forEach(num => {
-        const mockItem = document.createElement('div');
-        mockItem.className = 'nav-item';
-        mockItem.innerHTML = `<span>Mock Test ${num}</span>`;
-        mockItem.onclick = () => showMockInstructions(num, mockItem);
-        nav.appendChild(mockItem);
-    });
+    // Use the helper function for nav items
+    nav.appendChild(createNavItemElement('<span>Mock Test 1 (30 Q)</span>', [], () => showMockInstructions(1, null, true, 30)));
+    nav.appendChild(createNavItemElement('<span>Mock Test 2 (30 Q)</span>', [], () => showMockInstructions(2, null, true, 30)));
+    nav.appendChild(createNavItemElement('<span>Mock Test 3 (30 Q)</span>', [], () => showMockInstructions(3, null, true, 30)));
+    nav.appendChild(createNavItemElement('<span>Practise by Topic</span>', [], () => showTopicSelectionForPractice()));
+
 
     if (isAdmin && window.location.search.includes('admin=true')) {
         localStorage.setItem('admin_bypass', 'true');
     }
+
 }
 
 function toggleSubMenu(catKey, safeId, element) {
@@ -644,7 +654,7 @@ async function showStatistics(push = true) {
     }
 }
 // Add this function to handle sidebar click for Mock Tests
-function showMockInstructions(mockNum, element, push = true) {
+function showMockInstructions(mockNum, element, push = true, numQuestions = null) { // Consolidated definition
     // Update active class
     ensureDashboardShell();
     if (!ui.questionsList) return;
@@ -666,18 +676,17 @@ function showMockInstructions(mockNum, element, push = true) {
     if (ui.displayTitle) ui.displayTitle.innerText = testTitle;
     if (ui.mockResult) ui.mockResult.innerHTML = "";
     ui.questionsList.innerHTML = `
-        <div class="question-card" style="text-align:left;">
+        <div class="question-card" style="text-align:left; max-width: 600px; margin: 1rem auto;">
             <h2 style="color:#2563eb;">${testTitle} Instructions</h2>
             <ul style="margin-bottom:1.5rem;">
-                <li>This test contains ${mockNum === 4 ? `all questions for the selected topic (${topicName})` : '20 questions from all topics'}.</li>
+                <li>This test contains ${mockNum === 4 ? `all questions for the selected topic (${topicName})` : `${numQuestions || 30} questions from all topics`}.</li>
                 <li>You have 15 minutes to complete the test.</li>
-                <li>This test contains ${mockNum === 4 ? `all questions for the selected topic (${topicName})` : '30 questions from all topics'}.</li>
-                <li>You have 20 minutes to complete the test.</li>
                 <li>Do not refresh or leave the page during the test.</li>
                 <li>Your score, percentage, answered/unanswered, and focus area will be shown after submission.</li>
+                ${mockNum !== 4 ? `<li>You can select the number of questions for a custom mock test.</li>` : ''}
             </ul>
             <div style="margin-bottom:1rem;">
-                <button class="btn btn-primary" onclick="startMockTest(${mockNum})">Start ${testTitle}</button>
+                <button class="btn btn-primary" onclick="startMockTest(${mockNum}, true, null, '${topicName}', ${numQuestions || 30})">Start ${testTitle}</button>
             </div>
         </div>
     `;
@@ -692,30 +701,48 @@ function toggleExamPalette() {
 }
 
 // Show mock test selection (if you want 3 mock tests)
-function chooseMockTest(push = true) {
+function chooseMockTest(push = true, defaultNumQuestions = 30) { // Consolidated definition
     ensureDashboardShell();
     if (!ui.questionsList) return;
     if (ui.mockResult) ui.mockResult.innerHTML = "";
-
+    if (ui.breadcrumbCat) ui.breadcrumbCat.innerText = "Mock Tests";
+    if (ui.displayTitle) ui.displayTitle.innerText = "Select Mock Test";
+    
     ui.questionsList.innerHTML = `
         <div class="welcome-container focused-mode">
             <h2 class="section-heading">Examination Center</h2>
             
             <div class="dashboard-grid" style="margin-bottom: 2rem;">
                 <div class="question-card" style="text-align: left; background: var(--bg); border-left: 5px solid var(--primary);">
+                <div class="question-card" style="text-align: left; background: var(--bg); border-left: 5px solid var(--primary); margin-bottom: 1.5rem;">
                     <h3 style="color: var(--primary); margin-bottom: 1rem;">Full Length Mocks</h3>
                     <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.5rem;">20 random questions from all topics with a 15-minute timer.</p>
-                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.5rem;">30 random questions from all topics with a 20-minute timer.</p>
+                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.5rem;">${defaultNumQuestions} random questions from all topics with a 15-minute timer.</p>
                     <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-                        <button class="btn btn-primary" onclick="showMockInstructions(1)">Mock 1</button>
-                        <button class="btn btn-primary" onclick="showMockInstructions(2)">Mock 2</button>
-                        <button class="btn btn-primary" onclick="showMockInstructions(3)">Mock 3</button>
+                        <button class="btn btn-primary" onclick="showMockInstructions(1, null, true, ${defaultNumQuestions})">Mock 1</button>
+                        <button class="btn btn-primary" onclick="showMockInstructions(2, null, true, ${defaultNumQuestions})">Mock 2</button>
+                        <button class="btn btn-primary" onclick="showMockInstructions(3, null, true, ${defaultNumQuestions})">Mock 3</button>
+                    </div>
+                </div>
+                <div class="question-card" style="text-align: left; background: var(--bg); border-left: 5px solid var(--success);">
+                    <h3 style="color: var(--success); margin-bottom: 1rem;">Custom Mock Test</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.5rem;">Choose the number of questions for a personalized mock test.</p>
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <input type="number" id="custom-q-count" class="form-control" value="30" min="1" max="200" style="padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border); width: 100px;">
+                        <button class="btn btn-primary" onclick="startCustomMock()">Start Custom Mock</button>
                     </div>
                 </div>
             </div>
         </div>
     `;
     if (push) history.pushState({ view: 'mockSelect' }, "", "#/mock-test");
+}
+
+function startCustomMock() {
+    const qCountInput = document.getElementById('custom-q-count');
+    const numQuestions = parseInt(qCountInput.value);
+    if (isNaN(numQuestions) || numQuestions < 1 || numQuestions > 200) return alert("Please enter a valid number of questions (1-200).");
+    showMockInstructions(5, null, true, numQuestions); // Use mockNum 5 for custom mocks
 }
 
 async function showTopicSelectionForPractice(push = true) {
@@ -820,7 +847,7 @@ function saveProfileChanges() {
 // Performance Optimization: Cache for the entire mock pool to avoid re-fetching
 let mockPoolCache = null;
 
-async function startMockTest(mockNum, push = true, seed = null) {
+async function startMockTest(mockNum, push = true, seed = null, topicName = null, numQuestions = null) { // Consolidated definition
     if (examState.timerId) clearInterval(examState.timerId);
     
     try {
@@ -836,23 +863,26 @@ async function startMockTest(mockNum, push = true, seed = null) {
         }
 
         // Filter for specific topic if it's the "Number system" practice mode (Mock 4)
-        let questionsToUse = pool;
-        const topicName = arguments[3] || history.state?.topicName; // Get topic name from argument or history state
+        let questionsToUse = pool; // Default to all questions in the pool
         if (mockNum === 4 && topicName) {
             questionsToUse = pool.filter(q => q.tag?.toLowerCase() === topicName.toLowerCase());
         }
 
         const finalSeed = seed || (Math.floor(Math.random() * 1000000) + mockNum);
         const shuffled = shuffleArray(questionsToUse, finalSeed);
-        examState.questions = (mockNum === 4) ? shuffled : shuffled.slice(0, 20); // All questions for practice, 20 for mocks
-        examState.questions = (mockNum === 4) ? shuffled : shuffled.slice(0, 30); // All questions for practice, 30 for mocks
+        examState.questions = (mockNum === 4) ? shuffled : shuffled.slice(0, numQuestions || 30); // Use numQuestions if provided, else default to 30
+
+        if (examState.questions.length === 0) {
+            alert("No questions found for this selection.");
+            return;
+        }
 
         examState.responses = {};
         examState.marked = new Set();
         examState.visited = new Set([0]);
         examState.currentIndex = 0;
         examState.timeLeft = mockNum === 4 ? Infinity : 15 * 60; // No time limit for practice
-        examState.timeLeft = mockNum === 4 ? Infinity : 20 * 60; // No time limit for practice
+        examState.timeLeft = (mockNum === 4 || mockNum === 5) ? Infinity : 15 * 60; // No time limit for practice or custom mocks
         
         if (push) history.pushState({ view: 'mockActive', mockNum, seed: finalSeed, topicName }, "", `#/mock-test/${mockNum}/active`);
         if (push && mockNum === 4 && topicName) history.replaceState({ view: 'mockActive', mockNum, seed: finalSeed, topicName }, "", `#/mock-test/${mockNum}/active/${topicName.replace(/\s+/g, '-').toLowerCase()}`);
@@ -865,9 +895,9 @@ async function startMockTest(mockNum, push = true, seed = null) {
     }
 }
 
-function renderExamLayout(mockNum) {
-    const topicName = history.state?.topicName;
-    const testTitle = mockNum === 4 ? `Practise: ${topicName || 'Selected Topic'}` : `Mock Test ${mockNum}`;
+function renderExamLayout(mockNum) { // Consolidated definition
+    const topicName = history.state?.topicName; // Keep this, it's used for the title
+    const testTitle = mockNum === 4 ? `Practise: ${topicName || 'Selected Topic'}` : (mockNum === 5 ? `Custom Mock Test` : `Mock Test ${mockNum}`);
 
     ui.mainContent.innerHTML = `
         <div class="exam-header-strip" style="position: sticky; top: 0; z-index: 1000; width: 100%;">
@@ -884,7 +914,6 @@ function renderExamLayout(mockNum) {
             </button>
             <div style="flex-grow: 1;"></div> 
             <div class="exam-timer" id="exam-timer-display" style="margin-left: auto;">${mockNum === 4 ? 'No Time Limit' : '15:00'}</div>
-            <div class="exam-timer" id="exam-timer-display" style="margin-left: auto;">${mockNum === 4 ? 'No Time Limit' : '20:00'}</div>
         </div>
         <div class="exam-container">
             <div class="exam-main-panel" id="exam-question-area"></div>
@@ -896,6 +925,9 @@ function renderExamLayout(mockNum) {
                     <div class="legend-item"><div class="legend-box not-answered"></div> Not Answered</div>
                     <div class="legend-item"><div class="legend-box marked"></div> Marked</div>
                     <div class="legend-item"><div class="legend-box not-visited"></div> Not Visited</div>
+                </div>
+                <div style="margin-top: 2rem;">
+                    <button class="btn btn-primary btn-lg" style="width: 100%; justify-content: center; background-color: var(--success); border: none;" onclick="showFinishModal()">Finish Test ➔</button>
                 </div>
             </div>
         </div>
@@ -976,60 +1008,63 @@ function toggleMark() {
 
 function nextQuestion() {
     if (examState.currentIndex < examState.questions.length - 1) {
+        // Mark current as visited before moving
+        examState.visited.add(examState.currentIndex);
         examState.currentIndex++;
         examState.visited.add(examState.currentIndex);
-        
-        // Wrap DOM update in setTimeout to allow current event loop to finish,
-        // preventing issues with rapid clicks and DOM replacement.
-        setTimeout(() => {
-            updateQuestionDisplay();
-            document.querySelector('.exam-side-panel')?.classList.remove('show-mobile-palette');
-        }, 0); // 0ms delay pushes it to the end of the current event queue
+        updateQuestionDisplay();
+        document.querySelector('.exam-side-panel')?.classList.remove('show-mobile-palette');
     }
 }
 
 function prevQuestion() {
     if (examState.currentIndex > 0) {
         examState.currentIndex--;
-        
-        // Wrap DOM update in setTimeout for smoother event handling.
-        setTimeout(() => {
-            updateQuestionDisplay();
-            document.querySelector('.exam-side-panel')?.classList.remove('show-mobile-palette');
-        }, 0); // 0ms delay pushes it to the end of the current event queue
+        updateQuestionDisplay();
+        document.querySelector('.exam-side-panel')?.classList.remove('show-mobile-palette');
     }
 }
 
 function updatePalette() {
     const grid = document.getElementById('palette-grid');
     if (!grid) return;
-    grid.innerHTML = examState.questions.map((q, i) => {
-        let status = 'not-visited';
-        if (examState.marked.has(q.id)) status = 'marked';
-        else if (examState.responses[q.id]) status = 'answered';
-        else if (examState.visited.has(i)) status = 'not-answered';
-        
-        return `<div class="palette-btn ${status} ${examState.currentIndex === i ? 'active' : ''}" 
-                     onclick="jumpToQuestion(${i})">${i + 1}</div>`;
-    }).join('');
+    
+    const existingButtons = grid.querySelectorAll('.palette-btn');
+    
+    // Efficient Update: If buttons already exist, just update their classes
+    if (existingButtons.length === examState.questions.length) {
+        examState.questions.forEach((q, i) => {
+            let status = 'not-visited';
+            if (examState.marked.has(q.id)) status = 'marked';
+            else if (examState.responses[q.id]) status = 'answered';
+            else if (examState.visited.has(i)) status = 'not-answered';
+            
+            const btn = existingButtons[i];
+            btn.className = `palette-btn ${status} ${examState.currentIndex === i ? 'active' : ''}`;
+        });
+    } else {
+        // Full Render (only happens once per test start)
+        grid.innerHTML = examState.questions.map((q, i) => {
+            let status = 'not-visited';
+            if (examState.marked.has(q.id)) status = 'marked';
+            else if (examState.responses[q.id]) status = 'answered';
+            else if (examState.visited.has(i)) status = 'not-answered';
+            
+            return `<div class="palette-btn ${status} ${examState.currentIndex === i ? 'active' : ''}" 
+                         onclick="jumpToQuestion(${i})">${i + 1}</div>`;
+        }).join('');
+    }
 }
 
 function jumpToQuestion(i) {
     if (examState.currentIndex === i) return; // Prevent unnecessary re-renders
     examState.currentIndex = i;
     examState.visited.add(i);
+    updateQuestionDisplay();
     
-    // Wrap DOM update in setTimeout to allow current event loop to finish,
-    // preventing issues with rapid clicks and DOM replacement.
-    setTimeout(() => {
-        updateQuestionDisplay();
-        
-        // Use instant scroll (scrollTop = 0) for better perceived performance during rapid navigation
-        // Smooth scrolling can sometimes add a slight delay that feels unresponsive.
-        const area = document.getElementById('exam-question-area');
-        if (area) area.scrollTop = 0; // Scroll to top instantly
-        document.querySelector('.exam-side-panel')?.classList.remove('show-mobile-palette'); // Close palette on mobile
-    }, 0); // 0ms delay pushes it to the end of the current event queue
+    const area = document.getElementById('exam-question-area');
+    if (area) area.scrollTop = 0; 
+    document.querySelector('.exam-side-panel')?.classList.remove('show-mobile-palette');
 }
 
 function startExamTimer() {
@@ -1055,7 +1090,7 @@ async function finishMockTest(autoSubmit) {
     hideFinishModal();
     clearInterval(examState.timerId);
     const mockNum = history.state?.mockNum || 1;
-    const topicName = history.state?.topicName;
+    const topicName = history.state?.topicName || 'All Topics';
     const testTitle = mockNum === 4 ? `Practise: ${topicName || 'Selected Topic'}` : `Mock Test ${mockNum}`;
     
     let correct = 0;
