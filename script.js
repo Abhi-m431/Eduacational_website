@@ -161,7 +161,9 @@ function handleInitialRouting() {
         if (routeParts[1]) {
             const mockNum = parseInt(routeParts[1]);
             if (routeParts[2] === 'active') {
-                startMockTest(mockNum, false);
+                const topicName = routeParts[3] ? routeParts[3].replace(/-/g, ' ') : (history.state?.topicName || null);
+                const seed = history.state?.seed || null;
+                startMockTest(mockNum, false, seed, topicName);
             } else {
                 showMockInstructions(mockNum, null, false);
             }
@@ -286,76 +288,10 @@ function renderTheory(category, subcat = null, push = true) {
 }
 
 async function startPractice(tag, push = true) {
-    ensureDashboardShell();
-    if (!ui.questionsList) return;
-    ui.questionsList.innerHTML = "<div class='question-card'>Loading practice questions...</div>";
-    
-    // Get the category from global state to fetch the consolidated category file
-    const catName = currentTheory.category;
-    const fileName = catName.replace(/[^a-z0-9]/gi, '_') + '.json';
-    let allCatQuestions = [];
-    
-    // Efficiency Improvement: Use Cache if available
-    if (questionsCache[catName]) {
-        allCatQuestions = questionsCache[catName];
-    } else {
-        try {
-            const res = await fetch(`data/${fileName}`);
-            if (!res.ok) throw new Error();
-            allCatQuestions = await res.json();
-            questionsCache[catName] = allCatQuestions; // Save to cache
-        } catch (err) {
-            alert(`No questions found for category: ${catName}. Ensure data/${fileName} exists.`);
-            renderTheory(currentTheory.category, tag);
-            return;
-        }
-    }
-
-  
-    // Filter questions (case-insensitive)
-    const questions = allCatQuestions.filter(q => q.tag?.toLowerCase() === tag?.toLowerCase());
-
-    // Sort questions by difficulty: Easy -> Medium -> Hard
-    const levelOrder = { 'easy': 1, 'medium': 2, 'hard': 3 };
-    questions.sort((a, b) => {
-        const levelA = levelOrder[(a.level || 'easy').toLowerCase()];
-        const levelB = levelOrder[(b.level || 'easy').toLowerCase()];
-        // Handle cases where level might be missing or unexpected, default to 'easy'
-        return (levelA || 99) - (levelB || 99);
-    });
-
-    if (questions.length === 0) {
-        alert(`No practice questions available for topic: ${tag}`);
-        renderTheory(catName, tag);
-        return;
-    }
-
-    if (ui.displayTitle) ui.displayTitle.innerText = `${tag} - Practice Test`;
-    
-    ui.questionsList.innerHTML = questions.map((item, idx) => `
-        <article class="question-card">
-            ${item.level ? `<span class="q-level level-${item.level.toLowerCase()}">${item.level}</span>` : ''}
-            <p class="q-text">Q${idx + 1}. ${item.q}</p>
-            <div class="options-grid">
-                ${item.options.map((opt, i) => {
-                    const letter = String.fromCharCode(65 + i);
-                    return `<div class="option-label" onclick="checkPracticeOption(this, '${letter}', '${item.ans}')"><span>${letter}) ${opt}</span></div>`;
-                }).join('')}
-            </div>
-            <button class="btn btn-primary solution-btn" disabled onclick="this.nextElementSibling.classList.toggle('show')">Show Answer & Explanation</button>
-            <div class="answer-container">
-                <div class="answer-content">
-                    <span class="correct-badge">Correct Answer: ${item.ans}</span>
-                    <div class="explanation"><strong>Explanation:</strong><br>${item.explain}</div>
-                </div>
-            </div>
-        </article>
-    `).join('');
-
-    ui.questionsList.innerHTML += `<div class="cta-footer">
-        <button class="btn btn-primary btn-lg" onclick="finishPractice('${tag}')">Finish Practice Test ➔</button>
-    </div>`;
-    if (push) history.pushState({ view: 'practice', tag, category: catName }, "", `#/practice/${tag.replace(/\s+/g, '-').toLowerCase()}`); // Update history
+    // Redirect to start a topic-specific mock test (Mock Test 4)
+    // This will use the mock_pool.json for questions and the exam mode layout.
+    // The 'tag' parameter becomes the topicName for the mock test.
+    startMockTest(4, push, null, tag);
 }
 
 function checkPracticeOption(element, selected, correct) {
@@ -460,11 +396,9 @@ function renderSidebar() {
     nav.appendChild(mockGroup);
 
     // Use the helper function for nav items
-    nav.appendChild(createNavItemElement('<span>Mock Test 1 (30 Q)</span>', [], () => showMockInstructions(1, null, true, 30)));
-    nav.appendChild(createNavItemElement('<span>Mock Test 2 (30 Q)</span>', [], () => showMockInstructions(2, null, true, 30)));
-    nav.appendChild(createNavItemElement('<span>Mock Test 3 (30 Q)</span>', [], () => showMockInstructions(3, null, true, 30)));
-    nav.appendChild(createNavItemElement('<span>Practise by Topic</span>', [], () => showTopicSelectionForPractice()));
-
+    nav.appendChild(createNavItemElement('<span>Mock Test 1 </span>', [], () => showMockInstructions(1, null, true, 30)));
+    nav.appendChild(createNavItemElement('<span>Mock Test 2 </span>', [], () => showMockInstructions(2, null, true, 30)));
+    nav.appendChild(createNavItemElement('<span>Mock Test 3 </span>', [], () => showMockInstructions(3, null, true, 30)));
 
     if (isAdmin && window.location.search.includes('admin=true')) {
         localStorage.setItem('admin_bypass', 'true');
@@ -654,39 +588,66 @@ async function showStatistics(push = true) {
     }
 }
 // Add this function to handle sidebar click for Mock Tests
-function showMockInstructions(mockNum, element, push = true, numQuestions = null) { // Consolidated definition
-    // Update active class
+function showMockInstructions(mockNum, element, push = true, numQuestions = null) {
     ensureDashboardShell();
     if (!ui.questionsList) return;
     closeSidebarOnMobile();
     clearActiveNavItems();
 
     const testTitle = mockNum === 4 ? "Practise Test" : "Mock Test " + mockNum;
-    const topicName = history.state?.topicName || "all topics"; // Get topic name if available
+    const topicName = history.state?.topicName || "all topics";
 
     if (element) element.classList.add('active');
     else {
-        // Highlight sidebar item based on mock number during back/forward navigation
         const sidebarItems = document.querySelectorAll('.sidebar .nav-item');
         sidebarItems.forEach(el => {
             if (el.innerText.includes(testTitle)) el.classList.add('active');
         });
     }
+
     if (ui.breadcrumbCat) ui.breadcrumbCat.innerText = testTitle;
-    if (ui.displayTitle) ui.displayTitle.innerText = testTitle;
+    if (ui.displayTitle) ui.displayTitle.innerText = "Exam Instructions";
     if (ui.mockResult) ui.mockResult.innerHTML = "";
+
     ui.questionsList.innerHTML = `
-        <div class="question-card" style="text-align:left; max-width: 600px; margin: 1rem auto;">
-            <h2 style="color:#2563eb;">${testTitle} Instructions</h2>
-            <ul style="margin-bottom:1.5rem;">
-                <li>This test contains ${mockNum === 4 ? `all questions for the selected topic (${topicName})` : `${numQuestions || 30} questions from all topics`}.</li>
-                <li>You have 15 minutes to complete the test.</li>
-                <li>Do not refresh or leave the page during the test.</li>
-                <li>Your score, percentage, answered/unanswered, and focus area will be shown after submission.</li>
-                ${mockNum !== 4 ? `<li>You can select the number of questions for a custom mock test.</li>` : ''}
-            </ul>
-            <div style="margin-bottom:1rem;">
-                <button class="btn btn-primary" onclick="startMockTest(${mockNum}, true, null, '${topicName}', ${numQuestions || 30})">Start ${testTitle}</button>
+        <div class="question-card" style="text-align:left; max-width: 700px; margin: 2rem auto; border-top: 5px solid var(--primary); padding: 2.5rem;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border);">
+                <div style="background: var(--primary-light); padding: 12px; border-radius: 12px; color: var(--primary);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                </div>
+                <div>
+                    <h2 style="margin:0; font-size: 1.5rem; color: var(--text-dark);">${testTitle} Readiness</h2>
+                    <p style="margin:0; font-size: 0.9rem; color: var(--text-muted);">Please read the instructions carefully before starting.</p>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+                <div style="background: var(--bg); padding: 1rem; border-radius: 10px;">
+                    <span style="display: block; font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">Total Questions</span>
+                    <span style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">${mockNum === 4 ? 'Variable' : (numQuestions || 30)} Items</span>
+                </div>
+                <div style="background: var(--bg); padding: 1rem; border-radius: 10px;">
+                    <span style="display: block; font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">Time Allowed</span>
+                    <span style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">${mockNum === 4 ? 'No Limit' : '15 Minutes'}</span>
+                </div>
+            </div>
+
+            <div class="theory-content" style="font-size: 0.95rem; color: var(--text-dark); line-height: 1.8;">
+                <p style="margin-bottom: 1rem; font-weight: 600;">Standard Operating Procedures:</p>
+                <ul style="padding-left: 1.25rem; margin-bottom: 2rem;">
+                    <li>The test consists of multiple-choice questions from <b>${mockNum === 4 ? topicName : 'various aptitude topics'}</b>.</li>
+                    <li>You can mark questions for review and return to them later using the Question Palette.</li>
+                    <li>The test will <b>auto-submit</b> once the timer reaches zero.</li>
+                    <li>Do not close the browser tab or refresh the page, as your progress will be lost.</li>
+                    <li>A detailed analysis of your performance will be generated upon completion.</li>
+                </ul>
+            </div>
+
+            <div style="display: flex; gap: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                <button class="btn" style="flex: 1; justify-content: center;" onclick="chooseMockTest()">Go Back</button>
+                <button class="btn btn-primary btn-lg" style="flex: 2; justify-content: center;" onclick="startMockTest(${mockNum}, true, null, '${topicName}', ${numQuestions || 30})">
+                    Accept & Start Test ➔
+                </button>
             </div>
         </div>
     `;
@@ -701,48 +662,50 @@ function toggleExamPalette() {
 }
 
 // Show mock test selection (if you want 3 mock tests)
-function chooseMockTest(push = true, defaultNumQuestions = 30) { // Consolidated definition
+function chooseMockTest(push = true, defaultNumQuestions = 30) {
     ensureDashboardShell();
     if (!ui.questionsList) return;
     if (ui.mockResult) ui.mockResult.innerHTML = "";
     if (ui.breadcrumbCat) ui.breadcrumbCat.innerText = "Mock Tests";
-    if (ui.displayTitle) ui.displayTitle.innerText = "Select Mock Test";
+    if (ui.displayTitle) ui.displayTitle.innerText = "Examination Center";
     
     ui.questionsList.innerHTML = `
-        <div class="welcome-container focused-mode">
-            <h2 class="section-heading">Examination Center</h2>
+        <div class="welcome-container">
+            <p class="theory-overview" style="margin-bottom: 2.5rem; text-align: center;">Welcome to the Examination Center. Select a full-length mock test to evaluate your preparation.</p>
             
-            <div class="dashboard-grid" style="margin-bottom: 2rem;">
-                <div class="question-card" style="text-align: left; background: var(--bg); border-left: 5px solid var(--primary);">
-                <div class="question-card" style="text-align: left; background: var(--bg); border-left: 5px solid var(--primary); margin-bottom: 1.5rem;">
-                    <h3 style="color: var(--primary); margin-bottom: 1rem;">Full Length Mocks</h3>
-                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.5rem;">20 random questions from all topics with a 15-minute timer.</p>
-                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.5rem;">${defaultNumQuestions} random questions from all topics with a 15-minute timer.</p>
-                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-                        <button class="btn btn-primary" onclick="showMockInstructions(1, null, true, ${defaultNumQuestions})">Mock 1</button>
-                        <button class="btn btn-primary" onclick="showMockInstructions(2, null, true, ${defaultNumQuestions})">Mock 2</button>
-                        <button class="btn btn-primary" onclick="showMockInstructions(3, null, true, ${defaultNumQuestions})">Mock 3</button>
+            <div class="dashboard-grid">
+                ${[1, 2, 3].map(num => `
+                    <div class="question-card" style="display: flex; flex-direction: column; gap: 1rem; border-top: 4px solid var(--primary); transition: all 0.3s ease; height: 100%;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div>
+                                <h3 style="margin: 0; border: none; color: var(--text-dark); font-size: 1.25rem;">Mock Test ${num}</h3>
+                                <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 500;">General Ability & Quant</span>
+                            </div>
+                            <span class="q-tag" style="margin: 0;">${defaultNumQuestions} Qs</span>
+                        </div>
+                        
+                        <div style="flex-grow: 1; padding: 0.5rem 0;">
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 0.75rem; font-size: 0.9rem; color: var(--text-muted);">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                <span>15 Minutes Timer</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: var(--text-muted);">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                <span>Real Exam Pattern</span>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary" style="width: 100%; justify-content: center; padding: 0.75rem;" onclick="showMockInstructions(${num}, null, true, ${defaultNumQuestions})">
+                            Open Mock Center ➔
+                        </button>
                     </div>
-                </div>
-                <div class="question-card" style="text-align: left; background: var(--bg); border-left: 5px solid var(--success);">
-                    <h3 style="color: var(--success); margin-bottom: 1rem;">Custom Mock Test</h3>
-                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.5rem;">Choose the number of questions for a personalized mock test.</p>
-                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                        <input type="number" id="custom-q-count" class="form-control" value="30" min="1" max="200" style="padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border); width: 100px;">
-                        <button class="btn btn-primary" onclick="startCustomMock()">Start Custom Mock</button>
-                    </div>
-                </div>
+                `).join('')}
             </div>
+            
+            
         </div>
     `;
     if (push) history.pushState({ view: 'mockSelect' }, "", "#/mock-test");
-}
-
-function startCustomMock() {
-    const qCountInput = document.getElementById('custom-q-count');
-    const numQuestions = parseInt(qCountInput.value);
-    if (isNaN(numQuestions) || numQuestions < 1 || numQuestions > 200) return alert("Please enter a valid number of questions (1-200).");
-    showMockInstructions(5, null, true, numQuestions); // Use mockNum 5 for custom mocks
 }
 
 async function showTopicSelectionForPractice(push = true) {
@@ -862,10 +825,10 @@ async function startMockTest(mockNum, push = true, seed = null, topicName = null
             mockPoolCache = pool; // Store in cache for future tests
         }
 
-        // Filter for specific topic if it's the "Number system" practice mode (Mock 4)
+        // Filter for specific topic if it's the Topic practice mode (Mock 4)
         let questionsToUse = pool; // Default to all questions in the pool
-        if (mockNum === 4 && topicName) {
-            questionsToUse = pool.filter(q => q.tag?.toLowerCase() === topicName.toLowerCase());
+        if (mockNum === 4 && topicName && topicName !== "all topics") {
+            questionsToUse = pool.filter(q => q.tag?.trim().toLowerCase() === topicName.trim().toLowerCase());
         }
 
         const finalSeed = seed || (Math.floor(Math.random() * 1000000) + mockNum);
@@ -882,10 +845,16 @@ async function startMockTest(mockNum, push = true, seed = null, topicName = null
         examState.visited = new Set([0]);
         examState.currentIndex = 0;
         examState.timeLeft = mockNum === 4 ? Infinity : 15 * 60; // No time limit for practice
-        examState.timeLeft = (mockNum === 4 || mockNum === 5) ? Infinity : 15 * 60; // No time limit for practice or custom mocks
         
         if (push) history.pushState({ view: 'mockActive', mockNum, seed: finalSeed, topicName }, "", `#/mock-test/${mockNum}/active`);
         if (push && mockNum === 4 && topicName) history.replaceState({ view: 'mockActive', mockNum, seed: finalSeed, topicName }, "", `#/mock-test/${mockNum}/active/${topicName.replace(/\s+/g, '-').toLowerCase()}`);
+
+        if (push) {
+            const urlPath = (mockNum === 4 && topicName) 
+                ? `#/mock-test/${mockNum}/active/${topicName.replace(/\s+/g, '-').toLowerCase()}`
+                : `#/mock-test/${mockNum}/active`;
+            history.pushState({ view: 'mockActive', mockNum, seed: finalSeed, topicName }, "", urlPath);
+        }
         renderExamLayout(mockNum);
         startExamTimer();
         document.body.classList.add('exam-mode-active');
@@ -897,7 +866,7 @@ async function startMockTest(mockNum, push = true, seed = null, topicName = null
 
 function renderExamLayout(mockNum) { // Consolidated definition
     const topicName = history.state?.topicName; // Keep this, it's used for the title
-    const testTitle = mockNum === 4 ? `Practise: ${topicName || 'Selected Topic'}` : (mockNum === 5 ? `Custom Mock Test` : `Mock Test ${mockNum}`);
+    const testTitle = mockNum === 4 ? `Practise: ${topicName || 'Selected Topic'}` : `Mock Test ${mockNum}`;
 
     ui.mainContent.innerHTML = `
         <div class="exam-header-strip" style="position: sticky; top: 0; z-index: 1000; width: 100%;">
@@ -956,18 +925,23 @@ function renderExamLayout(mockNum) { // Consolidated definition
 function updateQuestionDisplay() {
     const q = examState.questions[examState.currentIndex];
     const area = document.getElementById('exam-question-area');
-    const selected = examState.responses[q.id];
+    const qId = q.id || q.question_number || `q-${examState.currentIndex}`;
+    const selected = examState.responses[qId];
     const isLastQuestion = examState.currentIndex === examState.questions.length - 1;
 
+    const questionText = q.q || q.series || "Question content missing";
+    const options = q.options || (q.option ? [q.option] : []);
+    const tag = q.tag || "General Ability";
+
     area.innerHTML = `
-        <div class="q-tag">${q.tag}</div>
-        <p class="q-text">Question ${examState.currentIndex + 1}:<br>${q.q}</p>
+        <div class="q-tag">${tag}</div>
+        <p class="q-text">Question ${examState.currentIndex + 1}:<br>${questionText}</p>
         <div class="options-grid">
-            ${q.options.map((opt, i) => {
+            ${options.map((opt, i) => {
                 const val = String.fromCharCode(65 + i);
                 return `
                     <div class="mock-option ${selected === val ? 'selected' : ''}" 
-                         onclick="selectOption('${q.id}', '${val}')">
+                         onclick="selectOption('${qId}', '${val}')">
                         ${val}) ${opt}
                     </div>`;
             }).join('')}
@@ -995,7 +969,8 @@ function hideFinishModal() {
 }
 
 function selectOption(qId, val) {
-    examState.responses[qId] = val;
+    // Ensure qId is treated as a string for consistent mapping
+    examState.responses[String(qId)] = val;
     updateQuestionDisplay();
 }
 
@@ -1034,9 +1009,10 @@ function updatePalette() {
     // Efficient Update: If buttons already exist, just update their classes
     if (existingButtons.length === examState.questions.length) {
         examState.questions.forEach((q, i) => {
+            const qId = q.id || q.question_number || `q-${i}`;
             let status = 'not-visited';
-            if (examState.marked.has(q.id)) status = 'marked';
-            else if (examState.responses[q.id]) status = 'answered';
+            if (examState.marked.has(qId)) status = 'marked';
+            else if (examState.responses[String(qId)]) status = 'answered';
             else if (examState.visited.has(i)) status = 'not-answered';
             
             const btn = existingButtons[i];
@@ -1045,9 +1021,10 @@ function updatePalette() {
     } else {
         // Full Render (only happens once per test start)
         grid.innerHTML = examState.questions.map((q, i) => {
+            const qId = q.id || q.question_number || `q-${i}`;
             let status = 'not-visited';
-            if (examState.marked.has(q.id)) status = 'marked';
-            else if (examState.responses[q.id]) status = 'answered';
+            if (examState.marked.has(qId)) status = 'marked';
+            else if (examState.responses[String(qId)]) status = 'answered';
             else if (examState.visited.has(i)) status = 'not-answered';
             
             return `<div class="palette-btn ${status} ${examState.currentIndex === i ? 'active' : ''}" 
@@ -1096,22 +1073,28 @@ async function finishMockTest(autoSubmit) {
     let correct = 0;
     let total = examState.questions.length;
     let answered = 0;
+    let currentTestMistakes = {}; // Track mistakes for THIS test only
     let cumulativeMistakes = {};
     try {
         cumulativeMistakes = JSON.parse(localStorage.getItem('cumulativeMistakes') || '{}');
     } catch (e) { cumulativeMistakes = {}; }
     
-    examState.questions.forEach(q => {
-        const selected = examState.responses[q.id];
+    examState.questions.forEach((q, idx) => {
+        const qId = q.id || q.question_number || `q-${idx}`;
+        const selected = examState.responses[String(qId)];
+        const tag = q.tag || 'General Ability';
+
         if(selected) {
             answered++;
             if(selected === q.ans) {
                 correct++;
             } else {
-                cumulativeMistakes[q.tag] = (cumulativeMistakes[q.tag] || 0) + 1;
+                cumulativeMistakes[tag] = (cumulativeMistakes[tag] || 0) + 1;
+                currentTestMistakes[tag] = (currentTestMistakes[tag] || 0) + 1;
             }
         } else {
-            cumulativeMistakes[q.tag] = (cumulativeMistakes[q.tag] || 0) + 1;
+            cumulativeMistakes[tag] = (cumulativeMistakes[tag] || 0) + 1;
+            currentTestMistakes[tag] = (currentTestMistakes[tag] || 0) + 1;
         }
     });
 
@@ -1119,13 +1102,13 @@ async function finishMockTest(autoSubmit) {
     let percent = Math.round((correct/total)*100);
     let notAnswered = total - answered;
 
-    // Find focus area (tag with most mistakes across all attempts)
+    // Find focus area (tag with most mistakes in THIS attempt)
     let focusArea = "None";
     let maxWrong = 0;
-    for (let tag in cumulativeMistakes) {
-        if (cumulativeMistakes[tag] > maxWrong) {
-            maxWrong = cumulativeMistakes[tag];
-            focusArea = tag;
+    for (let tag in currentTestMistakes) {
+        if (currentTestMistakes[tag] > maxWrong) {
+            maxWrong = currentTestMistakes[tag];
+            focusArea = `${tag} (${maxWrong} mistakes)`;
         }
     }
 
