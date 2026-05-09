@@ -4375,15 +4375,6 @@
     "options": ["0.092", "0.0081", "0.27", "1.8"],
     "ans": "A",
     "explain": "a+b = 0.061 + 0.031 = 0.092.[cite: 1, 2]"
-  },
-  {
-    "id": 1069,
-    "tag": "Profit & Loss",
-    "level": "Medium",
-    "q": "The first shirt is sold at twice the selling price of the second shirt. The first shirt is sold at 8% profit and the second shirt is sold at a 3% loss. What is the overall percentage profit on the shirts (rounded off to two decimal place)?",
-    "options": ["4.86%", "4.07%", "4.60%", "3.86%"],
-    "ans": "B",
-    "explain": "Let SP2 = 100, then SP1 = 200. CP1 = 200/1.08 = 185.185. CP2 = 100/0.97 = 103.093. Total CP = 288.278. Total SP = 300. Profit = 11.722. % Profit = (11.722/288.278)*100 ≈ 4.07%."
   }
 
 
