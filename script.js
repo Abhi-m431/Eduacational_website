@@ -294,67 +294,6 @@ async function startPractice(tag, push = true) {
     startMockTest(4, push, null, tag);
 }
 
-function checkPracticeOption(element, selected, correct) {
-    const card = element.closest('.question-card');
-    const options = card.querySelectorAll('.option-label');
-    // If already answered, do nothing
-    if (card.getAttribute('data-answered') === 'true') return;
-    card.setAttribute('data-answered', 'true');
-
-    // Enable solution button
-    const solutionBtn = card.querySelector('.solution-btn');
-    if (solutionBtn) solutionBtn.removeAttribute('disabled');
-
-    if (selected === correct) {
-        element.classList.add('correct');
-    } else {
-        element.classList.add('wrong');
-        // Find and highlight the correct one
-        options.forEach(opt => {
-            if (opt.innerText.trim().startsWith(correct)) {
-                opt.classList.add('correct');
-            }
-        });
-    }
-    // Do NOT auto-show explanation. User must click the button to reveal.
-}
-
-function finishPractice(tag) {
-    const cards = document.querySelectorAll('.question-card[data-answered="true"]');
-    const total = document.querySelectorAll('.question-card').length;
-    let correct = 0;
-
-    cards.forEach(card => {
-        if (card.querySelector('.option-label.correct') && !card.querySelector('.option-label.wrong')) correct++;
-    });
-
-    if (cards.length === 0) return alert("Please answer at least one question before finishing.");
-
-    const percent = Math.round((correct / total) * 100);
-
-    if (ui.displayTitle) ui.displayTitle.innerText = "Practice Result";
-    // Clear the question list and show a professional result card
-    if (ui.questionsList) ui.questionsList.innerHTML = "";
-    if (ui.mockResult) {
-        ui.mockResult.innerHTML = `
-        <div class="question-card" style="background: #f0fdf4; border-left: 8px solid var(--success); animation: fadeIn 0.5s ease-out;">
-            <h2 style="color: #16a34a; margin-bottom: 1rem;">Practice Test Complete</h2>
-            <p style="font-size: 1.1rem; margin-bottom: 1rem;">Topic: <strong>${tag}</strong></p>
-            <div style="display: flex; gap: 2rem; margin-bottom: 2rem;">
-                <div><p style="color: var(--text-muted); font-size: 0.8rem; font-weight: 700; text-transform: uppercase;">Score</p><h3 style="font-size: 1.5rem; border:none;">${correct} / ${total}</h3></div>
-                <div><p style="color: var(--text-muted); font-size: 0.8rem; font-weight: 700; text-transform: uppercase;">Accuracy</p><h3 style="font-size: 1.5rem; border:none;">${percent}%</h3></div>
-            </div>
-            <p style="margin-bottom: 2rem; color: #374151;">${percent >= 80 ? "Excellent mastery of this concept!" : "Good effort! Review the formulas below to reach 100%."}</p>
-            <div class="cta-footer" style="justify-content: flex-start; gap: 1rem;">
-                <button class="btn btn-primary" onclick="renderTheory('${currentTheory.category}', '${tag}')">Return to Theory</button>
-                <button class="btn" style="border-color: var(--primary); color: var(--primary);" onclick="startPractice('${tag}')">Try Again</button>
-            </div>
-        </div>
-    `;
-        ui.mockResult.scrollIntoView({ behavior: "smooth" });
-    }
-}
-
 function renderSidebar() {
     const nav = document.getElementById('category-nav');
     if (!nav || !theoryData) return;
@@ -628,7 +567,7 @@ function showMockInstructions(mockNum, element, push = true, numQuestions = null
                 </div>
                 <div style="background: var(--bg); padding: 1rem; border-radius: 10px;">
                     <span style="display: block; font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">Time Allowed</span>
-                    <span style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">${mockNum === 4 ? 'No Limit' : '15 Minutes'}</span>
+                    <span style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">${mockNum === 4 ? 'No Limit' : '20 Minutes'}</span>
                 </div>
             </div>
 
@@ -687,7 +626,7 @@ function chooseMockTest(push = true, defaultNumQuestions = 30) {
                         <div style="flex-grow: 1; padding: 0.5rem 0;">
                             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 0.75rem; font-size: 0.9rem; color: var(--text-muted);">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                <span>15 Minutes Timer</span>
+                                <span>20 Minutes Timer</span>
                             </div>
                             <div style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: var(--text-muted);">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
@@ -808,32 +747,76 @@ function saveProfileChanges() {
 
 // MOCK TEST FEATURE
 // Performance Optimization: Cache for the entire mock pool to avoid re-fetching
-let mockPoolCache = null;
 
 async function startMockTest(mockNum, push = true, seed = null, topicName = null, numQuestions = null) { // Consolidated definition
     if (examState.timerId) clearInterval(examState.timerId);
     
     try {
-        let pool;
-        if (mockPoolCache) {
-            pool = mockPoolCache;
-        } else {
-            const res = await fetch('data/mock_pool.json');
-            if (!res.ok) throw new Error("Failed to fetch mock_pool.json");
-            pool = await res.json();
-            if (!Array.isArray(pool)) throw new Error("Mock pool is not a valid array");
-            mockPoolCache = pool; // Store in cache for future tests
+        let pool = [];
+        // Define Quantitative Aptitude tags for filtering
+        const qaTags = [
+            "Percentage",
+            "Time, Speed and Distance",
+            "Simple Interest", // Assuming "Simple and Compound Interest" in QA.json is covered by this
+            "Compound Interest",
+            "Ratio and Proportion",
+            "Profit & Loss",
+            "Averages",
+            "Work and Time",
+            "Number System",
+            "HCF & LCM",
+            "Problems Based on Ages", // Often considered QA in some contexts, or LR. Including for now.
+            "Pipes and Cisterns",
+            "Discount",
+            "Mixtures or Allegations",
+            "Boats & Streams",
+            "Problems Based on Trains",
+            "Partnership",
+            "Simplification",
+            "Number Series"
+        ];
+
+        const files = mockNum === 4
+            ? ['data/Quantitative_Aptitude.json', 'data/Logical_Reasoning___Mental_Ability.json', 'data/English_Language___Comprehension.json']
+            : ['data/mock_pool.json']; // Only load from mock_pool.json for standard mock tests
+
+        for (const file of files) {
+            if (questionsCache[file]) {
+                pool = pool.concat(questionsCache[file]);
+                pool = pool.concat(questionsCache[file]); 
+            } else {
+                const res = await fetch(file);
+                if (!res.ok) continue;
+                const data = await res.json();
+                questionsCache[file] = data;
+                pool = pool.concat(data);
+            }
         }
 
         // Filter for specific topic if it's the Topic practice mode (Mock 4)
         let questionsToUse = pool; // Default to all questions in the pool
         if (mockNum === 4 && topicName && topicName !== "all topics") {
             questionsToUse = pool.filter(q => q.tag?.trim().toLowerCase() === topicName.trim().toLowerCase());
+        } else if (mockNum !== 4) {
+            questionsToUse = pool.filter(q => qaTags.includes(q.tag));
         }
 
         const finalSeed = seed || (Math.floor(Math.random() * 1000000) + mockNum);
         const shuffled = shuffleArray(questionsToUse, finalSeed);
-        examState.questions = (mockNum === 4) ? shuffled : shuffled.slice(0, numQuestions || 30); // Use numQuestions if provided, else default to 30
+        
+        // Improved Selection: Balanced Difficulty for Full Mock Tests
+        if (mockNum !== 4) {
+            const target = numQuestions || 30;
+            const perLevel = Math.floor(target / 3);
+            
+            const easy = shuffled.filter(q => q.level === 'Easy').slice(0, perLevel);
+            const med = shuffled.filter(q => q.level === 'Medium').slice(0, perLevel);
+            const hard = shuffled.filter(q => q.level === 'Hard').slice(0, target - (easy.length + med.length));
+            
+            examState.questions = shuffleArray([...easy, ...med, ...hard], finalSeed);
+        } else {
+            examState.questions = shuffled;
+        }
 
         if (examState.questions.length === 0) {
             alert("No questions found for this selection.");
@@ -844,24 +827,67 @@ async function startMockTest(mockNum, push = true, seed = null, topicName = null
         examState.marked = new Set();
         examState.visited = new Set([0]);
         examState.currentIndex = 0;
-        examState.timeLeft = mockNum === 4 ? Infinity : 15 * 60; // No time limit for practice
+        examState.timeLeft = mockNum === 4 ? Infinity : 20 * 60; // No time limit for practice
         
-        if (push) history.pushState({ view: 'mockActive', mockNum, seed: finalSeed, topicName }, "", `#/mock-test/${mockNum}/active`);
-        if (push && mockNum === 4 && topicName) history.replaceState({ view: 'mockActive', mockNum, seed: finalSeed, topicName }, "", `#/mock-test/${mockNum}/active/${topicName.replace(/\s+/g, '-').toLowerCase()}`);
-
         if (push) {
             const urlPath = (mockNum === 4 && topicName) 
                 ? `#/mock-test/${mockNum}/active/${topicName.replace(/\s+/g, '-').toLowerCase()}`
                 : `#/mock-test/${mockNum}/active`;
             history.pushState({ view: 'mockActive', mockNum, seed: finalSeed, topicName }, "", urlPath);
         }
-        renderExamLayout(mockNum);
-        startExamTimer();
-        document.body.classList.add('exam-mode-active');
+        if (mockNum === 4) {
+            renderPracticeSequentialLayout(topicName);
+        } else {
+            renderExamLayout(mockNum);
+            startExamTimer();
+            document.body.classList.add('exam-mode-active');
+        }
     } catch (err) {
         console.error(err);
         alert("Error initializing exam.");
     }
+}
+
+function renderPracticeSequentialLayout(topicName) {
+    ensureDashboardShell();
+    if (ui.breadcrumbCat) ui.breadcrumbCat.innerText = "Practise";
+    if (ui.displayTitle) ui.displayTitle.innerText = topicName || "Practice Session";
+
+    ui.questionsList.innerHTML = `<div id="sequential-list" style="max-width: 850px; margin: 0 auto; animation: fadeIn 0.4s ease-out;"></div>`;
+
+    const list = document.getElementById('sequential-list');
+    examState.questions.forEach((q, idx) => {
+        const qId = q.id || q.question_number || `q-${idx}`;
+        const qDiv = document.createElement('div');
+        qDiv.className = 'question-card';
+        qDiv.style = "text-align: left; margin-bottom: 3rem; border-left: 4px solid var(--primary-light);";
+        
+        const questionText = q.q || q.series || "Question content missing";
+        const options = q.options || (q.option ? [q.option] : []);
+
+        qDiv.innerHTML = `
+            <div class="q-tag">${q.tag || "General Ability"}</div>
+            <p class="q-text">Question ${idx + 1}:<br>${questionText}</p>
+            <div class="options-grid" id="options-${qId}">
+                ${options.map((opt, i) => {
+                    const val = String.fromCharCode(65 + i);
+                    return `
+                        <div class="mock-option" id="opt-${qId}-${val}" 
+                             onclick="selectSequentialOption('${qId}', '${val}')">
+                            ${val}) ${opt}
+                        </div>`;
+                }).join('')}
+            </div>
+            <button class="btn btn-primary" style="margin-top: 1rem;" onclick="togglePracticeSolution('${qId}')">Check Solution & Explanation 💡</button>
+            <div id="sol-${qId}" class="answer-container">
+                <div class="answer-content">
+                    <span class="correct-badge">Correct Answer: ${q.ans}</span>
+                    <div class="explanation"><strong>Explanation:</strong> ${q.explain}</div>
+                </div>
+            </div>
+        `;
+        list.appendChild(qDiv);
+    });
 }
 
 function renderExamLayout(mockNum) { // Consolidated definition
@@ -882,7 +908,7 @@ function renderExamLayout(mockNum) { // Consolidated definition
                 Grid
             </button>
             <div style="flex-grow: 1;"></div> 
-            <div class="exam-timer" id="exam-timer-display" style="margin-left: auto;">${mockNum === 4 ? 'No Time Limit' : '15:00'}</div>
+            <div class="exam-timer" id="exam-timer-display" style="margin-left: auto;">${mockNum === 4 ? 'No Time Limit' : '20:00'}</div>
         </div>
         <div class="exam-container">
             <div class="exam-main-panel" id="exam-question-area"></div>
@@ -966,6 +992,21 @@ function showFinishModal() {
 function hideFinishModal() {
     const modal = document.getElementById('finish-modal');
     if (modal) modal.style.display = 'none';
+}
+
+function selectSequentialOption(qId, val) {
+    examState.responses[String(qId)] = val;
+    const optionsGrid = document.getElementById(`options-${qId}`);
+    if (optionsGrid) {
+        optionsGrid.querySelectorAll('.mock-option').forEach(el => el.classList.remove('selected'));
+        const selectedEl = document.getElementById(`opt-${qId}-${val}`);
+        if (selectedEl) selectedEl.classList.add('selected');
+    }
+}
+
+function togglePracticeSolution(qId) {
+    const solDiv = document.getElementById(`sol-${qId}`);
+    if (solDiv) solDiv.classList.toggle('show');
 }
 
 function selectOption(qId, val) {
@@ -1190,9 +1231,12 @@ function reviewMockTest() {
     examState.questions.forEach((q, idx) => {
         const userAns = examState.responses[q.id];
         const isCorrect = userAns === q.ans;
+        const categoryKey = findCategoryByTopic(q.tag);
         
         const qDiv = document.createElement('div');
         qDiv.style = "margin-bottom: 4rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border);";
+        
+        const reviseBtnHtml = categoryKey ? `<button class="btn" style="font-size: 0.7rem; padding: 4px 8px; margin-left: 10px; border-color: var(--primary); color: var(--primary);" onclick="ensureDashboardShell(); renderTheory('${categoryKey}', '${q.tag}')">Revise Topic 📚</button>` : '';
         
         let optionsHtml = q.options.map((opt, i) => {
             const letter = String.fromCharCode(65 + i);
@@ -1211,6 +1255,7 @@ function reviewMockTest() {
         qDiv.innerHTML = `
             <div style="display:flex; align-items:center; gap:10px; margin-bottom:1.25rem;">
                 <span class="q-tag" style="margin:0;">${q.tag}</span>
+                ${reviseBtnHtml}
                 <span style="font-size:0.85rem; font-weight:800; color: ${isCorrect ? 'var(--success)' : userAns ? '#ef4444' : 'var(--text-muted)'}; margin-left:auto;">
                     ${isCorrect ? '✓ CORRECT' : userAns ? '✗ INCORRECT' : '○ UNANSWERED'}
                 </span>
@@ -1273,6 +1318,6 @@ window.addEventListener('popstate', (event) => {
     } else if (state.view === 'mockSelect') {
         chooseMockTest(false);
     } else if (state.view === 'mockActive') {
-        startMockTest(state.mockNum, false, state.seed);
+        startMockTest(state.mockNum, false, state.seed, state.topicName);
     }
 })

@@ -10,7 +10,7 @@
   },
   {
     "id": 2,
-    "tag": "Speed, Time and Distance",
+    "tag": "Time, Speed and Distance",
     "level": "Medium",
     "q": "A person crosses a 600m long street in 5 minutes. What is his speed in km/hr?",
     "options": ["3.6", "7.2", "8.4", "10"],
